@@ -49,6 +49,21 @@ test("cookie flags use actual TLS and ignore forwarded protocol claims", () => {
   assert(authCookie("token", { encrypted: true, maxAge: 3600 }).endsWith("; Secure"));
 });
 
+test("authentication store rejects dangling links and links to valid owner records", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "editor-auth-link-"));
+  try {
+    const storage = path.join(root, ".workbench");
+    const target = path.join(root, "outside.json");
+    await mkdir(storage);
+    await symlink(target, path.join(storage, "auth.json"));
+    await assert.rejects(createAuthHost({ root }).ready, /Authentication store unavailable/);
+    const record = { version: 1, username: "Owner", algorithm: "scrypt", N: 32768, r: 8, p: 3, salt: "a".repeat(32), hash: "b".repeat(128) };
+    await writeFile(target, JSON.stringify(record));
+    await assert.rejects(createAuthHost({ root }).ready, /Authentication store unavailable/);
+    assert.deepEqual(JSON.parse(await readFile(target, "utf8")), record);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
 test("single-owner setup, API authorization, CSRF, preview capabilities, and session revocation", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "editor-auth-"));
   let app;

@@ -87,11 +87,19 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
   const ready = (async () => {
     await mkdir(storage, { recursive: true, mode: 0o700 });
     await assertStorage();
+    // O_NOFOLLOW is not enforced on every host (notably Windows).
+    // Only a genuinely absent directory entry may enable first-owner setup.
+    let entry;
+    try { entry = await lstat(filename, { bigint: true }); }
+    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    if (!entry.isFile() || entry.isSymbolicLink()) fail(500, "Authentication store unavailable; preserve file and repair local permissions.");
     let handle;
     try { handle = await open(filename, constants.O_RDONLY | constants.O_NOFOLLOW); }
-    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    catch { fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
     try {
-      const stat = await handle.stat();
+      const stat = await handle.stat({ bigint: true });
+      const current = await lstat(filename, { bigint: true });
+      if (!current.isFile() || current.isSymbolicLink() || current.dev !== stat.dev || current.ino !== stat.ino || entry.dev !== stat.dev || entry.ino !== stat.ino) fail(500, "Invalid authentication store.");
       if (!stat.isFile() || stat.size > 8192) fail(500, "Invalid authentication store.");
       const value = JSON.parse(await handle.readFile("utf8"));
       username(value.username);

@@ -2,7 +2,7 @@
 
 Continuous Integration (CI) checks changes before merge. Continuous Delivery (CD) publishes validated editor previews after branch pushes.
 
-Current delivery is a local repository with `main`, `dev`, and `test`. GitHub connection, remote repository creation, and publication are deferred. Workflows below are prepared templates; no hosted deployment is claimed.
+The repository is `cehinds/AshenedSpire-Editor`, with `main`, `dev`, and `test` source branches. Pushes publish validated static editor previews through GitHub Actions and Pages.
 
 ## Repository layout
 
@@ -28,14 +28,14 @@ Fast CI enforces promotion path: pull requests into `test` must come from this r
 
 | Branch | Role | Preview |
 |---|---|---|
-| `dev` | Daily editor integration | `/AshenedSpireEditor/dev/<build-number>/` |
-| `test` | Candidate acceptance checks | `/AshenedSpireEditor/test/<build-number>/` |
-| `main` | Stable editor | `/AshenedSpireEditor/main/<build-number>/` |
+| `dev` | Daily editor integration | `/AshenedSpire-Editor/dev/<build-number>/` |
+| `test` | Candidate acceptance checks | `/AshenedSpire-Editor/test/<build-number>/` |
+| `main` | Stable editor | `/AshenedSpire-Editor/main/<build-number>/` |
 | `gh-pages` | Generated, shared static build history | Published by Actions; never merge into source branches |
 
-Build number is GitHub workflow run number plus attempt, such as `42-1`. A rerun becomes `42-2`, preserving the earlier output. Actual project Pages URLs use `https://cehinds.github.io/AshenedSpireEditor/dev/42-1/`, not `github.com/cehinds/...`.
+Build number is GitHub workflow run number plus attempt, such as `42-1`. A rerun becomes `42-2`, preserving the earlier output. Actual project Pages URLs use `https://cehinds.github.io/AshenedSpire-Editor/dev/42-1/`, not `github.com/cehinds/...`.
 
-Each channel also has `/latest/` and a history index. Repository root URL shows build channels and opens stable editor through `main/latest/`. Immutable builds contain `index.html`, supporting assets, and `build-info.json`; this is a complete static HTML folder, not one self-contained file.
+Each channel also has `/latest/` and a history index. Repository root URL shows build channels and opens stable editor through `main/latest/`. Immutable builds contain a self-contained `index.html` and adjacent `build-info.json` provenance. The HTML embeds application JavaScript, CSS, fonts, source art/snapshots, and native ERD. It can be downloaded and opened alone. The responsive preview opens the same editor document in a sized frame.
 
 ## Fast checks
 
@@ -54,7 +54,7 @@ These are deterministic automated code checks. Semantic human or AI code review 
 
 `Versioned Pages` runs after pushes to `dev`, `test`, or `main`, or manual dispatch on those branches. Build stage independently reruns fast gates before upload. Artifact uses Vite base path `/<repository>/<branch>/<run-number>-<attempt>/` so bundled assets, native tools, and static links stay inside that version.
 
-`build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains authenticated local runtime. Static artifact includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host.
+`build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains authenticated local runtime. The initial `dist/client` build includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host. Consolidation embeds those resources in `dist/pages/index.html`; only that HTML is uploaded to the publication job. The authenticated `npm run build` and Sites packaging stay unchanged.
 
 Publication receives only successfully validated HTML artifacts. `contents: write`, `pages: write`, and `id-token: write` exist only on publication job. Pull request jobs are read-only and do not deploy or execute with publication credentials. Actions are pinned to verified full commit hashes; Dependabot proposes weekly dependency/action updates.
 
@@ -64,7 +64,7 @@ History is retained without automatic deletion. GitHub Pages has site/storage li
 
 ## Repository settings
 
-When GitHub connection is requested later, after remote repository exists and workflows are pushed:
+Required settings for the existing repository:
 
 1. Settings → Pages → Source: **GitHub Actions**.
 2. `github-pages` environment: allow deployment branches `dev`, `test`, and `main`. Add all three explicitly if using selected-branch restrictions.
@@ -87,7 +87,7 @@ npm ci
 npm run review:quick
 npm run build
 npm test
-WORKBENCH_BASE_PATH=/AshenedSpireEditor/dev/42-1/ npm run build:pages
+WORKBENCH_BASE_PATH=/AshenedSpire-Editor/dev/42-1/ npm run build:pages
 ```
 
 `npm run build:pages` validates nested HTML/asset references, compiled application URLs and native ERD presence. Running root build again restores ordinary localhost base path and authenticated runtime. Publication helper is workflow-only: it requires Git origin, GitHub branch/build identity, and push rights; do not run against a live repository to preview locally.

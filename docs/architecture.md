@@ -24,7 +24,7 @@ Editor brand is AshenedSpire. Referenced game source remains `cehinds/AshenSpire
 | `server/workspace-host.mjs` | Authenticated local imports, protected local branches, isolated checkouts, safe file access, native settings promotion and build processes | Node host |
 | `tests/` | Domain, authentication, repository/security, packaging and publication checks | Node test runner |
 | `scripts/` | Build verification, source review, optional deployment preparation | Local Node or CI runner |
-| `.github/` | Prepared workflows, review routing/template, dependency updates | Future GitHub Actions |
+| `.github/` | Workflows, review routing/template, dependency updates | GitHub Actions |
 | `docs/` | Architecture and CI/CD contracts | Documentation |
 | `design/` | Approved source design reference | Documentation |
 | `worker/` | Optional Sites static wrapper | Optional hosting runtime |
@@ -73,4 +73,4 @@ GitHub Pages cannot enforce password authentication. Published bundles, native t
 
 ## Local source flow
 
-Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. Prepared Pages workflow can publish each channel into versioned folders once GitHub connection is requested. See [CI/CD](ci-cd.md) for exact workflow permissions, build URLs and timing limits.
+Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. The Pages workflow publishes each channel into versioned folders with consolidated HTML and immutable history. See [CI/CD](ci-cd.md) for exact workflow permissions, build URLs and timing limits.

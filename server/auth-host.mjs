@@ -87,11 +87,17 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
   const ready = (async () => {
     await mkdir(storage, { recursive: true, mode: 0o700 });
     await assertStorage();
+    let entry;
+    try { entry = await lstat(filename); }
+    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    // Windows does not provide O_NOFOLLOW; reject links before opening on every platform.
+    if (entry.isSymbolicLink()) fail(500, "Authentication store unavailable; symbolic links are not allowed.");
     let handle;
     try { handle = await open(filename, constants.O_RDONLY | constants.O_NOFOLLOW); }
-    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    catch { fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
     try {
       const stat = await handle.stat();
+      if (stat.dev !== entry.dev || stat.ino !== entry.ino) fail(500, "Invalid authentication store.");
       if (!stat.isFile() || stat.size > 8192) fail(500, "Invalid authentication store.");
       const value = JSON.parse(await handle.readFile("utf8"));
       username(value.username);

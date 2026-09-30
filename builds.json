@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "builds": [
     {
+      "branch": "test",
+      "buildNumber": "2-2",
+      "commit": "12feaaf75e9fe557ee253fe582d40d37f0e3430c",
+      "builtAt": "2026-09-30T02:48:52.238Z",
+      "digest": "cdcee6bb43ca5cda535cb0e9c23ce00c8629c5cb501ba4a4a58dfe63ce695585"
+    },
+    {
       "branch": "main",
       "buildNumber": "1-1",
       "commit": "0c06289c1c4d9048d556e1d37b0fe053b2e1f661",

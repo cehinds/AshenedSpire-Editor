@@ -31,7 +31,7 @@ Open Vite's printed localhost URL. First visit sets up one local owner account; 
 | `.workbench/` | Ignored local owner store, isolated checkouts, verified build records |
 | `dist/` | Ignored generated build |
 
-Local source branches: **main**, **test**, **dev**. GitHub connection, remote repo creation, and publication were skipped at latest user request. CI/CD files remain ready for future remote setup; no hosted URL or live GitHub workflow is claimed.
+Source branches: **main**, **test**, **dev**. The GitHub repository is `cehinds/AshenedSpire-Editor`. Versioned Pages publishes validated static editor builds, including `https://cehinds.github.io/AshenedSpire-Editor/test/<run-number>-<attempt>/`.
 
 ## What each mode can do
 
@@ -63,12 +63,12 @@ Branch switching requires a clean checkout and no unsaved editor buffer; commit 
 npm run review:quick
 npm run build
 npm test
-WORKBENCH_BASE_PATH=/AshenedSpireEditor/dev/42-1/ npm run build:pages
+WORKBENCH_BASE_PATH=/AshenedSpire-Editor/test/42-1/ npm run build:pages
 ```
 
 Fast gate checks functionality, account/session behavior, Git safety, production compile, syntax, merge markers, credential patterns, pinned workflow actions, and publication history. Five-minute job timeout bounds execution after runner starts; queue, human/AI review, and merge waiting are excluded. Semantic code review remains separate from deterministic checks.
 
-Feature → `dev` → `test` → `main` promotion. Future GitHub Pages builds preserve `/AshenedSpireEditor/<branch>/<run-number>-<attempt>/`, channel `/latest/`, and shared history. Output is `index.html` plus assets, not self-contained HTML. GitHub Pages cannot run password-authentication server or Git/build jobs. Full contract: `docs/ci-cd.md`.
+Feature → `dev` → `test` → `main` promotion. GitHub Pages builds preserve `/AshenedSpire-Editor/<branch>/<run-number>-<attempt>/`, channel `/latest/`, and shared history. Output is one self-contained `dist/pages/index.html` with embedded code, CSS, fonts, images, source snapshots, and native ERD. Publication adds `build-info.json` alongside it; the editor needs only the HTML file. GitHub Pages cannot run password-authentication server or Git/build jobs. Full contract: `docs/ci-cd.md`.
 
 ## Provenance and validation limits
 

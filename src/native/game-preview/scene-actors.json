@@ -1,0 +1,182 @@
+{
+  "warmth": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "year": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "carry": {
+    "desktop": {
+      "x": 33,
+      "y": 81,
+      "height": 58,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 79,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "night": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "step": {
+    "desktop": {
+      "x": 30,
+      "y": 84,
+      "height": 40,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 31,
+      "y": 81,
+      "height": 28,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "extraA": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "extraB": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "extraC": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  },
+  "extraD": {
+    "desktop": {
+      "x": 32,
+      "y": 82,
+      "height": 42,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    },
+    "mobile": {
+      "x": 34,
+      "y": 80,
+      "height": 32,
+      "rotation": 0,
+      "layer": "behindWash",
+      "positionMode": "auto",
+      "locked": true
+    }
+  }
+}

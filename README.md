@@ -40,14 +40,18 @@ Source branches: **main**, **test**, **dev**. The GitHub repository is `cehinds/
 | Cards | Create reviewed cards from native templates; edit inspected Rogue definitions in form/JSON; visual base/upgrade; artwork sidecars | Draft definitions; native JavaScript card-source adapter remains unavailable |
 | Decks | Add/remove owned sandbox copies, validate limits, confirm/cancel | Separate from runtime inventory/equipment/deck |
 | Tags / ERD | Edit vocabulary rows; parent/cycle checks; CSV; imported-row mapping; native ERD 0.2.4; reviewed native CSV checkout saves | Native ERD history independent; labels do not grant mechanics |
-| Scenes | Opening words, speaker, duration, sound identifiers, enabled/input fields, composition; reviewed native JSON checkout saves | Editor composition is not the full native renderer; build after saving |
+| Scenes | Native playable opening preview, live words/timing/staging, Play/Pause/Restart, device targets; reviewed native JSON checkout saves | Audio and saved-game host integration remain unavailable |
 | Battlefield | Normal/boss/selection sizing, explicit overflow/cap, device comparisons, JSON proposal | No applied formation/environment adapter |
 | UI settings | Native combat config JSON; valid 100% layout bands; named wireframe snapshots/apply/export; reviewed native JSON checkout saves | Wireframes store geometry drafts; compiler/runtime verification uses the game build |
-| Poses / effects | Native seven-pose sampler, playback controls, effect references/timing, bindings, structural validation | Effect art catalog and engine override disconnected |
-| Combat workshop | Scenario/seed/ruleset proposal export | Real runner unavailable; Run remains disabled |
+| Poses / effects | Native seven-pose sampler and authored pose playback in the game, effect timing, bindings, structural validation | Presentation preview does not deal damage; checkout promotion remains separate |
+| Combat workshop | Scenario/seed/ruleset editing and isolated native playable combat using draft cards/deck | Private Workshop service and persistent game saves remain disconnected |
 | Project tools | Local Git import, protected branch create/switch/delete, file tree/edit/save, jobs/artifacts; game settings JSON import/edit/export and reviewed native defaults promotion; CSV/JSON/XLSX | Authenticated host required for checkout writes/jobs. CSV/XLSX exports are data tables; XLSX import is unavailable |
 
 **Game work:** Open a local repository and create a branch before editing. File saves change its isolated checkout. For Tags, Scenes and UI, File → Load / save native checkout document loads current source into the draft, retains a receipt, and enables explicit review and revision-checked save after editing. Project → Game settings edits the native profile; reviewed promotion invokes the actual game validator and replaces promoted defaults, then requires a build. Builds runs checked-out commands and shows real outputs. Cards, battlefield and effect drafts still require native source adapters; private combat runner remains disconnected. See `docs/tool-audit.md` for grouped evidence and restrictions.
+
+## Live previews
+
+Every workspace has an **In game** tab. Scenes also has **Play preview** in Compose. Native game renderers show current drafts, and the combat preview runs real isolated game actions. See [preview behavior and limits](docs/in-game-preview.md).
 
 ## Authentication and source ownership
 
@@ -74,4 +78,4 @@ Feature → `dev` → `test` → `main` promotion. GitHub Pages builds preserve 
 
 Game snapshot: `cehinds/AshenSpire`, `dev`, commit `38166cb12a2d8901fce7727aca37cd8d2e7e4b2d`. Original inspected files remain under `public/source/`; native model under `src/native/model/`. Supplied ERD Workbench 0.2.4 HTML remains unchanged; native format version is distinct. Licenses/notices retained in `NOTICE.md` and `public/fonts/`.
 
-Browser audit covered all 18 game Advanced sections / 136 groups, with representative reversible mutations. Individual values across thousands of controls were not exhaustively mutated. Physical touch, screen readers, full gameplay, Windows runtime execution, full native renderer parity, private Workshop, and remote CI/deployment remain unverified. Native document save/build integration and actual native settings validation are tested separately from browser UI.
+Browser audit covered all 18 game Advanced sections / 136 groups, with representative reversible mutations. Individual values across thousands of controls were not exhaustively mutated. Physical touch, screen readers, full campaign gameplay, Windows game runtime execution, and the private Workshop remain unverified. Native scene playback, card updates, isolated combat damage, fullscreen, and consolidated delivery are checked separately. Native document save/build integration and actual native settings validation are tested separately from browser UI.

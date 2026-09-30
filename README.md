@@ -31,7 +31,7 @@ Open Vite's printed localhost URL. The local host automatically establishes a lo
 | `.workbench/` | Ignored optional legacy owner store, isolated checkouts, verified build records |
 | `dist/` | Ignored generated build |
 
-Source branches: **main**, **test**, **dev**, promoted through dev → test → main. Site publication remains paused and the remote Pages workflow is disabled. CI/Pages files remain ready; GitHub account authorization does not publish a site.
+Source branches: **main**, **test**, **dev**, promoted through dev → test → main. The GitHub repository is `cehinds/AshenedSpire-Editor`. Versioned Pages supports validated static editor builds at `https://cehinds.github.io/AshenedSpire-Editor/test/<run-number>-<attempt>/`. GitHub account authorization in the editor does not publish a site.
 
 ## What each mode can do
 
@@ -65,12 +65,12 @@ Branch switching requires a clean checkout and no unsaved editor buffer; commit 
 npm run review:quick
 npm run build
 npm test
-WORKBENCH_BASE_PATH=/AshenedSpireEditor/dev/42-1/ npm run build:pages
+WORKBENCH_BASE_PATH=/AshenedSpire-Editor/test/42-1/ npm run build:pages
 ```
 
 Fast gate checks functionality, account/session behavior, Git safety, production compile, syntax, merge markers, credential patterns, pinned workflow actions, and publication history. Five-minute job timeout bounds execution after runner starts; queue, human/AI review, and merge waiting are excluded. Semantic code review remains separate from deterministic checks.
 
-Feature → `dev` → `test` → `main` promotion. The prepared Pages workflow preserves numbered builds, channel `/latest/`, and shared history, but remote publication is disabled. GitHub Pages cannot run local session APIs or Git/build jobs. Full contract: `docs/ci-cd.md`.
+Feature → `dev` → `test` → `main` promotion. The Pages workflow preserves `/AshenedSpire-Editor/<branch>/<run-number>-<attempt>/`, channel `/latest/`, and shared history. Output is one self-contained `dist/pages/index.html` with embedded code, CSS, fonts, images, source snapshots, and native ERD. Publication adds `build-info.json` alongside it; the editor needs only the HTML file. GitHub Pages cannot run local session APIs or Git/build jobs. Full contract: `docs/ci-cd.md`.
 
 ## Provenance and validation limits
 

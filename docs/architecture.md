@@ -25,13 +25,13 @@ Editor brand is AshenedSpire. Referenced game source remains `cehinds/AshenSpire
 | `server/workspace-host.mjs` | Session-guarded local imports, protected local branches, isolated checkouts, safe file access, native settings promotion and build processes | Node host |
 | `tests/` | Domain, authentication, repository/security, packaging and publication checks | Node test runner |
 | `scripts/` | Build verification, source review, optional deployment preparation | Local Node or CI runner |
-| `.github/` | CI workflows, review routing/template, dependency updates; Pages publication disabled remotely | GitHub Actions |
+| `.github/` | CI and Pages workflows, review routing/template, dependency updates | GitHub Actions |
 | `docs/` | Architecture and CI/CD contracts | Documentation |
 | `design/` | Approved source design reference | Documentation |
 | `worker/` | Optional Sites static wrapper | Optional hosting runtime |
 | `.openai/hosting.json` | Optional Sites build metadata | Build input |
 | `.workbench/` | Local account data and managed repository checkouts | Private local storage; Git ignored |
-| `dist/` | Generated client HTML/assets and optional Sites wrapper | Build output; Git ignored |
+| `dist/` | Generated local client HTML/assets, optional Sites wrapper, and consolidated static `pages/index.html` | Build output; Git ignored |
 
 Folders separate by runtime and responsibility. `main`, `dev`, and `test` are Git branches, not duplicated source folders. Each branch uses same layout. Build numbers belong in generated deployment history, preserving one source tree.
 
@@ -77,4 +77,4 @@ GitHub Pages cannot enforce password authentication. Published bundles, native t
 
 ## Local source flow
 
-Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. Site publication remains paused and the remote Pages workflow is disabled; its files remain prepared for versioned publication if requested later. See [CI/CD](ci-cd.md) for workflow permissions and timing limits.
+Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. The Pages workflow supports each channel in versioned folders with consolidated HTML and immutable history. See [CI/CD](ci-cd.md) for workflow permissions, build URLs and timing limits.

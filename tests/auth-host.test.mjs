@@ -144,6 +144,7 @@ test("failed-login limits, bounded requests, absolute session expiry, and fail-c
     assert.equal((await client.send("/api/auth/password", "POST", { currentPassword: SECRET, newPassword: "x".repeat(129) })).status, 400);
     assert.equal((await client.send("/api/auth/login", "POST", { username: "Owner", password: "x".repeat(9000) })).status, 413);
     await app.close(); app = null;
+    const saved = await readFile(path.join(root, ".workbench/auth.json"), "utf8");
     await writeFile(path.join(root, ".workbench/auth.json"), '{"invalid":"do-not-echo-secret"}');
     const invalid = createAuthHost({ root });
     await assert.rejects(invalid.ready, /Invalid authentication store/);
@@ -151,6 +152,9 @@ test("failed-login limits, bounded requests, absolute session expiry, and fail-c
     await symlink(path.join(root, "outside.json"), path.join(root, ".workbench/auth.json"));
     const linked = createAuthHost({ root });
     await assert.rejects(linked.ready, /Authentication store unavailable/);
+    await writeFile(path.join(root, "outside.json"), saved);
+    const linkedExisting = createAuthHost({ root });
+    await assert.rejects(linkedExisting.ready, /Authentication store unavailable/, "Existing valid credentials cannot be loaded through a symbolic link");
   } finally { if (app) await app.close(); await rm(root, { recursive: true, force: true }); }
 });
 

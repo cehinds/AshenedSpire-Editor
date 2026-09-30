@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createServer } from "node:http";
-import { mkdtemp, mkdir, readFile, readdir, rm, stat, symlink, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, readdir, realpath, rm, stat, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -13,6 +13,7 @@ const pause = milliseconds => new Promise(resolve => setTimeout(resolve, millise
 async function source(root, name, native = false) {
   const dir = path.join(root, name); await mkdir(dir);
   git(dir, "init", "-b", "main"); git(dir, "config", "user.name", "Fixture"); git(dir, "config", "user.email", "fixture@example.test");
+  await writeFile(path.join(dir, ".gitattributes"), "* text=auto eol=lf\n");
   await writeFile(path.join(dir, "game.txt"), "main game\n");
   await writeFile(path.join(dir, ".gitignore"), "dist/\nnode_modules/\n");
   if (native) {
@@ -69,7 +70,7 @@ test("local imports isolate files and preserve main/test/dev; branch mutations a
     const prefix = `/repos/${repo.id}`;
     assert.equal((await api(prefix + "/connect", "POST", {})).status, 200, "Import reads local Git objects despite unusable origin URL");
     const checkout = path.join(root, ".workbench/repos", repo.id);
-    assert.equal(git(checkout, "remote", "get-url", "origin").trim(), original);
+    assert.equal(await realpath(git(checkout, "remote", "get-url", "origin").trim()), await realpath(original));
     if (process.platform !== "win32") assert.notEqual((await stat(path.join(checkout, "game.txt"))).ino, (await stat(path.join(original, "game.txt"))).ino);
     let info = await api(prefix + "/branches"); assert.equal(info.body.current, "main"); assert.deepEqual(info.body.branches.map(branch => branch.name).sort(), ["dev", "main", "test"]);
     assert.equal(info.body.branches.find(branch => branch.name === "dev").head, git(original, "rev-parse", "dev").trim());

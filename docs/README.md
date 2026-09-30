@@ -12,4 +12,4 @@
 | [Tool audit](tool-audit.md) | Browser evidence and validation scope |
 | [Design reference](../design/AshenSpire-Parent-Design.pdf) | Approved parent shell design; original reference retains original project name |
 
-Local Git repository and CI templates are prepared. No GitHub connection or publication is required to use editor locally.
+No editor account or GitHub connection is required to use the editor locally. Account optionally authorizes GitHub through GitHub CLI and the OS default browser. Site publication remains paused and the remote Pages workflow is disabled; source promotion remains dev → test → main.

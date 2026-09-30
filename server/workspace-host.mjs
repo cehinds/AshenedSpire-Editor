@@ -4,6 +4,7 @@ import { constants } from "node:fs";
 import { lstat, mkdir, open, readFile, readdir, realpath, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createAuthHost } from "./auth-host.mjs";
+import { createGitHubAccount } from "./github-account.mjs";
 
 const API = "/api/workbench";
 const MAX_TEXT = 1024 * 1024;
@@ -196,9 +197,10 @@ function reply(res, status, data) {
   res.end(JSON.stringify(data));
 }
 
-export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS, cloneSource, commandTimeout = 120_000, jobTimeout = 15 * 60_000, authOptions = {} } = {}) {
+export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS, cloneSource, commandTimeout = 120_000, jobTimeout = 15 * 60_000, authOptions = {}, githubOptions = {} } = {}) {
   root = path.resolve(root);
   const auth = createAuthHost({ ...authOptions, root });
+  const github = createGitHubAccount(githubOptions);
   const storage = path.join(root, ".workbench");
   const reposRoot = path.join(storage, "repos");
   const registry = path.join(storage, "registry.json");
@@ -496,6 +498,14 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
       if (!/^application\/json(?:;|$)/i.test(req.headers["content-type"] || "")) fail(415, "Mutations require application/json.");
     }
     const parts = url.pathname.slice(API.length).split("/").filter(Boolean).map(part => { try { return decodeURIComponent(part); } catch { fail(400, "Invalid URL encoding."); } });
+    if (parts[0] === "github" && parts.length === 2) {
+      if (parts[1] === "status" && method === "GET") return reply(res, 200, await github.status());
+      if (parts[1] === "login" && method === "POST") {
+        const body = await jsonBody(req);
+        if (Object.keys(body).length) fail(400, "GitHub sign-in does not accept credentials or options.");
+        return reply(res, 200, await github.startLogin());
+      }
+    }
     if (parts[0] === "status" && parts.length === 1 && method === "GET") return reply(res, 200, { connected: true, host: "local", csrfToken, capabilities: ["repositories", "files", "builds", "branches", "local-import"] });
     if (parts[0] === "repos" && parts.length === 1) {
       if (method === "GET") return reply(res, 200, { repos: [...repos.values()] });
@@ -658,7 +668,7 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
       });
     });
   };
-  return { middleware, ready, close: async () => { auth.close(); for (const value of active.values()) value.cancel(); await writes; }, storage };
+  return { middleware, ready, close: async () => { auth.close(); github.close(); for (const value of active.values()) value.cancel(); await writes; }, storage };
 }
 
 export function workspaceHostPlugin(options = {}) {

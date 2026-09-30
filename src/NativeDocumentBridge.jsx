@@ -6,7 +6,7 @@ import './native-document.css';
 export function NativeDocumentBridge({ctx, open, onClose})
 {
     const auth = useAuth();
-    const allowed = auth?.authenticated === true && !auth.offline;
+    const allowed = (auth?.localAccess === true || auth?.authenticated === true) && !auth.offline;
     const type = NATIVE_DOCUMENTS[ctx.ws];
     const [repos, setRepos] = useState([]);
     const [targets, setTargets] = useState({});
@@ -28,7 +28,7 @@ export function NativeDocumentBridge({ctx, open, onClose})
 
     async function request(path, options = {})
     {
-        if (!allowed) throw new Error('Authenticated local host required. Offline preview cannot read or save checkout documents.');
+        if (!allowed) throw new Error('Local editor host required. Offline preview cannot read or save checkout documents.');
         const controller = new AbortController();
         requests.current.add(controller);
         const timeout = setTimeout(() => controller.abort(), 15000);
@@ -147,7 +147,7 @@ export function NativeDocumentBridge({ctx, open, onClose})
     if (!open) return null;
     return <div className="native-bridge-backdrop"><section className="native-bridge" ref={root} role="dialog" aria-modal="true" aria-labelledby="native-bridge-title">
         <div className="native-bridge-heading"><h2 id="native-bridge-title">Native checkout document</h2><button disabled={busy} onClick={onClose}>Close</button></div>
-        {!type ? <p>Supported: Tags CSV, Opening scene full JSON, and UI configuration JSON. Cards, effects, battlefield proposals, and native ERD documents require separate adapters.</p> : !allowed ? <p>Authenticated local host required. Offline authoring preview cannot load or save repository files.</p> : <>
+        {!type ? <p>Supported: Tags CSV, Opening scene full JSON, and UI configuration JSON. Cards, effects, battlefield proposals, and native ERD documents require separate adapters.</p> : !allowed ? <p>Local editor host required. Offline authoring preview cannot load or save repository files.</p> : <>
             <p>{type.label}: load existing checkout document, edit draft, review changes, then save explicitly. Structural validation runs before load and save; native compiler remains separate.</p>
             <label>Connected local repository<select aria-label="Native document repository" value={target.repoId} disabled={busy} onChange={event => changeTarget({repoId: event.target.value})}><option value="">Select local checkout</option>{repos.map(repo => <option key={repo.id} value={repo.id}>{repo.name} · {repo.branch}</option>)}</select></label>
             <label>Existing native file path<input aria-label="Native document path" value={target.path} disabled={busy} onChange={event => changeTarget({path: event.target.value})}/></label>

@@ -77,7 +77,7 @@ test("single-owner setup, API authorization, CSRF, preview capabilities, and ses
     assert.equal(bootstrap.body.setupRequired, true); assert.equal(bootstrap.body.authenticated, false);
     assert(bootstrap.headers.get("set-cookie").includes("HttpOnly; SameSite=Strict"));
     assert.equal((await owner.send("/api/auth/setup", "POST", { username: "Owner", password: SECRET }, { Origin: "http://evil.test" })).status, 403);
-    assert.equal((await owner.send("/api/auth/setup", "POST", { username: "Owner", password: "short" })).status, 400);
+    assert.equal((await owner.send("/api/auth/setup", "POST", { username: "Owner", password: "four" })).status, 400);
     const beforeCookie = owner.cookie, beforeCsrf = owner.csrfToken;
     const setup = await owner.send("/api/auth/setup", "POST", { username: "Owner", password: SECRET }, { "X-Forwarded-Proto": "https" });
     assert.equal(setup.status, 200); assert.equal(setup.body.username, "Owner"); assert.equal(setup.body.authenticated, true);
@@ -151,5 +151,63 @@ test("failed-login limits, bounded requests, absolute session expiry, and fail-c
     await symlink(path.join(root, "outside.json"), path.join(root, ".workbench/auth.json"));
     const linked = createAuthHost({ root });
     await assert.rejects(linked.ready, /Authentication store unavailable/);
+  } finally { if (app) await app.close(); await rm(root, { recursive: true, force: true }); }
+});
+
+test("explicit password hosts accept five characters and reject four", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "editor-auth-five-"));
+  let app;
+  try {
+    app = await server(root);
+    const client = app.client();
+    await client.send("/api/auth/session");
+    assert.equal((await client.send("/api/auth/setup", "POST", { username: "Owner", password: "four" })).status, 400);
+    assert.equal((await client.send("/api/auth/setup", "POST", { username: "Owner", password: "five!" })).status, 200);
+    assert.equal((await client.send("/api/auth/password", "POST", { currentPassword: "five!", newPassword: "four" })).status, 400);
+    assert.equal((await client.send("/api/auth/password", "POST", { currentPassword: "five!", newPassword: "next!" })).status, 200);
+    assert.equal((await client.send("/api/auth/login", "POST", { username: "Owner", password: "next!" })).status, 200);
+  } finally { if (app) await app.close(); await rm(root, { recursive: true, force: true }); }
+});
+
+test("local editor opens without credentials while retaining session, origin, CSRF and preview boundaries", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "editor-local-session-"));
+  let app, clock = Date.now();
+  try {
+    await builtFixture(root);
+    const filename = path.join(root, ".workbench/auth.json");
+    await writeFile(filename, "legacy account is preserved, not used in local mode");
+    app = await server(root, { authOptions: { requireLogin: false, now: () => clock, sessionMs: 1000 } });
+    const client = app.client(), visitor = app.client();
+    assert.equal((await client.send("/api/workbench/status")).status, 401);
+    const session = await client.send("/api/auth/session");
+    assert.equal(session.status, 200);
+    assert.equal(session.body.mode, "local");
+    assert.equal(session.body.localAccess, true);
+    assert.equal(session.body.authenticated, false);
+    assert.equal(session.body.setupRequired, false);
+    const status = await client.send("/api/workbench/status");
+    assert.equal(status.status, 200);
+    const csrf = { "X-Workbench-CSRF": status.body.csrfToken };
+    const repo = { url: "https://github.com/fixture/Uncloned" };
+    assert.equal((await client.send("/api/workbench/repos", "POST", repo)).status, 403);
+    assert.equal((await client.send("/api/workbench/repos", "POST", repo, { ...csrf, Origin: "https://evil.test" })).status, 403);
+    assert.equal((await client.send("/api/workbench/repos", "POST", repo, csrf)).status, 201);
+    assert.equal((await client.send("/api/auth/setup", "POST", { username: "Unused", password: "five!" })).status, 409);
+    assert.equal((await client.send("/.workbench/auth.json")).status, 404);
+    const url = (await client.send("/api/workbench/repos/fixture--game/artifacts")).body.artifacts[0].url;
+    assert(url.includes("/~"));
+    assert.equal((await visitor.send(url)).status, 200);
+    assert.equal((await visitor.send("/api/workbench/preview/fixture--game/dist/index.html")).status, 401);
+    assert.equal((await visitor.send(url.replace("dist/index.html", "source.txt"))).status, 401);
+    clock += 1001;
+    assert.equal((await visitor.send(url)).status, 401);
+    assert.equal((await client.send("/api/workbench/status")).status, 401);
+    assert.equal((await client.send("/api/auth/session")).body.localAccess, true);
+    assert.equal((await client.send("/api/workbench/status")).status, 200);
+    assert.equal(await readFile(filename, "utf8"), "legacy account is preserved, not used in local mode");
+    const auth = createAuthHost({ root, requireLogin: false });
+    await auth.ready;
+    await assert.rejects(auth.authorize({ headers: { host: "localhost" }, socket: { remoteAddress: "192.0.2.1" } }), /loopback/);
+    auth.close();
   } finally { if (app) await app.close(); await rm(root, { recursive: true, force: true }); }
 });

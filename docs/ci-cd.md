@@ -1,8 +1,8 @@
 # AshenedSpire Editor CI/CD
 
-Continuous Integration (CI) checks changes before merge. Continuous Delivery (CD) publishes validated editor previews after branch pushes.
+Continuous Integration (CI) checks changes before merge. The prepared Continuous Delivery (CD) workflow can publish validated editor previews, but site publication is paused and the remote Pages workflow is disabled.
 
-Current delivery is a local repository with `main`, `dev`, and `test`. GitHub connection, remote repository creation, and publication are deferred. Workflows below are prepared templates; no hosted deployment is claimed.
+Source promotion remains `dev` → `test` → `main` in the existing repository. Optional GitHub account authorization in the editor uses GitHub CLI and the OS default browser; it does not authorize publication or connect a checkout by itself. The publication details below describe the retained workflow, not an enabled deployment.
 
 ## Repository layout
 
@@ -10,7 +10,7 @@ Current delivery is a local repository with `main`, `dev`, and `test`. GitHub co
 |---|---|
 | `src/` | React editor, shared shell, nine workspaces, desktop menu |
 | `public/` | Static assets, native ERD 0.2.4, source snapshots, responsive preview |
-| `server/` | Local account/session authentication and Git/repository/file/build host; excluded from GitHub Pages runtime |
+| `server/` | Automatic local sessions, optional GitHub CLI authorization, retained password-mode library and Git/repository/file/build host; excluded from GitHub Pages runtime |
 | `tests/` | Domain, local host/security, Sites packaging, Pages history checks |
 | `scripts/` | Source review, build validation, Sites packaging, Pages publication |
 | `.github/workflows/` | Fast merge checks and versioned Pages publication |
@@ -24,7 +24,7 @@ Current delivery is a local repository with `main`, `dev`, and `test`. GitHub co
 
 Feature branch → pull request into `dev` → pull request from `dev` into `test` → pull request from `test` into `main`.
 
-Fast CI enforces promotion path: pull requests into `test` must come from this repository's `dev`; pull requests into `main` must come from its `test`. Feature pull requests enter `dev`. Branch protection must require this CI status to enforce policy before merge; templates alone cannot configure remote rules. Source branches initially share same bootstrap commit.
+Fast CI enforces promotion path: pull requests into `test` must come from this repository's `dev`; pull requests into `main` must come from its `test`. Feature pull requests enter `dev`. Branch protection must require this CI status to enforce policy before merge; workflow files alone cannot configure remote rules.
 
 | Branch | Role | Preview |
 |---|---|---|
@@ -52,9 +52,9 @@ These are deterministic automated code checks. Semantic human or AI code review 
 
 ## Versioned publication
 
-`Versioned Pages` runs after pushes to `dev`, `test`, or `main`, or manual dispatch on those branches. Build stage independently reruns fast gates before upload. Artifact uses Vite base path `/<repository>/<branch>/<run-number>-<attempt>/` so bundled assets, native tools, and static links stay inside that version.
+When enabled, `Versioned Pages` is configured for pushes to `dev`, `test`, or `main`, or manual dispatch on those branches. It is currently disabled remotely. Build stage independently reruns fast gates before upload. Artifact uses Vite base path `/<repository>/<branch>/<run-number>-<attempt>/` so bundled assets, native tools, and static links stay inside that version.
 
-`build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains authenticated local runtime. Static artifact includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host.
+`build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains the local runtime with automatic loopback sessions. Static artifact includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host.
 
 Publication receives only successfully validated HTML artifacts. `contents: write`, `pages: write`, and `id-token: write` exist only on publication job. Pull request jobs are read-only and do not deploy or execute with publication credentials. Actions are pinned to verified full commit hashes; Dependabot proposes weekly dependency/action updates.
 
@@ -64,7 +64,7 @@ History is retained without automatic deletion. GitHub Pages has site/storage li
 
 ## Repository settings
 
-When GitHub connection is requested later, after remote repository exists and workflows are pushed:
+If site publication is requested again, review these settings before re-enabling the remote Pages workflow:
 
 1. Settings → Pages → Source: **GitHub Actions**.
 2. `github-pages` environment: allow deployment branches `dev`, `test`, and `main`. Add all three explicitly if using selected-branch restrictions.
@@ -76,7 +76,9 @@ When GitHub connection is requested later, after remote repository exists and wo
 
 GitHub Pages serves public static files. Hosted editor supports authoring snapshots and embedded native tools in explicitly labeled offline authoring mode. It cannot enforce password authentication or run account/session APIs. A password prompt inside static HTML would not protect files; this project does not claim it does.
 
-Local editor uses account setup, password login, session cookies, logout, and password change through `/api/auth`. Local `/api/workbench` operations require authenticated session. Local repository import, checkout file editing, native settings promotion, package installs, and real game builds require this local Node/Git host through `npm run dev` or `npm run preview`. Repository tools use existing local Git directories without a remote connection; browser login password is the local editor account password.
+Local editor opens without an account or sign-in. Vite uses `authOptions.requireLogin: false`; `/api/auth` issues an automatic loopback-only session, and `/api/workbench` retains session, CSRF and origin checks. Local repository import, checkout file editing, native settings promotion, package installs, and real game builds require this local Node/Git host through `npm run dev` or `npm run preview`. Local-folder import does not contact a remote. Optional Account authorization opens GitHub in the OS default browser using GitHub CLI; credentials stay on the host and no password/token input is present in the editor frontend. A repository is connected only after its clone succeeds.
+
+The password-mode library remains for explicitly configured hosts and tests, with a five-character minimum and server-side hashes. The normal editor has no local account/password UI.
 
 Authentication protects local server operations. Static authoring assets and exported HTML remain public whenever published. A future private hosted editor needs an authenticated backend and access-controlled static delivery; GitHub Pages alone cannot provide that boundary.
 
@@ -90,7 +92,7 @@ npm test
 WORKBENCH_BASE_PATH=/AshenedSpireEditor/dev/42-1/ npm run build:pages
 ```
 
-`npm run build:pages` validates nested HTML/asset references, compiled application URLs and native ERD presence. Running root build again restores ordinary localhost base path and authenticated runtime. Publication helper is workflow-only: it requires Git origin, GitHub branch/build identity, and push rights; do not run against a live repository to preview locally.
+`npm run build:pages` validates nested HTML/asset references, compiled application URLs and native ERD presence. Running root build again restores ordinary localhost base path and the local session runtime. Publication helper is workflow-only: it requires Git origin, GitHub branch/build identity, and push rights; do not run against a live repository to preview locally.
 
 ## Official references
 

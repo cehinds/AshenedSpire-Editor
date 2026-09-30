@@ -10,7 +10,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
 {
     const auth = useAuth();
     const offline = auth?.offline === true;
-    const authenticated = auth ? auth.authenticated === true : true;
+    const authenticated = auth ? auth.localAccess === true || auth.authenticated === true : true;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
     const [repoId, setRepoId] = useState('');
@@ -43,7 +43,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
 
     const request = useCallback(async (path, options = {}) =>
     {
-        if (offline) throw new Error('Local authenticated host required. Offline preview supports authoring drafts only.');
+        if (offline) throw new Error('Local editor host required. Offline preview supports authoring drafts only.');
         const controller = new AbortController();
         requests.current.add(controller);
         try
@@ -104,7 +104,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
         {
             setHost(null);
             setLoading(false);
-            if (offline) setError('Local authenticated host required. Offline preview supports authoring drafts only.');
+            if (offline) setError('Local editor host required. Offline preview supports authoring drafts only.');
             return;
         }
         setLoading(true);
@@ -313,7 +313,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const currentJobArtifacts = repoJobs.some(job => job.status === 'succeeded' && job.artifactState !== 'stale' && !job.artifactsStale && job.artifacts?.length);
 
     return <section className="repository-workspace" aria-label={`${mode} workspace`}>
-        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require this editor’s authenticated host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
+        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require the local editor host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
         <LocalBranches repoId={ready ? repoId : ''} disabled={!ready || !!busy || running} dirty={dirty} onChanged={branchChanged}/>
         {error ? <div role="alert" className="repo-notice error">{error}</div> : null}
         {message ? <div role="status" className="repo-notice">{message}</div> : null}

@@ -7,7 +7,7 @@ const API = '/api/workbench';
 export function LocalBranches({repoId, disabled = false, dirty = false, onChanged})
 {
     const auth = useAuth();
-    const available = auth?.authenticated === true && auth?.offline !== true && Boolean(repoId);
+    const available = (auth?.localAccess === true || auth?.authenticated === true) && auth?.offline !== true && Boolean(repoId);
     const [data, setData] = useState(null);
     const [selected, setSelected] = useState('');
     const [name, setName] = useState('');
@@ -26,7 +26,7 @@ export function LocalBranches({repoId, disabled = false, dirty = false, onChange
 
     const request = useCallback(async (route, method = 'GET', body) =>
     {
-        if (!available) throw new Error('Sign in to local host before managing branches.');
+        if (!available) throw new Error('Connect the local editor host before managing branches.');
         const controller = new AbortController();
         requests.current.add(controller);
         const timeout = setTimeout(() => controller.abort(), 20000);
@@ -114,7 +114,7 @@ export function LocalBranches({repoId, disabled = false, dirty = false, onChange
             <div><h3>Local branches</h3><p>Isolated checkout only. Source directory stays unchanged.</p></div>
             <button type="button" disabled={!available || disabled || Boolean(busy)} onClick={refresh}>Refresh branches</button>
         </div>
-        {!available || disabled ? <p className="local-branches-note">Select imported local checkout and sign in to manage branches.</p> : null}
+        {!available || disabled ? <p className="local-branches-note">Select an imported local checkout to manage branches through the local editor host.</p> : null}
         {error ? <p className="local-branches-error" role="alert">{error}</p> : null}
         {message ? <p className="local-branches-message" role="status">{message}</p> : null}
         {busy ? <p role="status">{busy === 'refresh' ? 'Reading local branches…' : 'Applying local branch change…'}</p> : null}

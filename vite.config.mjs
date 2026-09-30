@@ -21,5 +21,5 @@ export default defineConfig({
     host: "127.0.0.1",
     allowedHosts: ["terminal.local"],
   },
-  plugins: [react(), workspaceHostPlugin()],
+  plugins: [react(), workspaceHostPlugin({ authOptions: { requireLogin: false } })],
 });

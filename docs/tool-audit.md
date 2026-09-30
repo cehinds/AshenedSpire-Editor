@@ -1,5 +1,7 @@
 # AshenedSpire Editor Tool Audit
 
+Current implementation note, September 30, 2026: the local editor now opens without an owner account or sign-in. Vite establishes automatic loopback-only sessions while retaining CSRF/origin checks, private-path protections and preview sandboxing. Account is for optional GitHub authorization through GitHub CLI and the OS default browser; GitHub passwords/tokens stay outside the editor frontend, and authorization does not connect a repository before its clone succeeds. Legacy password mode remains for explicit hosts/tests with a five-character minimum. Site publication remains paused and the remote Pages workflow is disabled; dev → test → main promotion remains. The audit observations and screenshots below are historical evidence, including the former owner sign-in gate; they are not new browser verification of the current account flow.
+
 Dates: September 29–30, 2026. Cloud Chrome desktop viewport: 1363 × 936. Browser plugin unavailable; requested cloud-browser QA used `mcp__cua_repl` exclusively. No remote repository mutations, credentials, or source-file changes performed by this audit.
 
 ## Outcome and intended workflow

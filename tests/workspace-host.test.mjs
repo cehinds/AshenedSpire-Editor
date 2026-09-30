@@ -16,6 +16,7 @@ async function fixture(root, name, native = false) {
   git(dir, "init", "-b", "main");
   git(dir, "config", "user.email", "fixture@example.test");
   git(dir, "config", "user.name", "Fixture");
+  await writeFile(path.join(dir, ".gitattributes"), "* text=auto eol=lf\n");
   await mkdir(path.join(dir, "src"));
   await writeFile(path.join(dir, "src/game.txt"), "source game\n");
   await writeFile(path.join(dir, ".env"), "SECRET=blocked\n");

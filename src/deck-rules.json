@@ -1,0 +1,36 @@
+{
+  "defaults": {
+    "deckEditing": true,
+    "deckEditingWhere": "free",
+    "deckMinSize": 10,
+    "deckMinUnlimited": false,
+    "deckMaxSize": 40,
+    "deckMaxUnlimited": true,
+    "playInDeckOrder": false,
+    "classSpellPowerCopies": 1
+  },
+  "singleCopy": {
+    "types": [
+      "power"
+    ],
+    "tags": [
+      "source:spell"
+    ]
+  },
+  "copyRange": {
+    "min": 1,
+    "max": 10
+  },
+  "sizeRange": {
+    "min": 0,
+    "max": 200
+  },
+  "where": [
+    "free",
+    "restOnly"
+  ],
+  "unlimitedCardIds": [
+    "strike",
+    "defend"
+  ]
+}

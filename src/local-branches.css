@@ -1,0 +1,12 @@
+.local-branches{padding:18px;margin:18px 0;border:1px solid var(--line);border-radius:6px;background:var(--bg);min-width:0}
+.local-branches-heading{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.local-branches-heading h3{margin:0;font-size:16px}.local-branches-heading p{font-size:14px!important;color:var(--muted);margin:5px 0 0!important}
+.local-branches p,.local-branches details{font-size:14px!important;line-height:1.5}.local-branches strong{overflow-wrap:anywhere}
+.local-branches-existing{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:14px 0}.local-branches-existing label{min-width:220px;flex:1}
+.local-branches-create{display:grid;grid-template-columns:minmax(180px,1fr) minmax(150px,1fr);gap:12px;align-items:end;border-top:1px solid var(--line);padding-top:16px;margin-top:18px}
+.local-branches-create input,.local-branches-create select,.local-branches-existing select{width:100%;min-width:0;min-height:40px}
+.local-branches-checkbox{display:flex!important;flex-direction:row!important;align-items:center;gap:8px;color:var(--text)!important}.local-branches-checkbox input{width:18px;min-height:18px;flex:0 0 18px}
+.local-branches-note,.local-branches-review{border-left:3px solid var(--gold);padding:10px 13px;background:var(--raised)}
+.local-branches-error{border-left:3px solid var(--red);padding:10px 13px;color:var(--red);background:var(--raised);overflow-wrap:anywhere}.local-branches-message{color:var(--green);overflow-wrap:anywhere}
+.local-branches-review{margin:18px 0}.local-branches-review button{margin:4px 10px 4px 0}.local-branches details{margin-top:18px;color:var(--muted)}.local-branches details ul{padding-left:22px}.local-branches button{min-height:40px}
+@media(max-width:650px){.local-branches-heading{flex-direction:column}.local-branches-create{grid-template-columns:minmax(0,1fr)}.local-branches-existing{flex-direction:column;align-items:stretch}.local-branches-existing label{min-width:0}.local-branches-review button{width:100%;margin:6px 0}}

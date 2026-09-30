@@ -1,0 +1,10 @@
+.draft-create{padding:12px 20px;border-bottom:1px solid var(--border,#393b3e);background:var(--panel,#242527)}
+.draft-create>.button-row{margin:0;align-items:center;flex-wrap:wrap}
+.draft-create-review{padding-top:12px}
+.draft-create-review h2{font-size:17px;margin:0 0 12px}
+.draft-create-review pre,.wireframe-library pre{max-height:240px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}
+.draft-create-review details,.wireframe-library details{margin:12px 0}
+.draft-create-review summary,.wireframe-library summary{cursor:pointer}
+.wireframe-library{padding:16px 20px;border-bottom:1px solid var(--border,#393b3e)}
+.wireframe-library .button-row{flex-wrap:wrap;margin-top:12px}
+@media(max-width:600px){.draft-create,.wireframe-library{padding:12px}.draft-create .form-grid{grid-template-columns:1fr}}

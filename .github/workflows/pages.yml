@@ -1,0 +1,78 @@
+name: Versioned Pages
+
+on:
+  push:
+    branches: [dev, test, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build validated HTML
+    if: contains(fromJSON('["dev","test","main"]'), github.ref_name)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      WORKBENCH_BASE_PATH: /${{ github.event.repository.name }}/${{ github.ref_name }}/${{ github.run_number }}-${{ github.run_attempt }}/
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run review:quick
+      - run: npm run build:pages
+      - run: npm test
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: editor-html-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/client/
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    name: Preserve history and deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: editor-pages-publication
+      queue: max
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: editor-html-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/client/
+      - name: Add immutable build to shared gh-pages history
+        run: node scripts/publish-pages-history.mjs
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: .pages-site/
+      - name: Deploy full site
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+      - name: Report exact preview
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          echo '## Published AshenedSpire Editor' >> "$GITHUB_STEP_SUMMARY"
+          echo "Build: ${PAGE_URL}${GITHUB_REF_NAME}/${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Latest: ${PAGE_URL}${GITHUB_REF_NAME}/latest/" >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,19 @@
+.editor-header{display:flex;flex-direction:column;min-width:0;background:var(--raised);border-bottom:1px solid var(--line);z-index:35}
+.editor-header .project-bar{min-height:43px;border-bottom:0;gap:22px}
+.editor-header .brand{font-size:15px;letter-spacing:.3px}
+.editor-menu{position:relative;background:#1b242b;min-height:31px;padding:0 10px;border-top:1px solid #34414b}
+.editor-menu-triggers{display:flex;gap:2px;align-items:center;height:31px}
+.editor-menu-triggers>button{border:1px solid transparent;background:none;border-radius:0;min-width:46px;padding:5px 10px;font-size:11px}
+.editor-menu-triggers>button[aria-expanded=true]{border-color:var(--line);background:var(--raised);color:var(--gold)}
+.editor-menu-popup{position:absolute;top:100%;left:10px;min-width:290px;max-width:calc(100vw - 20px);max-height:calc(100dvh - 115px);overflow:auto;background:#202b33;border:1px solid #60707b;border-top:2px solid var(--gold);box-shadow:0 10px 25px #0008;padding:5px;z-index:36}
+.editor-menu-popup>button{display:flex;align-items:center;gap:9px;width:100%;padding:8px 8px;text-align:left;border:0;border-radius:2px;background:none;font-size:11px;white-space:nowrap}
+.editor-menu-popup>button:hover:not(:disabled),.editor-menu-popup>button:focus{background:#35424a;color:var(--gold)}
+.editor-menu-popup>button:focus-visible{outline-offset:-2px}
+.editor-menu-popup kbd{margin-left:auto;font-size:9px;border:0;padding:0 2px;color:var(--muted)}
+.editor-menu-check{width:12px;flex:0 0 12px;color:var(--gold)}
+.editor-menu-popup>[role=separator]{height:1px;background:var(--line);margin:5px 8px}
+@media(max-width:780px){.editor-header .project-bar{min-height:47px;gap:8px}.editor-header .brand{font-size:12px}.editor-header .header-actions{gap:5px}.editor-header .header-actions button{font-size:10px;padding:7px}.editor-header .header-actions button:first-child{max-width:109px;overflow:hidden;text-overflow:ellipsis}.editor-menu-triggers>button{font-size:11px;padding:6px 9px;min-width:0;min-height:29px}.editor-menu-popup>button{min-height:38px}}
+
+@media(max-width:780px){.editor-header .header-actions button:nth-child(2){display:block}.editor-header .header-actions .review-action{display:none}}
+
+@media(max-width:360px){.editor-menu-triggers>button{font-size:10px;padding:6px}.editor-header .header-actions button:first-child{max-width:90px}}

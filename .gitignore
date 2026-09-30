@@ -1,0 +1,14 @@
+/node_modules
+/dist/
+/.workbench/
+/.pages-history/
+/.pages-site/
+/.sites-runtime/
+/qa/
+/public/preview-review/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db

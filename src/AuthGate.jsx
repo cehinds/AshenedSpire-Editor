@@ -95,10 +95,10 @@ function AccountDialog({bootstrap, onStatus, close})
         setError('');
         try
         {
+            await bootstrap();
+            if (controller.signal.aborted) return;
             if (!csrf.current || connect)
             {
-                await bootstrap();
-                if (controller.signal.aborted) return;
                 const host = await jsonRequest('/api/workbench/status', {signal: controller.signal});
                 if (!host.csrfToken) throw new Error('Local editor host returned no request token. Retry the connection.');
                 csrf.current = host.csrfToken;

@@ -1,2 +1,2 @@
 # Preserve the byte hashes recorded in the vendored native runtime provenance.
-src/native/game-preview/** -text
+src/native/game-preview/** -text whitespace=cr-at-eol

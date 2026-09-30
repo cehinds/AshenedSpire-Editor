@@ -20,4 +20,6 @@ Editor name AshenedSpire; core game remains AshenSpire. Top bar uses File / Edit
 
 ## Local editor expansion
 
+Latest delivery decision: publish consolidated single-file HTML builds from `test` to `https://cehinds.github.io/AshenedSpire-Editor/test/<run-number>-<attempt>/` using the existing GitHub repository and Pages workflow. This supersedes the earlier pause on remote publication for editor previews. Preserve immutable build history and channel latest links. Embed application code, CSS, fonts, art, source snapshots, and native ERD in `dist/pages/index.html`; keep authenticated local and Sites outputs separate. Static previews remain public draft authoring without account or Git/build host security.
+
 Visible repository tools now import ordinary local Git directories into isolated checkouts, with no remote connection; protected branch creation/switch/merged-only deletion are explicit. File menu includes real XLSX/CSV exports and native Tags/Scenes/UI document load/review/revision save. Cards and named wireframes have reviewed draft creation. Project Game settings preserves the native profile and uses explicit native settings-defaults promotion on supported local game checkouts. Keep renderer and private combat limits visible; no mock execution or credential entry.

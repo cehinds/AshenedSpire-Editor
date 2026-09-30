@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    name: Build validated HTML
+    name: Build consolidated HTML
     if: contains(fromJSON('["dev","test","main"]'), github.ref_name)
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: editor-html-${{ github.run_id }}-${{ github.run_attempt }}
-          path: dist/client/
+          path: dist/pages/index.html
           if-no-files-found: error
           retention-days: 7
 
@@ -59,8 +59,10 @@ jobs:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: editor-html-${{ github.run_id }}-${{ github.run_attempt }}
-          path: dist/client/
+          path: dist/pages/
       - name: Add immutable build to shared gh-pages history
+        env:
+          PAGES_BUILD_DIRECTORY: dist/pages
         run: node scripts/publish-pages-history.mjs
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0

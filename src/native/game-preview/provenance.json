@@ -1,0 +1,104 @@
+{
+  "repository": "AshenSpire",
+  "revision": "0adaae515fbb9246c74732a27ee25870004de5ac",
+  "sourceDirty": true,
+  "snapshot": "working-tree",
+  "hashes": {
+    "runtime.js": "084b37dcf32c1cd2a77e52e430b44b33ef5d9775a94339dd206b6c8006e418a8",
+    "styles.css": "d654e3183ee6cf8c81e2e77af0b1ca733b96765f7e055f56534b3764420fe4f2",
+    "assets.js": "8557e52f9bccfe2046279e7985f90ad8e73b051fc7f39e3b6c0757855a1f7c91"
+  },
+  "entryExports": {
+    "ui/screens/prologue.js": [
+      "mountPrologue"
+    ],
+    "model/prologue.js": [
+      "prologuePresetOverrides",
+      "prologueConfig",
+      "prologueRows",
+      "prologueValueIsValid",
+      "prologueCopy",
+      "prologueSequence",
+      "PROLOGUE_DEFAULTS"
+    ],
+    "model/prologueTiming.js": [
+      "prologueSceneMs"
+    ],
+    "ui/components/card.js": [
+      "renderCard",
+      "scheduleCardFits"
+    ],
+    "model/registries.js": [
+      "createRegistries"
+    ],
+    "content/index.js": [
+      "contentBundle"
+    ],
+    "ui/components/tooltipGlossary.js": [
+      "configureTooltipGlossary"
+    ],
+    "ui/assetmap.js": [
+      "ASSET_MAP"
+    ],
+    "config/generated/ui.js": [
+      "uiConfig"
+    ],
+    "ui/screens/combat.js": [
+      "mountCombat"
+    ],
+    "model/state.js": [
+      "createRunState",
+      "createDeck"
+    ],
+    "engine/combat.js": [
+      "createCombat",
+      "dispatch"
+    ],
+    "engine/rng.js": [
+      "createRng"
+    ],
+    "model/loadout.js": [
+      "runMods"
+    ],
+    "model/advancedConfig.js": [
+      "configuredContentBundle",
+      "presentationConfig"
+    ],
+    "model/handRules.js": [
+      "resolveHandRules"
+    ],
+    "content/combatRules.js": [
+      "combatRules"
+    ],
+    "ui/assets.js": [
+      "playerSprite",
+      "enemySprite"
+    ],
+    "ui/components/environmentArt.js": [
+      "combatBackdropHtml"
+    ],
+    "ui/services/PoseAnimator.js": [
+      "stageFor"
+    ],
+    "ui/wireframeChoices.js": [
+      "applyWireframeChoices"
+    ],
+    "ui/input.js": [
+      "initInput"
+    ],
+    "ui/presentationSequence.js": [
+      "playPresentationSequence"
+    ],
+    "ui/fx.js": [
+      "anchorLocalBox"
+    ],
+    "ui/models/CardSizeModel.js": [
+      "cardShapeCssProperties",
+      "cardLevelCssProperties"
+    ]
+  },
+  "assets": 5178,
+  "assetBytes": 29330365,
+  "assetQuality": "mobile",
+  "generatedBy": "scripts/vendor-game-preview.mjs"
+}

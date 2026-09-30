@@ -1,0 +1,4 @@
+.in-game-preview{min-width:0;min-height:100%;display:flex;flex-direction:column}
+.in-game-preview>section,.in-game-preview>.padded{flex:1;min-width:0}
+.in-game-draft-note{padding:12px 20px;margin:0;color:var(--muted,#aab5bd);font-size:12px;line-height:1.5;border-top:1px solid #34424b}
+.in-game-preview>.notice{margin:20px}

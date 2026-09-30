@@ -10,6 +10,13 @@
     },
     {
       "branch": "test",
+      "buildNumber": "4-1",
+      "commit": "17c9be8828a80f66300b7c8f0eac243f1bdd3e9d",
+      "builtAt": "2026-09-30T02:50:53.557Z",
+      "digest": "da2234c8ea2492c0d63e4bc343b3331b0870ba51ece96cc8d202eb9e24d264a1"
+    },
+    {
+      "branch": "test",
       "buildNumber": "2-2",
       "commit": "12feaaf75e9fe557ee253fe582d40d37f0e3430c",
       "builtAt": "2026-09-30T02:48:52.238Z",

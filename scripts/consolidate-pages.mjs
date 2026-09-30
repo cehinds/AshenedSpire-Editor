@@ -62,7 +62,9 @@ export async function consolidatePages({ directory, outputDirectory, base }) {
     return new TextDecoder().decode(Uint8Array.from(atob(assets[name][1]), c => c.charCodeAt(0)));
   };
   globalThis.__ASHENEDSPIRE_ASSET_URL__ = (name) => {
-    if (!Object.hasOwn(assets, name)) throw new Error('Missing embedded editor asset: ' + name);
+    // Imported pose names may have no bundled art. Let the image's onError
+    // fallback render without throwing during React render or fetching a file.
+    if (!Object.hasOwn(assets, name)) return 'data:application/octet-stream;base64,';
     if (!urls.has(name)) {
       const [type, encoded] = assets[name];
       let bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));

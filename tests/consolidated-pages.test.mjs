@@ -41,7 +41,7 @@ test('Single HTML embeds executable code, CSS, binary resources, and intact nati
   assert.equal(context.__ASHENEDSPIRE_HTML__('native/erd-workbench-0.2.4.html'), await blobs[0].text());
   context.__ASHENEDSPIRE_ASSET_URL__('assets/font.ttf');
   assert.deepEqual(new Uint8Array(await blobs[1].arrayBuffer()), new Uint8Array([0, 255, 1, 128]));
-  assert.throws(() => context.__ASHENEDSPIRE_ASSET_URL__('missing'), /Missing embedded/);
+  assert.equal(context.__ASHENEDSPIRE_ASSET_URL__('assets/rogue-unavailable.webp'), 'data:application/octet-stream;base64,');
 });
 
 test('Consolidation fails for missing assets, escaping URLs, and split JavaScript', async (t) => {

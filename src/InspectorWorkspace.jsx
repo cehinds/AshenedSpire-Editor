@@ -4,6 +4,7 @@ import {CardDefinitionEditor} from './CardDefinitionEditor.jsx';
 import './card-inspector.css';
 
 export const INSPECTOR_EDIT_MODES=['Table','Form','Layout','JSON','Prompt'];
+export const isInspectorEditingMode=(workspace,mode)=>workspace!=='scenes'&&(mode!=='Layout'||workspace==='cards')&&INSPECTOR_EDIT_MODES.includes(mode);
 export function InspectorModeControl({ctx,modes}) {
   return <select aria-label="Inspector editing mode" value={ctx.inspectorMode} onChange={event=>ctx.setInspectorMode(event.target.value)}>{['Selection',...modes].map(mode=><option key={mode} value={mode}>{mode}</option>)}</select>;
 }

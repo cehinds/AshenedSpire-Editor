@@ -6,7 +6,7 @@ import {baseline,source} from './data.js';
 import {clone,commit,undo,redo,historyState,validateProject,toCSV} from './core.mjs';
 import {download,Notice,rulesText} from './Controls.jsx';
 import {Views} from './Views.jsx';
-import {InspectorWorkspace,InspectorModeControl,INSPECTOR_EDIT_MODES} from './InspectorWorkspace.jsx';
+import {InspectorWorkspace,InspectorModeControl,isInspectorEditingMode} from './InspectorWorkspace.jsx';
 import {CardWireframeCanvas} from './CardWireframeCanvas.jsx';
 import {WorkspaceToolbar} from './WorkspaceToolbar.jsx';
 import {prepareCardDefinition} from './card-definition.mjs';
@@ -20,8 +20,8 @@ import {validate as validatePose} from './native/model/presentationSequence.js';
 export const NAV=[['Content',[['cards','Cards'],['decks','Decks'],['tags','Tags / ERD']]],['Presentation',[['scenes','Scenes'],['battlefield','Battlefield'],['ui','UI settings'],['poses','Poses & effects']]],['Test',[['combat','Combat workshop']]],['Project',[['project','Project tools']]]];
 export const MODES={cards:['Visual','Table','Form','Layout','JSON','Prompt'],decks:['Collection','Validation'],tags:['Table','Tree','ERD 0.2.4','Import','CSV'],scenes:['Compose','Words & sound','JSON'],battlefield:['Layout','Sizing diagnostics','Compare','JSON'],ui:['Config','Compare','JSON'],poses:['Stage','Bindings','JSON'],combat:['Scenario','JSON'],project:['Overview','Repositories','Files','Builds','Game settings','Assets','Sources','History']};
 for(const modes of Object.values(MODES))modes.splice(1,0,'In game');
-const canvasModes=workspace=>MODES[workspace].filter(mode=>!INSPECTOR_EDIT_MODES.includes(mode));
-const inspectorModes=workspace=>MODES[workspace].filter(mode=>INSPECTOR_EDIT_MODES.includes(mode));
+const canvasModes=workspace=>MODES[workspace].filter(mode=>!isInspectorEditingMode(workspace,mode));
+const inspectorModes=workspace=>MODES[workspace].filter(mode=>isInspectorEditingMode(workspace,mode));
 const KEY='ashenedspire.editor.v1';
 const LEGACY_KEY='ashenspire.workbench.v1';
 function readInitial(){try{const p=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(LEGACY_KEY));if(p&&!validateProject(p).length)return p;}catch{}return clone(baseline);}
@@ -50,10 +50,10 @@ export function App(){
  function update(fn,label='Draft updated'){try{const next=clone(p);fn(next);const issues=validateProject(next);if(issues.length)throw new Error(issues[0]);setH(v=>commit(v,next));setIssue('');tell(label);return true;}catch(e){setIssue(e.message);tell(e.message);return false;}}
  function switchWs(id){if(id===ws)return;guarded(()=>{setWs(id);setQuery('');setLeftOpen(false);setInspectorOpen(false);setIssue('');});}
  function changeInspectorMode(m){if(m!=='Selection'&&!inspectorModes(ws).includes(m))return;setInspectorChoices(v=>({...v,[ws]:m}));setInspectorOpen(true);}
- function changeMode(m){if(INSPECTOR_EDIT_MODES.includes(m)){guarded(()=>changeInspectorMode(m));return;}if(m===mode)return;guarded(()=>setModes(v=>({...v,[ws]:m})));}
+ function changeMode(m){if(isInspectorEditingMode(ws,m)){guarded(()=>changeInspectorMode(m));return;}if(m===mode)return;guarded(()=>setModes(v=>({...v,[ws]:m})));}
  function inspectCard(id){choose(id,'cards');changeInspectorMode('Selection');}
  function chooseCardSection(section){setCardSection(section);changeInspectorMode('Form');}
- function openWorkspace(id,nextMode,repoId){guarded(()=>{if(typeof repoId==='function')repoId();else if(repoId)setRepositorySelection(repoId);setWs(id);if(nextMode){if(INSPECTOR_EDIT_MODES.includes(nextMode))setInspectorChoices(v=>({...v,[id]:nextMode}));else setModes(v=>({...v,[id]:nextMode}));}setQuery('');setLeftOpen(false);setInspectorOpen(false);setIssue('');});}
+ function openWorkspace(id,nextMode,repoId){guarded(()=>{if(typeof repoId==='function')repoId();else if(repoId)setRepositorySelection(repoId);setWs(id);if(nextMode){if(isInspectorEditingMode(id,nextMode))setInspectorChoices(v=>({...v,[id]:nextMode}));else setModes(v=>({...v,[id]:nextMode}));}setQuery('');setLeftOpen(false);setInspectorOpen(false);setIssue('');});}
  function focusPanel(panel){if(studioActive){window.dispatchEvent(new CustomEvent('ashenedspire:studio-command',{detail:{action:'focus',panel}}));return;}if(panel==='library'&&repositoryMode){openWorkspace('project','Files');return;}if(panel==='library')setLeftOpen(true);if(panel==='inspector')setInspectorOpen(true);requestAnimationFrame(()=>document.querySelector(panel==='editor'?'.work-surface':'.'+panel+'-panel')?.focus());}
  function saveDraft(){if(conflict){setDialog('conflict');return;}try{localStorage.setItem(KEY,JSON.stringify(p));setSaved('Saved locally');tell('Authoring draft saved in this browser');}catch{tell('Browser save failed. Export whole project to keep draft.');}}
  function exportProject(){download('AshenedSpire-workbench.json',p);tell('Authoring package exported. Repository buffers require separate saves.');}
@@ -75,7 +75,7 @@ export function App(){
  const menus=[
   {label:'File',items:[{label:'Import authoring package…',shortcut:'Ctrl O',action:()=>guarded(()=>importRef.current.click())},{label:'Save authoring draft',shortcut:'Ctrl S',disabled:repositoryMode,action:saveDraft},{label:'Export current document',disabled:repositoryMode,action:exportCurrent},{label:'Export table as CSV',disabled:repositoryMode,action:exportCsv},{label:'Export Excel workbook (.xlsx)',disabled:repositoryMode,action:exportExcel},{label:'Export whole project',shortcut:'Ctrl Shift S',action:exportProject},{label:'Load / save native checkout document…',action:()=>guarded(()=>{setDialog(null);setNativeOpen(true);})},{separator:true},{label:'Repository files…',action:()=>openWorkspace('project','Files')},{label:'Add local repository…',action:()=>openWorkspace('project','Repositories')},{separator:true},{label:'Reset authoring draft…',action:()=>setDialog('reset')}]},
   {label:'Edit',items:[{label:'Undo draft change',shortcut:'Ctrl Z',disabled:repositoryMode||!h.past.length,action:()=>setH(undo)},{label:'Redo draft change',shortcut:'Ctrl Shift Z',disabled:repositoryMode||!h.future.length,action:()=>setH(redo)},{separator:true},{label:'Find anything…',shortcut:'Ctrl K',action:()=>setDialog('search')},{label:'Review draft changes…',action:()=>setDialog('review')}]},
-  {label:'View',items:[...MODES[ws].map(m=>({label:m,checked:INSPECTOR_EDIT_MODES.includes(m)?m===inspectorMode:m===mode,action:()=>changeMode(m)})),{separator:true},...NAV.flatMap(group=>group[1]).map(([id,label])=>({label,checked:id===ws,action:()=>switchWs(id)}))]},
+  {label:'View',items:[...MODES[ws].map(m=>({label:m,checked:isInspectorEditingMode(ws,m)?m===inspectorMode:m===mode,action:()=>changeMode(m)})),{separator:true},...NAV.flatMap(group=>group[1]).map(([id,label])=>({label,checked:id===ws,action:()=>switchWs(id)}))]},
   {label:'Build',items:[{label:'Builds and game preview…',action:()=>openWorkspace('project','Builds')},{label:'Local repositories…',action:()=>openWorkspace('project','Repositories')},{separator:true},{label:'Validate authoring draft',action:()=>{const issues=validateProject(p);tell(issues.length?issues.join('; '):'Authoring project validation passed');}},{label:'Preview health…',action:()=>setDialog('health')}]},
   {label:'Window',items:[{label:'Focus editor',action:()=>focusPanel('editor')},{label:repositoryMode?'Repository file explorer':'Library',action:()=>focusPanel('library')},{label:'Inspector',action:()=>focusPanel('inspector')},{separator:true},{label:'Project overview',action:()=>openWorkspace('project','Overview')},{label:'Draft history',action:()=>openWorkspace('project','History')},{separator:true},{label:'Reset window positions',action:()=>{resetPanelPositions();tell('Floating windows and menus reset');}},{label:'Restore default layout',action:()=>{resetPanelPositions();window.dispatchEvent(new CustomEvent('ashenedspire:studio-command',{detail:{action:'reset'}}));setLeftOpen(false);setInspectorOpen(false);tell('Editor layout restored');}}]},
 

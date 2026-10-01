@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {useAuth} from './AuthGate.jsx';
+import {useLocalHost} from './AuthGate.jsx';
 import './repository.css';
 import {LocalBranches} from './LocalBranches.jsx';
 
@@ -8,9 +8,9 @@ const localRepos = repos => repos.filter(repo => repo.kind === 'local');
 
 export function RepositoryWorkspace({mode, ctx = {}})
 {
-    const auth = useAuth();
-    const offline = auth?.offline === true;
-    const authenticated = auth ? auth.localAccess === true || auth.authenticated === true : true;
+    const localHost = useLocalHost();
+    const offline = localHost?.offline === true;
+    const hostAvailable = localHost?.connected === true;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
     const [repoId, setRepoId] = useState('');
@@ -38,7 +38,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const loadedRepoId = useRef(null);
     const dirty = file !== null && text !== file.content;
     const repo = repos.find(item => item.id === repoId);
-    const connected = authenticated && !offline && host?.connected === true;
+    const connected = hostAvailable && !offline && host?.connected === true;
     const ready = connected && repo?.status === 'connected';
 
     const request = useCallback(async (path, options = {}) =>
@@ -58,7 +58,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             const value = await response.json();
             if (!response.ok)
             {
-                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-auth-expired'));
+                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-host-disconnected'));
                 const problem = new Error(value.error || `Host request failed (${response.status}).`);
                 problem.status = response.status;
                 throw problem;
@@ -100,13 +100,14 @@ export function RepositoryWorkspace({mode, ctx = {}})
     useEffect(() =>
     {
         let active = true;
-        if (!authenticated || offline)
+        if (!hostAvailable || offline)
         {
             setHost(null);
             setLoading(false);
             if (offline) setError('Local editor host required. Offline preview supports authoring drafts only.');
             return;
         }
+        setHost(null);
         setLoading(true);
         setError('');
         async function load()
@@ -131,7 +132,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             active = false;
             requests.current.forEach(controller => controller.abort());
         };
-    }, [authenticated, offline]);
+    }, [hostAvailable, offline, localHost?.connectionId]);
 
     useEffect(() =>
     {
@@ -185,7 +186,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
         if (loadedRepoId.current !== repoId)
         {
             loadedRepoId.current = repoId;
-            setTrees({}); setExpanded(new Set([''])); setFile(null); setText(''); if (authenticated && !offline) setError(''); setMessage('');
+            setTrees({}); setExpanded(new Set([''])); setFile(null); setText(''); if (hostAvailable && !offline) setError(''); setMessage('');
         }
         setPreview(null); setCurrentArtifacts({artifacts: [], reason: 'Checking verified build outputs…'});
         navigationGeneration.current += 1;
@@ -313,7 +314,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const currentJobArtifacts = repoJobs.some(job => job.status === 'succeeded' && job.artifactState !== 'stale' && !job.artifactsStale && job.artifacts?.length);
 
     return <section className="repository-workspace" aria-label={`${mode} workspace`}>
-        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require the local editor host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
+        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require this editor’s local host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
         <LocalBranches repoId={ready ? repoId : ''} disabled={!ready || !!busy || running} dirty={dirty} onChanged={branchChanged}/>
         {error ? <div role="alert" className="repo-notice error">{error}</div> : null}
         {message ? <div role="status" className="repo-notice">{message}</div> : null}

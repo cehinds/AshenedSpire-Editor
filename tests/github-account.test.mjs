@@ -173,9 +173,6 @@ test("GitHub routes preserve session, origin, CSRF, JSON and credential-input pr
     const bootstrap = await fetch(`${origin}/api/auth/session`);
     let cookie = bootstrap.headers.get("set-cookie").split(";")[0];
     const session = await bootstrap.json();
-    const signin = await fetch(`${origin}/api/auth/setup`, { method: "POST", headers: { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": session.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-    assert.equal(signin.status, 200);
-    cookie = signin.headers.get("set-cookie").split(";")[0];
     const status = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: cookie } }).then(response => response.json());
     const headers = { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Workbench-CSRF": status.csrfToken };
     for (const [overrides, body, expected] of [[{ Origin: "https://evil.example" }, {}, 403], [{ "X-Workbench-CSRF": "" }, {}, 403], [{ "Content-Type": "text/plain" }, {}, 415], [{}, { token: "never-forward" }, 400]]) {

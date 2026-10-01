@@ -2,7 +2,7 @@
 
 Continuous Integration (CI) checks changes before merge. The Continuous Delivery (CD) workflow supports publishing validated, consolidated HTML editor previews through GitHub Actions and Pages.
 
-The repository is `cehinds/AshenedSpire-Editor`, with source promotion through `dev` → `test` → `main`. Optional GitHub account authorization in the editor uses GitHub CLI and the OS default browser; it does not authorize publication or connect a checkout by itself. The publication details below describe workflow capabilities; repository settings determine whether publication runs.
+The repository is `cehinds/AshenedSpire-Editor`, with source promotion through `dev` → `test` → `main`. The user approved publishing consolidated HTML from `test` to `https://cehinds.github.io/AshenedSpire-Editor/test/<run-number>-<attempt>/`, preserving immutable history and channel latest links; this supersedes the earlier pause. Optional GitHub account authorization in the editor uses GitHub CLI and the OS default browser; it does not publish a site or connect a checkout by itself. Workflow success establishes whether a particular numbered build was delivered.
 
 ## Repository layout
 
@@ -52,7 +52,7 @@ These are deterministic automated code checks. Semantic human or AI code review 
 
 ## Versioned publication
 
-When enabled, `Versioned Pages` is configured for pushes to `dev`, `test`, or `main`, or manual dispatch on those branches. Build stage independently reruns fast gates before upload. Artifact uses Vite base path `/<repository>/<branch>/<run-number>-<attempt>/` so bundled assets, native tools, and static links stay inside that version.
+`Versioned Pages` is configured for pushes to `dev`, `test`, or `main`, or manual dispatch on those branches. Build stage independently reruns fast gates before upload. Artifact uses Vite base path `/<repository>/<branch>/<run-number>-<attempt>/` so bundled assets, native tools, and static links stay inside that version.
 
 `build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains the local runtime with automatic loopback sessions. The initial `dist/client` build includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host. Consolidation embeds those resources in `dist/pages/index.html`; only that HTML is uploaded to the publication job. The local build and Sites packaging remain separate from consolidated Pages output.
 
@@ -74,7 +74,7 @@ Required settings for publication from the existing repository:
 
 ## Hosted and local behavior
 
-GitHub Pages serves public static files. Hosted editor supports authoring snapshots and embedded native tools in explicitly labeled offline authoring mode. It cannot enforce password authentication or run account/session APIs. A password prompt inside static HTML would not protect files; this project does not claim it does.
+GitHub Pages serves public static files. Hosted editor supports authoring snapshots, embedded native tools and isolated native game previews in explicitly labeled offline authoring mode. The bundled game renderer needs no repository host; its previews do not persist game saves or write checkout files. Pages cannot enforce password authentication or run account/session APIs. A password prompt inside static HTML would not protect files; this project does not claim it does.
 
 Local editor opens without an account or sign-in. Vite uses `authOptions.requireLogin: false`; `/api/auth` issues an automatic loopback-only session, and `/api/workbench` retains session, CSRF and origin checks. Local repository import, checkout file editing, native settings promotion, package installs, and real game builds require this local Node/Git host through `npm run dev` or `npm run preview`. Local-folder import does not contact a remote. Optional Account authorization opens GitHub in the OS default browser using GitHub CLI; credentials stay on the host and no password/token input is present in the editor frontend. A repository is connected only after its clone succeeds.
 

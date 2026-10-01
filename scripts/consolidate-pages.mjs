@@ -1,7 +1,7 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/plain', '.css': 'text/css', '.json': 'application/json', '.csv': 'text/plain', '.txt': 'text/plain', '.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.woff2': 'font/woff2' };
+const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/plain', '.css': 'text/css', '.json': 'application/json', '.csv': 'text/plain', '.txt': 'text/plain', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2', '.ogg': 'audio/ogg', '.mp3': 'audio/mpeg' };
 
 async function filesIn(directory, prefix = '') {
   const files = [];
@@ -57,6 +57,10 @@ export async function consolidatePages({ directory, outputDirectory, base }) {
 (() => {
   const assets = ${JSON.stringify(assets).replace(/</g, '\\u003c')};
   const urls = new Map();
+  globalThis.__ASHENEDSPIRE_FRAME_URL__ = (name) => {
+    if (!Object.hasOwn(assets, name)) return 'data:application/octet-stream;base64,';
+    return 'data:' + assets[name][0] + ';base64,' + assets[name][1];
+  };
   globalThis.__ASHENEDSPIRE_HTML__ = (name) => {
     if (!Object.hasOwn(assets, name) || assets[name][0] !== 'text/html') throw new Error('Missing embedded HTML: ' + name);
     return new TextDecoder().decode(Uint8Array.from(atob(assets[name][1]), c => c.charCodeAt(0)));

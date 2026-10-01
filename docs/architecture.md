@@ -8,6 +8,8 @@ Editor brand is AshenedSpire. Referenced game source remains `cehinds/AshenSpire
 |---|---|---|
 | `src/App.jsx` | Shared shell, desktop File/Edit/View/Build/Window menus, workspace state and recovery | Browser |
 | `src/Views.jsx` | Cards, Decks, Tags/ERD, Scenes, Battlefield, UI, Poses, Combat and Project panels | Browser |
+| `src/InGamePreview.jsx`, `src/NativePreviewFrame.jsx` | Workspace preview routing and script-only sandboxed frames with applied-draft acknowledgements | Browser |
+| `src/ScenePreview.jsx`, `src/GameCardPreview.jsx`, `src/GameRuntimePreview.jsx` | Native scene/card rendering and isolated playable combat with current drafts | Browser |
 | `src/RepositoryWorkspace.jsx` | Connected repository list, file hierarchy/editor, build jobs and previews | Browser; calls local host with session |
 | `src/core.mjs` | Authoring state, validation, import/export, undo/redo helpers | Browser and domain tests |
 | `src/NativeDocumentBridge.jsx` | Reviewed native source load/save with current revision and retained metadata | Local host with session |
@@ -15,6 +17,7 @@ Editor brand is AshenedSpire. Referenced game source remains `cehinds/AshenSpire
 | `src/LocalBranches.jsx` | Local branch creation, switching and safe deletion | Local host with session |
 | `src/xlsx.js` | Genuine Excel ZIP/Office Open XML export; typed tabular cells and safe string handling | Browser and byte-level tests |
 | `src/native/` | Retained native presentation model and generated configuration | Browser |
+| `src/native/game-preview/` | Bundled game renderer snapshot, runtime, assets map and provenance | Browser build input |
 | `src/sources/` | Inspected authoring source snapshots used by local drafts | Browser build input |
 | `public/assets/`, `public/fonts/` | Source-art previews and local fonts | Static |
 | `public/native/` | Independent ERD Workbench 0.2.4 document | Static iframe/full window |
@@ -47,6 +50,7 @@ Folders separate by runtime and responsibility. `main`, `dev`, and `test` are Gi
 | Repository registration and checkouts | Ignored `.workbench/` | Local host creates isolated clones after checking session |
 | Checkout text files | Managed checkout | Explicit save with session and revision checks |
 | Game build outputs | Managed checkout build folders | Real declared/native build process; logs and verified generation tracked |
+| In game preview state | Script-only sandboxed frame | Current draft inputs acknowledged by revision; no checkout writes or persistent game saves |
 | Published editor snapshot | Optional Pages HTML/artifact history | CI copies validated static output; no authentication database or checkout directories |
 
 Exports stay separate from game source. Native document bridge loads existing Tags/Scenes/UI documents, preserves their metadata, then explicitly saves a reviewed revision. Native settings promotion invokes the selected checkout’s actual validator and writes its promoted defaults. Other draft modes remain separate. File saves modify isolated checkouts. Build jobs use those checkouts; no implicit commit, push, merge or engine import occurs.
@@ -71,10 +75,10 @@ The password-mode authentication library remains available for explicitly config
 
 Password-free editor access requires loopback; it is not a public-host authentication mode. Private hosted access requires TLS and an appropriately authenticated backend deployment; it is outside static Pages templates. Private-path restrictions and checkout isolation apply independently of the sign-in UI.
 
-Offline authoring mode is an explicit static build target (`npm run build:pages`, `VITE_EDITOR_RUNTIME=static`). Browser authoring remains available there; GitHub authorization, local repository operations and real game builds do not. An unavailable local host does not grant repository access or turn backend operations into successful actions.
+Offline authoring mode is an explicit static build target (`npm run build:pages`, `VITE_EDITOR_RUNTIME=static`). Browser authoring and bundled native game previews remain available there; GitHub authorization, local repository operations and new checkout game builds do not. Native scene/card rendering and isolated combat run the committed snapshot, separately from checkout saves and builds. An unavailable local host does not grant repository access or turn backend operations into successful actions. See [preview behavior and limits](in-game-preview.md).
 
 GitHub Pages cannot enforce password authentication. Published bundles, native tools and source snapshots are public static files. Private remote access would require an authenticated backend and access-controlled asset delivery. Local session protection is not a claim that exported HTML or public Pages files are private.
 
 ## Local source flow
 
-Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. The Pages workflow supports each channel in versioned folders with consolidated HTML and immutable history. See [CI/CD](ci-cd.md) for workflow permissions, build URLs and timing limits.
+Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. The approved delivery publishes consolidated HTML from `test` through the existing repository's Pages workflow, preserving immutable numbered builds and channel latest links. Consolidation includes the native game preview runtime and assets; local and Sites outputs remain separate. See [CI/CD](ci-cd.md) for workflow permissions, build URLs and timing limits.

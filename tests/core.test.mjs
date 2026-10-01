@@ -32,6 +32,17 @@ test('portable source package and retained ERD mapping validate without losing u
   p.erdNative.mapping.parent='';
   assert.deepEqual(validateProject(p),[]);
 });
+
+test('native tagging persists as separate draft data and invalid or duplicate association rows are rejected',()=>{
+  const p=packageFixture();
+  p.tagging=parseCSV(readFileSync(new URL('../src/sources/tagging.csv',import.meta.url),'utf8'));
+  assert.deepEqual(validateProject(JSON.parse(JSON.stringify(p))),[]);
+  p.tagging.push({...p.tagging[0]});
+  assert(validateProject(p).includes('Duplicate native tag assignment'));
+  for(const tagging of [null,{},[null],[{family:'card',objectId:'ambush',tagId:'blade'}]]){
+    assert(validateProject({...p,tagging}).includes('Malformed native tag assignments'));
+  }
+});
 test('package import and recovery reject malformed retained ERD before Tags render',()=>{
   const invalid=[
     {raw:{}},

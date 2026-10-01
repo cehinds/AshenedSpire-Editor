@@ -46,12 +46,13 @@ const noRuntimeAssets = () => false;
 export function GameCardPreview({ctx: {p, ws, card, node}}) {
   const [upgraded,setUpgraded] = useState(false);
   const [page,setPage] = useState(0);
-  const ids = ws === 'decks' ? p.deck : ws === 'tags' ? cardsForTag(p.cards,p.nodes,assignments,node.id).map(row => row.id) : [card.id];
+  const tagging = p.tagging ?? assignments;
+  const ids = ws === 'decks' ? p.deck : ws === 'tags' ? cardsForTag(p.cards,p.nodes,tagging,node.id).map(row => row.id) : [card.id];
   const size = ws === 'cards' ? 1 : 6;
   const maxPage = Math.max(0,Math.ceil(ids.length/size)-1);
   const currentPage = Math.min(page,maxPage);
   const visibleIds = ids.slice(currentPage*size,(currentPage+1)*size);
-  const snapshot = useMemo(() => ({draft:{cards:p.cards,nodes:p.nodes,styles:p.styles,owned:p.owned},assignments,ids:visibleIds,offset:currentPage*size,upgraded}), [p.cards,p.nodes,p.styles,p.owned,visibleIds.join('|'),currentPage,size,upgraded]);
+  const snapshot = useMemo(() => ({draft:{cards:p.cards,nodes:p.nodes,styles:p.styles,owned:p.owned,tagging},ids:visibleIds,offset:currentPage*size,upgraded}), [p.cards,p.nodes,p.styles,p.owned,tagging,visibleIds.join('|'),currentPage,size,upgraded]);
   return <section className="game-card-preview">
     <div className="game-card-preview-toolbar">
       <strong>{ws === 'decks' ? 'Deck shelf' : ws === 'tags' ? `${node.label} · linked cards` : 'Card in game'}</strong>

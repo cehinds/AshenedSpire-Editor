@@ -17,7 +17,34 @@ export function createCardDefinition(project, templateId, {id, name}) {
   checkIdentity(project.cards, id, name);
   const template = project.cards.find(card => card.id === templateId);
   if (!template) throw new Error('The template card no longer exists. Choose another card.');
-  return {...copy(template), id, name: name.trim()};
+  const definition = {...copy(template), id, name: name.trim()};
+  if (definition.upgrade?.id !== undefined) definition.upgrade.id = id;
+  return definition;
+}
+export function createCardDraft(project, templateId, identity, sourceTagging = []) {
+  const definition = createCardDefinition(project, templateId, identity);
+  const existing = project.tagging ?? sourceTagging;
+  if (existing.some(row => row.family === 'card' && row.objectId === definition.id)) throw new Error('This ID already has native card tag assignments. Choose another ID.');
+  const tagging = existing.filter(row => row.family === 'card' && row.objectId === templateId).map(row => ({...copy(row), objectId: definition.id}));
+  const nodes = new Map((project.nodes || []).map(node => [node.id, node]));
+  const isClassification = id => {
+    const seen = new Set();
+    while (id && !seen.has(id)) {
+      if (id === 'classification') return true;
+      seen.add(id); id = nodes.get(id)?.parentId;
+    }
+    return false;
+  };
+  if (tagging.filter(row => isClassification(row.tagId)).length !== 1) throw new Error('The template needs exactly one native classification assignment before it can be copied.');
+  return {definition, tagging, ownedCopies: 2};
+}
+export function applyCardDraft(project, proposal, sourceTagging = []) {
+  checkIdentity(project.cards, proposal.definition.id, proposal.definition.name);
+  const existing = project.tagging ?? sourceTagging;
+  if (existing.some(row => row.family === 'card' && row.objectId === proposal.definition.id)) throw new Error('This ID already has native card tag assignments. Review a new ID.');
+  project.cards.push(copy(proposal.definition));
+  project.tagging = [...copy(existing), ...copy(proposal.tagging)];
+  project.owned[proposal.definition.id] = proposal.ownedCopies;
 }
 export function uiConfigIssues(config) {
   if (!config || typeof config !== 'object' || Array.isArray(config) || !config.sizing?.bands || typeof config.sizing.bands !== 'object' || Array.isArray(config.sizing.bands)) return ['Native sizing.bands required'];

@@ -25,7 +25,7 @@ export function previewContentBundle(base, draft, assignments = base.tagging) {
     ...base,
     cards: merge(base.cards, draft.cards), nodes, tags,
     tagDomains: nodes.filter(row => !row.parentId).map(row => ({...row})),
-    tagging: (assignments || []).map(row => ({...row})),
+    tagging: (draft.tagging ?? assignments ?? []).map(row => ({...row})),
   };
 }
 

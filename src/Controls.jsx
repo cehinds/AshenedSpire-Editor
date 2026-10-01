@@ -1,13 +1,40 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 export function Notice({children,tone=''}){return <div className={'notice '+tone}>{children}</div>;}
-export function NumberControl({label,value,min=0,max=100,step=1,unit='',onChange,onReset}){
+export function NumberControl({label,value,min=0,max=100,step=1,unit='',onChange,onReset,live=false}){
  const [draft,setDraft]=useState(String(value)),[error,setError]=useState('');
- useEffect(()=>{setDraft(String(value));setError('');},[value]);
- function apply(){const n=Number(draft);if(!draft.trim()||!Number.isFinite(n)||n<min||n>max){setError(`Enter ${min}-${max} ${unit}`);return;}if(n!==value)onChange(n);setError('');}
- return <div className="number-control"><label>{label}<span>{unit}</span></label><div className="number-row"><button aria-label={`Decrease ${label}`} disabled={value<=min} onClick={()=>onChange(Math.max(min,value-step))}>-</button><input aria-label={`${label} slider`} type="range" min={min} max={max} step={step} value={Number(draft)||value} onChange={e=>setDraft(e.target.value)} onPointerUp={e=>onChange(Number(e.currentTarget.value))} onKeyUp={e=>onChange(Number(e.currentTarget.value))}/><input aria-label={label} className="exact" inputMode="decimal" value={draft} onChange={e=>setDraft(e.target.value)} onPointerUp={e=>{const el=e.currentTarget;if(el.selectionStart===el.selectionEnd)el.setSelectionRange(el.value.length,el.value.length);}} onBlur={apply} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}if(e.key==='Escape'){setDraft(String(value));setError('');}}}/><button aria-label={`Increase ${label}`} disabled={value>=max} onClick={()=>onChange(Math.min(max,value+step))}>+</button></div>{onReset?<button className="text-button" onClick={onReset}>Reset to inherited value</button>:null}{error?<small className="error">{error}</small>:null}<small>{min}-{max} {unit} / step {step}</small></div>;
+ const ownValue=useRef(null);
+ useEffect(()=>{if(ownValue.current!==value){setDraft(String(value));setError('');}ownValue.current=null;},[value]);
+ function apply(next=draft){const n=Number(next);if(!next.trim()||!Number.isFinite(n)||n<min||n>max){setError(`Enter a number from ${min} to ${max}${unit?' '+unit:''}.`);return;}if(n!==value&&n!==ownValue.current){ownValue.current=n;onChange(n);}setError('');}
+ function edit(next){setDraft(next);if(live)apply(next);else setError('');}
+ function resetBuffer(){ownValue.current=null;setDraft(String(value));setError('');}
+ const sliderValue=draft.trim()&&Number.isFinite(Number(draft))?Math.min(max,Math.max(min,Number(draft))):value;
+ return <div className="number-control"><label>{label}<span>{unit}</span></label><div className="number-row"><button type="button" aria-label={`Decrease ${label}`} disabled={value<=min} onClick={()=>{const next=String(Math.max(min,value-step));setDraft(next);apply(next);}}>-</button><input aria-label={`${label} slider`} type="range" min={min} max={max} step={step} value={sliderValue} onChange={e=>edit(e.target.value)} onPointerUp={e=>{if(!live)apply(e.currentTarget.value);}} onKeyUp={e=>{if(!live)apply(e.currentTarget.value);}}/><input aria-label={label} className="exact" inputMode="decimal" value={draft} onChange={e=>edit(e.target.value)} onPointerUp={e=>{const el=e.currentTarget;if(el.selectionStart===el.selectionEnd)el.setSelectionRange(el.value.length,el.value.length);}} onBlur={()=>apply()} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}if(e.key==='Escape'){e.preventDefault();resetBuffer();}}}/><button type="button" aria-label={`Increase ${label}`} disabled={value>=max} onClick={()=>{const next=String(Math.min(max,value+step));setDraft(next);apply(next);}}>+</button></div>{onReset?<button type="button" className="text-button" onClick={()=>{resetBuffer();onReset();}}>Reset to inherited value</button>:null}{error?<small className="error" role="alert">{error}</small>:null}<small>{min}-{max} {unit} / step {step}</small></div>;
 }
-export function TextField({label,value,onChange,multiline=false,disabled=false}){const [draft,setDraft]=useState(value??'');useEffect(()=>setDraft(value??''),[value]);const props={value:draft,disabled,onChange:e=>setDraft(e.target.value),onBlur:()=>draft!==value&&onChange(draft),'aria-label':label};return <label className="field">{label}{multiline?<textarea rows={4} {...props}/>:<input {...props}/>}</label>;}
-export function JsonEditor({value,onApply,validate=()=>[]}){const [text,setText]=useState(JSON.stringify(value,null,2)),[error,setError]=useState('');useEffect(()=>{setText(JSON.stringify(value,null,2));setError('');},[value]);return <div className="source-editor"><div className="source-actions"><span>Last valid document remains active.</span><button className="primary" onClick={()=>{try{const p=JSON.parse(text),e=validate(p);if(e.length)throw new Error(e.join('; '));onApply(p);setError('');}catch(e){setError(e.message);}}}>Apply valid draft</button></div><textarea aria-label="JSON source" spellCheck={false} value={text} onChange={e=>setText(e.target.value)}/>{error?<Notice tone="error">{error}</Notice>:null}</div>;}
+export function TextField({label,value,onChange,multiline=false,disabled=false,live=false}){const [draft,setDraft]=useState(value??'');useEffect(()=>setDraft(value??''),[value]);const props={value:draft,disabled,onChange:e=>{const next=e.target.value;setDraft(next);if(live)onChange(next);},onBlur:()=>{if(!live&&draft!==(value??''))onChange(draft);},'aria-label':label};return <label className="field">{label}{multiline?<textarea rows={4} {...props}/>:<input {...props}/>}</label>;}
+export function JsonEditor({value,onApply,validate=()=>[],live=false,showReset=false}){
+ const document=JSON.stringify(value);
+ const [text,setText]=useState(()=>JSON.stringify(value,null,2)),[error,setError]=useState('');
+ const ownDocument=useRef(null);
+ // Shared authoring updates clone records. Only changed document content should
+ // replace an unfinished buffer; an accepted local edit keeps its formatting.
+ useEffect(()=>{if(ownDocument.current!==document){setText(JSON.stringify(JSON.parse(document),null,2));setError('');}ownDocument.current=null;},[document]);
+ function apply(next=text){
+  try{
+   const parsed=JSON.parse(next),problems=validate(parsed);
+   if(problems.length)throw new Error(problems.join('; '));
+   const serialized=JSON.stringify(parsed);
+   if(serialized!==document&&serialized!==ownDocument.current){
+    const previous=ownDocument.current;
+    ownDocument.current=serialized;
+    try{if(onApply(parsed)===false)throw new Error('Draft was rejected. Last valid document remains active.');}
+    catch(problem){ownDocument.current=previous;throw problem;}
+   }
+   setError('');
+  }catch(problem){setError(problem.message||'Draft could not be applied.');}
+ }
+ function resetBuffer(){ownDocument.current=null;setText(JSON.stringify(value,null,2));setError('');}
+ return <div className="source-editor"><div className="source-actions"><span>{live?'Valid edits apply live. Last valid document remains active.':'Last valid document remains active.'}</span>{showReset?<button type="button" onClick={resetBuffer}>Reset JSON buffer</button>:null}<button type="button" className="primary" onClick={()=>apply()}>Apply valid draft</button></div><textarea aria-label="JSON source" aria-invalid={Boolean(error)} spellCheck={false} value={text} onChange={e=>{const next=e.target.value;setText(next);if(live)apply(next);else setError('');}}/>{error?<Notice tone="error"><span role="alert">{error}</span></Notice>:null}</div>;
+}
 export function DataTable({headers,children}){return <div className="table-scroll"><table><thead><tr>{headers.map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>{children}</tbody></table></div>;}
 export function rulesText(card){return (card.textTemplate||'No rules text supplied.').replace(/\{([\w.]+)\}/g,(all,key)=>{const [op,index]=key.split('.');const matches=card.effects.filter(e=>e.op===op||e.status===op||op==='hits'&&e.hits!==undefined);const e=matches[(Number(index)||1)-1],v=op==='hits'?e?.hits:e?.amount??e?.stacks;return typeof v==='number'?v:all;});}
 export function Card({card,style={}}){return <article className="card-face" style={{fontSize:style.fontSize||17}}><h2>{card.name}</h2><span className="card-kind">{card.class||'Colorless'} / {card.type}</span>{style.art?<img className="card-art" src={style.art} alt={`${card.name} artwork override`} style={{objectFit:style.fit||'cover'}}/>:null}<p>{rulesText(card).replace(/\. /g,'.\n')}</p><div className="card-costs">Action {card.cost??0}{card.staminaCost?` / Stamina ${card.staminaCost}`:''}{card.manaCost?` / Mana ${card.manaCost}`:''}</div><code>{card.id}</code></article>;}

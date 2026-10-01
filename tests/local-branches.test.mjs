@@ -115,7 +115,8 @@ test("reviewed local native settings promotion invokes tool, validates profile, 
   try {
     const original = await source(temp, "AshenSpire", true); const root = path.join(temp, "editor"); await mkdir(root); app = await serve(root);
     const { api } = app; const repo = (await api("/repos", "POST", { path: original })).body.repo; const prefix = `/repos/${repo.id}`;
-    assert.equal((await api(prefix + "/connect", "POST", {})).status, 200);
+    const connection = await api(prefix + "/connect", "POST", {});
+    assert.equal(connection.status, 200, JSON.stringify(connection.body));
     const capabilities = (await api(prefix + "/git")).body; assert.equal(capabilities.adapter, "ashenspire-node"); assert.equal(capabilities.canPromoteSettings, true);
     const profile = { game: "Ashen Spire", schemaVersion: 1, overrides: { "settings.musicVolume": 35 } };
     assert.equal((await api(prefix + "/jobs", "POST", { task: "settings", profile }, { Cookie: "" })).status, 401);

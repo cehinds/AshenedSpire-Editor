@@ -94,7 +94,7 @@ export function GameRuntimePreview({ ctx }) {
   const [restart, setRestart] = useState(0);
   const [testClass, setTestClass] = useState('rogue');
   const [message, setMessage] = useState('Loading native encounter…');
-  const draft = useMemo(() => ({ project: { cards: p.cards, nodes: p.nodes, deck: p.deck, scenario: p.scenario, ui: p.ui, gameSettings: p.gameSettings, pose: ws === 'poses' ? p.pose : undefined }, workspace: ws, testClass }), [p.cards, p.nodes, p.deck, p.scenario, p.ui, p.gameSettings, p.pose, ws, testClass]);
+  const draft = useMemo(() => ({ project: { cards: p.cards, nodes: p.nodes, tagging: p.tagging, deck: p.deck, scenario: p.scenario, ui: p.ui, gameSettings: p.gameSettings, pose: ws === 'poses' ? p.pose : undefined }, workspace: ws, testClass }), [p.cards, p.nodes, p.tagging, p.deck, p.scenario, p.ui, p.gameSettings, p.pose, ws, testClass]);
   const [snapshot, setSnapshot] = useState(draft);
   useEffect(() => { const timer = setTimeout(() => setSnapshot(draft), 200); return () => clearTimeout(timer); }, [draft]);
   const initialGlobals = useMemo(() => ({ __ASHEN_PREVIEW_UI__: snapshot.project.ui }), [snapshot.project.ui]);

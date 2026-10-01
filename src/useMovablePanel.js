@@ -97,4 +97,3 @@ export function useMovablePanel({storageKey, initialSize = {width: 320, height: 
     };
     return {ref, position, style: {left: position.x, top: position.y}, dragHandleProps, reset, setPosition, dragging};
 }
-

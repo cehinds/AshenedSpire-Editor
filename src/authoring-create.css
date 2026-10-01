@@ -8,3 +8,9 @@
 .wireframe-library{padding:16px 20px;border-bottom:1px solid var(--border,#393b3e)}
 .wireframe-library .button-row{flex-wrap:wrap;margin-top:12px}
 @media(max-width:600px){.draft-create,.wireframe-library{padding:12px}.draft-create .form-grid{grid-template-columns:1fr}}
+.draft-create.draft-create-compact{padding:0;border:0;background:none;flex:none}
+.draft-create-compact>.button-row{gap:0}
+.draft-create-modal{margin:auto;color:var(--text);border:1px solid var(--line);max-height:calc(100dvh - 32px);width:min(720px,calc(100vw - 32px));overflow:auto}
+.draft-create-modal::backdrop{background:#0009}
+.draft-create-modal .draft-create-review{padding-top:0}
+@media(max-width:600px){.draft-create-modal .form-grid{grid-template-columns:1fr}}

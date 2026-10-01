@@ -568,7 +568,7 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
                 await command("git", ["checkout", branch], stage, commandTimeout);
               }
               await promoteCheckoutStage(stage, target, {reposRoot, validateParent: () => noSymlink(root, ".workbench/repos")});
-            } finally { await rm(stage, { recursive: true, force: true }); }
+            } finally { await rm(stage, { recursive: true, force: true, maxRetries: process.platform === "win32" ? 5 : 0, retryDelay: 100 }); }
           }
           repo.head = (await command("git", ["rev-parse", "HEAD"], await checkout(repo), commandTimeout)).trim();
           repo.branch = (await command("git", ["branch", "--show-current"], await checkout(repo), commandTimeout)).trim();

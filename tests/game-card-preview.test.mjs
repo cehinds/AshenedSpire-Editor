@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {cardsForTag, previewContentBundle} from '../src/game-card-preview.mjs';
-import {parseCSV} from '../src/core.mjs';
+import {parseCSV, historyState, commit, undo, redo} from '../src/core.mjs';
+import {createCardDraft, applyCardDraft} from '../src/authoring-create.mjs';
 
 test('native bundle overlays live cards and derives changed tag ancestry without mutating sources', () => {
   const base = {cards: [{id:'a', name:'Original', damageSchool:'steel'}, {id:'b', name:'Unedited'}], nodes: [{id:'card',parentId:'',label:'Cards'}, {id:'theme',parentId:'',label:'Theme'}, {id:'blade',parentId:'card',label:'Blade',color:'AABBCC'}], tagging: [{family:'card',objectId:'a',tagId:'blade'}]};
@@ -44,4 +45,47 @@ test('real bundled native registries accept editor drafts and leave native sourc
   assert.equal(native.contentBundle.cards.find(card=>card.id==='ambush').name,'Ambush');
   assert.equal(typeof native.renderCard,'function');
   assert.equal(typeof native.cardShapeCssProperties,'function');
+});
+
+test('partial draft tag edits retain native-only classifications and allow owned-card assignment removal', () => {
+  const base = {cards:[{id:'edited'},{id:'native-only'}],tagging:[{family:'card',objectId:'edited',tagId:'old'},{family:'card',objectId:'native-only',tagId:'attack'}]};
+  const changed = previewContentBundle(base,{cards:[{id:'edited'}],tagging:[{family:'card',objectId:'edited',tagId:'new'}]});
+  assert.deepEqual(changed.tagging.map(row=>row.tagId),['attack','new']);
+  const cleared = previewContentBundle(base,{cards:[{id:'edited'}],tagging:[]});
+  assert.deepEqual(cleared.tagging,[base.tagging[1]]);
+  assert.notEqual(cleared.tagging[0],base.tagging[1]);
+  assert.equal(base.tagging[0].tagId,'old');
+});
+
+test('new reviewed card is accepted by native registries from exported draft tagging and disappears on Undo', () => {
+  const read = path => fs.readFileSync(new URL(path,import.meta.url),'utf8');
+  const context = vm.createContext({console,setTimeout,clearTimeout,queueMicrotask:()=>{},TextEncoder,TextDecoder,structuredClone,performance});
+  vm.runInContext(read('../src/native/game-preview/runtime.js'),context);
+  const native = context.AshenNative;
+  const sourceTagging = parseCSV(read('../src/sources/tagging.csv'));
+  // Older saved drafts lack tagging. The reviewed transaction promotes source
+  // assignments into the package and adds the new card's explicitly shown rows.
+  const original = {cards: JSON.parse(read('../src/cards.json')), nodes: parseCSV(read('../src/sources/nodes.csv')), owned: {}};
+  const before = JSON.stringify(native.contentBundle);
+  let history = historyState(original), next = structuredClone(history.present);
+  next.cards[0].upgrade.id = next.cards[0].id;
+  const proposal = createCardDraft(next, 'ambush', {id: 'qa.card-draft', name: 'Reviewed draft'}, sourceTagging);
+  applyCardDraft(next, proposal, sourceTagging);
+  history = commit(history, next);
+  const exported = JSON.parse(JSON.stringify(history.present));
+  const bundle = previewContentBundle(native.contentBundle, exported, sourceTagging);
+  const registries = native.createRegistries(bundle);
+  assert.equal(registries.cards.get('qa.card-draft').name, 'Reviewed draft');
+  assert.deepEqual(Array.from(registries.cards.get('qa.card-draft').kindIds), Array.from(registries.cards.get('ambush').kindIds));
+  assert.equal(bundle.cards.find(card => card.id === 'qa.card-draft').upgrade.id, 'qa.card-draft');
+  assert(cardsForTag(exported.cards, exported.nodes, exported.tagging, 'classification').some(card => card.id === 'qa.card-draft'));
+  assert.deepEqual(exported.tagging.filter(row => row.objectId === 'qa.card-draft'), proposal.tagging);
+  const reverted = undo(history);
+  assert.deepEqual(reverted.present, original);
+  const revertedBundle = previewContentBundle(native.contentBundle, reverted.present, sourceTagging);
+  assert(!revertedBundle.cards.some(card => card.id === 'qa.card-draft'));
+  assert(!revertedBundle.tagging.some(row => row.objectId === 'qa.card-draft'));
+  assert.doesNotThrow(() => native.createRegistries(revertedBundle));
+  assert.doesNotThrow(() => native.createRegistries(previewContentBundle(native.contentBundle, redo(reverted).present)));
+  assert.equal(JSON.stringify(native.contentBundle), before);
 });

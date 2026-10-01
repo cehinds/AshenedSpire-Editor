@@ -21,11 +21,20 @@ export function previewContentBundle(base, draft, assignments = base.tagging) {
     color: /^[0-9a-f]{6}$/i.test(row.color || '') ? row.color : 'D9B568',
     glyph: row.glyph || '', blurb: row.blurb || '', visibility: row.visibility || '',
   }));
+  const editedTagging = draft.tagging ?? assignments ?? [];
+  // The editor owns a subset of native cards. Replace their assignments while
+  // preserving native classifications for records outside that authoring set.
+  const ownedObjects = new Set((draft.cards ?? []).map(row => 'card\0' + row.id));
+  for (const row of editedTagging) ownedObjects.add(row.family + '\0' + row.objectId);
+  const tagging = [
+    ...(base.tagging ?? []).filter(row => !ownedObjects.has(row.family + '\0' + row.objectId)),
+    ...editedTagging,
+  ].map(row => ({...row}));
   return {
     ...base,
     cards: merge(base.cards, draft.cards), nodes, tags,
     tagDomains: nodes.filter(row => !row.parentId).map(row => ({...row})),
-    tagging: (assignments || []).map(row => ({...row})),
+    tagging,
   };
 }
 

@@ -16,7 +16,7 @@ export function SceneInspector({ctx: {scene, update}}) {
   });
   return <>
     <h2>{scene.name}</h2><code>{scene.id}</code>
-    <NumberControl label="Scene duration" value={scene.seconds ?? 5} min={.1} max={60} step={.1} unit="sec" onChange={value => patch('seconds', value)}/>
+    <NumberControl label="Scene duration" value={scene.seconds ?? 5} min={1} max={180} step={.1} unit="sec" onChange={value => patch('seconds', value)}/>
     <label className="check"><input type="checkbox" checked={scene.enabled !== false} onChange={event => patch('enabled', event.target.checked)}/>Enabled</label>
     <label className="check"><input type="checkbox" checked={!!scene.waitForInput} onChange={event => patch('waitForInput', event.target.checked)}/>Wait for input</label>
     <TextField label="Speaker" value={scene.speaker} onChange={value => patch('speaker', value)}/>

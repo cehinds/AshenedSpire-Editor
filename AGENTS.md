@@ -73,3 +73,14 @@ October 1, 2026: keep zoom, Fit and Upgraded together without a spacer gap. Pape
 October 1, 2026: checked card preview switch means In game. Visual defaults to a clickable wireframe matching the native card's name, costs, artwork, tags, rules and footer order; keep the warm Paper appearance as an optional inspector view. Show Base/Upgraded state in the footer instead of duplicating the card ID/name. Upgraded state is visible in both wireframe values and footer.
 
 October 1, 2026: Visual card editing must use the actual native renderer, matching In game one to one. Native part handles support dragging with grid snapping, configurable rotation intervals, middle-button card panning, multi-selection/groups, independent layers, text alignment and per-part artwork/background flags. Preserve native default layout until an authored override is applied. Warm paper is an optional theme on that same renderer, not a separate card imitation. Inspector Layout contains these editable parts; whole-project export retains validated presentation sidecars, and checkout promotion remains an explicit supported-adapter action.
+## Scene studio visual direction
+
+The user supplied `design/scene-studio-reference.png` as the target for the Scenes editor and authorized building it through completion. Preserve a dense charcoal studio, compact toolbar, thumbnail rail, fitted native canvas, tool strip, adjacent mobile preview, bottom timeline and selected-object inspector. Use native transforms, responsive overrides, synchronized seeking and cue audition. Do not imply arbitrary layers or seekable music are supported. Keep Play, Pause/Resume, Restart and Stop visible.
+
+## Movable editor layout
+
+The user requested draggable menus and UI quality-of-life fixes plus an independent agent button audit. Menus support dragging, pinning, reset, close and keyboard navigation. The scene inspector floats, docks, hides and reopens; rail, inspector and timeline sizes are adjustable. Persist layout separately from authoring records and provide reset/recovery. Distinguish browser-tested, source-reviewed and host-restricted controls; navigation must not mutate drafts.
+
+## Master default scene controls
+
+October 1, 2026: beside Scenes, offer Master default with component subsections for settings shared by every scene, including text-box height in vh. Preserve local scene overrides and native source boundaries. Scene transport uses icons in Restart, Play/Pause/Resume, Stop order with hover titles and accessible labels; put the canvas size/device selector at the far right.

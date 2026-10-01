@@ -1,0 +1,46 @@
+{
+  "repository": "AshenSpire",
+  "revision": "0adaae515fbb9246c74732a27ee25870004de5ac",
+  "sourceDirty": true,
+  "snapshot": "working-tree",
+  "entryExports": {
+    "ui/audio.js": [
+      "initAudio",
+      "AUDIO_DEFAULTS"
+    ],
+    "ui/assetmap.js": [
+      "ASSET_MAP",
+      "assetUrl"
+    ],
+    "content/music.js": [
+      "MUSIC_MANIFEST",
+      "BEDS"
+    ],
+    "content/sfx.js": [
+      "SFX_MANIFEST",
+      "SFX_RECIPES"
+    ]
+  },
+  "hashes": {
+    "runtime.js": "386c98e2047895e0407753de6109310f37c96d5ce2595d1eab343f79baecd183",
+    "LICENSE": "8a4d24bb1178e5f57cb7d28369a608aaacea6ddb6a0f280396413cf4ed26ac8c",
+    "CREDITS.md": "a29b5f26c07c2f84af342d677e6c887a7939d343119c7e5174e712329294c51b"
+  },
+  "sourceHashes": {
+    "src/config/generated/ui.js": "58663e2088494c9b9bbafdb6de042d40f244060c2bfae19a1ec31280dfb0d838",
+    "src/config/authored.js": "30aee7075e284c3254c9b3708a687e8a3f09fc6e07737f7ae2948d63ac9883fb",
+    "src/content/tooltipHelp.js": "21f4d4575437e656ddcb36784782216a61cf25ad59c1f34301960de3cbb29847",
+    "src/content/balance.js": "5433576dcc4c2de81590d644f11356c1e441194b342507b841f8230a7c91008b",
+    "src/model/floorplan.js": "d93dcbf59f76def962eead3845abb7900092676f2973a82370333734f671decf",
+    "src/model/resources.js": "2483ee626f6a4e2c1b4c71ebfc24d46f8c17e4711f1a6565b32a55218207454b",
+    "src/model/disclosure.js": "0b3f355b91e179f441fc5711c2a163746a851f27906c0ca7be3b264858e57519",
+    "src/model/schemas.js": "b806b5c4deb501af1c709d117410bb156f7a236eccf4f2e6903c7dd033a8e62e",
+    "src/content/music.js": "e0404a427e554c1d174a53c891a91e55310aa02e81e78a589e5456910a0a76cf",
+    "src/content/sfx.js": "1aa27c4bc35f37c382305952b4613e1c363574012e390dfd394a6897eb4a7695",
+    "src/ui/assetmap.js": "12d055d3599fc0177addf1755c2eb96a7b15abc5ffa08d2a2a2a8f653988d0d6",
+    "src/ui/audio.js": "a52337a60eead1bc5f31bff2c823044918b577e1710181c2b2fa460d758712f6"
+  },
+  "adapter": "Adds contextState and awaitable unlock to the existing native AudioContext. The explicit studioProceduralOnly setting skips optional SFX sample warmup because no sample source is bundled. Synthesis, cue recipes, and music playback are unchanged.",
+  "optionalAssets": "No samples required. Editor auditions explicitly use native procedural synthesis without requesting absent samples; ordinary native mode retains sample fallback behavior.",
+  "generatedBy": "scripts/vendor-scene-audio.mjs"
+}

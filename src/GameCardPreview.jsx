@@ -1,4 +1,5 @@
-import {useMemo, useState} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
+import {loadImage} from './Controls.jsx';
 import {assignments} from './data.js';
 import {cardsForTag, previewContentBundle} from './game-card-preview.mjs';
 import {NativePreviewFrame} from './NativePreviewFrame.jsx';
@@ -52,6 +53,24 @@ export function GameCardPreview({ctx,editable=false}) {
   const {p,ws,card,node,cardZoom,cardUpgraded}=ctx;
   const upgraded=cardUpgraded;
   const [page,setPage] = useState(0);
+  const latest=useRef({ctx,editable}),mounted=useRef(true);latest.current={ctx,editable};
+  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;};},[]);
+  async function dropArtwork(status){
+    const targetCard=status.cardId,targetPart=status.partId;
+    const before=JSON.stringify(latest.current.ctx.p.styles[targetCard]?.layout||{});
+    try{
+      if(!(status.file instanceof File))return;
+      const art=await loadImage(status.file),current=latest.current;
+      if(!mounted.current||!current.editable||current.ctx.card.id!==targetCard)return;
+      current.ctx.update(next=>{
+        if(JSON.stringify(next.styles[targetCard]?.layout||{})!==before)throw Error('Card layout changed during artwork import; drop the image again.');
+        const layout=normalizeCardLayout(next.styles[targetCard]?.layout);
+        layout.parts[targetPart].backgroundArt=art;
+        layout.parts[targetPart].backgroundVisible=true;
+        next.styles[targetCard]={...next.styles[targetCard],layout};
+      },'Component background artwork imported');
+    }catch(error){if(mounted.current)latest.current.ctx.tell(error.message);}
+  }
   const tagging = p.tagging ?? assignments;
   const ids = ws === 'decks' ? p.deck : ws === 'tags' ? cardsForTag(p.cards,p.nodes,tagging,node.id).map(row => row.id) : [card.id];
   const size = ws === 'cards' ? 1 : 6;
@@ -67,6 +86,7 @@ export function GameCardPreview({ctx,editable=false}) {
     }
     if(!editable||status.cardId!==ctx.card.id)return;
     const known=id=>CARD_LAYOUT_PARTS.some(part=>part.id===id);
+    if(status.type==='card-part-art-drop'&&known(status.partId)){dropArtwork(status);return;}
     if(status.type==='card-part-select'&&known(status.partId)){
       ctx.setCardLayoutSelection(old=>status.additive?(old.includes(status.partId)?old.filter(id=>id!==status.partId):[...old,status.partId]):[status.partId]);ctx.setInspectorMode('Layout');return;
     }

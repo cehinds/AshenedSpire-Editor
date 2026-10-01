@@ -33,10 +33,10 @@ function fixture({editable = true, layout = {}, zoom = 100, selected = ['identit
   identity.rect = {left: 110, top: 120, width: 100, height: 30}; costs.rect = {left: 110, top: 160, width: 50, height: 20};
   face.append(identity); face.append(costs); face.parts = {'.cname': identity, '.card-cost-rail': costs};
   const definitions = [{id: 'identity', label: 'Name', selector: '.cname'}, {id: 'costs', label: 'Costs', selector: '.card-cost-rail'}];
-  const emitted = [], applied = [];
+  const emitted = [], rawEmitted = [], applied = [];
   // Execute the exact serialized function, so accidental import/closure use fails.
   const installer = vm.runInNewContext(`(${installCardEditor.toString()})`);
-  const editor = installer(host, event => emitted.push(JSON.parse(JSON.stringify(event))), (_face, value) => {applied.push(JSON.parse(JSON.stringify(value))); return {identity: {x: 20 + (value.parts?.identity?.x || 0), y: 40, width: 200, height: 60}, costs: {x: 20, y: 120, width: 100, height: 40}};}, definitions);
+  const editor = installer(host, event => {rawEmitted.push(event); emitted.push(JSON.parse(JSON.stringify(event)));}, (_face, value) => {applied.push(JSON.parse(JSON.stringify(value))); return {identity: {x: 20 + (value.parts?.identity?.x || 0), y: 40, width: 200, height: 60}, costs: {x: 20, y: 120, width: 100, height: 40}};}, definitions);
   const snapshot = {editable, ids: ['ambush'], zoom, draft: {styles: {ambush: {layout}}}, layoutSelection: selected, layoutView: {gridEnabled: true, gridSize: 10, snapEnabled: true, rotationSnap: 15}};
   editor.update(snapshot, [face]);
   const event = (type, target = identity, extra = {}) => {
@@ -44,8 +44,42 @@ function fixture({editable = true, layout = {}, zoom = 100, selected = ['identit
     host.listeners.get(type)?.(value); return value;
   };
   const flushFrame = () => {const callback = frame; frame = null; callback?.();};
-  return {host, wrapper, face, identity, costs, editor, snapshot, emitted, applied, event, flushFrame};
+  return {host, wrapper, face, identity, costs, editor, snapshot, emitted, rawEmitted, applied, event, flushFrame};
 }
+
+test('native artwork drops retain the original file and exact target without reading it', () => {
+  const f = fixture();
+  const file = new File(['png'], 'art.png', {type: 'image/png'});
+  const dataTransfer = {types: ['Files'], files: [file]};
+  assert.equal(f.event('dragover', f.costs, {dataTransfer}).prevented, true);
+  assert.equal(dataTransfer.dropEffect, 'copy');
+  assert.equal(f.event('drop', f.costs, {dataTransfer}).prevented, true);
+  const result = f.rawEmitted.at(-1);
+  assert.equal(result.type, 'card-part-art-drop'); assert.equal(result.cardId, 'ambush'); assert.equal(result.partId, 'costs');
+  assert.equal(result.file, file);
+  const boundary = new File([new Uint8Array(2_000_000)], 'art.webp', {type: 'image/webp'});
+  f.event('drop', f.identity, {dataTransfer: {files: [boundary]}});
+  assert.equal(f.rawEmitted.at(-1).file, boundary);
+  assert.equal(f.applied.length, 0);
+  f.editor.destroy();
+});
+
+test('artwork drops reject unsafe files, missing targets and read-only previews', () => {
+  const f = fixture();
+  for (const file of [{type: 'image/svg+xml', size: 10}, {type: 'image/png', size: 2_000_000 + 1}, {type: 'image/webp', size: NaN}]) {
+    assert.equal(f.event('drop', f.identity, {dataTransfer: {files: [file]}}).prevented, true);
+  }
+  const dataTransfer = {types: ['Files'], files: [{type: 'image/webp', size: 100}]};
+  f.event('drop', f.host, {dataTransfer});
+  f.event('dragover', f.host, {dataTransfer}); assert.equal(dataTransfer.dropEffect, 'none');
+  assert.equal(f.event('dragover', f.identity, {dataTransfer: {types: ['text/plain']}}).prevented, undefined);
+  assert.equal(f.emitted.length, 0);
+  f.editor.update({...f.snapshot, editable: false}, [f.face]);
+  assert.equal(f.event('dragover', f.identity, {dataTransfer}).prevented, undefined);
+  assert.equal(f.event('drop', f.identity, {dataTransfer}).prevented, undefined);
+  assert.equal(f.emitted.length, 0); assert.equal(f.applied.length, 0);
+  f.editor.destroy();
+});
 
 test('native measurements are deferred, bounded, deduplicated and include authored offsets', () => {
   const f = fixture({layout: {parts: {identity: {x: 35}}}});

@@ -77,6 +77,20 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
     const entry = entries.find(item => item.face.contains(element));
     return entry ? {...entry, element, partId: element.dataset.editorPart} : null;
   }
+  function dragOver(event) {
+    if (disposed || snapshot.editable !== true || !Array.from(event.dataTransfer?.types || []).includes('Files')) return;
+    event.preventDefault();
+    if (event.dataTransfer) event.dataTransfer.dropEffect = marked(event.target) ? 'copy' : 'none';
+  }
+  function dropArt(event) {
+    if (disposed || snapshot.editable !== true) return;
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    event.preventDefault(); event.stopPropagation();
+    const picked = marked(event.target);
+    if (!picked || !['image/png', 'image/webp'].includes(file.type) || !Number.isFinite(file.size) || file.size < 0 || file.size > 2_000_000) return;
+    emit({type: 'card-part-art-drop', cardId: picked.cardId, partId: picked.partId, file});
+  }
   function capture(pointerId) {try {host.setPointerCapture(pointerId);} catch {}}
   function release(pointerId) {try {if (host.hasPointerCapture(pointerId)) host.releasePointerCapture(pointerId);} catch {}}
   function handlePosition() {
@@ -271,7 +285,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   const pointerUp = event => finish(event);
   const pointerCancel = event => finish(event, true);
   const lostCapture = event => {if (gesture?.pointerId === event.pointerId) finish(event, true);};
-  const listeners = [['pointerdown', pointerDown, true], ['pointermove', pointerMove, true], ['pointerup', pointerUp, true], ['pointercancel', pointerCancel, true], ['lostpointercapture', lostCapture, true], ['click', click, true], ['dblclick', doubleClick, true], ['keydown', keydown, true], ['wheel', wheel, {passive: false}]];
+  const listeners = [['pointerdown', pointerDown, true], ['pointermove', pointerMove, true], ['pointerup', pointerUp, true], ['pointercancel', pointerCancel, true], ['lostpointercapture', lostCapture, true], ['click', click, true], ['dblclick', doubleClick, true], ['keydown', keydown, true], ['wheel', wheel, {passive: false}], ['dragover', dragOver, true], ['drop', dropArt, true]];
   for (const [type, handler, options] of listeners) host.addEventListener(type, handler, options);
   win.addEventListener('resize', scheduleMeasurements);
   host.addEventListener('scroll', handlePosition);

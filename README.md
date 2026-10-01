@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open Vite's printed localhost URL. The local host automatically establishes a loopback-only session. Account is for optional GitHub authorization: GitHub CLI opens the operating system's default browser and keeps credentials on the host. No GitHub password or token is entered or stored in the editor frontend. GitHub authorization does not connect a repository; a checkout is connected only after its clone succeeds.
+Open Vite's printed localhost URL. The local host automatically establishes a loopback-only session. Account UI is paused. No credentials are needed or entered; any previous account store remains unread and unchanged. A checkout connects only after its local import succeeds.
 
 `npm run preview` serves production build with the same automatic local session. `/responsive-preview.html` shows phone/tablet/desktop editor. Server binds loopback by default. Hosted static preview explicitly opens draft-only authoring; static files do not provide password security or local Git/build access.
 
@@ -19,7 +19,7 @@ Open Vite's printed localhost URL. The local host automatically establishes a lo
 
 | Folder | Responsibility |
 |---|---|
-| `src/` | Editor shell, menus, GitHub account UI, authoring workspaces |
+| `src/` | Editor shell, menus, local host connection, authoring workspaces |
 | `server/` | Local sessions, optional GitHub CLI authorization, retained password-mode library; isolated repository, text-file, and build host |
 | `public/` | Game snapshot assets, fonts/licenses, native ERD, responsive harness |
 | `tests/` | Domain behavior, authentication, Git/file/build operations, Pages publication |
@@ -55,7 +55,7 @@ Every workspace has an **In game** tab. Scenes also has **Play preview** in Comp
 
 ## Local access, GitHub and source ownership
 
-Vite configures `authOptions.requireLogin: false`; loopback requests receive an automatic local session without an owner account. HttpOnly session cookies, expiry, same-origin requests and CSRF checks remain in place. Optional GitHub authorization runs through GitHub CLI and the default browser; host credentials stay outside the frontend. Local repository import copies committed files without contacting a remote. Bare repositories, linked worktrees, network shares and symlinked source directories are unsupported.
+Vite configures `authOptions.accountsPaused: true`; loopback requests receive an automatic local session without an owner account. HttpOnly session cookies, expiry, same-origin requests and CSRF checks remain in place. Existing GitHub CLI host integration remains separate; its Account UI is paused. Local repository import copies committed files without contacting a remote. Bare repositories, linked worktrees, network shares and symlinked source directories are unsupported.
 
 The retained authentication library supports password mode for explicitly configured hosts and tests: passwords are 5–128 characters, salted and hashed server-side, with session expiry and login throttling. The editor has no local account/password UI. `.workbench/` stays ignored.
 
@@ -81,3 +81,7 @@ Feature → `dev` → `test` → `main` promotion. The Pages workflow preserves 
 Game snapshot: `cehinds/AshenSpire`, `dev`, commit `38166cb12a2d8901fce7727aca37cd8d2e7e4b2d`. Original inspected files remain under `public/source/`; native model under `src/native/model/`. Supplied ERD Workbench 0.2.4 HTML remains unchanged; native format version is distinct. Licenses/notices retained in `NOTICE.md` and `public/fonts/`.
 
 Browser audit covered all 18 game Advanced sections / 136 groups, with representative reversible mutations. Individual values across thousands of controls were not exhaustively mutated. Physical touch, screen readers, full campaign gameplay, Windows game runtime execution, and the private Workshop remain unverified. Native scene playback, card updates, isolated combat damage, fullscreen, and consolidated delivery are checked separately. Native document save/build integration and actual native settings validation are tested separately from browser UI.
+
+## Accounts paused
+
+Owner setup, login, logout, passwords and the Account menu are paused at the user’s request. Authoring opens directly; local checkout operations use automatic loopback browser sessions and CSRF/origin checks. Existing account stores remain unread and unchanged. Static/public previews author drafts and have no local checkout powers. Session renewal retains draft/file buffers and requires renewed review before settings promotion.

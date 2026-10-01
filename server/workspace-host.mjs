@@ -4,6 +4,7 @@ import { constants } from "node:fs";
 import { lstat, mkdir, open, readFile, readdir, realpath, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createAuthHost } from "./auth-host.mjs";
+import { promoteCheckoutStage } from "./checkout-promotion.mjs";
 import { createGitHubAccount } from "./github-account.mjs";
 
 const API = "/api/workbench";
@@ -566,7 +567,7 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
                 const branch = repo.branch || (await command("git", ["branch", "--show-current"], stage, commandTimeout)).trim();
                 await command("git", ["checkout", branch], stage, commandTimeout);
               }
-              await rename(stage, target);
+              await promoteCheckoutStage(stage, target, {reposRoot, validateParent: () => noSymlink(root, ".workbench/repos")});
             } finally { await rm(stage, { recursive: true, force: true }); }
           }
           repo.head = (await command("git", ["rev-parse", "HEAD"], await checkout(repo), commandTimeout)).trim();

@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from 'react';
-import {useAuth} from './AuthGate.jsx';
+import {useLocalHost} from './AuthGate.jsx';
 import {NATIVE_DOCUMENTS, checkDocumentPath, mergedNativeProject, reviewNativeSave, serializeNativeDocument} from './native-document.mjs';
 import './native-document.css';
 
 export function NativeDocumentBridge({ctx, open, onClose})
 {
-    const auth = useAuth();
-    const allowed = (auth?.localAccess === true || auth?.authenticated === true) && !auth.offline;
+    const localHost = useLocalHost();
+    const allowed = localHost?.connected === true && !localHost.offline;
     const type = NATIVE_DOCUMENTS[ctx.ws];
     const [repos, setRepos] = useState([]);
     const [targets, setTargets] = useState({});
@@ -39,7 +39,7 @@ export function NativeDocumentBridge({ctx, open, onClose})
             const result = await response.json();
             if (!response.ok)
             {
-                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-auth-expired'));
+                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-host-disconnected'));
                 throw new Error(result.error || `Checkout request failed (${response.status}).`);
             }
             return result;
@@ -70,7 +70,7 @@ export function NativeDocumentBridge({ctx, open, onClose})
             })().catch(problem => {if (active && problem.name !== 'AbortError') setError(problem.message);}).finally(() => {if (active) setBusy(false);});
         }
         return () => {active = false; requests.current.forEach(controller => controller.abort());};
-    }, [open, ctx.ws, allowed]);
+    }, [open, ctx.ws, allowed, localHost?.connectionId]);
 
     useEffect(() =>
     {

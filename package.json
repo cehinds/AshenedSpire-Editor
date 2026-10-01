@@ -9,13 +9,13 @@
     "build:pages": "node scripts/build-pages.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",
-    "test": "node tests/core.test.mjs && node tests/sites-worker.test.mjs && node tests/authoring-create.test.mjs && node tests/native-document.test.mjs && node tests/game-settings.test.mjs && node tests/xlsx.test.mjs && node --test tests/github-account.test.mjs tests/workspace-host.test.mjs tests/pages.test.mjs tests/auth-host.test.mjs tests/native-bridge-host.test.mjs tests/local-branches.test.mjs tests/consolidated-pages.test.mjs tests/scene-playback.test.mjs tests/game-card-preview.test.mjs tests/native-game-preview.test.mjs",
+    "test": "node tests/core.test.mjs && node tests/sites-worker.test.mjs && node tests/authoring-create.test.mjs && node tests/native-document.test.mjs && node tests/game-settings.test.mjs && node tests/xlsx.test.mjs && node --test tests/github-account.test.mjs tests/workspace-host.test.mjs tests/pages.test.mjs tests/auth-host.test.mjs tests/local-host-access.test.mjs tests/local-host-provider.test.mjs tests/checkout-promotion.test.mjs tests/native-bridge-host.test.mjs tests/local-branches.test.mjs tests/consolidated-pages.test.mjs tests/scene-playback.test.mjs tests/game-card-preview.test.mjs tests/native-game-preview.test.mjs",
     "test:xlsx": "node tests/xlsx.test.mjs",
-    "test:auth": "node --test tests/auth-host.test.mjs",
+    "test:auth": "node --test tests/auth-host.test.mjs tests/local-host-access.test.mjs tests/local-host-provider.test.mjs",
     "test:pages": "node --test tests/pages.test.mjs tests/consolidated-pages.test.mjs tests/scene-playback.test.mjs tests/game-card-preview.test.mjs tests/native-game-preview.test.mjs",
     "review:quick": "node scripts/review-quick.mjs",
     "check:branches": "node scripts/check-branch-policy.mjs",
-    "test:host": "node --test tests/github-account.test.mjs tests/workspace-host.test.mjs tests/local-branches.test.mjs tests/native-bridge-host.test.mjs"
+    "test:host": "node --test tests/checkout-promotion.test.mjs tests/github-account.test.mjs tests/workspace-host.test.mjs tests/local-branches.test.mjs tests/native-bridge-host.test.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.1.1",

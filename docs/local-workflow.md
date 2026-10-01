@@ -1,6 +1,6 @@
 # Local game workflow
 
-1. Open the local editor; no editor account or sign-in is required. Its loopback host automatically establishes a session. For optional GitHub access, use Account to authorize through the operating system's default browser and GitHub CLI. Credentials stay on the host, outside the editor frontend. Account authorization alone does not connect a repository; cloning must succeed first.
+1. Open the local editor; no editor account or sign-in is required. Its loopback host automatically establishes a session. Account UI is paused; local checkout import requires no credentials and never changes a previous account store.
 2. Project tools → Repositories: add an absolute ordinary local Git folder, then Open local checkout. Only committed source is copied; the original directory stays unchanged. Bare repos, linked worktrees, network shares and symlinked source folders are unsupported.
 3. Create a local branch before editing. Clean checkout and saved/discarded text buffer are required for switching; use Git to commit or resolve checkout changes before switching. Current and main/test/dev branches stay protected.
 4. Files can explicitly save any permitted UTF-8 source text with revision protection. For Tags, Scenes or UI, File → Load / save native checkout document loads an existing native file into the draft. Close to edit, reopen to review, then Save reviewed native document. Loading replaces that workspace draft and is undoable; checkout writes use separate revision checks.

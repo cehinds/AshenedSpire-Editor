@@ -9,6 +9,9 @@ import { createWorkspaceHost, parseRepository, planCommand, redact, workspaceHos
 
 const git = (dir, ...args) => execFileSync("git", args, { cwd: dir, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+// Allow real subprocess completion on busy Windows hosts; these are not performance assertions.
+const fixtureCommandTimeout = 30_000;
+const fixtureJobTimeout = 60_000;
 
 async function fixture(root, name, native = false) {
   const dir = path.join(root, name);
@@ -55,11 +58,12 @@ async function start(root, sources) {
     return { response, status: response.status, body: await response.json() };
   }
   async function finish(id) {
-    for (let attempts = 0; attempts < 200; attempts++) {
+    const deadline = Date.now() + fixtureJobTimeout + 15_000;
+    while (Date.now() < deadline) {
       const { body } = await api("/jobs");
       const job = body.jobs.find(value => value.id === id);
       if (job.status !== "running") return job;
-      await pause(20);
+      await pause(50);
     }
     assert.fail("Fixture job did not finish.");
   }

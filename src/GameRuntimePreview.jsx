@@ -1,9 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { NativePreviewFrame } from './NativePreviewFrame.jsx';
 import { previewContentBundle } from './game-card-preview.mjs';
+import {applyCardPresentation} from './card-presentation.mjs';
+import {applyCardLayout} from './card-layout.mjs';
+import { assignments } from './data.js';
+import { combatPreviewSnapshot } from './game-runtime-preview.mjs';
 
 // Runs inside the native frame. Every action is dispatched by the real game.
-function bootGame(N, host, emit, projectContent) {
+function bootGame(N, host, emit, projectContent,applyPresentation,applyLayout) {
+  let layoutObserver;
   return function update({ project: p, workspace, testClass }) {
     const settings = Object.fromEntries(Object.entries(p.gameSettings?.overrides || {}).map(([key, value]) => [key.replace(/^settings\./, ''), value]));
     const bundle = N.configuredContentBundle(projectContent(N.contentBundle, p), settings);
@@ -61,6 +66,10 @@ function bootGame(N, host, emit, projectContent) {
       onQuit: () => notice('Use Restart above to reset the encounter.'),
       onQuitWithoutSave: () => notice('Use Restart above to reset the encounter.'),
     });
+    layoutObserver?.disconnect();
+    const styled=new WeakSet();
+    const decorate=()=>{for(const face of host.querySelectorAll('.card[data-card-id]')){if(styled.has(face))continue;styled.add(face);const sidecar=p.styles?.[face.dataset.cardId];if(sidecar)applyPresentation(face,sidecar,applyLayout);}};
+    decorate();layoutObserver=new MutationObserver(decorate);layoutObserver.observe(host,{childList:true,subtree:true});
     if (workspace === 'poses' && p.pose) {
       const controls = document.createElement('div');
       controls.style.cssText = 'display:flex;gap:10px;align-items:center;padding:8px;background:#18140f';
@@ -87,14 +96,14 @@ function bootGame(N, host, emit, projectContent) {
   };
 }
 
-const runtimeBoot = `(function(N, host, emit) { return (${bootGame.toString()})(N, host, emit, ${previewContentBundle.toString()}); })`;
+const runtimeBoot = `(function(N, host, emit) { return (${bootGame.toString()})(N, host, emit, ${previewContentBundle.toString()},${applyCardPresentation.toString()},${applyCardLayout.toString()}); })`;
 
 export function GameRuntimePreview({ ctx }) {
   const { p, ws } = ctx;
   const [restart, setRestart] = useState(0);
   const [testClass, setTestClass] = useState('rogue');
   const [message, setMessage] = useState('Loading native encounter…');
-  const draft = useMemo(() => ({ project: { cards: p.cards, nodes: p.nodes, tagging: p.tagging, deck: p.deck, scenario: p.scenario, ui: p.ui, gameSettings: p.gameSettings, pose: ws === 'poses' ? p.pose : undefined }, workspace: ws, testClass }), [p.cards, p.nodes, p.tagging, p.deck, p.scenario, p.ui, p.gameSettings, p.pose, ws, testClass]);
+  const draft = useMemo(() => combatPreviewSnapshot(p, ws, testClass, assignments), [p.cards, p.nodes, p.tagging, p.styles, p.deck, p.scenario, p.ui, p.gameSettings, p.pose, ws, testClass]);
   const [snapshot, setSnapshot] = useState(draft);
   useEffect(() => { const timer = setTimeout(() => setSnapshot(draft), 200); return () => clearTimeout(timer); }, [draft]);
   const initialGlobals = useMemo(() => ({ __ASHEN_PREVIEW_UI__: snapshot.project.ui }), [snapshot.project.ui]);

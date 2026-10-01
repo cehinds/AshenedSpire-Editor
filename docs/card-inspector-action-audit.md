@@ -1,5 +1,13 @@
 # Card inspector action audit
 
+## Native component editor follow-up
+
+Visual and In game now share the native AshenSpire card renderer and a validated presentation adapter. Visual adds selection outlines and handles. Warm paper is an optional theme on that same renderer. Proportions stay fixed during uniform zoom; Fit resets zoom and view panning. Layout exposes native Name, Costs, Artwork, Tags, Type, Rules and Footer parts with offsets, size, rotation, opacity, visibility, alignment, groups, layers and per-part PNG/WebP backgrounds. List/Grid arrangement and alignment use acknowledged native measurements. Grid spacing and rotation intervals stay outside authoring history.
+
+Browser verified on the consolidated nested-base build: native component selection; inspector offsets, rotation and alignment reflected in both views; keyboard snap movement and a custom 30-degree rotation interval; grouping; Grid arrangement; background import/visibility and component visibility. Native combat played successfully: Ambush reduced enemy HP from 30/30 to 23/30. No relevant console errors were captured. Six tests of the exact serialized installer cover pointer drag and middle-button pan; the browser tool declined a direct scaled-iframe drag because it could not safely map fractional coordinates, so those gestures are not claimed as mouse-tested.
+
+Final functionality suite: 120 passing tests across runners, plus separate Sites packaging checks. Layout tests cover portable JSON, bounds, grouped snapping, ordering, native default/restoration and proportional combat scaling. Presentation sidecars are retained by whole-project export and applied in editor combat previews. No real user checkout file was written; checkout promotion remains separate and requires a supported adapter.
+
 Audit date: October 1, 2026. Scope: `codex/card-inspector` isolated worktree. This is an action-group inventory across all nine workspaces, not a claim that every button was clicked in a browser. Delivery verification below reflects the completed local change.
 
 Evidence labels:

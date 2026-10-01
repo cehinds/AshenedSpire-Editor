@@ -1,3 +1,4 @@
+import {CardRatioInspector} from './CardRatioInspector.jsx';
 import {useEffect, useRef, useState} from 'react';
 import {DataTable, Notice, loadImage} from './Controls.jsx';
 import {parseCardDefinition, prepareCardDefinition} from './card-definition.mjs';
@@ -122,6 +123,7 @@ function CardForm({ctx, apply, patch, typeField}) {
       </div> : section === 'costs' ? <div className="form-grid">
         {field('Action cost', 'cost', {numeric: true})}{field('Stamina cost', 'staminaCost', {numeric: true})}{field('Mana cost', 'manaCost', {numeric: true})}
       </div> : section === 'art' ? <>
+        <CardRatioInspector ctx={ctx}/>
         <label className="field">Import card artwork<input type="file" aria-label="Import card artwork" accept="image/png,image/webp" onChange={async event => {
           const file = event.target.files?.[0]; event.target.value = '';
           if (!file) return;

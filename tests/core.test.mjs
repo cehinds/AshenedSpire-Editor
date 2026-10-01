@@ -19,6 +19,16 @@ function packageFixture(){
   const cards=loadJSON('cards.json'),config=loadJSON('pose-config.json');
   return {schema:'ashenspire.workbench/1',cards,nodes:structuredClone(nodes),deck:cards.slice(0,10).map(c=>c.id),styles:{},scenes:loadJSON('sources/prologue.json'),lab:{base:40,role:2,selected:true,policy:'overflow',cardScale:100},ui:loadJSON('sources/w4a-combat.json'),pose:{...config.components.starter,assets:loadJSON('pose-assets.json')},scenario:{ruleset:'foundations',cardId:cards[0].id,playerHp:40,enemyHp:30},owned:Object.fromEntries(cards.map(c=>[c.id,2])),scenePlacement:{},erdNative:null};
 }
+test('card proportions survive portable export and reject invalid presentation dimensions',()=>{
+  const p=packageFixture();p.styles.ambush={ratioWidth:5,ratioHeight:7,foreign:'keep'};
+  const recovered=JSON.parse(JSON.stringify(p));
+  assert.deepEqual(validateProject(recovered),[]);
+  assert.deepEqual(recovered.styles.ambush,p.styles.ambush);
+  for(const value of [0,-1,21,Infinity,'5']){
+    p.styles.ambush.ratioWidth=value;
+    assert(validateProject(p).includes('Invalid card presentation sidecar'));
+  }
+});
 test('portable source package and retained ERD mapping validate without losing unknown fields',()=>{
   const p=packageFixture();
   assert.deepEqual(validateProject(p),[]);

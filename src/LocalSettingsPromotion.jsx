@@ -6,7 +6,7 @@ import {validateGameSettings} from './game-settings.mjs';
 export function LocalSettingsPromotion({value, ctx})
 {
     const auth = useAuth();
-    const allowed = auth?.authenticated === true && !auth.offline;
+    const allowed = (auth?.localAccess === true || auth?.authenticated === true) && !auth.offline;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
     const [repoId, setRepoId] = useState('');
@@ -39,7 +39,7 @@ export function LocalSettingsPromotion({value, ctx})
 
     async function request(path, options = {})
     {
-        if (!allowed) throw new Error('Authenticated local editor host required.');
+        if (!allowed) throw new Error('Local editor host required.');
         const controller = new AbortController();
         requests.current.add(controller);
         try
@@ -128,7 +128,7 @@ export function LocalSettingsPromotion({value, ctx})
     return <section style={{marginTop: 30, borderTop: '1px solid var(--line)', paddingTop: 22}} aria-label="Local settings promotion">
         <h3>Promote native settings into local game defaults</h3>
         <Notice>Native tool validates profile, replaces <code>src/content/settingsDefaults.js</code> in selected isolated checkout, and excludes device/local-only settings. Empty overrides clear promoted defaults. Build game afterwards; browser draft export alone does not change builds.</Notice>
-        {!allowed ? <p>Local owner sign-in required. Offline preview supports JSON authoring and exports.</p> : <>
+        {!allowed ? <p>Local editor host required. Offline preview supports JSON authoring and exports.</p> : <>
             <button disabled={busy || job?.status === 'running'} onClick={load}>{busy ? 'Working…' : 'Find local checkouts'}</button>
             <label className="field">Target checkout<select value={repoId} disabled={busy || !host || job?.status === 'running'} onChange={event => select(event.target.value)}><option value="">Select connected game checkout</option>{repos.filter(item => item.status === 'connected').map(item => <option key={item.id} value={item.id}>{item.name} / {item.branch || 'current branch'}</option>)}</select></label>
             {repo && git && !canPromote ? <Notice tone="warning">Checkout does not advertise native settings promotion. Connect AshenSpire checkout containing <code>tools/settings-defaults.mjs</code>.</Notice> : null}

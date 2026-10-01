@@ -16,6 +16,7 @@ async function fixture(root, name, native = false) {
   git(dir, "init", "-b", "main");
   git(dir, "config", "user.email", "fixture@example.test");
   git(dir, "config", "user.name", "Fixture");
+  git(dir, "config", "core.autocrlf", "false");
   await writeFile(path.join(dir, ".gitattributes"), "* text=auto eol=lf\n");
   await mkdir(path.join(dir, "src"));
   await writeFile(path.join(dir, "src/game.txt"), "source game\n");
@@ -203,12 +204,24 @@ test("local host clones, edits safely, builds, isolates artifacts, and persists 
 
 test("Vite plugin exposes same local middleware for dev and built preview", async () => {
   const temp = await mkdtemp(path.join(tmpdir(), "workbench-vite-"));
+  const installed = [];
+  const httpServer = createServer((req, res) => installed[0](req, res, () => { res.statusCode = 404; res.end(); }));
   try {
     const plugin = workspaceHostPlugin({ root: temp, defaults: [] });
-    const installed = [];
-    const server = { middlewares: { use: middleware => installed.push(middleware) } };
+    const server = { httpServer, middlewares: { use: middleware => installed.push(middleware) } };
     plugin.configureServer(server); plugin.configurePreviewServer(server);
     assert.equal(installed.length, 2); assert.equal(installed[0], installed[1]);
-    await pause(50);
-  } finally { await rm(temp, { recursive: true, force: true }); }
+    await new Promise(resolve => httpServer.listen(0, "127.0.0.1", resolve));
+    const origin = `http://127.0.0.1:${httpServer.address().port}`;
+    const bootstrap = await fetch(`${origin}/api/auth/session`);
+    const session = await bootstrap.json();
+    const signin = await fetch(`${origin}/api/auth/setup`, { method: "POST", headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0], Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": session.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
+    assert.equal(signin.status, 200); await signin.json();
+    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: signin.headers.get("set-cookie").split(";")[0] } });
+    assert.equal(response.status, 200);
+    assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
+  } finally {
+    if (httpServer.listening) await new Promise(resolve => httpServer.close(resolve));
+    await rm(temp, { recursive: true, force: true });
+  }
 });

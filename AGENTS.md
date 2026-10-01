@@ -35,3 +35,15 @@ The user supplied `design/scene-studio-reference.png` as the target look and fee
 ## Account pause and reconnect
 
 October 1, 2026: the account requirement was a misunderstanding. Pause Account, setup, login, logout and password UI. Authoring opens directly; automatic loopback sessions retain origin/CSRF, path, revision, branch and sandbox-preview guards. Leave prior credential stores unread and unchanged. Static/public previews are draft-only and never request local host access. Session renewal retains drafts and refreshes checkout tokens; native settings promotion requires fresh target review. Do not re-enable accounts without a user request. New worktrees belong under D:/repos/.codex/worktrees.
+
+## Scene studio visual direction
+
+The user supplied `design/scene-studio-reference.png` as the target for the Scenes editor and authorized building it through completion. Preserve a dense charcoal studio, compact toolbar, thumbnail rail, fitted native canvas, tool strip, adjacent mobile preview, bottom timeline and selected-object inspector. Use native transforms, responsive overrides, synchronized seeking and cue audition. Do not imply arbitrary layers or seekable music are supported. Keep Play, Pause/Resume, Restart and Stop visible.
+
+## Movable editor layout
+
+The user requested draggable menus and UI quality-of-life fixes plus an independent agent button audit. Menus support dragging, pinning, reset, close and keyboard navigation. The scene inspector floats, docks, hides and reopens; rail, inspector and timeline sizes are adjustable. Persist layout separately from authoring records and provide reset/recovery. Distinguish browser-tested, source-reviewed and host-restricted controls; navigation must not mutate drafts.
+
+## Master default scene controls
+
+October 1, 2026: beside Scenes, offer Master default with component subsections for settings shared by every scene, including text-box height in vh. Preserve local scene overrides and native source boundaries. Scene transport uses icons in Restart, Play/Pause/Resume, Stop order with hover titles and accessible labels; put the canvas size/device selector at the far right.

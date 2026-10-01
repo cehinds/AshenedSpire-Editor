@@ -228,6 +228,16 @@ export function RepositoryWorkspace({mode, ctx = {}})
         guard(() => { navigationGeneration.current += 1; setRepoId(id); setInstallReview(false); });
     }
 
+    function openRepositoryMode(id, nextMode)
+    {
+        // Review the entire navigation once, preserving pending repository selection.
+        ctx.openWorkspace('project', nextMode, () => {
+            navigationGeneration.current += 1;
+            setRepoId(id);
+            setInstallReview(false);
+        });
+    }
+
     function loadFile(path)
     {
         action('file', async () =>
@@ -328,7 +338,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             </form>
             <div className="repo-list">{repos.map(item => <article className={'repo-card ' + (item.id === repoId ? 'selected' : '')} key={item.id}>
                 <div className="repo-card-top"><h3>{item.name}</h3><span className={'repo-badge ' + (item.status === 'connected' ? 'good' : '')}>{item.status}</span></div><code>{item.url}</code><p>Branch: {item.branch || 'current local branch'}{item.head ? ` · ${item.head.slice(0, 10)}` : ''}</p>{item.checkoutScope === 'game-source' ? <p>Game source checkout includes runtime assets. Large original artwork omitted.</p> : null}{item.error ? <div className="repo-notice error">{item.error}</div> : null}
-                <div className="repo-buttons"><button disabled={!connected || !!busy} onClick={() => action('connect:' + item.id, async () => { const result = await request(`/repos/${encodeURIComponent(item.id)}/connect`, {method: 'POST', body: '{}'}); await refreshRepos(); selectRepo(item.id); if (result.warning || result.remoteUpdated === false) setError(result.warning || 'Local checkout remains connected.'); else setMessage(item.status === 'connected' ? 'Local checkout status refreshed; files preserved.' : 'Local repository copied. Isolated checkout ready.'); })}>{busy === 'connect:' + item.id ? item.status === 'connected' ? 'Refreshing…' : 'Copying…' : item.status === 'connected' ? 'Refresh local status' : 'Open local checkout'}</button><button disabled={!connected || !!busy} onClick={() => selectRepo(item.id)}>Select repository</button>{item.status === 'connected' ? <><button disabled={!!busy} onClick={() => { selectRepo(item.id); ctx.setMode?.('Files'); }}>Browse files</button><button disabled={!!busy} onClick={() => { selectRepo(item.id); ctx.setMode?.('Builds'); }}>Builds</button></> : null}</div>
+                <div className="repo-buttons"><button disabled={!connected || !!busy} onClick={() => action('connect:' + item.id, async () => { const result = await request(`/repos/${encodeURIComponent(item.id)}/connect`, {method: 'POST', body: '{}'}); await refreshRepos(); selectRepo(item.id); if (result.warning || result.remoteUpdated === false) setError(result.warning || 'Local checkout remains connected.'); else setMessage(item.status === 'connected' ? 'Local checkout status refreshed; files preserved.' : 'Local repository copied. Isolated checkout ready.'); })}>{busy === 'connect:' + item.id ? item.status === 'connected' ? 'Refreshing…' : 'Copying…' : item.status === 'connected' ? 'Refresh local status' : 'Open local checkout'}</button><button disabled={!connected || !!busy} onClick={() => selectRepo(item.id)}>Select repository</button>{item.status === 'connected' ? <><button disabled={!!busy} onClick={() => openRepositoryMode(item.id, 'Files')}>Browse files</button><button disabled={!!busy} onClick={() => openRepositoryMode(item.id, 'Builds')}>Builds</button></> : null}</div>
                 {connected && item.status !== 'connected' ? <BranchEditor key={item.id + item.branch} repo={item} disabled={!!busy} save={value => action('branch', async () => { await request(`/repos/${encodeURIComponent(item.id)}`, {method: 'PATCH', body: JSON.stringify({branch: value})}); await refreshRepos(); })}/> : null}
             </article>)}</div>
         </> : <>

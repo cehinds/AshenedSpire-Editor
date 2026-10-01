@@ -234,6 +234,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
         ctx.openWorkspace('project', nextMode, () => {
             navigationGeneration.current += 1;
             setRepoId(id);
+            ctx.setRepositorySelection?.(id);
             setInstallReview(false);
         });
     }

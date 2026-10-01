@@ -61,3 +61,5 @@ October 1, 2026 toolbar refinement: consolidate the workspace title, Visual / In
 October 1, 2026 collapsed-layout direction: replace button rails that would need horizontal scrolling with labeled dropdowns, merged into an existing related row. Mobile workspace navigation and secondary actions belong in the workspace toolbar; inspector editing mode belongs beside its heading. Preserve wide inline controls and pose thumbnails when they fit, primary actions, keyboard access, and real handlers.
 
 All new configurable Codex home state, skills, caches, sessions and authoring outputs belong under D:/repos/.codex. New worktrees belong under D:/repos/.codex/worktrees. Preserve live storage and recovery records; do not repeat an in-progress migration from this chat.
+
+October 1, 2026: workspace titles must remain readable in full. Remove reserved badge padding from the compact toolbar; allow deliberate wrapping when needed instead of truncating the selected card name.

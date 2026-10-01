@@ -13,7 +13,7 @@ export function WorkspaceToolbar({ctx, title, modes, workspaces, repositoryMode,
   return <div className="document-head workspace-toolbar" role="toolbar" aria-label="Workspace controls">
     <h1 title={title}>{title}</h1>
     <select className="collapsed-workspaces" aria-label="Workspace" value={ctx.ws} onChange={event=>ctx.switchWs(event.target.value)}>{workspaces.map(([id,label])=><option value={id} key={id}>{label}</option>)}</select>
-    <ResponsiveChoices className="mode-tabs" label="Canvas preview modes" choices={modes.map(mode=>({value:mode,label:mode}))} value={ctx.mode} onChange={ctx.setMode}/>
+    <ResponsiveChoices className="mode-tabs" label="Canvas preview modes" viewportBreakpoint={1050} choices={modes.map(mode=>({value:mode,label:mode}))} value={ctx.mode} onChange={ctx.setMode}/>
     <div className="workspace-draft-actions">
       <button className="workspace-icon history-action" title="Undo draft change (Ctrl+Z)" aria-label="Undo draft change" disabled={repositoryMode || !ctx.h.past.length} onClick={() => ctx.setH(undo)}>↶</button>
       <button className="workspace-icon history-action" title="Redo draft change (Ctrl+Shift+Z)" aria-label="Redo draft change" disabled={repositoryMode || !ctx.h.future.length} onClick={() => ctx.setH(redo)}>↷</button>

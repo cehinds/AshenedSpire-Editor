@@ -63,3 +63,5 @@ October 1, 2026 collapsed-layout direction: replace button rails that would need
 All new configurable Codex home state, skills, caches, sessions and authoring outputs belong under D:/repos/.codex. New worktrees belong under D:/repos/.codex/worktrees. Preserve live storage and recovery records; do not repeat an in-progress migration from this chat.
 
 October 1, 2026: workspace titles must remain readable in full. Remove reserved badge padding from the compact toolbar; allow deliberate wrapping when needed instead of truncating the selected card name.
+
+October 1, 2026: collapsed/tablet preview modes show only the current option and a dropdown arrow. Keep history, creation and panel access on that same toolbar row; prevent panel icons wrapping onto a separate row.

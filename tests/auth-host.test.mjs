@@ -13,7 +13,7 @@ const NEXT = "changed-fixture-password-789!";
 const git = (cwd, ...args) => execFileSync("git", args, { cwd, stdio: "ignore" });
 
 async function server(root, options = {}) {
-  const host = createWorkspaceHost({ root, defaults: [], ...options });
+  const host = createWorkspaceHost({ root, defaults: [], ...options, authOptions: {accountsPaused: false, ...options.authOptions} });
   await host.ready;
   const http = createServer((req, res) => host.middleware(req, res, () => { res.statusCode = 404; res.end("missing"); }));
   await new Promise(resolve => http.listen(0, "127.0.0.1", resolve));
@@ -56,10 +56,10 @@ test("authentication store rejects dangling links and links to valid owner recor
     const target = path.join(root, "outside.json");
     await mkdir(storage);
     await symlink(target, path.join(storage, "auth.json"));
-    await assert.rejects(createAuthHost({ root }).ready, /Authentication store unavailable/);
+    await assert.rejects(createAuthHost({ root, accountsPaused: false }).ready, /Authentication store unavailable/);
     const record = { version: 1, username: "Owner", algorithm: "scrypt", N: 32768, r: 8, p: 3, salt: "a".repeat(32), hash: "b".repeat(128) };
     await writeFile(target, JSON.stringify(record));
-    await assert.rejects(createAuthHost({ root }).ready, /Authentication store unavailable/);
+    await assert.rejects(createAuthHost({ root, accountsPaused: false }).ready, /Authentication store unavailable/);
     assert.deepEqual(JSON.parse(await readFile(target, "utf8")), record);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
@@ -146,14 +146,14 @@ test("failed-login limits, bounded requests, absolute session expiry, and fail-c
     await app.close(); app = null;
     const saved = await readFile(path.join(root, ".workbench/auth.json"), "utf8");
     await writeFile(path.join(root, ".workbench/auth.json"), '{"invalid":"do-not-echo-secret"}');
-    const invalid = createAuthHost({ root });
+    const invalid = createAuthHost({ root, accountsPaused: false });
     await assert.rejects(invalid.ready, /Invalid authentication store/);
     await rm(path.join(root, ".workbench/auth.json"));
     await symlink(path.join(root, "outside.json"), path.join(root, ".workbench/auth.json"));
-    const linked = createAuthHost({ root });
+    const linked = createAuthHost({ root, accountsPaused: false });
     await assert.rejects(linked.ready, /Authentication store unavailable/);
     await writeFile(path.join(root, "outside.json"), saved);
-    const linkedExisting = createAuthHost({ root });
+    const linkedExisting = createAuthHost({ root, accountsPaused: false });
     await assert.rejects(linkedExisting.ready, /Authentication store unavailable/, "Existing valid credentials cannot be loaded through a symbolic link");
   } finally { if (app) await app.close(); await rm(root, { recursive: true, force: true }); }
 });
@@ -209,7 +209,7 @@ test("local editor opens without credentials while retaining session, origin, CS
     assert.equal((await client.send("/api/auth/session")).body.localAccess, true);
     assert.equal((await client.send("/api/workbench/status")).status, 200);
     assert.equal(await readFile(filename, "utf8"), "legacy account is preserved, not used in local mode");
-    const auth = createAuthHost({ root, requireLogin: false });
+    const auth = createAuthHost({ root, accountsPaused: false, requireLogin: false });
     await auth.ready;
     await assert.rejects(auth.authorize({ headers: { host: "localhost" }, socket: { remoteAddress: "192.0.2.1" } }), /loopback/);
     auth.close();

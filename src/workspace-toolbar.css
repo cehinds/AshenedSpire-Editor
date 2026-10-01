@@ -1,0 +1,29 @@
+.document-head.workspace-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;height:auto;min-height:48px;padding:8px 12px}
+.workspace-toolbar h1{flex:1 1 170px;min-width:120px;margin:0;padding:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px}
+.workspace-toolbar .mode-tabs{position:static;display:flex;flex:0 0 auto;align-items:center;gap:5px;margin:0;padding:0;border:0;max-width:100%;flex-wrap:wrap}
+.workspace-toolbar .mode-tabs button{padding:6px 7px;margin:0;font-size:11px;border-bottom:2px solid transparent}
+.workspace-toolbar .mode-tabs button[aria-selected=true]{border-bottom-color:var(--gold)}
+.workspace-draft-actions{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.workspace-toolbar .workspace-icon{width:30px;height:30px;min-height:30px;padding:0;font-size:19px;display:inline-flex;align-items:center;justify-content:center}
+.workspace-toolbar .draft-create-compact,.workspace-toolbar .draft-create-compact .button-row{margin:0;padding:0;border:0;background:none;gap:0}
+.workspace-toolbar .draft-create-compact button{width:30px;height:30px;padding:0;font-size:21px;line-height:1}
+.workspace-state{color:var(--gold);font-size:10px;flex:0 0 auto}
+.workspace-toolbar .mobile-library,.workspace-toolbar .mobile-inspector{display:none}
+.card-workspace{padding-top:16px}
+.responsive-choices{position:relative;min-width:0;overflow:hidden}
+.responsive-choice-buttons{display:flex;gap:5px;white-space:nowrap;flex-wrap:nowrap}
+.responsive-choice-buttons>button{flex:none}
+.responsive-choice-buttons.choice-measure{position:absolute;width:max-content;visibility:hidden;pointer-events:none}
+.workspace-toolbar .mode-tabs{flex:0 1 var(--choice-width,140px);max-width:45%;min-width:80px}
+.workspace-toolbar select{width:auto;max-width:100%;padding:6px 8px;font-size:11px;min-height:30px}
+.collapsed-workspaces,.collapsed-actions{display:none}
+.inspector-panel .panel-label{display:flex;align-items:center;gap:8px}
+.inspector-panel .panel-label select{width:auto;flex:1;min-width:0;padding:6px;font-size:11px;text-transform:none;letter-spacing:normal}
+.inspector-panel .panel-label .mobile-close{flex:none}
+@media(max-width:1050px){.workspace-toolbar .mobile-library{display:inline-flex}}
+@media(max-width:780px){.workspace-toolbar h1{flex-basis:160px;font-size:14px}.workspace-toolbar .workspace-icon,.workspace-toolbar .draft-create-compact button{width:36px;height:36px;min-height:36px}.workspace-toolbar .mobile-library,.workspace-toolbar .mobile-inspector{display:inline-flex}.document-head.workspace-toolbar{gap:6px}.workspace-toolbar .mode-tabs button{min-height:36px}}
+@media(max-width:780px){.workspace-grid{grid-template-rows:minmax(0,1fr)}.workspace-nav{display:none}.work-surface{grid-row:1}.workspace-toolbar h1{flex-basis:100%;min-width:0}.workspace-toolbar .collapsed-workspaces,.workspace-toolbar .collapsed-actions{display:block;min-height:36px}.workspace-toolbar .collapsed-workspaces{width:100px}.workspace-toolbar .collapsed-actions{width:80px}.workspace-toolbar .mode-tabs{flex:1 1 80px;max-width:100px}.workspace-toolbar .mode-tabs select{width:100%;min-height:36px}.workspace-toolbar .history-action,.workspace-toolbar .mobile-library,.workspace-toolbar .mobile-inspector{display:none}.workspace-toolbar .workspace-state{display:none}}
+.collapsed-card-definition{display:none}@media(max-width:780px){.preview-strip .collapsed-card-definition{display:block;width:auto;max-width:100%}.preview-strip>button,.preview-strip>span{display:none}}
+@media(max-width:780px){.app-shell .workspace-grid{grid-template-rows:minmax(0,1fr)}.app-shell .workspace-nav{display:none}.workspace-grid .work-surface{grid-row:1}}
+.native-preview-expanded{position:fixed;inset:0;z-index:100;background:var(--panel);padding:12px;overflow:auto}.native-preview-expanded .native-preview-frame{height:calc(100dvh - 110px)!important}.native-preview-expanded .native-preview-screen-controls{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.responsive-choices :is(button,select):focus-visible{outline-offset:-3px}

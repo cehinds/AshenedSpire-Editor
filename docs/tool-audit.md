@@ -162,3 +162,7 @@ Parent validation on September 30, 2026: **57 named tests passed in 3.8 seconds*
 | Delivery | Local source repository, main/test/dev branches and ready CI/CD templates; no remote origin, GitHub connection or deployment | Five-minute CI limit applies per job after runner starts; queue, review and merge time not guaranteed |
 
 The earlier baseline BLOCKED rows describe initial gaps; final authoring additions and this implementation evidence record their current state. Remaining source adapters for cards/decks/effects/battlefield/native ERD and private combat execution still limit a complete specialized game-authoring loop. Saved checkout text can be edited and built through Files/Builds today.
+
+## Accounts paused — October 1, 2026
+
+The latest correction supersedes historical account instructions. Account UI and editor credential endpoints are paused; automatic loopback sessions preserve same-origin/CSRF and private-path protections. Existing credential stores stay unread and unchanged. Static builds request no local session. Renewed sessions refresh repository, branch and native-document tokens without discarding drafts or automatically replaying writes; settings promotion requires renewed review. Windows checkout promotion retries only EPERM/EACCES in its validated private parent and refuses occupied targets.

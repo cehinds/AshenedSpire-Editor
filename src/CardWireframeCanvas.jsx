@@ -2,11 +2,10 @@ import {rulesText} from './Controls.jsx';
 import './card-inspector.css';
 
 export function CardWireframeCanvas({ctx}) {
-  const {card,p,cardSection,chooseCardSection,setMode}=ctx;
+  const {card,p,cardSection,chooseCardSection}=ctx;
   const style=p.styles[card.id]||{};
   const section=(id,label,children)=> <button type="button" className={'card-wireframe-section section-'+id+(cardSection===id?' selected':'')} aria-label={'Edit '+label+' section'} aria-pressed={cardSection===id} onClick={()=>chooseCardSection(id)}><span className="wireframe-section-label">{label}</span>{children}</button>;
   return <section className="card-wireframe-canvas" aria-label="Expanded card wireframe">
-    <div className="wireframe-heading"><div><strong>Card anatomy</strong><small>Click a region to edit.</small></div><button onClick={()=>setMode('In game')}>Preview in game</button></div>
     <div className="expanded-card-wireframe">
       {section('identity','Name and identity',<><strong className="wireframe-card-name">{card.name}</strong><span>{card.class||'Colorless'} · {card.type} · {card.rarity||'Unspecified rarity'}</span></>)}
       {section('costs','Resource costs',<div className="wireframe-costs"><span><b>{card.cost??0}</b> Action</span><span><b>{card.staminaCost??0}</b> Stamina</span><span><b>{card.manaCost??0}</b> Mana</span></div>)}

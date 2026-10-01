@@ -53,13 +53,13 @@ export function GameCardPreview({ctx: {p, ws, card, node}}) {
   const currentPage = Math.min(page,maxPage);
   const visibleIds = ids.slice(currentPage*size,(currentPage+1)*size);
   const snapshot = useMemo(() => ({draft:{cards:p.cards,nodes:p.nodes,styles:p.styles,owned:p.owned,tagging},ids:visibleIds,offset:currentPage*size,upgraded}), [p.cards,p.nodes,p.styles,p.owned,tagging,visibleIds.join('|'),currentPage,size,upgraded]);
-  return <section className="game-card-preview">
-    <div className="game-card-preview-toolbar">
+  const toolbar = <>
       <strong>{ws === 'decks' ? 'Deck shelf' : ws === 'tags' ? `${node.label} · linked cards` : 'Card in game'}</strong>
       <label className="check"><input type="checkbox" checked={upgraded} onChange={event => setUpgraded(event.target.checked)}/>Upgraded</label>
       {maxPage > 0 ? <div className="button-row"><button disabled={!currentPage} onClick={() => setPage(currentPage-1)}>Previous</button><span>{currentPage+1} / {maxPage+1}</span><button disabled={currentPage===maxPage} onClick={() => setPage(currentPage+1)}>Next</button></div> : null}
-    </div>
-    {ids.length ? <NativePreviewFrame title="AshenSpire native card preview" boot={boot} snapshot={snapshot} height={ws==='cards'?470:650} assetFilter={noRuntimeAssets}/> : <div className="notice">{ws==='decks' ? 'Add cards to the deck to preview them here.' : 'No authored cards are linked to this tag or its descendants.'}</div>}
+    </>;
+  return <section className="game-card-preview">
+    {ids.length ? <NativePreviewFrame title="AshenSpire native card preview" boot={boot} snapshot={snapshot} height={ws==='cards'?470:650} assetFilter={noRuntimeAssets} toolbar={toolbar} compactControls/> : <><div className="game-card-preview-toolbar">{toolbar}</div><div className="notice">{ws==='decks' ? 'Add cards to the deck to preview them here.' : 'No authored cards are linked to this tag or its descendants.'}</div></>}
     <p className="game-card-preview-note">Native AshenSpire card renderer with your current draft. Card definitions, tag labels and presentation overrides update here after an edit is applied. Printed values come from the native token resolver; combat outcomes require the playable combat preview.</p>
   </section>;
 }

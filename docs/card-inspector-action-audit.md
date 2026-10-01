@@ -42,7 +42,7 @@ Authoring opens without credentials. Owner setup, account/login/logout and passw
 
 Project Repositories / Files / Builds were source-reviewed: register/open/select an isolated local checkout; browse/refresh files; explicit revision-checked save/reload; dirty-buffer navigation review; branch create/switch/merged-only deletion; declared build/test scripts; reviewed dependency installation; cancellation, logs and verified artifact preview.
 
-Automated fixture coverage is provided by `auth-host.test.mjs`, `workspace-host.test.mjs`, `local-branches.test.mjs` and `native-bridge-host.test.mjs`. These are controlled host checks, not browser acceptance or proof of a successful real game build. Actual user-checkout writes, branch changes, native promotion, builds and artifact execution are **unexercised** in this audit. No remote connection, push or publication was performed here.
+Automated fixture coverage is provided by `auth-host.test.mjs`, `workspace-host.test.mjs`, `local-branches.test.mjs` and `native-bridge-host.test.mjs`. These are controlled host checks, not browser acceptance or proof of a successful real game build. Actual user-checkout writes, branch changes, native promotion, builds and artifact execution are **unexercised** in this audit. Editor-driven remote connections and user-checkout publication remain unexercised. Delivery uses the existing repository pull-request and Pages workflow.
 
 ## Verification
 
@@ -52,7 +52,7 @@ Automated fixture coverage is provided by `auth-host.test.mjs`, `workspace-host.
 
 The main task browser-tested Cards wireframe clicks, the section dropdown, Form amount/cost/type edits, font reset, effect add/remove, Table Inspect, valid/invalid JSON and buffer reset, reviewed Prompt application, Undo/Redo, and creation Cancel/Escape. Reviewed new-card creation appeared in the actual native renderer with copied tags and was removed by Undo. Artwork import, fit selection, native artwork appearance and removal passed. Upgrade invalid-name rejection, remove/add and Undo passed. Narrow-screen section clicks opened visible editable fields at 390 × 844; the viewport was restored afterwards. No browser console errors were observed. Test-only card changes were restored.
 
-The independent audit did not rerun tests. Final delivery checks passed: `npm test` (99 tests across its runners), `npm run test:sites` (4 tests), production build and Sites packaging, `npm run review:quick`, and `git diff --check`. The Windows staged-checkout lock was reproduced and fixed with bounded atomic-rename retries; collision, retry-budget and non-Windows behavior have deterministic tests. Source review does not substitute for browser checks of downloads, asynchronous artwork races or every native engine control.
+The independent audit did not rerun tests. Final delivery checks passed: `npm test` (104 tests across its runners), `npm run test:sites` (4 tests), production build and Sites packaging, `npm run review:quick`, and `git diff --check`. The merge retains upstream checkout promotion protections and bounded Windows atomic-rename retries; its parent/symlink safety, collision and retry behavior have deterministic tests. Source review does not substitute for browser checks of downloads, asynchronous artwork races or every native engine control.
 
 ## Interchange
 
@@ -60,4 +60,7 @@ Source-reviewed actions include current-document/project export, CSV/XLSX export
 
 ## Delivery
 
-This document records local branch evidence only. It does not certify remote CI, a merge, Pages publication or Sites handoff. The local preview is served on port 5174. Production packaging emitted `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`; protected Sites source files remain unchanged. Build output retains its existing large-bundle advisory. Published static previews support draft authoring, without local repository/build access. Keep local host, consolidated Pages and Sites outputs distinct.
+This document records local validation evidence. Remote CI, merging and Pages publication must be confirmed separately before reporting delivery. The local preview is served on port 5174. Production packaging emitted `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`; protected Sites source files remain unchanged. Build output retains its existing large-bundle advisory. Published static previews support draft authoring, without local repository/build access. Keep local host, consolidated Pages and Sites outputs distinct.
+
+
+Toolbar follow-up: workspace title, preview modes, draft history icons and + creation share a compact row. Card in game, upgrade and fullscreen controls share another row. Browser-tested: + review/cancel, live native name update, Undo/Redo, upgrade rendering, responsive dropdowns at 390 px, pose selection/seek, and Library reopening at 900 px. Widening restores inline preview tabs. Collapsed workspace navigation, canvas modes and secondary actions use dropdowns, while inspector mode lives beside its heading. No horizontal page overflow was observed at 390 px. Fullscreen/expanded preview and Escape exit were browser-tested. An editor expansion fallback keeps this control usable when browser fullscreen is unavailable. Test edits were restored.

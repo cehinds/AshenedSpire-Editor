@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from 'react';
-import {useAuth} from './AuthGate.jsx';
+import {useLocalHost} from './AuthGate.jsx';
 import {Notice} from './Controls.jsx';
 import {validateGameSettings} from './game-settings.mjs';
 
 export function LocalSettingsPromotion({value, ctx})
 {
-    const auth = useAuth();
-    const allowed = (auth?.localAccess === true || auth?.authenticated === true) && !auth.offline;
+    const localHost = useLocalHost();
+    const allowed = localHost?.connected === true && !localHost.offline;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
     const [repoId, setRepoId] = useState('');
@@ -29,13 +29,12 @@ export function LocalSettingsPromotion({value, ctx})
     useEffect(() => {setReviewed(false);}, [value, repoId]);
     useEffect(() =>
     {
-        if (!allowed)
-        {
-            selectionGeneration.current += 1;
-            setHost(null); setGit(null); setReviewed(false);
-            requests.current.forEach(controller => controller.abort());
-        }
-    }, [allowed]);
+        // A renewed browser session may belong to a restarted host. Require fresh
+        // target inspection and review before any settings write with a new token.
+        selectionGeneration.current += 1;
+        setHost(null); setGit(null); setReviewed(false);
+        requests.current.forEach(controller => controller.abort());
+    }, [allowed, localHost?.connectionId]);
 
     async function request(path, options = {})
     {
@@ -49,7 +48,7 @@ export function LocalSettingsPromotion({value, ctx})
             const result = await response.json();
             if (!response.ok)
             {
-                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-auth-expired'));
+                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-host-disconnected'));
                 throw new Error(result.error || `Local request failed (${response.status}).`);
             }
             return result;

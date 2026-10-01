@@ -32,7 +32,7 @@ function CreationReview({kind, records, defaultName, make, commit, children, com
       <div className="button-row"><button className="primary" disabled={!!issue} onClick={create}>Create reviewed {kind} draft</button><button onClick={() => setOpen(false)}>Cancel creation</button></div>
     </div> : null;
   return <section className={'draft-create' + (compact ? ' draft-create-compact' : '')} aria-label={'Create ' + kind + ' draft'}>
-    <div className="button-row"><button ref={trigger} onClick={start} disabled={open} aria-haspopup={compact ? 'dialog' : undefined}>New {kind}…</button>{compact ? null : <small>{kind === 'card' ? 'Copy a native definition into a separate draft.' : 'Save current native layout as a named draft.'}</small>}</div>
+    <div className="button-row"><button ref={trigger} onClick={start} disabled={open} aria-label={compact ? 'New ' + kind : undefined} title={compact ? 'New ' + kind : undefined} aria-haspopup={compact ? 'dialog' : undefined}>{compact ? '+' : <>New {kind}…</>}</button>{compact ? null : <small>{kind === 'card' ? 'Copy a native definition into a separate draft.' : 'Save current native layout as a named draft.'}</small>}</div>
     {compact && open ? createPortal(<dialog ref={dialog} className="dialog draft-create-modal" role="dialog" aria-label={'Review new ' + kind + ' draft'} onCancel={event => { event.preventDefault(); setOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') event.stopPropagation(); }}>{review}</dialog>, document.body) : review}
   </section>;
 }

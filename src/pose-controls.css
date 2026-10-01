@@ -1,0 +1,6 @@
+.pose-workspace .pose-strip{--pose-tile-width:62px;gap:7px;overflow:visible}
+.pose-workspace .pose-strip>button{min-width:var(--pose-tile-width)}
+.pose-workspace .pose-strip span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pose-workspace .pose-strip[hidden],.pose-playback-controls .pose-inline-selection[hidden]{display:none}
+.pose-playback-controls .pose-inline-selection{min-width:0;max-width:100%;gap:6px}
+.pose-playback-controls .pose-inline-selection select{min-width:0;width:120px;max-width:100%;text-overflow:ellipsis}

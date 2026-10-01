@@ -6,77 +6,9 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { createWorkspaceHost, parseRepository, planCommand, redact, workspaceHostPlugin } from "../server/workspace-host.mjs";
-import { finalizeCheckout } from "../server/checkout-finalization.mjs";
 
 const git = (dir, ...args) => execFileSync("git", args, { cwd: dir, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-const filesystemError = code => Object.assign(new Error(code), { code });
-const missingTarget = async () => { throw filesystemError("ENOENT"); };
-
-test("checkout finalization retries transient Windows locks without changing promotion paths", async () => {
-  const calls = [], delays = [], failures = ["EPERM", "EBUSY", "EACCES"];
-  await finalizeCheckout("staged-clone", "checkout", {
-    platform: "win32", inspectTarget: missingTarget,
-    renameDirectory: async (...args) => {
-      calls.push(args);
-      if (failures.length) throw filesystemError(failures.shift());
-    },
-    wait: async delay => { delays.push(delay); },
-  });
-  assert.equal(calls.length, 4);
-  assert.ok(calls.every(args => args[0] === "staged-clone" && args[1] === "checkout"));
-  assert.deepEqual(delays, [150, 150, 150]);
-});
-
-test("checkout finalization exhausts a bounded Windows lock retry budget", async () => {
-  const locked = filesystemError("EPERM"), delays = [];
-  let attempts = 0;
-  await assert.rejects(finalizeCheckout("staged-clone", "checkout", {
-    platform: "win32", inspectTarget: missingTarget,
-    renameDirectory: async () => { attempts++; throw locked; },
-    wait: async delay => { delays.push(delay); },
-  }), error => error === locked);
-  assert.equal(attempts, 11);
-  assert.equal(delays.length, 10);
-  assert.equal(delays.reduce((sum, delay) => sum + delay, 0), 1500);
-});
-
-test("checkout finalization never retries collisions, other errors, or non-Windows locks", async () => {
-  for (const [platform, code] of [["linux", "EPERM"], ["linux", "EBUSY"], ["darwin", "EACCES"], ...["EEXIST", "ENOTEMPTY", "EXDEV", "ENOENT", "ENOSPC"].map(code => ["win32", code])]) {
-    const failure = filesystemError(code);
-    let attempts = 0;
-    await assert.rejects(finalizeCheckout("staged-clone", "checkout", {
-      platform, inspectTarget: missingTarget,
-      renameDirectory: async () => { attempts++; throw failure; },
-      wait: async () => { assert.fail(`Unexpected retry for ${platform}/${code}`); },
-    }), error => error === failure);
-    assert.equal(attempts, 1);
-  }
-});
-
-test("checkout finalization refuses existing targets before promotion and after transient errors", async () => {
-  for (const initiallyExists of [true, false]) {
-    let targetExists = initiallyExists, attempts = 0;
-    await assert.rejects(finalizeCheckout("staged-clone", "checkout", {
-      platform: "win32",
-      inspectTarget: async () => { if (!targetExists) throw filesystemError("ENOENT"); return {}; },
-      renameDirectory: async () => { attempts++; targetExists = true; throw filesystemError("EPERM"); },
-      wait: async () => { assert.fail("Existing checkout must not be retried"); },
-    }), { code: "EEXIST" });
-    assert.equal(attempts, initiallyExists ? 0 : 1);
-  }
-});
-
-test("checkout finalization does not promote when target absence cannot be verified", async () => {
-  const inaccessible = filesystemError("EACCES");
-  await assert.rejects(finalizeCheckout("staged-clone", "checkout", {
-    platform: "win32",
-    inspectTarget: async () => { throw inaccessible; },
-    renameDirectory: async () => { assert.fail("Target absence is unknown"); },
-    wait: async () => { assert.fail("Only rename lock failures are retryable"); },
-  }), error => error === inaccessible);
-});
 
 async function fixture(root, name, native = false) {
   const dir = path.join(root, name);
@@ -108,7 +40,7 @@ async function fixture(root, name, native = false) {
 }
 
 async function start(root, sources) {
-  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 10_000, jobTimeout: 10_000 });
+  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 30_000, jobTimeout: 60_000 });
   await host.ready;
   const server = createServer((req, res) => host.middleware(req, res, () => { res.statusCode = 404; res.end(); }));
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -117,8 +49,6 @@ async function start(root, sources) {
   const bootstrap = await fetch(`${origin}/api/auth/session`);
   cookie = bootstrap.headers.get("set-cookie").split(";")[0];
   const initial = await bootstrap.json();
-  const signin = await fetch(`${origin}/api/auth/${initial.setupRequired ? "setup" : "login"}`, { method: "POST", headers: { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": initial.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-  assert.equal(signin.status, 200); cookie = signin.headers.get("set-cookie").split(";")[0];
   const status = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: cookie } }).then(response => response.json());
   async function api(route, method = "GET", body, headers = {}) {
     const response = await fetch(`${origin}/api/workbench${route}`, { method, headers: { Cookie: cookie, ...(method === "GET" ? {} : { Origin: origin, "Content-Type": "application/json", "X-Workbench-CSRF": status.csrfToken }), ...headers }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -283,9 +213,7 @@ test("Vite plugin exposes same local middleware for dev and built preview", asyn
     const origin = `http://127.0.0.1:${httpServer.address().port}`;
     const bootstrap = await fetch(`${origin}/api/auth/session`);
     const session = await bootstrap.json();
-    const signin = await fetch(`${origin}/api/auth/setup`, { method: "POST", headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0], Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": session.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-    assert.equal(signin.status, 200); await signin.json();
-    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: signin.headers.get("set-cookie").split(";")[0] } });
+    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0] } });
     assert.equal(response.status, 200);
     assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
   } finally {

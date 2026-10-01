@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import { createHash } from 'node:crypto';
 import { previewContentBundle } from '../src/game-card-preview.mjs';
+import { combatPreviewSnapshot } from '../src/game-runtime-preview.mjs';
 import { parseCSV } from '../src/core.mjs';
 
 const base = new URL('../src/native/game-preview/', import.meta.url);
@@ -37,7 +38,8 @@ test('native combat runs drafted cards through actual seeded engine', async () =
   cards[0].name = 'Live draft card';
   const nodes = parseCSV(await fs.readFile(new URL('../src/sources/nodes.csv', import.meta.url), 'utf8'));
   nodes[0].label = 'Preview tag';
-  const bundle = N.configuredContentBundle(previewContentBundle(N.contentBundle, { cards, nodes }), {});
+  const tagging = parseCSV(await fs.readFile(new URL('../src/sources/tagging.csv', import.meta.url), 'utf8'));
+  const bundle = N.configuredContentBundle(previewContentBundle(N.contentBundle, { cards, nodes, tagging }), {});
   assert.equal(bundle.nodes.find(node => node.id === nodes[0].id).label, 'Preview tag');
   const registries = N.createRegistries(bundle);
   assert.equal(registries.cards.get(cards[0].id).name, 'Live draft card');
@@ -59,4 +61,40 @@ test('native combat runs drafted cards through actual seeded engine', async () =
   assert.ok(attack.events.some(event => event.type === 'damageDealt' && event.amount > 0));
   assert.ok(attackCombat.enemies[0].hp < 30);
   assert.equal(attackCombat.queue.length, 0);
+});
+
+test('combat UI can query classification for every merged card, including generated cards', async () => {
+  const cards = JSON.parse(await fs.readFile(new URL('../src/cards.json', import.meta.url), 'utf8'));
+  const nodes = parseCSV(await fs.readFile(new URL('../src/sources/nodes.csv', import.meta.url), 'utf8'));
+  const tagging = parseCSV(await fs.readFile(new URL('../src/sources/tagging.csv', import.meta.url), 'utf8'));
+  // Registry construction alone does not exercise the native framework's lazy
+  // kind requirement. Mounting combat queries costs and playability for cards.
+  for (const storedTagging of [undefined, tagging]) {
+    const draft = {cards, nodes, tagging: storedTagging};
+    const snapshot = combatPreviewSnapshot(draft, 'combat', 'rogue', tagging);
+    const bundle = N.configuredContentBundle(previewContentBundle(N.contentBundle, snapshot.project), {});
+    const registries = N.createRegistries(bundle);
+    assert.deepEqual(Array.from(registries.cards.get('smokePellet').kindIds), ['classification.skill']);
+    assert.equal(draft.tagging, storedTagging, 'preview does not migrate the saved draft');
+    for (const card of registries.cards.all()) {
+      assert.doesNotThrow(() => registries.framework.costProfile(card), card.id);
+      assert.doesNotThrow(() => registries.framework.isUnplayable(card), card.id);
+    }
+  }
+});
+
+test('combat preview keeps explicit classification removal invalid instead of restoring source tags', async () => {
+  const cards = JSON.parse(await fs.readFile(new URL('../src/cards.json', import.meta.url), 'utf8'));
+  const nodes = parseCSV(await fs.readFile(new URL('../src/sources/nodes.csv', import.meta.url), 'utf8'));
+  const sourceTagging = parseCSV(await fs.readFile(new URL('../src/sources/tagging.csv', import.meta.url), 'utf8'));
+  const removed = sourceTagging.filter(row => !(row.family === 'card' && row.objectId === 'smokePellet' && row.tagId === 'classification.skill'));
+  for (const tagging of [removed, []]) {
+    const snapshot = combatPreviewSnapshot({cards, nodes, tagging}, 'combat', 'rogue', sourceTagging);
+    assert.equal(snapshot.project.tagging, tagging);
+    const registries = N.createRegistries(N.configuredContentBundle(previewContentBundle(N.contentBundle, snapshot.project), {}));
+    const smoke = registries.cards.get('smokePellet');
+    assert.throws(() => registries.framework.costProfile(smoke), /card smokePellet: states no kind/);
+    assert.throws(() => registries.framework.isUnplayable(smoke), /card smokePellet: states no kind/);
+  }
+  assert(sourceTagging.some(row => row.objectId === 'smokePellet' && row.tagId === 'classification.skill'));
 });

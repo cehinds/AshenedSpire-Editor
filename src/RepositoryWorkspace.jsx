@@ -13,7 +13,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const hostAvailable = localHost?.connected === true;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
-    const [repoId, setRepoId] = useState('');
+    const [repoId, setRepoId] = useState(ctx.repositorySelection || '');
     const [loading, setLoading] = useState(true);
     const [busy, setBusy] = useState('');
     const [error, setError] = useState('');
@@ -121,7 +121,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
                 const value = await requestRef.current('/repos');
                 if (!active || !alive.current) return;
                 setRepos(localRepos(value.repos));
-                setRepoId(previous => previous || localRepos(value.repos)[0]?.id || '');
+                setRepoId(previous => localRepos(value.repos).some(item => item.id === previous) ? previous : localRepos(value.repos)[0]?.id || '');
             }
             catch (problem) { if (active && alive.current && problem.name !== 'AbortError') { setHost(null); setError(problem.message); } }
             finally { if (active && alive.current) setLoading(false); }
@@ -225,7 +225,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
 
     function selectRepo(id)
     {
-        guard(() => { navigationGeneration.current += 1; setRepoId(id); setInstallReview(false); });
+        guard(() => { navigationGeneration.current += 1; setRepoId(id); ctx.setRepositorySelection?.(id); setInstallReview(false); });
     }
 
     function openRepositoryMode(id, nextMode)
@@ -234,6 +234,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
         ctx.openWorkspace('project', nextMode, () => {
             navigationGeneration.current += 1;
             setRepoId(id);
+            ctx.setRepositorySelection?.(id);
             setInstallReview(false);
         });
     }

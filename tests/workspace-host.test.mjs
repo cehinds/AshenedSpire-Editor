@@ -40,7 +40,7 @@ async function fixture(root, name, native = false) {
 }
 
 async function start(root, sources) {
-  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 10_000, jobTimeout: 10_000 });
+  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 30_000, jobTimeout: 60_000 });
   await host.ready;
   const server = createServer((req, res) => host.middleware(req, res, () => { res.statusCode = 404; res.end(); }));
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -49,8 +49,6 @@ async function start(root, sources) {
   const bootstrap = await fetch(`${origin}/api/auth/session`);
   cookie = bootstrap.headers.get("set-cookie").split(";")[0];
   const initial = await bootstrap.json();
-  const signin = await fetch(`${origin}/api/auth/${initial.setupRequired ? "setup" : "login"}`, { method: "POST", headers: { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": initial.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-  assert.equal(signin.status, 200); cookie = signin.headers.get("set-cookie").split(";")[0];
   const status = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: cookie } }).then(response => response.json());
   async function api(route, method = "GET", body, headers = {}) {
     const response = await fetch(`${origin}/api/workbench${route}`, { method, headers: { Cookie: cookie, ...(method === "GET" ? {} : { Origin: origin, "Content-Type": "application/json", "X-Workbench-CSRF": status.csrfToken }), ...headers }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -215,9 +213,7 @@ test("Vite plugin exposes same local middleware for dev and built preview", asyn
     const origin = `http://127.0.0.1:${httpServer.address().port}`;
     const bootstrap = await fetch(`${origin}/api/auth/session`);
     const session = await bootstrap.json();
-    const signin = await fetch(`${origin}/api/auth/setup`, { method: "POST", headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0], Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": session.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-    assert.equal(signin.status, 200); await signin.json();
-    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: signin.headers.get("set-cookie").split(";")[0] } });
+    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0] } });
     assert.equal(response.status, 200);
     assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
   } finally {

@@ -14,6 +14,7 @@ export default defineConfig({
     host: "127.0.0.1",
     allowedHosts: ["terminal.local"],
     watch: {ignored: ["**/output/**", "**/qa/**", "**/.workbench/**"]},
+    watch: {ignored: ["**/output/**", "**/qa/**", "**/.workbench/**"]},
     warmup: {
       clientFiles: ["./src/main.jsx"],
     },
@@ -21,6 +22,7 @@ export default defineConfig({
   preview: {
     host: "127.0.0.1",
     allowedHosts: ["terminal.local"],
+    watch: {ignored: ["**/output/**", "**/qa/**", "**/.workbench/**"]},
   },
   plugins: [react(), workspaceHostPlugin({ authOptions: { accountsPaused: true } })],
 });

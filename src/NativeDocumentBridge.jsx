@@ -76,19 +76,34 @@ export function NativeDocumentBridge({ctx, open, onClose})
     {
         if (!open) return;
         const previous = document.activeElement;
-        root.current?.querySelector('button')?.focus();
+        root.current?.focus();
         const keys = event =>
         {
             if (event.key === 'Escape') {event.preventDefault(); event.stopPropagation(); if (!busyRef.current) closeRef.current();}
             if (event.key !== 'Tab') return;
-            const controls = [...root.current.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled)')];
-            if (event.shiftKey && document.activeElement === controls[0]) {event.preventDefault(); controls.at(-1)?.focus();}
-            else if (!event.shiftKey && document.activeElement === controls.at(-1)) {event.preventDefault(); controls[0]?.focus();}
+            const dialog = root.current;
+            if (!dialog) return;
+            const controls = [...dialog.querySelectorAll('button:not(:disabled),input:not(:disabled):not([type="hidden"]),select:not(:disabled),textarea:not(:disabled),a[href],[tabindex="0"]')].filter(control => control.getClientRects().length);
+            if (!controls.length) {event.preventDefault(); dialog.focus(); return;}
+            const outside = !controls.includes(document.activeElement);
+            if (event.shiftKey && (outside || document.activeElement === controls[0])) {event.preventDefault(); controls.at(-1).focus();}
+            else if (!event.shiftKey && (outside || document.activeElement === controls.at(-1))) {event.preventDefault(); controls[0].focus();}
         };
-        const element = root.current;
-        element?.addEventListener('keydown', keys);
-        return () => {element?.removeEventListener('keydown', keys); previous?.focus();};
+        document.addEventListener('keydown', keys, true);
+        return () => {document.removeEventListener('keydown', keys, true); if (previous?.isConnected) previous.focus();};
     }, [open]);
+
+    useEffect(() =>
+    {
+        const dialog = root.current;
+        if (!open || !dialog) return;
+        if (busy) {dialog.focus(); return;}
+        if (document.activeElement === dialog || !dialog.contains(document.activeElement))
+        {
+            const first = [...dialog.querySelectorAll('button:not(:disabled),input:not(:disabled):not([type="hidden"]),select:not(:disabled),textarea:not(:disabled)')].find(control => control.getClientRects().length);
+            (first || dialog).focus();
+        }
+    }, [open, busy]);
 
     function changeTarget(patch)
     {
@@ -145,7 +160,7 @@ export function NativeDocumentBridge({ctx, open, onClose})
     }
 
     if (!open) return null;
-    return <div className="native-bridge-backdrop"><section className="native-bridge" ref={root} role="dialog" aria-modal="true" aria-labelledby="native-bridge-title">
+    return <div className="native-bridge-backdrop"><section className="native-bridge" ref={root} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="native-bridge-title">
         <div className="native-bridge-heading"><h2 id="native-bridge-title">Native checkout document</h2><button disabled={busy} onClick={onClose}>Close</button></div>
         {!type ? <p>Supported: Tags CSV, Opening scene full JSON, and UI configuration JSON. Cards, effects, battlefield proposals, and native ERD documents require separate adapters.</p> : !allowed ? <p>Local editor host required. Offline authoring preview cannot load or save repository files.</p> : <>
             <p>{type.label}: load existing checkout document, edit draft, review changes, then save explicitly. Structural validation runs before load and save; native compiler remains separate.</p>

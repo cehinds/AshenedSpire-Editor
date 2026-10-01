@@ -37,7 +37,8 @@ test('native combat runs drafted cards through actual seeded engine', async () =
   cards[0].name = 'Live draft card';
   const nodes = parseCSV(await fs.readFile(new URL('../src/sources/nodes.csv', import.meta.url), 'utf8'));
   nodes[0].label = 'Preview tag';
-  const bundle = N.configuredContentBundle(previewContentBundle(N.contentBundle, { cards, nodes }), {});
+  const tagging = parseCSV(await fs.readFile(new URL('../src/sources/tagging.csv', import.meta.url), 'utf8'));
+  const bundle = N.configuredContentBundle(previewContentBundle(N.contentBundle, { cards, nodes, tagging }), {});
   assert.equal(bundle.nodes.find(node => node.id === nodes[0].id).label, 'Preview tag');
   const registries = N.createRegistries(bundle);
   assert.equal(registries.cards.get(cards[0].id).name, 'Live draft card');

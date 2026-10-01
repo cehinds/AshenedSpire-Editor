@@ -47,6 +47,16 @@ test('real bundled native registries accept editor drafts and leave native sourc
   assert.equal(typeof native.cardShapeCssProperties,'function');
 });
 
+test('partial draft tag edits retain native-only classifications and allow owned-card assignment removal', () => {
+  const base = {cards:[{id:'edited'},{id:'native-only'}],tagging:[{family:'card',objectId:'edited',tagId:'old'},{family:'card',objectId:'native-only',tagId:'attack'}]};
+  const changed = previewContentBundle(base,{cards:[{id:'edited'}],tagging:[{family:'card',objectId:'edited',tagId:'new'}]});
+  assert.deepEqual(changed.tagging.map(row=>row.tagId),['attack','new']);
+  const cleared = previewContentBundle(base,{cards:[{id:'edited'}],tagging:[]});
+  assert.deepEqual(cleared.tagging,[base.tagging[1]]);
+  assert.notEqual(cleared.tagging[0],base.tagging[1]);
+  assert.equal(base.tagging[0].tagId,'old');
+});
+
 test('new reviewed card is accepted by native registries from exported draft tagging and disappears on Undo', () => {
   const read = path => fs.readFileSync(new URL(path,import.meta.url),'utf8');
   const context = vm.createContext({console,setTimeout,clearTimeout,queueMicrotask:()=>{},TextEncoder,TextDecoder,structuredClone,performance});

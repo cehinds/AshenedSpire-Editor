@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene} from '../src/scene-studio-model.mjs';
+import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene, moveSequenceScene} from '../src/scene-studio-model.mjs';
 import {parseCSV} from '../src/core.mjs';
 import {parseNativeDocument, serializeNativeDocument} from '../src/native-document.mjs';
 
@@ -222,4 +222,32 @@ test('sequence timeline lays out enabled scenes end to end for play-all', () => 
   assert.equal(nextSequenceScene(timeline, timeline.at(-1).id), null);
   assert.equal(nextSequenceScene(timeline, 'missing'), null);
   assert.equal(locateSequenceTime([], 3), null);
+});
+
+test('sequence scenes move among active scenes and keep disabled slots after them', () => {
+  const p = project();
+  const before = sequenceTimeline(sequence(p)).map(row => row.id);
+  const disabled = sortedScenes(sequence(p)).filter(scene => scene.enabled === false).map(scene => scene.id);
+  assert.equal(moveSequenceScene(p, before[0], 2), true);
+  assert.deepEqual(sequenceTimeline(sequence(p)).map(row => row.id), [before[1], before[2], before[0], ...before.slice(3)]);
+  assert.equal(moveSequenceScene(p, before[0], 99), true);
+  assert.equal(sequenceTimeline(sequence(p)).at(-1).id, before[0]);
+  assert.equal(moveSequenceScene(p, before[0], -5), true);
+  assert.deepEqual(sequenceTimeline(sequence(p)).map(row => row.id), before);
+  assert.deepEqual(sortedScenes(sequence(p)).filter(scene => scene.enabled === false).map(scene => scene.id), disabled);
+  assert.equal(moveSequenceScene(p, before[0], 0), false);
+  if (disabled.length) assert.equal(moveSequenceScene(p, disabled[0], 0), false);
+  assert.equal(moveSequenceScene(p, 'missing', 1), false);
+});
+
+test('sequence scene moves keep interleaved disabled slots in place', () => {
+  const p = project();
+  const all = sortedScenes(sequence(p));
+  const [a, b] = all.filter(scene => scene.enabled !== false);
+  const disabled = all.find(scene => scene.enabled === false);
+  const rest = all.filter(scene => ![a, b, disabled].includes(scene));
+  [a, disabled, b, ...rest].forEach((scene, index) => {scene.order = index + 1;});
+  assert.equal(moveSequenceScene(p, a.id, 1), true);
+  assert.deepEqual(sortedScenes(sequence(p)).slice(0, 3).map(scene => scene.id), [b.id, disabled.id, a.id]);
+  assert.equal(sortedScenes(sequence(p))[0].enabled !== false, true);
 });

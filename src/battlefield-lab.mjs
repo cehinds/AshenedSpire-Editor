@@ -22,6 +22,35 @@ export const STAGE_FIELDS = Object.freeze([
   {key: 'actionClearanceViewportPct', label: 'Action rail clearance', min: 0, max: 20, step: 0.5, unit: 'vh', def: 3},
   {key: 'intentGapPx', label: 'Intent badge gap', min: 0, max: 40, step: 1, unit: 'px', def: 6},
 ]);
+// Vendored game CSS fixes combat rows at 10% / 45% / 45% (10 / 55 / 35 below 700px height),
+// overriding the w4a band adapter. Authored rows are a preview-only proposal over that rule.
+export const NATIVE_ROWS = Object.freeze({tall: {hud: 10, field: 45, hand: 45}, short: {hud: 10, field: 55, hand: 35}});
+export const ROW_FIELDS = Object.freeze([
+  {key: 'hud', label: 'HUD row', min: 5, max: 20},
+  {key: 'field', label: 'Battlefield row', min: 20, max: 80},
+  {key: 'hand', label: 'Hand and action row', min: 15, max: 70},
+]);
+export function rowsProblems(rows) {
+  if (!record(rows)) return ['Screen rows must be an object'];
+  const issues = [];
+  for (const field of ROW_FIELDS) if (!Number.isInteger(rows[field.key]) || rows[field.key] < field.min || rows[field.key] > field.max) issues.push(`${field.label} must be a whole number ${field.min}–${field.max}%`);
+  if (Object.keys(rows).some(key => !ROW_FIELDS.some(field => field.key === key))) issues.push('Unknown screen row');
+  if (!issues.length && rows.hud + rows.field + rows.hand !== 100) issues.push('Screen rows must sum to 100%');
+  return issues;
+}
+// Change one row; the battlefield absorbs the difference, or the hand row when the battlefield itself changes.
+export function shiftRows(rows, key, value) {
+  const spec = ROW_FIELDS.find(field => field.key === key), next = {...rows, [key]: Math.round(Math.min(spec.max, Math.max(spec.min, value)))};
+  const other = key === 'field' ? 'hand' : 'field', otherSpec = ROW_FIELDS.find(field => field.key === other);
+  next[other] = 100 - next.hud - next.field - next.hand + next[other];
+  if (next[other] < otherSpec.min || next[other] > otherSpec.max) return rows;
+  return next;
+}
+export function measuredRows(lab, metrics) {
+  if (lab?.rows && !rowsProblems(lab.rows).length) return {...lab.rows};
+  return metrics?.viewport?.height < 700 ? {...NATIVE_ROWS.short} : {...NATIVE_ROWS.tall};
+}
+
 export const STAGE_DEFAULTS = Object.freeze(Object.fromEntries(STAGE_FIELDS.map(field => [field.key, field.def])));
 
 // Native w4a formation fitting. Paths are into p.ui.
@@ -96,7 +125,8 @@ export function validateLab(lab) {
   if (isLegacy(lab)) return []; // pre-2 packages: arithmetic-only proposal, replaced on read
   const issues = [];
   if (lab.schema !== LAB_SCHEMA) issues.push('Unsupported battlefield lab schema');
-  for (const key of Object.keys(lab)) if (!['schema', 'stage'].includes(key)) issues.push(`Unknown battlefield lab field ${key}`);
+  for (const key of Object.keys(lab)) if (!['schema', 'stage', 'rows'].includes(key)) issues.push(`Unknown battlefield lab field ${key}`);
+  if (lab.rows !== undefined) issues.push(...rowsProblems(lab.rows));
   if (!record(lab.stage)) issues.push('Battlefield stage overrides must be an object');
   else for (const [key, value] of Object.entries(lab.stage)) {
     const field = STAGE_FIELDS.find(item => item.key === key);
@@ -108,7 +138,7 @@ export function validateLab(lab) {
 
 export function normalizeLab(lab) {
   if (!record(lab) || isLegacy(lab) || validateLab(lab).length) return {...LAB_DEFAULT, stage: {}};
-  return {schema: LAB_SCHEMA, stage: {...lab.stage}};
+  return {schema: LAB_SCHEMA, stage: {...lab.stage}, ...(lab.rows ? {rows: {...lab.rows}} : {})};
 }
 
 export function getPath(object, path) {

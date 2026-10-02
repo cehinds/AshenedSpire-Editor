@@ -21,3 +21,5 @@
 .app-shell:has(>.editor-header){grid-template-rows:75px minmax(0,1fr) 27px}
 @media(max-width:1050px){.app-shell .library-panel.mobile-open{top:75px}}
 @media(max-width:780px){.app-shell:has(>.editor-header){grid-template-rows:79px minmax(0,1fr) 37px}.app-shell .library-panel.mobile-open,.app-shell .inspector-panel.mobile-open{top:79px}}
+
+.native-loading { display: grid; place-items: center; min-height: 160px; height: 100%; color: var(--muted, #a59d90); font-size: 13px; }

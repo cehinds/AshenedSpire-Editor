@@ -84,3 +84,7 @@ The user requested draggable menus and UI quality-of-life fixes plus an independ
 ## Master default scene controls
 
 October 1, 2026: beside Scenes, offer Master default with component subsections for settings shared by every scene, including text-box height in vh. Preserve local scene overrides and native source boundaries. Scene transport uses icons in Restart, Play/Pause/Resume, Stop order with hover titles and accessible labels; put the canvas size/device selector at the far right.
+
+## Scene sequence playback
+
+October 2, 2026: Scenes transport includes Play all (active scenes in order, auto-advancing through the native renderer; Stop or choosing a rail scene ends it; Pause/Resume continues the sequence). The timeline offers Timeline (selected scene) and All scenes scopes; All scenes lays every active scene's Scenes, Dialogue, Traveller, Background and Audio cue tracks end to end with a global playhead, click-to-seek across scenes, clip selection into the inspector, and draggable/keyboard scene duration edges recorded as undoable draft edits.

@@ -239,3 +239,15 @@ test('sequence scenes move among active scenes and keep disabled slots after the
   if (disabled.length) assert.equal(moveSequenceScene(p, disabled[0], 0), false);
   assert.equal(moveSequenceScene(p, 'missing', 1), false);
 });
+
+test('sequence scene moves keep interleaved disabled slots in place', () => {
+  const p = project();
+  const all = sortedScenes(sequence(p));
+  const [a, b] = all.filter(scene => scene.enabled !== false);
+  const disabled = all.find(scene => scene.enabled === false);
+  const rest = all.filter(scene => ![a, b, disabled].includes(scene));
+  [a, disabled, b, ...rest].forEach((scene, index) => {scene.order = index + 1;});
+  assert.equal(moveSequenceScene(p, a.id, 1), true);
+  assert.deepEqual(sortedScenes(sequence(p)).slice(0, 3).map(scene => scene.id), [b.id, disabled.id, a.id]);
+  assert.equal(sortedScenes(sequence(p))[0].enabled !== false, true);
+});

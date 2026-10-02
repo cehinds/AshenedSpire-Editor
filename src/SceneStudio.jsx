@@ -142,7 +142,7 @@ export function SceneStudio({ctx,saveDraft,exportCurrent,openNative,conflict,iss
   const chooseScene=id=>{setPlayAll(false);pendingRef.current=null;choose(id);};
   const selectSequenceClip=(id,track)=>{if(id!==scene.id)chooseScene(id);if(track==='scene'){setEditingMaster(false);setSelection('scene');}else changeSelection(track);};
   const commitDelay=(id,seconds)=>{setDurationDraft(null);const row=baseTimeline.find(item=>item.id===id);if(!row)return;const value=clamp(Math.round(seconds*10)/10,0,Math.min(20,row.duration));if(value===row.textStart)return;update(project=>patchStage(project,id,{textDelaySeconds:value}),'Dialogue start changed');};
-  const commitMove=(id,index)=>{setSceneMove(null);if(index===baseTimeline.findIndex(row=>row.id===id))return;update(project=>moveSequenceScene(project,id,index),'Scene order changed');};
+  const commitMove=(id,index)=>{setSceneMove(null);const target=clamp(index,0,baseTimeline.length-1);if(target===baseTimeline.findIndex(row=>row.id===id))return;update(project=>moveSequenceScene(project,id,target),'Scene order changed');};
   const sequenceIndexAt=(clientX,lane)=>{const box=lane.getBoundingClientRect(),t=(clientX-box.left)/box.width*scaleTotal;const index=timeline.findIndex(row=>t<row.start+row.duration);return index<0?timeline.length-1:index;};
   const commitDuration=(id,seconds)=>{setDurationDraft(null);const value=clamp(Math.round(seconds*10)/10,1,180);if(value===sceneDuration(sequence.scenes.find(row=>row.id===id)))return;update(project=>{project.scenes.components.sequence.scenes.find(row=>row.id===id).seconds=value;},'Scene duration changed');};
   const patchScene=(key,value)=>update(project=>{project.scenes.components.sequence.scenes.find(row=>row.id===scene.id)[key]=value;});

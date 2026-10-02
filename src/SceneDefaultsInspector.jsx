@@ -10,14 +10,14 @@ const groupSections = {
   playback:['playback','controls'],
 };
 
-export function SceneDefaultsInspector({ctx:{p,scene,update},component='text'}) {
+export function SceneDefaultsInspector({ctx:{p,scene,update},component='text',activation=0}) {
   const sequence=p.scenes.components.sequence, stage=getStage(sequence);
   const [open,setOpen]=useState(()=>new Set(groupSections[component]||groupSections.text));
   const body=useRef(null);
   useEffect(()=>{
     setOpen(current=>new Set([...current,...(groupSections[component]||[])]));
     body.current?.querySelector(`[data-group="${component}"]`)?.scrollIntoView?.({block:'start',behavior:'smooth'});
-  },[component]);
+  },[component,activation]);
   const toggle=(id,value)=>setOpen(current=>{const next=new Set(current);value?next.add(id):next.delete(id);return next;});
   const patch=values=>update(project=>{if(!patchPresentation(project,values))throw new Error('Master setting is outside the supported scene contract.');},'Master scene defaults updated');
   const field=(label,key,min,max,step=1,unit='',integer=false)=><label className="si-field" key={key}><span>{label}</span><span className="si-number"><input type="number" aria-label={label} min={min} max={max} step={step} value={stage[key]??''} onChange={event=>{if(event.target.value==='')return;const value=Number(event.target.value);if(Number.isFinite(value)){const accepted=integer?Math.round(value):value;patch({[key]:Math.min(max,Math.max(min,accepted)),...(key==='captionHeightVh'?{captionFixedHeight:true}:{})});}}}/>{unit&&<small>{unit}</small>}</span></label>;

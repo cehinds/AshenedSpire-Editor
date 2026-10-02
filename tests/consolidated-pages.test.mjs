@@ -69,7 +69,10 @@ test('Consolidated HTML gate accepts the single-file build and rejects missing o
     ['', /empty/],
     [html.replace('</html>', ''), /complete HTML/],
     [html.replace('<body>', `<body><script type="module" src="${base}assets/app.js"></script>`), /exactly one application module/],
+    [html.replace('<body>', `<body><script src='data:text/javascript;base64,AA=='></script>`), /exactly one application module/],
     [html.replace('<body>', `<body><img src="${base}assets/art.png">`), /external resource/],
+    [html.replace('<body>', '<body><img src="assets/leak.png">'), /external resource/],
+    [html.replace('<body>', "<body><img src='//cdn.example/x.png'>"), /external resource/],
     [html.replace('"native/erd-workbench-0.2.4.html"', '"native/other.html"'), /native ERD/],
   ]) {
     await writeFile(file, broken);

@@ -6,6 +6,11 @@ import path from "node:path";
 import { createAuthHost } from "./auth-host.mjs";
 import { promoteCheckoutStage } from "./checkout-promotion.mjs";
 import { createGitHubAccount } from "./github-account.mjs";
+import { fileURLToPath } from "node:url";
+import { BALANCE_SOURCE, changedRegion, planNativeSource, verifyNativeSource } from "../src/native-js-source.mjs";
+
+const NATIVE_VERIFY_SCRIPT = fileURLToPath(new URL("./native-source-verify.mjs", import.meta.url));
+const NATIVE_SHARED_SOURCE = fileURLToPath(new URL("../src/native-js-source.mjs", import.meta.url));
 
 const API = "/api/workbench";
 const MAX_TEXT = 1024 * 1024;
@@ -196,6 +201,56 @@ function reply(res, status, data) {
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.end(JSON.stringify(data));
+}
+
+const sha256 = value => createHash("sha256").update(value).digest("hex");
+
+async function writeRevisionChecked(filename, content, revision) {
+  const handle = await open(filename, constants.O_RDWR | constants.O_NOFOLLOW);
+  try {
+    const current = await handle.readFile();
+    if (sha256(current) !== revision) fail(409, "File changed during save. Reload before saving.");
+    const data = Buffer.from(content); await handle.write(data, 0, data.length, 0); await handle.truncate(data.length); await handle.sync();
+  } finally { await handle.close(); }
+}
+
+function permissionFlag() {
+  const flags = process.allowedNodeEnvironmentFlags;
+  return flags.has("--permission") ? "--permission" : flags.has("--experimental-permission") ? "--experimental-permission" : "";
+}
+
+// Evaluates the checkout module and the candidate text in an isolated Node
+// child: permission model (checkout read-only, no writes or subprocesses),
+// network/process imports refused by hook, minimal environment, time limit.
+export function evaluateNativeSource(dirname, filename, candidate, exportName, timeout = 15_000) {
+  const permission = permissionFlag();
+  if (!permission) fail(501, "Native source verification requires Node.js with the permission model (Node 22 or newer).");
+  const flags = process.allowedNodeEnvironmentFlags;
+  const args = [permission, "--allow-worker", `--allow-fs-read=${dirname}`, `--allow-fs-read=${NATIVE_VERIFY_SCRIPT}`, `--allow-fs-read=${NATIVE_SHARED_SOURCE}`, ...(flags.has("--disable-warning") ? ["--disable-warning=SecurityWarning", "--disable-warning=ExperimentalWarning"] : []), NATIVE_VERIFY_SCRIPT];
+  const env = { NODE_ENV: "production", ...(process.env.SystemRoot ? { SystemRoot: process.env.SystemRoot } : {}) };
+  const child = spawn(process.execPath, args, { cwd: dirname, env, shell: false, windowsHide: true, detached: process.platform !== "win32", stdio: ["pipe", "pipe", "pipe"] });
+  return new Promise((resolve, reject) => {
+    let stdout = "", stderr = "", timedOut = false, overflow = false, settled = false;
+    const kill = () => { try { process.platform === "win32" ? child.kill("SIGKILL") : process.kill(-child.pid, "SIGKILL"); } catch {} };
+    const timer = setTimeout(() => { timedOut = true; kill(); }, timeout);
+    timer.unref();
+    child.stdout.on("data", chunk => { stdout += chunk; if (stdout.length > 16 * MAX_TEXT) { overflow = true; kill(); } });
+    child.stderr.on("data", chunk => { stderr = (stderr + chunk).slice(-16_384); });
+    const finish = (error, value) => { if (settled) return; settled = true; clearTimeout(timer); error ? reject(error) : resolve(value); };
+    child.on("error", error => finish(new HostError(500, `Native source verification could not start: ${redact(error.message)}`)));
+    child.on("close", code => {
+      if (timedOut) return finish(new HostError(422, "Native module evaluation timed out. Nothing was written."));
+      if (overflow) return finish(new HostError(422, "Native module evaluation output exceeded limit. Nothing was written."));
+      if (code !== 0) {
+        const lines = stderr.trim().split("\n").filter(line => !/SecurityWarning|--trace-warnings/.test(line));
+        const reported = lines.find(line => line.startsWith("NATIVE-VERIFY-ERROR "))?.slice(20);
+        return finish(new HostError(422, `Native module evaluation failed; nothing was written. ${redact(reported || lines.slice(-6).join("\n"))}`));
+      }
+      try { finish(null, JSON.parse(stdout)); } catch { finish(new HostError(422, "Native module evaluation returned unreadable output. Nothing was written.")); }
+    });
+    child.stdin.on("error", () => {});
+    child.stdin.end(JSON.stringify({ file: filename, candidate, exportName }));
+  });
 }
 
 export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS, cloneSource, commandTimeout = 120_000, jobTimeout = 15 * 60_000, authOptions = {}, githubOptions = {} } = {}) {
@@ -507,7 +562,7 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
         return reply(res, 200, await github.startLogin());
       }
     }
-    if (parts[0] === "status" && parts.length === 1 && method === "GET") return reply(res, 200, { connected: true, host: "local", csrfToken, capabilities: ["repositories", "files", "builds", "branches", "local-import"] });
+    if (parts[0] === "status" && parts.length === 1 && method === "GET") return reply(res, 200, { connected: true, host: "local", csrfToken, capabilities: ["repositories", "files", "builds", "branches", "local-import", "native-source"] });
     if (parts[0] === "repos" && parts.length === 1) {
       if (method === "GET") return reply(res, 200, { repos: [...repos.values()] });
       if (method === "POST") {
@@ -609,12 +664,7 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
             const filename = await noSymlink(dirname, relative);
             const before = await readText(filename);
             if (body.revision !== before.revision) fail(409, "File changed since read. Reload and merge before saving.");
-            const handle = await open(filename, constants.O_RDWR | constants.O_NOFOLLOW);
-            try {
-              const current = await handle.readFile();
-              if (createHash("sha256").update(current).digest("hex") !== body.revision) fail(409, "File changed during save. Reload before saving.");
-              const data = Buffer.from(body.content); await handle.write(data, 0, data.length, 0); await handle.truncate(data.length); await handle.sync();
-            } finally { await handle.close(); }
+            await writeRevisionChecked(filename, body.content, body.revision);
             if (OUTPUTS.has(relative.split("/")[0])) {
               repo.lastBuildStatus = "modified";
               for (const previous of jobs.values()) if (previous.repoId === repo.id && previous.artifacts) { delete previous.artifacts; previous.artifactsStale = true; }
@@ -623,6 +673,35 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
             return reply(res, 200, { path: relative, ...await readText(filename) });
           } finally { saving.delete(`${repo.id}/${relative}`); }
         }
+      }
+      if (parts[2] === "native-source" && parts.length === 4 && ["review", "save"].includes(parts[3]) && method === "POST") {
+        const body = await jsonBody(req);
+        if (repo.kind !== "local") fail(422, "Native source adapters require an imported local AshenSpire checkout.");
+        if (active.has(repo.id) || connecting.has(repo.id) || starting.has(repo.id) || branching.has(repo.id)) fail(409, "Finish active repository operation before editing files.");
+        const relative = safePath(body.path, false);
+        const adapter = body.adapter;
+        if (adapter === "card" ? !/^src\/content\/cards\/[A-Za-z0-9_-]+\.m?js$/.test(relative) : adapter === "combatantStage" ? relative !== BALANCE_SOURCE : true) fail(403, adapter === "card" ? "Card adapter edits src/content/cards/*.js modules only." : adapter === "combatantStage" ? `combatantStage adapter edits ${BALANCE_SOURCE} only.` : "Choose card or combatantStage adapter.");
+        const options = adapter === "card" ? { card: body.card, mode: body.mode, exportName: typeof body.exportName === "string" ? body.exportName : undefined } : { stage: body.stage };
+        const key = `${repo.id}/${relative}`;
+        const save = parts[3] === "save";
+        if (save && saving.has(key)) fail(409, "File save in progress.");
+        if (save) saving.add(key);
+        try {
+          const dirname = await checkout(repo);
+          const filename = await noSymlink(dirname, relative);
+          const current = await readText(filename);
+          if ((save || body.revision !== undefined) && body.revision !== current.revision) fail(409, "Checkout file changed since review. Draft kept; review again.");
+          let plan;
+          try { plan = planNativeSource(adapter, current.content, options); } catch (error) { fail(422, error.message); }
+          if (Buffer.byteLength(plan.content) > MAX_TEXT) fail(413, "Result exceeds 1 MiB text limit.");
+          if (save && body.expected !== sha256(plan.content)) fail(409, "Draft or checkout changed since review. Review again before saving.");
+          const evaluated = await evaluateNativeSource(dirname, filename, plan.content, plan.exportName);
+          const problems = verifyNativeSource(adapter, { ...options, mode: plan.mode, exportName: plan.exportName }, evaluated);
+          if (problems.length) fail(422, `Native verification rejected the change; nothing was written. ${problems.slice(0, 6).join(" ")}`);
+          if (!save) return reply(res, 200, { path: relative, adapter, revision: current.revision, before: current.content, after: plan.content, expected: sha256(plan.content), exportName: plan.exportName, mode: plan.mode, diff: changedRegion(current.content, plan.content), verified: true });
+          await writeRevisionChecked(filename, plan.content, current.revision);
+          return reply(res, 200, { path: relative, adapter, exportName: plan.exportName, mode: plan.mode, verified: true, ...await readText(filename) });
+        } finally { if (save) saving.delete(key); }
       }
       if (parts[2] === "jobs" && parts.length === 3 && method === "POST") return reply(res, 202, { job: await startJob(repo, await jsonBody(req)) });
       if (parts[2] === "artifacts" && parts.length === 3 && method === "GET") {

@@ -71,3 +71,70 @@
  .editor-header .header-actions{margin-left:auto}
  .editor-header .header-actions button{padding:6px 9px}
 }
+
+/* ---- Workspace content cleanup ---- */
+
+/* Table inspector needs room for its columns; the canvas keeps the rest. */
+@media(min-width:1201px){
+ .app-shell.inspector-table .workspace-grid{grid-template-columns:132px 190px minmax(320px,1fr) minmax(420px,40vw)}
+ .app-shell.library-hidden.inspector-table .workspace-grid{grid-template-columns:132px minmax(320px,1fr) minmax(420px,40vw)}
+}
+
+/* Denser tables and lists across workspaces. */
+th{padding:8px 10px}
+td{padding:7px 10px;line-height:1.45}
+tr:hover td{background:#ffffff06}
+.library-items{gap:2px}
+.library-items button{padding:7px 9px}
+.library-panel .library-items button{min-height:0}
+.deck-row{padding:4px 6px;gap:8px}
+.deck-row .row-name{padding:4px 0}
+.deck-row:hover{background:#ffffff06}
+
+/* Tag tree: compact rows, readable hierarchy. */
+.tag-tree{gap:1px}
+.tag-tree button{padding:6px 10px;min-width:0;border-radius:3px;border-left:2px solid transparent}
+.tag-tree button:hover:not(.selected){background:var(--panel);border-color:transparent}
+.tag-tree button.selected{border-color:transparent;border-left-color:var(--gold)}
+.tag-tree code{font-size:10px}
+
+/* Asset library: responsive tiles instead of three oversized columns. */
+.asset-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.asset-grid figure{padding:10px;transition:border-color .12s}
+.asset-grid figure:hover{border-color:var(--gold)}
+.asset-grid img{height:120px}
+.asset-grid figcaption{margin-top:8px}
+
+/* Overview metrics: consistent with the compact shell. */
+.metric-grid{margin:18px 0;gap:12px}
+.metric-grid>div{padding:14px 16px}
+.metric-grid strong{font-size:22px;margin-bottom:6px}
+
+/* Forms: keep inputs to a readable width on wide screens. */
+.work-surface .padded{max-width:1180px}
+.work-surface .field{margin:12px 0;gap:6px}
+.work-surface .form-grid{gap:0 20px}
+.work-surface .check{margin:12px 0}
+.work-surface .notice{padding:10px 14px;line-height:1.5}
+
+/* Battlefield: stage reads as a stage, hand placeholders as cards. */
+.battlefield-zone{background:radial-gradient(ellipse at 50% 85%,#2a2620 0%,#121518 70%);border-color:#8d7445}
+.battlefield-zone>span{font-size:10px;letter-spacing:.4px;text-transform:uppercase}
+.hand-zone>div{box-shadow:0 2px 8px #0007;border:1px solid #c8b78f}
+.mini-hand{border-radius:3px;box-shadow:0 2px 8px #0007}
+
+/* Inspector: tighter section rhythm. */
+.inspector-panel h2{margin:4px 0 6px}
+.inspector-panel h3{margin:16px 0 8px}
+.inspector-panel p{line-height:1.5}
+.inspector-panel>button,.inspector-content>button,.inspector-content .padded>button{margin-top:8px}
+.asset-grid+*{margin-top:14px;font-size:11px;color:var(--muted)}
+td button{white-space:nowrap}
+/* Wide Table inspector: card rows become one aligned row each. */
+@media(min-width:1201px){
+ .app-shell.inspector-table .card-definition-table tr{grid-template-columns:minmax(150px,2fr) minmax(90px,1fr) 64px 72px;align-items:center;gap:8px;padding:6px 0}
+ .app-shell.inspector-table .card-definition-table td:first-child{grid-column:auto}
+ .app-shell.inspector-table .card-definition-table th:first-child{display:block}
+ .app-shell.inspector-table .card-definition-table td code{padding:2px 0 0;font-size:10px}
+ .app-shell.inspector-table .card-definition-table td button{height:30px}
+}

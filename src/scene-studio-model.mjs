@@ -140,6 +140,7 @@ const stageRules = {
   // native game does not consume them; the frame sizing adapter applies them.
   "captionFixedHeight": {"type": "boolean"},
   "captionHeightVh": {"type": "number", "min": 1, "max": 100},
+  "captionVerticalAlign": {"type": "choice", "choices": ["auto", "top", "middle", "bottom"]},
   "layout": {
     "type": "choice",
     "choices": [
@@ -446,6 +447,7 @@ const presentationRules = {
 const presentationDefaults = {
   "captionFixedHeight": false,
   "captionHeightVh": 18,
+  "captionVerticalAlign": "auto",
   "transitionSeconds": 5,
   "speed": 1,
   "tintSource": "accent",

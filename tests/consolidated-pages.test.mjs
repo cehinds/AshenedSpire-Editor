@@ -5,6 +5,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import test from 'node:test';
 import { consolidatePages } from '../scripts/consolidate-pages.mjs';
+import { checkConsolidatedPages } from '../scripts/check-consolidated-pages.mjs';
 
 const base = '/AshenedSpire-Editor/test/42-1/';
 async function fixture(t) {
@@ -55,4 +56,29 @@ test('Consolidation fails for missing assets, escaping URLs, and split JavaScrip
   await writeFile(path.join(f.directory, 'assets/style.css'), 'body{}');
   await writeFile(path.join(f.directory, 'assets/chunk.js'), 'export const x = 1;');
   await assert.rejects(consolidatePages(f), /Unbundled JavaScript/);
+});
+
+test('Consolidated HTML gate accepts the single-file build and rejects missing or partial output', async (t) => {
+  const f = await fixture(t);
+  const file = path.join(f.outputDirectory, 'index.html');
+  await assert.rejects(checkConsolidatedPages(file), /missing/);
+  await consolidatePages(f);
+  assert.ok((await checkConsolidatedPages(file)).bytes > 0);
+  const html = await readFile(file, 'utf8');
+  for (const [broken, reason] of [
+    ['', /empty/],
+    [html.replace('</html>', ''), /complete HTML/],
+    [html.replace('<body>', `<body><script type="module" src="${base}assets/app.js"></script>`), /exactly one application module/],
+    [html.replace('<body>', `<body><script src='data:text/javascript;base64,AA=='></script>`), /exactly one application module/],
+    [html.replace('<body>', `<body><img src="${base}assets/art.png">`), /external resource/],
+    [html.replace('<body>', '<body><img src="assets/leak.png">'), /external resource/],
+    [html.replace('<body>', "<body><img src='assets/leak.png'>"), /external resource/],
+    [html.replace('<body>', '<body><img src=assets/leak.png>'), /external resource/],
+    [html.replace('<body>', "<body><img src='//cdn.example/x.png'>"), /external resource/],
+    [html.replace('<body>', '<body><a href="javascript:alert(1)">x</a>'), /external resource/],
+    [html.replace('"native/erd-workbench-0.2.4.html"', '"native/other.html"'), /native ERD/],
+  ]) {
+    await writeFile(file, broken);
+    await assert.rejects(checkConsolidatedPages(file), reason);
+  }
 });

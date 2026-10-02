@@ -14,7 +14,7 @@ function cardBoot(N,host,makeBundle,applyLayout,applyPresentation,installEditor,
   let fitCards=()=>{};
   window.addEventListener('resize',()=>fitCards());
   const style = document.createElement('style');
-  style.textContent = `body{background:#151612}#app{padding:24px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:center;align-content:flex-start}.editor-native-card{display:flex;flex-direction:column;align-items:center;gap:8px}.editor-native-card .card{position:relative;transform:none!important;width:280px!important;max-width:100%;height:auto;aspect-ratio:var(--card-ratio,5/7)}.editor-native-card figcaption{font:12px system-ui;color:#cbc6ba;max-width:280px}.editor-native-card .editor-art{width:100%;height:100%;position:absolute;inset:0}.editor-native-card .art{position:relative}.editor-native-card .ctags{z-index:1}`;
+  style.textContent = `body{background:#151612;margin:0}#app{padding:24px;box-sizing:border-box;display:flex;flex-direction:row;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:center;align-content:safe center;min-height:100vh;height:auto;overflow:auto}body.single-card #app{padding-top:56px}@media(max-width:600px){body.single-card #app{padding-top:24px}}.editor-native-card{display:flex;flex-direction:column;align-items:center;gap:8px}.editor-native-card .card{position:relative;transform:none!important;width:280px!important;max-width:100%;height:auto;aspect-ratio:var(--card-ratio,5/7)}.editor-native-card figcaption{font:12px system-ui;color:#cbc6ba;max-width:280px}.editor-native-card .editor-art{width:100%;height:100%;position:absolute;inset:0}.editor-native-card .art{position:relative}.editor-native-card .ctags{z-index:1}`;
   document.head.append(style);
   for (const [key,value] of Object.entries({...N.cardShapeCssProperties?.(),...N.cardLevelCssProperties?.()})) document.documentElement.style.setProperty(key,value);
   return snapshot => {
@@ -32,11 +32,12 @@ function cardBoot(N,host,makeBundle,applyLayout,applyPresentation,installEditor,
       caption.textContent = snapshot.ids.length===1 ? `${snapshot.upgraded&&definition.upgrade?'Upgraded':'Base'} definition` : `${snapshot.offset + index + 1}. ${definition.name}${snapshot.upgraded && definition.upgrade ? ' · Upgraded' : ''}`;
       wrapper.append(face,caption);fragment.append(wrapper);faces.push(face);
     }
+    document.body.classList.toggle('single-card',snapshot.ids.length===1);
     host.replaceChildren(fragment);
     for(const face of faces)applyPresentation(face,snapshot.draft.styles?.[face.dataset.cardId]||{},applyLayout);
     N.scheduleCardFits(faces);
     fitCards=()=>{for(const face of faces){
-      const fit=snapshot.ids.length===1?Math.min(1,(window.innerWidth-48)/280,(window.innerHeight-76)/face.offsetHeight):1;
+      const fit=snapshot.ids.length===1?Math.min(2.5,(window.innerWidth-48)/280,(window.innerHeight-(window.innerWidth>600?108:76))/face.offsetHeight):1;
       face.parentElement.style.zoom=String(Math.max(.001,fit)*(snapshot.zoom||100)/100);
     }};
     fitCards();
@@ -112,6 +113,6 @@ export function GameCardPreview({ctx,editable=false}) {
     </>;
   return <section className={'game-card-preview'+(editable?' native-card-authoring':'')}>
     {ids.length ? <NativePreviewFrame title="AshenSpire native card preview" boot={boot} snapshot={snapshot} onStatus={receive} height={ws==='cards'?470:650} assetFilter={noRuntimeAssets} toolbar={toolbar} compactControls/> : <><div className="game-card-preview-toolbar">{toolbar}</div><div className="notice">{ws==='decks' ? 'Add cards to the deck to preview them here.' : 'No authored cards are linked to this tag or its descendants.'}</div></>}
-    <p className="game-card-preview-note">{editable?'Select or drag parts · double-click to edit content · middle-button drag to pan · Ctrl-wheel to zoom. ':''}Native AshenSpire card renderer with your current draft. Card definitions, tag labels and presentation overrides update here after an edit is applied. Printed values come from the native token resolver; combat outcomes require the playable combat preview.</p>
+    <details className="game-card-preview-note"><summary>{editable?'Drag parts · double-click to edit · middle-drag to pan · Ctrl+wheel to zoom · ':''}Native AshenSpire renderer, current draft</summary><p>Card definitions, tag labels and presentation overrides update after an edit is applied. Printed values come from the native token resolver; combat outcomes require the playable combat preview.</p></details>
   </section>;
 }

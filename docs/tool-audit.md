@@ -16,7 +16,7 @@ Editor must support complete local game-authoring loop:
 6. Build HTML and playtest resulting game.
 7. Export checkpoint; promote dev → test → main after checks.
 
-Final editor supports reviewed card/wireframe creation, native settings JSON authoring, local branch controls, CSV/XLSX export commands, and selective native document adapters. Browser drafts, authenticated checkout writes and game execution remain distinct. Native settings promotion and Tags/Opening/UI adapters address part of the save/build workflow; cards, decks, effects, battlefield proposals and native ERD need additional integration. Renamed editor, toolbar and authentication checks are recorded separately below. GitHub connection and remote publication skipped under latest direction.
+Final editor supports reviewed card/wireframe creation, native settings JSON authoring, local branch controls, CSV/XLSX export commands, and selective native document adapters. Browser drafts, authenticated checkout writes and game execution remain distinct. Native settings promotion (including deck rule defaults) plus Tags, tag assignments, node effects, Opening, UI, card definition and battlefield combatantStage adapters cover the save side of the loop; the Decks sandbox, other ERD CSVs, poses and combat scenarios stay export-only. Renamed editor, toolbar and authentication checks are recorded separately below. GitHub connection and remote publication skipped under latest direction.
 
 Status meanings: **PASS** means observed action and result; **PARTIAL** means useful authoring surface exists with stated boundary; **BLOCKED** means required workflow absent or unavailable; **UNVERIFIED** means evidence cannot establish completion.
 
@@ -136,7 +136,7 @@ All new-card, wireframe and game-settings QA draft changes were undone; baseline
 
 ## Required integration work
 
-1. Complete game source adapters for card definitions, decks, effects/bindings, battlefield proposals and native ERD synchronization. Existing Tags/Opening/UI bridge needs signed-in edit → save → build → runtime proof.
+1. Card, effects, tag-assignment and combatantStage adapters exist (October 2, 2026; host fixture tests plus a review run against a real AshenSpire checkout). Remaining: browser edit → save → build → runtime proof for every adapter, and native ERD synchronization beyond nodes/tagging/effects.
 2. Verify each Advanced rule's native range, dependencies and effect timing. Current native settings workspace exposes a small known-key catalog plus custom/imported keys; it does not expose thousands of Advanced fields as typed editor forms.
 3. Verify authenticated branch operations, source saving and settings promotion using integration fixtures and a signed-in user session; offline mode deliberately prevents them.
 4. Verify exported/imported CSV/XLSX/JSON bytes and metadata round trips. Browser download events did not provide paths during this audit.
@@ -161,8 +161,19 @@ Parent validation on September 30, 2026: **57 named tests passed in 3.8 seconds*
 | Interchange | Multiline/Unicode/unknown CSV columns and native JSON round-trip tests pass. Genuine XLSX ZIP/OOXML byte tests and independent openpyxl reader pass; strings remain non-formulas and numeric/Boolean cells typed | Cloud browser download paths unavailable; XLSX import and desktop Excel launch untested |
 | Delivery | Local source repository, main/test/dev branches and ready CI/CD templates; no remote origin, GitHub connection or deployment | Five-minute CI limit applies per job after runner starts; queue, review and merge time not guaranteed |
 
-The earlier baseline BLOCKED rows describe initial gaps; final authoring additions and this implementation evidence record their current state. Remaining source adapters for cards/decks/effects/battlefield/native ERD and private combat execution still limit a complete specialized game-authoring loop. Saved checkout text can be edited and built through Files/Builds today.
+The earlier baseline BLOCKED rows describe initial gaps; final authoring additions and this implementation evidence record their current state. Card, effect, tag-assignment and combatantStage source adapters now exist; the Decks sandbox, the remaining native ERD CSVs and private combat execution still limit a complete specialized game-authoring loop. Saved checkout text can be edited and built through Files/Builds today.
 
 ## Accounts paused — October 1, 2026
 
 The latest correction supersedes historical account instructions. Account UI and editor credential endpoints are paused; automatic loopback sessions preserve same-origin/CSRF and private-path protections. Existing credential stores stay unread and unchanged. Static builds request no local session. Renewed sessions refresh repository, branch and native-document tokens without discarding drafts or automatically replaying writes; settings promotion requires renewed review. Windows checkout promotion retries only EPERM/EACCES in its validated private parent and refuses occupied targets.
+
+## Native source adapters — October 2, 2026
+
+| Adapter | Evidence | Boundary |
+|---|---|---|
+| Card definitions (`src/content/cards/*.js`) | `tests/native-js-source.test.mjs`: scanner ignores ids in strings/comments/templates/regex; every fixture card replace evaluates to the draft with other cards unchanged; append handles trailing comma/none/empty. `tests/native-source-host.test.mjs`: review → save with revision and result hash; stale revision, unreviewed hash and changed draft refused (409); post-processed arrays rejected on evaluation mismatch; `node:net` import and file writes blocked in the verification child. Optional `ASHENSPIRE_CHECKOUT` run replaced all 219 real cards with their evaluated values and re-evaluated equal | Helper constants such as `PREPARED` are inlined in the saved card (same evaluated value). Cards defined by spread/helpers are not located; edit those in Files. New cards still need tag rows saved through Tags → Tag assignments CSV. Presentation sidecars stay in the editor export |
+| `balance.ui.combatantStage` | Fixture: only the edited number literals change; insertion of missing keys; native ranges (center 25–75, clearances 0–25, gap 0–24) enforced; rest of `balance` must evaluate unchanged | Non-literal values are refused; edit them in Files |
+| Tag assignments CSV, node effects JSON | `tests/native-document.test.mjs`: unchanged load/save is byte identical; interleaved comments stay in place; removed/added rows; effects retain native keys | Other ERD CSVs have no draft model |
+| Decks | Deck rule defaults are `settings.deck*` keys handled by Game settings promotion | Sandbox collection is not a game file |
+
+Browser walkthrough of the new dialog was not run in this pass (no browser in the agent environment); the build compiles and host endpoints are covered by fixtures.

@@ -13,6 +13,9 @@ Editor brand is AshenedSpire. Referenced game source remains `cehinds/AshenSpire
 | `src/RepositoryWorkspace.jsx` | Connected repository list, file hierarchy/editor, build jobs and previews | Browser; calls local host with session |
 | `src/core.mjs` | Authoring state, validation, import/export, undo/redo helpers | Browser and domain tests |
 | `src/NativeDocumentBridge.jsx` | Reviewed native source load/save with current revision and retained metadata | Local host with session |
+| `src/native-document.mjs` | Native CSV/JSON documents (Tags, tag assignments, node effects, Opening scenes, UI); CSV saves keep comments and unchanged lines in place | Browser and domain tests |
+| `src/native-js-source.mjs`, `src/NativeSourcePanel.jsx` | JS-literal source adapters: card definitions in `src/content/cards/*.js` and `balance.ui.combatantStage` in `src/content/balance.js`; scanner, deterministic literal splice, review diff | Browser, host and domain tests |
+| `server/native-source-verify.mjs` | Isolated verification child: imports the checkout module and the reviewed candidate under the Node permission model (checkout read-only, no writes or subprocesses; network/process imports refused) and reports canonical exports | Node child of local host |
 | `src/GameSettings.jsx` | Native settings JSON and explicit defaults promotion | Browser; promotion uses local host with session |
 | `src/LocalBranches.jsx` | Local branch creation, switching and safe deletion | Local host with session |
 | `src/xlsx.js` | Genuine Excel ZIP/Office Open XML export; typed tabular cells and safe string handling | Browser and byte-level tests |
@@ -82,3 +85,15 @@ GitHub Pages cannot enforce password authentication. Published bundles, native t
 ## Local source flow
 
 Feature work enters `dev`, accepted candidates enter `test`, stable editor enters `main`. Fast checks verify source before promotion. The approved delivery publishes consolidated HTML from `test` through the existing repository's Pages workflow, preserving immutable numbered builds and channel latest links. Consolidation includes the native game preview runtime and assets; local and Sites outputs remain separate. See [CI/CD](ci-cd.md) for workflow permissions, build URLs and timing limits.
+
+## Native checkout adapters
+
+| Draft | Checkout target | Path |
+|---|---|---|
+| Cards (Add / save card to game) | `src/content/cards/<module>.js` array literal | `POST /repos/:id/native-source/review` then `/save`: host splices one card literal, evaluates before/after in an isolated Node child, requires every other card unchanged and the edited card equal to the draft, then writes with the reviewed revision and result hash |
+| Battlefield stage tokens | `src/content/balance.js` → `balance.ui.combatantStage` | Same endpoints; numeric literals only, native validator ranges, rest of `balance` must evaluate unchanged |
+| Tags, tag assignments, node effects | `content/source/nodes.csv`, `tagging.csv`, `nodeEffects.json` | Native document bridge: load → edit → review → revision-checked file save |
+| Opening scenes, UI | `content/config/ui/...` JSON | Native document bridge |
+| Deck rule defaults | `src/content/settingsDefaults.js` via `settings.deck*` | Game settings profile and the game's own settings-defaults tool |
+
+Not adapted: the Decks sandbox collection, `nodeRelations.csv` / `nodeVariables.csv` / `nodeTerms.csv` / `tagFamilies.csv` / `familyNodes.csv` (no draft model), card presentation sidecars, poses and combat scenarios. Verification proves the module evaluates to the draft; game validators still run in Builds (`test`, `test:content`).

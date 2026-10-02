@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime} from '../src/scene-studio-model.mjs';
+import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene} from '../src/scene-studio-model.mjs';
 import {parseCSV} from '../src/core.mjs';
 import {parseNativeDocument, serializeNativeDocument} from '../src/native-document.mjs';
 
@@ -200,4 +200,26 @@ test('timeline duration follows native bounds and time formatting is stable', ()
   assert.equal(sceneDuration({seconds: 181}), 5);
   assert.equal(formatTime(65.9), '01:05');
   assert.equal(formatTime(-1), '00:00');
+});
+
+test('sequence timeline lays out enabled scenes end to end for play-all', () => {
+  const p = project();
+  const enabled = sortedScenes(sequence(p)).filter(scene => scene.enabled !== false);
+  const timeline = sequenceTimeline(sequence(p));
+  assert.deepEqual(timeline.map(row => row.id), enabled.map(scene => scene.id));
+  let start = 0;
+  for (const row of timeline) {
+    assert.equal(row.start, start);
+    assert.equal(row.duration, sceneDuration(row.scene));
+    assert.ok(row.textStart >= 0 && row.textStart <= row.duration);
+    start += row.duration;
+  }
+  assert.equal(sequenceLength(timeline), start);
+  const second = timeline[1];
+  assert.deepEqual(locateSequenceTime(timeline, second.start + 0.5), {id: second.id, time: 0.5});
+  assert.deepEqual(locateSequenceTime(timeline, start + 10), {id: timeline.at(-1).id, time: timeline.at(-1).duration});
+  assert.equal(nextSequenceScene(timeline, timeline[0].id), second.id);
+  assert.equal(nextSequenceScene(timeline, timeline.at(-1).id), null);
+  assert.equal(nextSequenceScene(timeline, 'missing'), null);
+  assert.equal(locateSequenceTime([], 3), null);
 });

@@ -520,3 +520,30 @@ const presentationDefaults = {
   "showSkip": true,
   "advanceOnClick": false
 };
+
+export function sequenceTimeline(sequence) {
+  let start = 0;
+  return sortedScenes(sequence).filter(scene => scene.enabled !== false).map(scene => {
+    const duration = sceneDuration(scene), stage = getStage(sequence, scene);
+    const row = {id: scene.id, scene, start, duration, textStart: Math.min(duration, Math.max(0, stage.textDelaySeconds || 0))};
+    start += duration;
+    return row;
+  });
+}
+
+export function sequenceLength(timeline) {
+  const last = timeline.at(-1);
+  return last ? last.start + last.duration : 0;
+}
+
+export function locateSequenceTime(timeline, seconds) {
+  if (!timeline.length) return null;
+  const value = Math.max(0, Math.min(sequenceLength(timeline), Number(seconds) || 0));
+  const row = timeline.find(item => value < item.start + item.duration) || timeline.at(-1);
+  return {id: row.id, time: Math.min(row.duration, value - row.start)};
+}
+
+export function nextSequenceScene(timeline, id) {
+  const index = timeline.findIndex(row => row.id === id);
+  return index >= 0 && index < timeline.length - 1 ? timeline[index + 1].id : null;
+}

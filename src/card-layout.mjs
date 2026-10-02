@@ -243,7 +243,10 @@ export function applyCardLayout(face,layout) {
       // Native classes preserve direct-child paint rules (cost medallions, metadata).
       // Inline geometry keeps this inner text layer from becoming another card part.
       wrapper.className=(element.className||'').split(/\s+/).filter(name=>name&&name!=='native-card-part-editable').join(' ');
-      for(const key of ['display','flexDirection','flexWrap','justifyContent','alignItems','alignContent','gap','gridTemplateColumns','gridTemplateRows','font','lineHeight','whiteSpace','textAlign','overflowWrap','textOverflow','WebkitBoxOrient','WebkitLineClamp']) if(computedText[key])wrapper.style[key]=computedText[key];
+      for(const key of ['display','flexDirection','flexWrap','justifyContent','alignItems','alignContent','gap','gridTemplateColumns','gridTemplateRows','font','lineHeight','whiteSpace','textAlign','overflow','overflowX','overflowY','overflowWrap','textOverflow','WebkitBoxOrient','WebkitLineClamp']) if(computedText[key])wrapper.style[key]=computedText[key];
+      // Clip text in its upright coordinate system, not in the rotated outer box.
+      // Computed styles are live, so copy all clipping values before this change.
+      style.overflow='visible';
       Object.assign(wrapper.style,{position:'absolute',left:'0',top:'0',right:'auto',bottom:'auto',width:'100%',height:'100%',minWidth:'0',minHeight:'0',maxWidth:'none',maxHeight:'none',padding:'0',margin:'0',border:'0',borderRadius:'0',background:'transparent',boxShadow:'none',boxSizing:'border-box',flex:'none',transform:`rotate(${-rotation}deg)`,transformOrigin:'center',opacity:'1',visibility:'inherit',zIndex:'auto',pointerEvents:'inherit'});
       while(element.firstChild)wrapper.append(element.firstChild);
       element.append(wrapper);

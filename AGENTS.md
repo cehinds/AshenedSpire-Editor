@@ -84,3 +84,7 @@ The user requested draggable menus and UI quality-of-life fixes plus an independ
 ## Master default scene controls
 
 October 1, 2026: beside Scenes, offer Master default with component subsections for settings shared by every scene, including text-box height in vh. Preserve local scene overrides and native source boundaries. Scene transport uses icons in Restart, Play/Pause/Resume, Stop order with hover titles and accessible labels; put the canvas size/device selector at the far right.
+
+## Battlefield studio direction
+
+October 2, 2026: the earlier Battlefield Lab sliders were arithmetic only and never reached the renderer. Battlefield now edits real native stores against the vendored renderer at a chosen device size: w4a formation fit/spacing (`p.ui`, native UI document save), `gameConfig.presentation.*` figure, row, formation, column, grid, layer and spawn settings (Game settings profile / defaults promotion), and `balance.ui.combatantStage` tokens (preview and export only; no checkout adapter). Canvas guides come from measured native layout; drag a figure to move its column offsets and its top handle to resize player/enemy sprite scale, one undoable edit per release. Device, encounter, class, guides and grid are view choices outside authored records and undo. Sizing diagnostics and Compare report measured clipping, minimum-height and overlap issues per device.

@@ -1,6 +1,6 @@
 import {MovableDialog} from './MovableDialog.jsx';
 import {resetPanelPositions} from './useMovablePanel.js';
-import {SceneStudio} from './SceneStudio.jsx';
+import {SceneStudio} from './LazyNative.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {baseline,source} from './data.js';
 import {clone,commit,undo,redo,historyState,validateProject,toCSV} from './core.mjs';

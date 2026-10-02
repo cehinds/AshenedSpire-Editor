@@ -20,11 +20,8 @@ export function retryNativeSources() {
   if (failed) { failed = false; pending = null; }
 }
 
-/**
- * Suspends until the native sources are available; failures reach the nearest error boundary.
- * use() runs on every render (React requires it unconditionally) with the same cached promise,
- * which React has already marked fulfilled after the first load.
- */
+/** Suspends until the native sources are available; failures reach the nearest error boundary. */
 export function useNativeSources() {
+  // Keep the same thenable and use() call on suspended and completed renders.
   return use(loadNativeSources());
 }

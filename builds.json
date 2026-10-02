@@ -3,6 +3,13 @@
   "builds": [
     {
       "branch": "dev",
+      "buildNumber": "51-1",
+      "commit": "4f2e4f1535bf4754828be0572f4c8a0dee239c3c",
+      "builtAt": "2026-10-02T21:14:18.715Z",
+      "digest": "94d33f1caaa0ef5bebe47867de5c631f0a9057ab8e47bbe7448644dfc95e768c"
+    },
+    {
+      "branch": "dev",
       "buildNumber": "50-1",
       "commit": "69c850e6eac6b2ae6bdda912fb1a38261f3d3b82",
       "builtAt": "2026-10-02T20:57:54.412Z",

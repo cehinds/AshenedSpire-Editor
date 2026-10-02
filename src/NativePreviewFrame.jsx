@@ -56,7 +56,7 @@ function frameDocument(boot, assetFilter, initialGlobals) {
 }
 
 /** A script-only sandbox: renderer code has no editor DOM, storage or host access. */
-export function NativePreviewFrame({title, boot, snapshot, height = 650, assetFilter = allAssets, onStatus, initialGlobals = noGlobals, toolbar, compactControls = false}) {
+export function NativePreviewFrame({title, boot, snapshot, height = 650, assetFilter = allAssets, onStatus, initialGlobals = noGlobals, toolbar, compactControls = false, bare = false, width = '100%'}) {
   const iframe = useRef(null);
   const container = useRef(null);
   const state = useRef({snapshot, revision: 0, ready: false, onStatus});
@@ -120,6 +120,7 @@ export function NativePreviewFrame({title, boot, snapshot, height = 650, assetFi
       else if(container.current?.requestFullscreen) await container.current.requestFullscreen();
     } catch {setFullScreenError('Browser fullscreen is unavailable. Expanded preview is open; press Esc to close.');}
   };
+  if (bare) return <iframe ref={iframe} title={title} className="native-preview-frame" srcDoc={srcDoc} sandbox="allow-scripts" allow="gamepad" style={{width,height,border:0,display:'block',background:'#100f0d'}} onLoad={() => iframe.current?.contentWindow?.postMessage({channel:'ashenedspire-native-preview',type:'ping'},'*')}/>;
   return <div ref={container} className={'native-preview-frame-wrap'+(expanded?' native-preview-expanded':'')}>
     <div className="native-preview-screen-controls">{toolbar}<button className={compactControls ? 'native-preview-fullscreen-icon' : undefined} aria-label={expanded?'Exit full screen':'Full screen'} title={expanded?'Exit full screen (Esc)':'Full screen (Esc to exit)'} onClick={fullScreen}>{compactControls ? (expanded?'✕':'⛶') : expanded?'Exit full screen':'Full screen'}</button>{fullScreenError ? <span role="alert">{fullScreenError}</span> : !compactControls ? <span>Press Esc to leave full screen.</span> : null}</div>
     <iframe ref={iframe} title={title} className="native-preview-frame" srcDoc={srcDoc} sandbox="allow-scripts" allow="gamepad" allowFullScreen style={{width:'100%',height,border:'1px solid #43515a',borderRadius:6,background:'#100f0d'}} onLoad={() => iframe.current?.contentWindow?.postMessage({channel:'ashenedspire-native-preview',type:'ping'},'*')}/>

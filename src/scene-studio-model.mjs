@@ -547,3 +547,17 @@ export function nextSequenceScene(timeline, id) {
   const index = timeline.findIndex(row => row.id === id);
   return index >= 0 && index < timeline.length - 1 ? timeline[index + 1].id : null;
 }
+
+export function moveSequenceScene(project, id, targetIndex) {
+  const scenes = sortedScenes(sequenceOf(project));
+  const scene = scenes.find(item => item.id === id);
+  if (!scene || scene.enabled === false) return false;
+  const active = scenes.filter(item => item.enabled !== false);
+  const from = active.indexOf(scene), to = Math.max(0, Math.min(active.length - 1, Math.round(Number(targetIndex) || 0)));
+  if (from === to) return false;
+  const rest = scenes.filter(item => item !== scene), others = active.filter(item => item !== scene);
+  const at = to < others.length ? rest.indexOf(others[to]) : rest.indexOf(others.at(-1)) + 1;
+  rest.splice(at, 0, scene);
+  rest.forEach((item, index) => {item.order = index + 1;});
+  return true;
+}

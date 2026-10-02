@@ -5,7 +5,7 @@ import {cardsForTag, previewContentBundle} from './game-card-preview.mjs';
 import {NativePreviewFrame} from './NativePreviewFrame.jsx';
 import './game-card-preview.css';
 import {CardPreviewControls} from './CardPreviewControls.jsx';
-import {CARD_LAYOUT_PARTS,applyCardLayout,normalizeCardLayout} from './card-layout.mjs';
+import {CARD_LAYOUT_PARTS,getCardLayoutParts,getCardLayoutGroupMembers,applyCardLayout,normalizeCardLayout} from './card-layout.mjs';
 import {applyCardPresentation} from './card-presentation.mjs';
 import {installCardEditor} from './native-card-editor.mjs';
 
@@ -66,6 +66,8 @@ export function GameCardPreview({ctx,editable=false}) {
       current.ctx.update(next=>{
         if(JSON.stringify(next.styles[targetCard]?.layout||{})!==before)throw Error('Card layout changed during artwork import; drop the image again.');
         const layout=normalizeCardLayout(next.styles[targetCard]?.layout);
+        const members=getCardLayoutGroupMembers(layout,[targetPart]);
+        if(members.some(id=>layout.parts[id].locked||!layout.parts[id].enabled||layout.parts[id].removed))throw Error('Unlock and enable this component’s group before importing artwork.');
         layout.parts[targetPart].backgroundArt=art;
         layout.parts[targetPart].backgroundVisible=true;
         next.styles[targetCard]={...next.styles[targetCard],layout};
@@ -82,19 +84,27 @@ export function GameCardPreview({ctx,editable=false}) {
   const receive=status=>{
     if(status.type==='card-view-zoom'&&Number.isFinite(status.zoom)){ctx.setCardZoom(Math.max(50,Math.min(250,status.zoom)));return;}
     if(status.type==='card-parts-measured'&&status.cardId===ctx.card.id&&status.boxes&&Number.isFinite(status.cardWidth)&&Number.isFinite(status.cardHeight)){
-      const boxes={};for(const part of CARD_LAYOUT_PARTS){const box=status.boxes[part.id];if(box&&['x','y','width','height'].every(key=>Number.isFinite(box[key])&&Math.abs(box[key])<=20000))boxes[part.id]=box;}
+      const boxes={};for(const part of getCardLayoutParts(p.styles[card.id]?.layout)){const box=status.boxes[part.id];if(box&&['x','y','width','height'].every(key=>Number.isFinite(box[key])&&Math.abs(box[key])<=20000))boxes[part.id]=box;}
       const next={cardId:status.cardId,boxes,cardWidth:status.cardWidth,cardHeight:status.cardHeight};ctx.setCardLayoutBoxes(old=>JSON.stringify(old)===JSON.stringify(next)?old:next);return;
     }
     if(!editable||status.cardId!==ctx.card.id)return;
-    const known=id=>CARD_LAYOUT_PARTS.some(part=>part.id===id);
+    const definitions=getCardLayoutParts(p.styles[card.id]?.layout),known=id=>definitions.some(part=>part.id===id);
     if(status.type==='card-part-art-drop'&&known(status.partId)){dropArtwork(status);return;}
     if(status.type==='card-part-select'&&known(status.partId)){
       ctx.setCardLayoutSelection(old=>status.additive?(old.includes(status.partId)?old.filter(id=>id!==status.partId):[...old,status.partId]):[status.partId]);ctx.setInspectorMode('Layout');return;
     }
-    if(status.type==='card-part-edit'&&known(status.partId)){ctx.chooseCardSection(status.partId==='type'?'identity':status.partId);return;}
+    if(status.type==='card-part-edit'&&known(status.partId)){
+      const layout=normalizeCardLayout(p.styles[card.id]?.layout),members=getCardLayoutGroupMembers(layout,[status.partId]);
+      if(members.some(id=>layout.parts[id].locked||!layout.parts[id].enabled||layout.parts[id].removed))return;
+      if(layout.custom?.[status.partId]){ctx.setCardLayoutSelection([status.partId]);ctx.setInspectorMode('Layout');}
+      else ctx.chooseCardSection(status.partId==='type'?'identity':status.partId);
+      return;
+    }
     if(!['card-layout-translate','card-layout-rotate'].includes(status.type))return;
-    const partIds=Array.isArray(status.partIds)?[...new Set(status.partIds)].filter(known):[];
-    if(!partIds.length||partIds.length>7)return;
+    const requested=Array.isArray(status.partIds)?[...new Set(status.partIds)].filter(known):[];
+    if(!requested.length||requested.length>39)return;
+    const existing=normalizeCardLayout(p.styles[card.id]?.layout),partIds=[...new Set([...requested,...getCardLayoutGroupMembers(existing,requested)])];
+    if(partIds.some(id=>existing.parts[id].locked||!existing.parts[id].enabled||existing.parts[id].removed))return;
     const before=JSON.stringify(p.styles[card.id]?.layout||{});
     if(status.before!==before){ctx.tell('Card layout changed during this gesture; try again.');return;}
     if(status.type==='card-layout-translate'&&(!Number.isFinite(status.dx)||!Number.isFinite(status.dy)||Math.abs(status.dx)>8192||Math.abs(status.dy)>8192))return;
@@ -102,7 +112,10 @@ export function GameCardPreview({ctx,editable=false}) {
     ctx.update(next=>{
       if(JSON.stringify(next.styles[card.id]?.layout||{})!==before)throw Error('Card layout changed; try again.');
       const layout=normalizeCardLayout(next.styles[card.id]?.layout),anchor=layout.parts[partIds[0]],delta=status.rotation-anchor.rotation;
-      for(const id of partIds){const part=layout.parts[id];if(status.type==='card-layout-translate'){part.x=Math.max(-4096,Math.min(4096,part.x+status.dx));part.y=Math.max(-4096,Math.min(4096,part.y+status.dy));}else part.rotation=((part.rotation+delta+540)%360)-180;}
+      if(partIds.some(id=>layout.parts[id].locked||!layout.parts[id].enabled||layout.parts[id].removed))throw Error('Unlock and enable the selected group before changing its layout.');
+      const dx=Math.max(...partIds.map(id=>-4096-layout.parts[id].x),Math.min(status.dx,...partIds.map(id=>4096-layout.parts[id].x)));
+      const dy=Math.max(...partIds.map(id=>-4096-layout.parts[id].y),Math.min(status.dy,...partIds.map(id=>4096-layout.parts[id].y)));
+      for(const id of partIds){const part=layout.parts[id];if(status.type==='card-layout-translate'){part.x+=dx;part.y+=dy;}else part.rotation=((part.rotation+delta+540)%360)-180;}
       next.styles[card.id]={...next.styles[card.id],layout};
     },status.type==='card-layout-translate'?'Card components moved':'Card components rotated');
   };

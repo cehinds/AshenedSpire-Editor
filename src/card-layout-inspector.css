@@ -10,7 +10,10 @@
 .card-layout-layer>label>small{margin-left:auto;max-width:65px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;color:var(--muted)}
 .card-layout-layer>button{width:25px;min-width:25px;padding:2px;line-height:1}
 .card-layout-inspector input[type=checkbox]{width:13px;height:13px;margin:0;flex:none;accent-color:var(--gold)}
-.card-layout-actions>select{margin-left:auto;width:auto;max-width:130px}
+.card-layout-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.card-layout-actions>select{width:100%;min-width:0}
+.card-layout-layer.disabled-component>label>span{color:var(--muted);text-decoration:line-through}
+.card-layout-editable{display:flex;flex-direction:column;gap:8px;min-width:0;padding:0;margin:0;border:0}.card-layout-editable:disabled{opacity:.6}
+.card-layout-custom{display:flex;flex-direction:column;gap:6px}.card-layout-custom input{min-width:0;width:70%}.card-layout-custom textarea{width:100%;min-width:0;resize:vertical;font-size:11px}
 .card-layout-arrange{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}.card-layout-arrange>select{width:100%;min-width:0}
 .card-layout-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .card-layout-field{display:flex;flex-direction:column;gap:3px;min-width:0;color:var(--muted);font-size:10px}

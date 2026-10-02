@@ -32,6 +32,12 @@ function fixture({editable = true, layout = {}, zoom = 100, selected = ['identit
   const identity = new Element(doc), costs = new Element(doc);
   identity.rect = {left: 110, top: 120, width: 100, height: 30}; costs.rect = {left: 110, top: 160, width: 50, height: 20};
   face.append(identity); face.append(costs); face.parts = {'.cname': identity, '.card-cost-rail': costs};
+  const customElements = {};
+  for (const id of Object.keys(layout.custom || {})) {
+    const element = new Element(doc);
+    element.rect = {left: 120, top: 180, width: 80, height: 25};
+    face.append(element); face.parts[`[data-card-component="${id}"]`] = element; customElements[id] = element;
+  }
   const definitions = [{id: 'identity', label: 'Name', selector: '.cname'}, {id: 'costs', label: 'Costs', selector: '.card-cost-rail'}];
   const emitted = [], rawEmitted = [], applied = [];
   // Execute the exact serialized function, so accidental import/closure use fails.
@@ -44,8 +50,90 @@ function fixture({editable = true, layout = {}, zoom = 100, selected = ['identit
     host.listeners.get(type)?.(value); return value;
   };
   const flushFrame = () => {const callback = frame; frame = null; callback?.();};
-  return {host, wrapper, face, identity, costs, editor, snapshot, emitted, rawEmitted, applied, event, flushFrame};
+  return {host, wrapper, face, identity, costs, customElements, editor, snapshot, emitted, rawEmitted, applied, event, flushFrame};
 }
+
+test('native and custom linked parts remain selectable while a group lock blocks all mutations', () => {
+  const layout = {custom: {'component-1': {kind: 'text', label: 'Caption'}}, parts: {identity: {groupId: 'heading'}, 'component-1': {groupId: 'heading', locked: true}}};
+  const f = fixture({layout});
+  const custom = f.customElements['component-1'];
+  assert.equal(custom.getAttribute('role'), 'button');
+  assert.match(custom.getAttribute('aria-label'), /Caption; locked/);
+  assert.equal(f.identity.dataset.editorLocked, 'true');
+  assert.equal(f.host.children.some(element => element.dataset.editorRotate), false);
+  for (const target of [custom, f.identity]) {
+    f.event('pointerdown', target); f.event('pointermove', target, {clientX: 200}); f.event('pointerup', target);
+    f.event('keydown', target, {key: 'ArrowRight'});
+    f.event('keydown', target, {key: 'Enter'}); f.event('dblclick', target);
+    const dataTransfer = {types: ['Files'], files: [{type: 'image/png', size: 100}]};
+    f.event('dragover', target, {dataTransfer}); assert.equal(dataTransfer.dropEffect, 'none');
+    f.event('drop', target, {dataTransfer});
+  }
+  assert.equal(f.applied.length, 0);
+  assert.ok(f.emitted.length >= 2);
+  assert.ok(f.emitted.every(event => event.type === 'card-part-select'));
+  f.editor.destroy();
+});
+
+test('custom component selection, grouped movement, rotation and art drops use stable IDs', () => {
+  const layout = {custom: {'component-1': {kind: 'image', label: 'Seal'}}, parts: {'component-1': {groupId: 'heading'}, identity: {groupId: 'heading'}}};
+  const f = fixture({layout, selected: ['component-1']});
+  const custom = f.customElements['component-1'];
+  f.event('pointerdown', custom); f.event('pointermove', custom, {clientX: 160}); f.event('pointerup', custom);
+  assert.deepEqual(f.emitted.at(-1).partIds, ['component-1', 'identity']);
+  assert.equal(f.applied.at(-1).parts['component-1'].x, 20);
+  const rotate = f.host.children.find(element => element.dataset.editorRotate);
+  assert.equal(rotate.dataset.editorRotate, 'component-1');
+  f.event('keydown', rotate, {key: 'ArrowRight'});
+  assert.equal(f.emitted.at(-1).type, 'card-layout-rotate');
+  const file = new File(['art'], 'seal.png', {type: 'image/png'});
+  f.event('drop', custom, {dataTransfer: {files: [file]}});
+  assert.equal(f.rawEmitted.at(-1).file, file); assert.equal(f.emitted.at(-1).partId, 'component-1');
+  f.editor.update({...f.snapshot, draft: {styles: {ambush: {layout: {}}}}}, [f.face]);
+  assert.equal(custom.getAttribute('role'), null); assert.equal(custom.dataset.editorPart, undefined);
+  f.editor.destroy();
+});
+
+test('disabled and removed components lose interaction and do not receive file drops', () => {
+  for (const state of [{enabled: false}, {removed: true}]) {
+    const f = fixture({layout: {custom: {'component-1': {kind: 'text', label: 'Caption'}}, parts: {identity: state, 'component-1': state}}, selected: ['identity', 'component-1']});
+    for (const target of [f.identity, f.customElements['component-1']]) {
+      assert.equal(target.dataset.editorPart, undefined); assert.equal(target.getAttribute('role'), null);
+      f.event('pointerdown', target); f.event('pointermove', target, {clientX: 200}); f.event('pointerup', target);
+      f.event('keydown', target, {key: 'Enter'}); f.event('dblclick', target);
+      f.event('drop', target, {dataTransfer: {files: [{type: 'image/png', size: 100}]}});
+    }
+    assert.equal(f.emitted.length, 0); assert.equal(f.applied.length, 0);
+    assert.equal(f.host.children.some(element => element.dataset.editorRotate), false);
+    f.editor.destroy();
+  }
+});
+
+test('lock, disable and removal changes cancel pending group translation and rotation', () => {
+  for (const state of [{locked: true}, {enabled: false}, {removed: true}]) for (const rotate of [false, true]) {
+    const base = {custom: {'component-1': {kind: 'text', label: 'Caption'}}, parts: {identity: {groupId: 'heading'}, 'component-1': {groupId: 'heading'}}};
+    const f = fixture({layout: base});
+    const target = rotate ? f.host.children.find(element => element.dataset.editorRotate) : f.identity;
+    f.event('pointerdown', target); f.event('pointermove', target, {clientX: 190, clientY: 190});
+    const changed = {...base, parts: {...base.parts, 'component-1': {...base.parts['component-1'], ...state}}};
+    f.editor.update({...f.snapshot, draft: {styles: {ambush: {layout: changed}}}}, [f.face]);
+    f.event('pointerup', target);
+    assert.deepEqual(f.applied.at(-1), changed);
+    assert.equal(f.emitted.filter(event => event.type.startsWith('card-layout-')).length, 0);
+    f.editor.destroy();
+  }
+});
+
+test('custom definition sanitizer accepts at most 32 safe text/image component IDs', () => {
+  const custom = Object.fromEntries(Array.from({length: 34}, (_, index) => [`component-${index + 1}`, {kind: 'text', label: `Text ${index + 1}`} ]));
+  Object.assign(custom, {'component-0': {kind: 'text'}, 'component-evil"]': {kind: 'text'}, 'component-40': {kind: 'script'}});
+  const f = fixture({layout: {custom}});
+  const interactive = Object.entries(f.customElements).filter(([, element]) => element.dataset.editorPart);
+  assert.equal(interactive.length, 32);
+  assert.equal(f.customElements['component-33'].getAttribute('role'), null);
+  assert.equal(f.customElements['component-evil"]'].getAttribute('role'), null);
+  f.editor.destroy();
+});
 
 test('native artwork drops retain the original file and exact target without reading it', () => {
   const f = fixture();

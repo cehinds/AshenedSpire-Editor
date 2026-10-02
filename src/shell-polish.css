@@ -152,3 +152,13 @@ details.game-card-preview-note>p{margin:4px 0 0}
 .game-card-preview:has(.card-native-title) .native-preview-fullscreen-icon{width:28px;font-size:16px;padding:0}
 .game-card-preview:has(.card-native-title) .native-preview-screen-controls [role=alert]{position:absolute;top:100%;left:0;margin-top:6px;width:max-content;max-width:60vw;background:var(--panel);padding:6px 8px;border-radius:4px}
 }
+
+/* Poses: the sampled pose fills the stage instead of floating small in the middle. */
+.pose-stage{background:radial-gradient(ellipse at 50% 88%,#262a2c 0%,var(--bg) 65%)}
+.pose-stage>img{height:clamp(255px,58vh,620px);max-height:calc(100% - 40px);max-width:90%}
+
+/* Mid widths: keep primary header actions on screen (Review changes stays in Edit; search on Ctrl K). */
+@media(max-width:1180px){.app-shell .editor-header .header-actions .review-action{display:none}}
+@media(max-width:900px){.app-shell .editor-header .header-actions button:has(kbd){display:none}}
+.editor-header .project-bar>.brand,.editor-header .header-actions{flex-shrink:0}
+.editor-header .editor-menu{min-width:0;overflow:hidden}

@@ -48,3 +48,45 @@ jobs:
           echo '## Fast CI passed' >> "$GITHUB_STEP_SUMMARY"
           echo 'Functionality tests, production compile, source syntax, conflict/credential scan, action pins, and Pages history tests passed.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Deterministic checks do not replace semantic human or AI code review. Five-minute job timeout excludes runner queue and review/merge waiting.' >> "$GITHUB_STEP_SUMMARY"
+
+  test-html-candidate:
+    name: Test HTML candidate (dev → test)
+    # Every dev → test promotion must produce a verified consolidated HTML before
+    # merge. Pages deployment stays in Versioned Pages on push to test.
+    if: github.event_name == 'pull_request' && github.base_ref == 'test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      WORKBENCH_BASE_PATH: /${{ github.event.repository.name }}/test/pr-${{ github.event.pull_request.number }}-${{ github.run_attempt }}/
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Enforce dev → test promotion
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+          BASE_REPOSITORY: ${{ github.repository }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+        run: npm run check:branches
+      - name: Build consolidated test HTML
+        run: npm run build:pages
+      - name: Verify dist/pages/index.html
+        run: npm run check:pages-html
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: editor-html-test-candidate-pr${{ github.event.pull_request.number }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/pages/index.html
+          if-no-files-found: error
+          retention-days: 7
+      - name: Record test HTML candidate
+        run: |
+          echo '## Test HTML candidate verified' >> "$GITHUB_STEP_SUMMARY"
+          echo "Artifact: editor-html-test-candidate-pr${{ github.event.pull_request.number }}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT} ($(wc -c < dist/pages/index.html) bytes)" >> "$GITHUB_STEP_SUMMARY"
+          echo 'After merge, Versioned Pages publishes /test/<run>-<attempt>/ and /test/latest/. Pull requests never deploy Pages.' >> "$GITHUB_STEP_SUMMARY"

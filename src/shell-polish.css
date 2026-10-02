@@ -142,3 +142,13 @@ td button{white-space:nowrap}
 details.game-card-preview-note>summary{cursor:pointer;list-style-position:inside}
 details.game-card-preview-note>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 details.game-card-preview-note>p{margin:4px 0 0}
+
+/* Cards workspace: view controls float over the canvas instead of taking a row (wide screens; the frame reserves top space). */
+@media(min-width:781px){
+.game-card-preview:has(.card-native-title) .native-preview-frame-wrap{position:relative}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls{position:absolute;z-index:3;top:8px;left:8px;right:auto;margin:0;min-height:0;padding:4px 6px;gap:6px;background:#161d22e6;border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 14px #0008;backdrop-filter:blur(4px)}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls>strong{display:none}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls button{min-height:0;height:28px;padding:0 9px}
+.game-card-preview:has(.card-native-title) .native-preview-fullscreen-icon{width:28px;font-size:16px;padding:0}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls [role=alert]{position:absolute;top:100%;left:0;margin-top:6px;width:max-content;max-width:60vw;background:var(--panel);padding:6px 8px;border-radius:4px}
+}

@@ -1,6 +1,6 @@
 import {Component} from 'react';
-import {ScenePreview} from './ScenePreview.jsx';
-import {GameCardPreview} from './GameCardPreview.jsx';
+// Lazy wrappers so only the selected branch's renderer downloads.
+import {ScenePreview, GameCardPreview} from './LazyNative.jsx';
 import {GameRuntimePreview} from './GameRuntimePreview.jsx';
 import './in-game-preview.css';
 import './game-runtime-preview.css';

@@ -136,6 +136,13 @@
     },
     {
       "branch": "test",
+      "buildNumber": "30-1",
+      "commit": "87a380cd9b43f2f63edd9fc8a7a42aae786c1806",
+      "builtAt": "2026-10-02T02:46:26.126Z",
+      "digest": "a228ac2b4bd693f37e65f62ec5e4f3fde20a192a19350ebc01e67dc55bdffa32"
+    },
+    {
+      "branch": "test",
       "buildNumber": "23-1",
       "commit": "cd8a3e67589ff38a7d186173c953e0e88b2bf5e5",
       "builtAt": "2026-10-02T02:23:14.945Z",

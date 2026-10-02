@@ -11,13 +11,19 @@ export async function checkConsolidatedPages(file) {
   if (!info.isFile() || info.size === 0) throw new Error(`Consolidated Pages HTML is empty or not a file: ${file}`);
   const html = await readFile(file, "utf8");
   if (!/<html[\s>]/i.test(html) || !/<\/html>\s*$/i.test(html)) throw new Error("Consolidated Pages HTML is not a complete HTML document");
-  const modules = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/g)].map((match) => match[1]);
+  const modules = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))[^>]*>/gi)].map((match) => match[1] ?? match[2] ?? match[3]);
   if (modules.length !== 1 || !modules[0].startsWith("data:text/javascript;base64,")) {
     throw new Error("Consolidated Pages HTML must embed exactly one application module");
   }
   if (/<link\b[^>]*rel="(?:stylesheet|modulepreload)"/.test(html)) throw new Error("Consolidated Pages HTML still references external CSS or JavaScript");
-  for (const match of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)) {
-    if (/^(?:\/|https?:)/.test(match[1])) throw new Error(`Consolidated Pages HTML references an external resource: ${match[1]}`);
+  // Everything must be self-contained: only data/blob payloads, in-page anchors and about: are allowed.
+  // Inline script bodies are code, not markup, so only tag attributes are scanned.
+  const markup = html.replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi, "$1</script>");
+  for (const [tag] of markup.matchAll(/<[a-z][^>]*>/gi)) {
+    for (const match of tag.matchAll(/\s(?:src|href)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi)) {
+      const url = (match[1] ?? match[2] ?? match[3]).trim();
+      if (!/^(?:data:|blob:|#|about:)/i.test(url)) throw new Error(`Consolidated Pages HTML references an external resource: ${url}`);
+    }
   }
   const bootstrap = html.match(/<script id="editor-embedded-assets">([\s\S]*?)<\/script>/)?.[1];
   if (!bootstrap) throw new Error("Consolidated Pages HTML is missing its embedded asset table");

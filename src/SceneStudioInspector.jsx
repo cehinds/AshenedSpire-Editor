@@ -117,6 +117,7 @@ export function SceneStudioInspector({ctx: {p, scene, update}, selection = 'scen
       {select('Layout', 'layout', layouts)}
       {check('Fixed text-box height', 'captionFixedHeight')}
       {number('Text-box height', 'captionHeightVh', 1, 100, 1, 'vh')}
+      {select('Vertical align', 'captionVerticalAlign', {auto: 'Native default', top: 'Top', middle: 'Middle', bottom: 'Bottom'})}
       {select('Position', 'textPosition', positions)}
       {select('Align', 'textAlign', {left: 'Left', center: 'Center', right: 'Right'})}
       <div className="si-pair">{number('Inset X', 'textInsetX', 0, 40, 1, '%')}{number('Inset Y', 'textInsetY', 0, 40, 1, '%')}</div>
@@ -127,7 +128,7 @@ export function SceneStudioInspector({ctx: {p, scene, update}, selection = 'scen
     </Section>
     <Section title="Visibility">
       {check('Scene title', 'titleVisible')}{check('Speaker name', 'speakerVisible')}{check('Location caption', 'locationVisible')}
-      {check('Text container', 'textBoxVisible')}{check('Container background', 'textBox')}
+      {check('Text container', 'textBox')}{check('Container visible', 'textBoxVisible')}
       {color('Narration color', 'dialogueColor')}
       {color('Container color', 'textBoxColor')}
       {number('Container opacity', 'textBoxOpacity', 0, 1, .05)}

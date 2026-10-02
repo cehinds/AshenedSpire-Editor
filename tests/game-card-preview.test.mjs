@@ -5,6 +5,34 @@ import vm from 'node:vm';
 import {cardsForTag, previewContentBundle} from '../src/game-card-preview.mjs';
 import {parseCSV, historyState, commit, undo, redo} from '../src/core.mjs';
 import {createCardDraft, applyCardDraft} from '../src/authoring-create.mjs';
+import {addCardLayoutComponent, setCardLayoutPartState, normalizeCardLayout} from '../src/card-layout.mjs';
+
+test('component edits survive whole-project export and undo/redo without changing native mechanics', () => {
+  const card = {id: 'ambush', name: 'Ambush', damage: 5};
+  const original = {cards: [card], styles: {}};
+  let history = historyState(original);
+  const added = addCardLayoutComponent(undefined, {kind: 'text', label: 'Caption', text: 'Prepared'});
+  added.layout.parts[added.id].rotation = 90;
+  added.layout.parts[added.id].groupId = 'heading';
+  added.layout.parts.identity.groupId = 'heading';
+  let next = structuredClone(history.present);
+  next.styles.ambush = {layout: added.layout};
+  history = commit(history, next);
+  next = structuredClone(history.present);
+  next.styles.ambush.layout = setCardLayoutPartState(next.styles.ambush.layout, [added.id], {locked: true});
+  history = commit(history, next);
+  const exported = JSON.parse(JSON.stringify(history.present));
+  const imported = normalizeCardLayout(exported.styles.ambush.layout);
+  assert.equal(imported.parts.identity.locked, true);
+  assert.equal(imported.parts[added.id].locked, true);
+  assert.equal(imported.parts[added.id].textRotation, 'upright');
+  assert.equal(imported.custom[added.id].text, 'Prepared');
+  assert.deepEqual(exported.cards, original.cards);
+  history = undo(history);
+  assert.equal(history.present.styles.ambush.layout.parts[added.id].locked, false);
+  assert.deepEqual(redo(history).present, exported);
+  assert.deepEqual(undo(history).present, original);
+});
 
 test('native bundle overlays live cards and derives changed tag ancestry without mutating sources', () => {
   const base = {cards: [{id:'a', name:'Original', damageSchool:'steel'}, {id:'b', name:'Unedited'}], nodes: [{id:'card',parentId:'',label:'Cards'}, {id:'theme',parentId:'',label:'Theme'}, {id:'blade',parentId:'card',label:'Blade',color:'AABBCC'}], tagging: [{family:'card',objectId:'a',tagId:'blade'}]};

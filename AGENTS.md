@@ -98,3 +98,7 @@ October 2, 2026: Scenes transport includes Play all (active scenes in order, aut
 ## Native source adapters
 
 October 2, 2026: card definitions, tag assignments (`tagging.csv`), node effects (`nodeEffects.json`) and `balance.ui.combatantStage` have reviewed, revision-checked checkout adapters. JS modules are edited by splicing one literal (the rest of the file stays byte for byte); the local host evaluates the result in an isolated Node child (permission model, network/process imports refused) and rejects any mismatch with the draft. Cards: Add / save card to game (toolbar ⇪, workspace menu, File menu) with explicit target module selection; new cards also need their tag rows saved through Tags. Deck rule defaults stay with Game settings promotion; the Decks sandbox, other ERD CSVs, poses and combat scenarios remain export-only.
+
+## Card component controls
+
+October 2, 2026: text stays upright automatically when its component rotates. Keep a per-component Follow rotation option. Component controls support group selection, lock/unlock, enable/disable, reversible removal/restoration and adding safe text/artwork presentation components. A locked or inactive member protects its entire linked group from accidental transforms and artwork drops. Preserve native definitions and exact restoration, undo/redo and whole-project export; extra presentation components do not change card mechanics or imply a checkout layout adapter.

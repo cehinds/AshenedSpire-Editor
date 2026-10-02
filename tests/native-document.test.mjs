@@ -106,10 +106,11 @@ test('tag assignments CSV keeps interleaved comments and unchanged lines byte fo
     const removed = next.tagging.splice(index, 1)[0];
     next.tagging.push({family: 'card', scope: '', objectId: 'ambush', tagId: 'drafted, "quoted"'});
     const saved = serializeNativeDocument(next, 'tagging', receipt);
-    const comments = text => text.split('\n').filter(line => line.startsWith('#'));
+    const lines = text => text.split(/\r?\n/);
+    const comments = text => lines(text).filter(line => line.startsWith('#'));
     assert.deepEqual(comments(saved), comments(original), 'Every comment is retained in order');
     const line = `${removed.family},${removed.scope},${removed.objectId},${removed.tagId}`;
-    assert.equal(saved.split('\n').filter(value => value === line).length, original.split('\n').filter(value => value === line).length - 1);
+    assert.equal(lines(saved).filter(value => value === line).length, lines(original).filter(value => value === line).length - 1);
     assert.match(saved, /\ncard,,ambush,"drafted, ""quoted"""\n/);
     assert.deepEqual(parseNativeDocument('tagging', saved).value, next.tagging);
     assert.throws(() => mergedNativeProject(fixture(), 'tagging', 'family,objectId\ncard,ambush\n'), /requires unique family, scope, objectId, tagId/);

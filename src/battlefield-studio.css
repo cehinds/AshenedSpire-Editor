@@ -46,3 +46,8 @@
 .bf-facts dd{margin:0}
 .bf-overlay.dragging{pointer-events:auto;cursor:grabbing}
 .bf-overlay.compact .bf-actor-label,.bf-overlay.compact .bf-region>span{display:none}
+.bf-row-handle{position:absolute;height:8px;pointer-events:auto;cursor:ns-resize;touch-action:none;display:flex;justify-content:flex-end;align-items:center}
+.bf-row-handle::before{content:"";position:absolute;inset:3px 0;background:rgba(217,181,104,.55);border-radius:2px}
+.bf-row-handle:hover::before{background:var(--gold)}
+.bf-row-handle>span{position:relative;margin-right:6px;font-size:10px;padding:1px 6px;border-radius:3px;background:var(--gold);color:#16120b;white-space:nowrap}
+.bf-overlay.compact .bf-row-handle>span{display:none}

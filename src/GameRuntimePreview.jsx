@@ -62,6 +62,12 @@ function bootGame(N, host, emit, projectContent,applyPresentation,applyLayout) {
     const notice = text => emit({ type: 'notice', message: text });
     try { N.initInput({ getSettings: () => meta.settings }); }
     catch (error) { if (error.name !== 'SecurityError') throw error; }
+    // Preview-only proposal over the vendored fixed combat rows (see battlefield-lab NATIVE_ROWS).
+    let rowStyle = document.getElementById('editor-battlefield-rows');
+    if (p.lab?.rows) {
+      rowStyle ??= document.head.appendChild(Object.assign(document.createElement('style'), { id: 'editor-battlefield-rows' }));
+      rowStyle.textContent = `:root .combat[data-layout='formation']{grid-template-rows:${p.lab.rows.hud}% ${p.lab.rows.field}% ${p.lab.rows.hand}% !important}`;
+    } else rowStyle?.remove();
     host.style.cssText = view.fill ? 'height:100vh;min-height:0;width:100%;overflow:hidden' : 'height:100%;min-height:650px;width:100%;overflow:hidden';
     N.mountCombat(host, {
       registries, run, combat, meta, showTutorial: false,
@@ -113,7 +119,11 @@ function bootGame(N, host, emit, projectContent,applyPresentation,applyLayout) {
           if (!sprite) return null;
           const art = sprite.querySelector('.pose-stage, img, svg') || sprite.firstElementChild || sprite;
           const role = frame.classList.contains('player') ? 'player' : 'enemy';
-          return { eid: frame.dataset.eid, role, name: role === 'player' ? classId[0].toUpperCase() + classId.slice(1) : enemyName(frame.dataset.eid), stature: frame.dataset.stature || 'normal', formationRow: frame.dataset.formationRow || '', cell: frame.dataset.cell || frame.dataset.formationCell || '', zoom: Number(getComputedStyle(sprite).zoom) || 1, frame: box(frame), sprite: box(sprite), art: box(art) };
+          // Native fitting publishes alpha-trimmed visible height; feet stay on the art box bottom.
+          const image = box(art), visible = Number(frame.dataset.spriteVisibleHeight);
+          const height = Number.isFinite(visible) && visible > 0 ? Math.min(image.height, visible) : image.height;
+          const number = key => Number.isFinite(Number(frame.dataset[key])) ? Number(frame.dataset[key]) : null;
+          return { eid: frame.dataset.eid, role, name: role === 'player' ? classId[0].toUpperCase() + classId.slice(1) : enemyName(frame.dataset.eid), stature: frame.dataset.stature || 'normal', formationRow: frame.dataset.formationRow || '', cell: frame.dataset.formationCell || '', fitScale: number('baseSpriteScale'), presentationScale: number('presentationScale'), combatantScale: number('combatantScale'), groundY: number('groundY'), zoom: Number(getComputedStyle(sprite).zoom) || 1, frame: box(frame), sprite: box(sprite), image, art: { ...image, y: image.y + image.height - height, height } };
         }).filter(Boolean);
         emit({ type: 'battlefield-metrics', viewport: { width: innerWidth, height: innerHeight }, regions: { hud: region('.combat > .topbar'), field: box(field), hand: region('.hand-overlay'), footer: region('.combat-action-row') }, combatants });
       };

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
-import {PRESENTATION_FIELDS, STAGE_DEFAULTS, FIT_FIELDS, SETTING_PREFIX, validateLab, normalizeLab, normalizeView, getPath, battlefieldDocument, battlefieldDocumentProblems, applyBattlefieldDocument, presentationValue, diagnose, LAB_DEFAULT} from '../src/battlefield-lab.mjs';
+import {PRESENTATION_FIELDS, STAGE_DEFAULTS, FIT_FIELDS, SETTING_PREFIX, validateLab, normalizeLab, normalizeView, getPath, battlefieldDocument, battlefieldDocumentProblems, applyBattlefieldDocument, presentationValue, diagnose, LAB_DEFAULT, rowsProblems, shiftRows, measuredRows, NATIVE_ROWS} from '../src/battlefield-lab.mjs';
 import {combatPreviewSnapshot} from '../src/game-runtime-preview.mjs';
 
 const runtime = await fs.readFile(new URL('../src/native/game-preview/runtime.js', import.meta.url), 'utf8');
@@ -69,4 +69,24 @@ test('measured diagnostics report clipping, minimum height and overlap', () => {
   assert.match(text, /Rogue: art rises 20 px into the HUD/);
   assert.match(text, /Dragon: 50 px is below the 92 px minimum/);
   assert.match(text, /Rogue and Dragon overlap by 70 px/);
+});
+
+test('screen row proposal stays whole, bounded and summed to 100', () => {
+  const rows = {hud: 10, field: 45, hand: 45};
+  assert.deepEqual(rowsProblems(rows), []);
+  assert.deepEqual(shiftRows(rows, 'field', 60), {hud: 10, field: 60, hand: 30});
+  assert.deepEqual(shiftRows(rows, 'hand', 35), {hud: 10, field: 55, hand: 35});
+  assert.equal(shiftRows(rows, 'field', 80), rows, 'hand cannot fall below its minimum');
+  assert.ok(rowsProblems({hud: 10, field: 50, hand: 45}).length);
+  assert.ok(validateLab({schema: LAB_DEFAULT.schema, stage: {}, rows: {hud: 10, field: 50.5, hand: 39.5}}).length);
+  assert.deepEqual(normalizeLab({schema: LAB_DEFAULT.schema, stage: {}, rows}).rows, rows);
+  assert.deepEqual(measuredRows({}, {viewport: {height: 390}}), NATIVE_ROWS.short);
+  assert.deepEqual(measuredRows({}, {viewport: {height: 900}}), NATIVE_ROWS.tall);
+});
+
+test('native CSS row rule matches the documented defaults', async () => {
+  const css = await fs.readFile(new URL('../src/native/game-preview/styles.css', import.meta.url), 'utf8');
+  const {tall, short} = NATIVE_ROWS;
+  assert.ok(css.includes(`grid-template-rows: ${tall.hud}% ${tall.field}% ${tall.hand}%;`));
+  assert.ok(css.includes(`grid-template-rows: ${short.hud}% ${short.field}% ${short.hand}%;`));
 });

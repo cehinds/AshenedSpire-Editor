@@ -65,7 +65,7 @@ function faceFixture(width=280,zoom=2) {
     setAttribute(key,value){if(key==='style')this.style=JSON.parse(value);else this.attrs.set(key,value);}
     removeAttribute(key){if(key==='style')this.style={};else this.attrs.delete(key);}
   }
-  const doc={defaultView:{getComputedStyle:element=>({position:'relative',display:element.name==='.card-cost-rail'?'flex':'block',flexDirection:'column',textAlign:'center'})},createComment:name=>new Element('#'+name),createElement:name=>new Element(name)};
+  const doc={defaultView:{getComputedStyle:element=>({position:'relative',display:element.name==='.card-cost-rail'?'flex':'block',flexDirection:'column',textAlign:'center',get overflow(){return element.style.overflow||'visible';},get overflowX(){return element.style.overflowX||element.style.overflow||'visible';},get overflowY(){return element.style.overflowY||element.style.overflow||'visible';}})},createComment:name=>new Element('#'+name),createElement:name=>new Element(name)};
   const face=new Element('.card',{x:100,y:50,width,height:width*1.4});
   const parts={};
   for(const [index,part] of CARD_LAYOUT_PARTS.entries()) {
@@ -181,12 +181,17 @@ test('upright text counter-rotates existing native child nodes and resets withou
   const {face,parts}=faceFixture();
   parts.identity.textContent='Ambush';
   parts.identity.className='cname native-card-part-editable';
+  parts.identity.style.overflow='hidden';
   const token=face.ownerDocument.createElement('b');token.textContent='12';token.style.color='gold';parts.rules.append(token);
   const cost=face.ownerDocument.createElement('div');cost.className='cost';cost.textContent='2';parts.costs.append(cost);
   const labelNode=parts.identity.firstChild;
   apply(face,{parts:{identity:{rotation:45},rules:{rotation:-30},costs:{rotation:15}}});
   assert.equal(parts.identity.firstChild.getAttribute('data-card-upright'),'');
   assert.equal(parts.identity.firstChild.style.transform,'rotate(-45deg)');
+  assert.equal(parts.identity.style.overflow,'visible');
+  assert.equal(parts.identity.firstChild.style.overflow,'hidden');
+  assert.equal(parts.identity.firstChild.style.overflowX,'hidden');
+  assert.equal(parts.identity.firstChild.style.overflowY,'hidden');
   assert.equal(parts.identity.firstChild.className,'cname');
   assert.equal(parts.identity.className,'cname native-card-part-editable');
   assert.equal(parts.identity.firstChild.firstChild,labelNode);
@@ -199,6 +204,7 @@ test('upright text counter-rotates existing native child nodes and resets withou
   assert.equal(parts.identity.firstChild,labelNode);assert.equal(parts.identity.querySelector('[data-card-upright]'),null);
   apply(face,undefined);
   assert.equal(parts.identity.firstChild,labelNode);assert.equal(parts.rules.firstChild,token);assert.equal(parts.costs.firstChild,cost);
+  assert.equal(parts.identity.style.overflow,'hidden');
   assert.deepEqual(token.style,{color:'gold'});assert.equal(face.querySelector('[data-card-upright]'),null);
 });
 

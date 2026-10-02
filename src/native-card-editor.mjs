@@ -2,19 +2,20 @@
 export function installCardEditor(host, emit, applyLayout, partDefs) {
   const doc = host.ownerDocument;
   const win = doc.defaultView;
-  const definitions = (Array.isArray(partDefs) ? partDefs : []).filter(part => typeof part?.id === 'string' && typeof part.selector === 'string');
-  const known = new Set(definitions.map(part => part.id));
+  const nativeDefinitions = (Array.isArray(partDefs) ? partDefs : []).filter(part => typeof part?.id === 'string' && typeof part.selector === 'string').slice(0, 7);
   const finite = (value, fallback = 0) => Number.isFinite(value) ? value : fallback;
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const clone = value => JSON.parse(JSON.stringify(value || {}));
   const round = value => Number(value.toFixed(6));
   const snap = (value, interval) => round(Math.round(value / interval) * interval);
-  const label = id => definitions.find(part => part.id === id)?.label || id;
+  const label = (cardId, id) => definitionsFor(layoutFor(cardId)).find(part => part.id === id)?.label || id;
   const original = {backgroundImage: host.style.backgroundImage, backgroundSize: host.style.backgroundSize, backgroundPosition: host.style.backgroundPosition, position: host.style.position, touchAction: host.style.touchAction, tabIndex: host.getAttribute('tabindex')};
   const attributes = new WeakMap();
+  const decorated = new Set();
   const style = doc.createElement('style');
   style.textContent = `.native-card-part-editable{outline:1px dashed #d8b26988;outline-offset:2px;cursor:move;touch-action:none;user-select:none}.native-card-part-editable[data-editor-selected="true"]{outline:2px solid #edc878;outline-offset:3px}.native-card-part-editable:focus-visible{outline:3px solid #ffe3a2}.native-card-rotate-handle{position:absolute!important;z-index:2147483000!important;width:24px!important;height:24px!important;min-width:24px!important;padding:0!important;border:1px solid #efc875!important;border-radius:50%!important;background:#242a30!important;color:#ffdc8c!important;font:18px/22px system-ui!important;cursor:crosshair!important;touch-action:none!important;box-shadow:0 1px 5px #0009}.native-card-rotate-handle:focus-visible{outline:2px solid #fff}`;
   doc.head.append(style);
+  style.textContent += '.native-card-part-editable[data-editor-locked="true"]{cursor:default;outline-style:dotted;outline-color:#a9adb6}.native-card-part-editable[data-editor-locked="true"][data-editor-selected="true"]{outline-color:#edc878}';
   if (win.getComputedStyle(host).position === 'static') host.style.position = 'relative';
   if (!host.hasAttribute('tabindex')) host.tabIndex = 0;
   let snapshot = {};
@@ -35,7 +36,8 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
       const nativeBoxes = applyLayout(entry.face, layoutFor(entry.cardId));
       if (!nativeBoxes || typeof nativeBoxes !== 'object') continue;
       const boxes = {};
-      for (const {id} of definitions) {
+      for (const {id} of definitionsFor(layoutFor(entry.cardId))) {
+        if (!active(layoutFor(entry.cardId), id)) continue;
         const box = nativeBoxes[id];
         if (!box || !['x', 'y', 'width', 'height'].every(key => Number.isFinite(box[key]))) continue;
         boxes[id] = {x: round(clamp(box.x, -32768, 32768)), y: round(clamp(box.y, -32768, 32768)), width: round(clamp(box.width, 0, 32768)), height: round(clamp(box.height, 0, 32768)), rotation: round(clamp(finite(box.rotation), -360, 360))};
@@ -56,6 +58,15 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   }
 
   function layoutFor(id) {return snapshot.draft?.styles?.[id]?.layout || {};}
+  function definitionsFor(layout) {
+    const custom = layout?.custom;
+    if (!custom || typeof custom !== 'object' || Array.isArray(custom)) return nativeDefinitions;
+    const added = Object.entries(custom).filter(([id, item]) => id.length <= 64 && /^component-[1-9][0-9]*$/.test(id) && item && typeof item === 'object' && !Array.isArray(item) && ['text', 'image'].includes(item.kind)).slice(0, 32).map(([id, item]) => ({id, label: typeof item.label === 'string' ? item.label.slice(0, 120) : id, selector: `[data-card-component="${id}"]`}));
+    return [...nativeDefinitions, ...added];
+  }
+  function active(layout, id) {return definitionsFor(layout).some(part => part.id === id) && layout.parts?.[id]?.enabled !== false && layout.parts?.[id]?.removed !== true;}
+  function editableParts(layout, ids) {return ids.length > 0 && ids.every(id => active(layout, id) && layout.parts?.[id]?.locked !== true);}
+  function canEdit(cardId, id) {const layout = layoutFor(cardId); return editableParts(layout, expandGroup(layout, [id]));}
   function view() {
     const options = snapshot.layoutView || {};
     return {gridEnabled: options.gridEnabled === true, gridSize: clamp(finite(options.gridSize, 10), 1, 256), snapEnabled: options.snapEnabled === true, rotationSnap: clamp(finite(options.rotationSnap, 15), 1, 180)};
@@ -63,24 +74,26 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   function selectedFor(id) {
     const selected = snapshot.layoutSelection;
     const values = Array.isArray(selected) ? selected : selected?.cardId && selected.cardId !== id ? [] : selected?.partIds;
-    return [...new Set((Array.isArray(values) ? values : []).filter(part => known.has(part)))];
+    return [...new Set((Array.isArray(values) ? values : []).filter(part => active(layoutFor(id), part)))];
   }
   function expandGroup(layout, selected) {
     const groups = new Set(selected.map(id => layout.parts?.[id]?.groupId).filter(Boolean));
-    return [...new Set([...selected, ...definitions.filter(part => groups.has(layout.parts?.[part.id]?.groupId)).map(part => part.id)])];
+    const definitions = definitionsFor(layout);
+    return [...new Set([...selected.filter(id => definitions.some(part => part.id === id)), ...definitions.filter(part => groups.has(layout.parts?.[part.id]?.groupId)).map(part => part.id)])];
   }
   function entryFor(id) {return entries.find(entry => entry.cardId === id);}
   function scale(entry) {return Math.max(0.0001, entry.face.getBoundingClientRect().width / 280);}
   function marked(target) {
     const element = target?.closest?.('[data-editor-part]');
-    if (!element || !host.contains(element) || !known.has(element.dataset.editorPart)) return null;
+    if (!element || !host.contains(element)) return null;
     const entry = entries.find(item => item.face.contains(element));
-    return entry ? {...entry, element, partId: element.dataset.editorPart} : null;
+    return entry && active(layoutFor(entry.cardId), element.dataset.editorPart) ? {...entry, element, partId: element.dataset.editorPart} : null;
   }
   function dragOver(event) {
     if (disposed || snapshot.editable !== true || !Array.from(event.dataTransfer?.types || []).includes('Files')) return;
     event.preventDefault();
-    if (event.dataTransfer) event.dataTransfer.dropEffect = marked(event.target) ? 'copy' : 'none';
+    const picked = marked(event.target);
+    if (event.dataTransfer) event.dataTransfer.dropEffect = picked && canEdit(picked.cardId, picked.partId) ? 'copy' : 'none';
   }
   function dropArt(event) {
     if (disposed || snapshot.editable !== true) return;
@@ -88,7 +101,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
     if (!file) return;
     event.preventDefault(); event.stopPropagation();
     const picked = marked(event.target);
-    if (!picked || !['image/png', 'image/webp'].includes(file.type) || !Number.isFinite(file.size) || file.size < 0 || file.size > 2_000_000) return;
+    if (!picked || !canEdit(picked.cardId, picked.partId) || !['image/png', 'image/webp'].includes(file.type) || !Number.isFinite(file.size) || file.size < 0 || file.size > 2_000_000) return;
     emit({type: 'card-part-art-drop', cardId: picked.cardId, partId: picked.partId, file});
   }
   function capture(pointerId) {try {host.setPointerCapture(pointerId);} catch {}}
@@ -96,7 +109,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   function handlePosition() {
     if (!rotateHandle) return;
     const entry = entryFor(rotateHandle.dataset.editorCard);
-    const part = definitions.find(item => item.id === rotateHandle.dataset.editorRotate);
+    const part = definitionsFor(layoutFor(rotateHandle.dataset.editorCard)).find(item => item.id === rotateHandle.dataset.editorRotate);
     const element = entry?.face.querySelector(part?.selector || ':not(*)');
     if (!element) {rotateHandle.hidden = true; return;}
     const rect = element.getBoundingClientRect(), bounds = host.getBoundingClientRect();
@@ -131,18 +144,29 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   }
   function decorate() {
     rotateHandle?.remove(); rotateHandle = null;
+    for (const element of decorated) {
+      delete element.dataset.editorPart; delete element.dataset.editorSelected; delete element.dataset.editorLocked;
+      element.classList.remove('native-card-part-editable');
+      const prior = attributes.get(element);
+      for (const [key, value] of [['role', prior.role], ['tabindex', prior.tabindex], ['aria-label', prior.label]]) value === null ? element.removeAttribute(key) : element.setAttribute(key, value);
+    }
+    decorated.clear();
     for (const entry of entries) {
+      const layout = layoutFor(entry.cardId), definitions = definitionsFor(layout);
       const selection = expandGroup(layoutFor(entry.cardId), selectedFor(entry.cardId));
       for (const part of definitions) {
         const element = entry.face.querySelector(part.selector);
         if (!element) continue;
         if (!attributes.has(element)) attributes.set(element, {role: element.getAttribute('role'), tabindex: element.getAttribute('tabindex'), label: element.getAttribute('aria-label')});
-        if (snapshot.editable === true) {
+        if (snapshot.editable === true && active(layout, part.id)) {
+          decorated.add(element);
+          const locked = !canEdit(entry.cardId, part.id);
           element.dataset.editorPart = part.id;
           element.dataset.editorSelected = String(selection.includes(part.id));
+          element.dataset.editorLocked = String(locked);
           element.classList.add('native-card-part-editable');
           element.setAttribute('role', 'button'); element.setAttribute('tabindex', '0');
-          element.setAttribute('aria-label', `Select ${part.label || part.id}; double-click or Enter to edit`);
+          element.setAttribute('aria-label', `Select ${part.label || part.id}; ${locked ? 'locked component or linked group' : 'double-click or Enter to edit'}`);
         } else {
           delete element.dataset.editorPart; delete element.dataset.editorSelected;
           element.classList.remove('native-card-part-editable');
@@ -151,13 +175,13 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
         }
       }
       const anchor = selection[0];
-      if (snapshot.editable === true && !rotateHandle && anchor) {
+      if (snapshot.editable === true && !rotateHandle && anchor && editableParts(layout, selection)) {
         const element = entry.face.querySelector(definitions.find(part => part.id === anchor).selector);
         if (element && layoutFor(entry.cardId).parts?.[anchor]?.visible !== false) {
           rotateHandle = doc.createElement('button'); rotateHandle.type = 'button';
           rotateHandle.className = 'native-card-rotate-handle'; rotateHandle.textContent = '↻';
           rotateHandle.dataset.editorRotate = anchor; rotateHandle.dataset.editorCard = entry.cardId;
-          rotateHandle.setAttribute('aria-label', `Rotate ${label(anchor)}`);
+          rotateHandle.setAttribute('aria-label', `Rotate ${label(entry.cardId, anchor)}`);
           rotateHandle.title = 'Drag to rotate; Left/Right keys rotate selection';
           host.append(rotateHandle);
         }
@@ -201,9 +225,10 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
     const chosen = selection.includes(picked.partId) ? selection : event.shiftKey ? [...selection, picked.partId] : [picked.partId];
     const partIds = expandGroup(base, [picked.partId, ...chosen.filter(id => id !== picked.partId)]);
     if (!rotate) emit({type: 'card-part-select', cardId: picked.cardId, partId: picked.partId, additive: event.shiftKey === true});
+    if (!editableParts(base, partIds)) return;
     gesture = {kind: rotate ? 'rotate' : 'translate', pointerId: event.pointerId, cardId: picked.cardId, partIds, base, before: JSON.stringify(layoutFor(picked.cardId)), startX: event.clientX, startY: event.clientY, scale: scale(picked), moved: false, current: base, dx: 0, dy: 0, rotation: finite(base.parts?.[picked.partId]?.rotation), options: view()};
     if (rotate) {
-      const element = picked.face.querySelector(definitions.find(part => part.id === picked.partId).selector);
+      const element = picked.face.querySelector(definitionsFor(base).find(part => part.id === picked.partId).selector);
       const rect = element.getBoundingClientRect();
       gesture.center = {x: rect.left + rect.width / 2, y: rect.top + rect.height / 2};
       gesture.startAngle = Math.atan2(event.clientY - gesture.center.y, event.clientX - gesture.center.x);
@@ -248,7 +273,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
   function doubleClick(event) {
     if (snapshot.editable !== true) return;
     const picked = marked(event.target);
-    if (picked) {event.preventDefault(); event.stopPropagation(); emit({type: 'card-part-edit', cardId: picked.cardId, partId: picked.partId});}
+    if (picked) {event.preventDefault(); event.stopPropagation(); emit({type: canEdit(picked.cardId, picked.partId) ? 'card-part-edit' : 'card-part-select', cardId: picked.cardId, partId: picked.partId});}
   }
   function zoom(value) {viewZoom = clamp(Math.round(value), 50, 250); emit({type: 'card-view-zoom', zoom: viewZoom});}
   function wheel(event) {
@@ -264,7 +289,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
     const rotate = event.target?.closest?.('[data-editor-rotate]');
     if (picked && ['Enter', ' '].includes(event.key)) {
       event.preventDefault(); event.stopPropagation();
-      emit({type: event.key === 'Enter' ? 'card-part-edit' : 'card-part-select', cardId: picked.cardId, partId: picked.partId, additive: event.shiftKey === true}); return;
+      emit({type: event.key === 'Enter' && canEdit(picked.cardId, picked.partId) ? 'card-part-edit' : 'card-part-select', cardId: picked.cardId, partId: picked.partId, additive: event.shiftKey === true}); return;
     }
     if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key) || (!picked && !rotate)) return;
     event.preventDefault(); event.stopPropagation();
@@ -272,6 +297,7 @@ export function installCardEditor(host, emit, applyLayout, partDefs) {
     const base = layoutFor(cardId), before = JSON.stringify(base), options = view();
     const selection = selectedFor(cardId);
     const partIds = expandGroup(base, [partId, ...(selection.includes(partId) ? selection.filter(id => id !== partId) : [])]);
+    if (!editableParts(base, partIds)) return;
     if (rotate) {
       const direction = ['ArrowLeft', 'ArrowDown'].includes(event.key) ? -1 : 1;
       const result = rotated(base, partIds, finite(base.parts?.[partId]?.rotation) + direction * (options.snapEnabled ? options.rotationSnap : event.shiftKey ? 15 : 1));

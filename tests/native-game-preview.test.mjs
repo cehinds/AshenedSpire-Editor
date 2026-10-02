@@ -13,6 +13,49 @@ const scope = { console, structuredClone, URLSearchParams, setTimeout, clearTime
 vm.runInNewContext(runtime, scope);
 const N = scope.AshenNative;
 
+async function nativeSourceLoaderHarness(loadRuntime, loadStyles) {
+  const source = await fs.readFile(new URL('../src/native-sources.js', import.meta.url), 'utf8');
+  const uses = [];
+  const loader = vm.runInNewContext(`(() => {${source.replace(/^import .*;\r?$/gm, '').replace(/export function /g, 'function ')}; return {loadNativeSources, useNativeSources, retryNativeSources};})()`, {loadRuntime, loadStyles, use: promise => {uses.push(promise); return promise;}});
+  return {loader, uses};
+}
+
+test('native source Suspense renders always use the same pending and fulfilled promise', async () => {
+  let finishRuntime, runtimeLoads = 0, styleLoads = 0;
+  const runtimePromise = new Promise(resolve => {finishRuntime = resolve;});
+  const {loader, uses} = await nativeSourceLoaderHarness(() => {runtimeLoads++; return runtimePromise;}, () => {styleLoads++; return Promise.resolve('native CSS');});
+  const pending = loader.useNativeSources();
+  assert.equal(loader.loadNativeSources(), pending);
+  assert.equal(loader.useNativeSources(), pending);
+  loader.retryNativeSources();
+  assert.equal(loader.loadNativeSources(), pending, 'retry does not replace an in-flight download');
+  finishRuntime('native runtime');
+  const sources = await pending;
+  assert.equal(sources.runtime, 'native runtime'); assert.equal(sources.styles, 'native CSS');
+  assert.equal(loader.useNativeSources(), pending, 'completed rendering must still call use with the original promise');
+  assert.equal(loader.loadNativeSources(), pending, 'preloading shares the fulfilled promise');
+  loader.retryNativeSources();
+  assert.equal(loader.useNativeSources(), pending, 'retry does not discard successful downloads');
+  assert.equal(uses.length, 4); assert.ok(uses.every(promise => promise === pending));
+  assert.equal(runtimeLoads, 1); assert.equal(styleLoads, 1);
+});
+
+test('native source failure stays cached until explicit retry and recovery reuses its promise', async () => {
+  let runtimeLoads = 0;
+  const failure = new Error('download failed');
+  const {loader, uses} = await nativeSourceLoaderHarness(() => ++runtimeLoads === 1 ? Promise.reject(failure) : Promise.resolve('recovered runtime'), () => Promise.resolve('native CSS'));
+  const rejected = loader.useNativeSources();
+  await assert.rejects(rejected, error => error === failure);
+  assert.equal(loader.useNativeSources(), rejected, 'error boundary receives the original rejected promise');
+  assert.equal(runtimeLoads, 1);
+  loader.retryNativeSources();
+  const recovered = loader.useNativeSources();
+  assert.notEqual(recovered, rejected);
+  assert.equal((await recovered).runtime, 'recovered runtime');
+  assert.equal(loader.useNativeSources(), recovered);
+  assert.equal(uses.length, 4); assert.equal(runtimeLoads, 2);
+});
+
 test('native preview snapshot has verifiable working-tree provenance', async () => {
   const receipt = JSON.parse(await fs.readFile(new URL('provenance.json', base), 'utf8'));
   assert.equal(receipt.snapshot, 'working-tree');

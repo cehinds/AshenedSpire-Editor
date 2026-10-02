@@ -131,7 +131,7 @@ test("Concurrent Git history writers preserve all builds without force pushes", 
 });
 
 test("dev → test pull requests build, verify and upload the test HTML candidate without deploying Pages", async () => {
-  const ci = await readFile(new URL("../.github/workflows/ci.yml", import.meta.url), "utf8");
+  const ci = (await readFile(new URL("../.github/workflows/ci.yml", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
   const job = ci.slice(ci.indexOf("  test-html-candidate:"));
   assert.ok(ci.includes("  test-html-candidate:"), "CI must define the test HTML candidate job");
   assert.match(job, /if: github\.event_name == 'pull_request' && github\.base_ref == 'test'/);
@@ -141,7 +141,7 @@ test("dev → test pull requests build, verify and upload the test HTML candidat
   assert.match(job, /name: editor-html-test-candidate-/);
   assert.match(job, /path: dist\/pages\/index\.html\n\s+if-no-files-found: error/);
   assert.doesNotMatch(ci, /deploy-pages|upload-pages-artifact|pages: write|contents: write/);
-  const pages = await readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8");
+  const pages = (await readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
   assert.match(pages, /^on:\n  push:\n    branches: \[dev, test, main\]\n  workflow_dispatch:\n/m);
   assert.doesNotMatch(pages, /pull_request/);
   assert.match(pages, /run: npm run build:pages\n\s+- run: npm run check:pages-html/);

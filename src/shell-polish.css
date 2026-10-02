@@ -1,0 +1,164 @@
+/* Shell polish: one compact header row, tighter inspector controls and consistent spacing.
+   Loaded last so it refines the earlier workspace rules without changing their structure. */
+
+/* Header: brand, menus, identity and actions share one row in every workspace. */
+.editor-header{flex-direction:row;align-items:stretch}
+.editor-header .project-bar{flex:1;min-width:0;min-height:40px;gap:14px;padding:0 12px}
+.editor-header .brand{font-size:14px;margin-right:2px}
+.editor-header .editor-menu{position:static;background:none;border:0;padding:0;min-height:0}
+.editor-header .editor-menu-triggers{height:40px}
+.editor-header .editor-menu-triggers>button{min-width:0;padding:5px 9px;font-size:11px;border-radius:3px;color:var(--muted)}
+.editor-header .editor-menu-triggers>button:hover,.editor-header .editor-menu-triggers>button[aria-expanded=true]{color:var(--gold)}
+.editor-header .source-identity{padding-left:14px;border-left:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;min-width:0}
+.editor-header .source-identity span{margin:0 8px}
+.editor-header .header-actions{gap:6px;align-items:center}
+.editor-header .header-actions button{padding:6px 11px;font-size:11px}
+.editor-header .header-actions kbd{margin-left:6px;font-size:9px;padding:1px 4px;border:1px solid var(--line);border-radius:3px;color:var(--muted);background:var(--bg)}
+.app-shell:has(>.editor-header){grid-template-rows:41px minmax(0,1fr) 25px}
+@media(max-width:1050px){.app-shell .library-panel.mobile-open{top:41px}}
+
+/* Scene studio previously overlaid the menu absolutely; it now flows like every workspace. */
+.scene-studio-active .editor-menu{position:static;left:auto;top:auto}
+.scene-studio-active .brand{margin-right:2px}
+.app-shell.scene-studio-active:has(>.editor-header){grid-template-rows:39px minmax(0,1fr) 23px}
+.scene-studio-active .editor-header .project-bar,.scene-studio-active .editor-header .editor-menu-triggers{min-height:38px;height:38px}
+
+@media(max-width:780px){
+ .app-shell:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) 31px}
+ .editor-header .project-bar{flex-wrap:wrap;gap:0 8px;padding:0 8px;min-height:0}
+ .editor-header .brand{min-height:40px}
+ .editor-header .editor-menu{order:3;flex:1 0 100%;border-top:1px solid var(--line);margin:0 -8px;padding:0 4px}
+ .editor-header .editor-menu-triggers{height:32px}
+ .editor-header .editor-menu-triggers>button{min-height:28px;padding:4px 8px}
+ .editor-header .header-actions{min-height:40px}
+ .app-shell .library-panel.mobile-open,.app-shell .inspector-panel.mobile-open{top:73px}
+ .app-shell.scene-studio-active:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) 23px}
+ .scene-studio-active .editor-header .project-bar{height:auto}
+ .scene-studio-active .editor-header .editor-menu-triggers{height:32px;min-height:32px}
+}
+
+/* Workspace navigation: clearer active state without a heavy boxed outline. */
+.workspace-nav button{border-radius:3px;border-left:2px solid transparent}
+.workspace-nav button:hover:not(.selected){color:var(--text);background:var(--panel);border-color:transparent}
+.workspace-nav button.selected{border-color:transparent;border-left-color:var(--gold);background:var(--raised)}
+@media(max-width:780px){.workspace-nav button.selected{border-left-color:transparent;border-bottom:2px solid var(--gold)}}
+
+/* Number controls: label, inline reset and unit on one row; range shown on hover. */
+.number-control{margin:14px 0}
+.number-control-head{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:6px}
+.number-control-head>label{flex:1;min-width:0}
+.number-control-head>.text-button{padding:0;font-size:10px}
+.number-control-head>span{font-size:10px}
+.number-control small.error{display:block;margin-top:5px}
+.number-row>button{height:28px;font-size:14px;line-height:1}
+
+/* Card and tag native previews: status and hint share one quiet line. */
+.game-card-preview{display:flex;flex-direction:column;min-height:0}
+.game-card-preview .native-preview-status{padding:4px 0 0;font-size:11px}
+.game-card-preview-note{margin:2px 0 0;font-size:11px;line-height:1.5;opacity:.85}
+
+/* Primary action rows that previously touched adjacent content. */
+.work-surface .button-row{margin-top:14px;margin-bottom:14px}
+.work-surface table+.button-row,.work-surface .table-scroll+.button-row{margin-top:16px}
+.work-surface .button-row+h3,.work-surface .button-row+h4,.work-surface button.primary+strong,.work-surface button.primary+h3{display:block;margin-top:18px}
+
+/* Status strip: quieter, one line. */
+.state-strip{font-size:10px;letter-spacing:.2px}
+
+/* Phones: search stays in Edit and Ctrl K so brand and primary actions share the first row. */
+@media(max-width:520px){
+ .app-shell .editor-header .header-actions button:has(kbd){display:none}
+ .editor-header .header-actions{margin-left:auto}
+ .editor-header .header-actions button{padding:6px 9px}
+}
+
+/* ---- Workspace content cleanup ---- */
+
+/* Table inspector needs room for its columns; the canvas keeps the rest. */
+@media(min-width:1201px){
+ .app-shell.inspector-table .workspace-grid{grid-template-columns:132px 190px minmax(320px,1fr) minmax(420px,40vw)}
+ .app-shell.library-hidden.inspector-table .workspace-grid{grid-template-columns:132px minmax(320px,1fr) minmax(420px,40vw)}
+}
+
+/* Denser tables and lists across workspaces. */
+th{padding:8px 10px}
+td{padding:7px 10px;line-height:1.45}
+tr:hover td{background:#ffffff06}
+.library-items{gap:2px}
+.library-items button{padding:7px 9px}
+.library-panel .library-items button{min-height:0}
+.deck-row{padding:4px 6px;gap:8px}
+.deck-row .row-name{padding:4px 0}
+.deck-row:hover{background:#ffffff06}
+
+/* Tag tree: compact rows, readable hierarchy. */
+.tag-tree{gap:1px}
+.tag-tree button{padding:6px 10px;min-width:0;border-radius:3px;border-left:2px solid transparent}
+.tag-tree button:hover:not(.selected){background:var(--panel);border-color:transparent}
+.tag-tree button.selected{border-color:transparent;border-left-color:var(--gold)}
+.tag-tree code{font-size:10px}
+
+/* Asset library: responsive tiles instead of three oversized columns. */
+.asset-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.asset-grid figure{padding:10px;transition:border-color .12s}
+.asset-grid figure:hover{border-color:var(--gold)}
+.asset-grid img{height:120px}
+.asset-grid figcaption{margin-top:8px}
+
+/* Overview metrics: consistent with the compact shell. */
+.metric-grid{margin:18px 0;gap:12px}
+.metric-grid>div{padding:14px 16px}
+.metric-grid strong{font-size:22px;margin-bottom:6px}
+
+/* Forms: keep inputs to a readable width on wide screens. */
+.work-surface .padded{max-width:1180px}
+.work-surface .field{margin:12px 0;gap:6px}
+.work-surface .form-grid{gap:0 20px}
+.work-surface .check{margin:12px 0}
+.work-surface .notice{padding:10px 14px;line-height:1.5}
+
+/* Battlefield: stage reads as a stage, hand placeholders as cards. */
+.battlefield-zone{background:radial-gradient(ellipse at 50% 85%,#2a2620 0%,#121518 70%);border-color:#8d7445}
+.battlefield-zone>span{font-size:10px;letter-spacing:.4px;text-transform:uppercase}
+.hand-zone>div{box-shadow:0 2px 8px #0007;border:1px solid #c8b78f}
+.mini-hand{border-radius:3px;box-shadow:0 2px 8px #0007}
+
+/* Inspector: tighter section rhythm. */
+.inspector-panel h2{margin:4px 0 6px}
+.inspector-panel h3{margin:16px 0 8px}
+.inspector-panel p{line-height:1.5}
+.inspector-panel>button,.inspector-content>button,.inspector-content .padded>button{margin-top:8px}
+.asset-grid+*{margin-top:14px;font-size:11px;color:var(--muted)}
+td button{white-space:nowrap}
+/* Wide Table inspector: card rows become one aligned row each. */
+@media(min-width:1201px){
+ .app-shell.inspector-table .card-definition-table tr{grid-template-columns:minmax(150px,2fr) minmax(90px,1fr) 64px 72px;align-items:center;gap:8px;padding:6px 0}
+ .app-shell.inspector-table .card-definition-table td:first-child{grid-column:auto}
+ .app-shell.inspector-table .card-definition-table th:first-child{display:block}
+ .app-shell.inspector-table .card-definition-table td code{padding:2px 0 0;font-size:10px}
+ .app-shell.inspector-table .card-definition-table td button{height:30px}
+}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+details.game-card-preview-note>summary{cursor:pointer;list-style-position:inside}
+details.game-card-preview-note>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+details.game-card-preview-note>p{margin:4px 0 0}
+
+/* Cards workspace: view controls float over the canvas instead of taking a row (wide screens; the frame reserves top space). */
+@media(min-width:781px){
+.game-card-preview:has(.card-native-title) .native-preview-frame-wrap{position:relative}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls{position:absolute;z-index:3;top:8px;left:8px;right:auto;margin:0;min-height:0;padding:4px 6px;gap:6px;background:#161d22e6;border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 14px #0008;backdrop-filter:blur(4px)}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls>strong{display:none}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls button{min-height:0;height:28px;padding:0 9px}
+.game-card-preview:has(.card-native-title) .native-preview-fullscreen-icon{width:28px;font-size:16px;padding:0}
+.game-card-preview:has(.card-native-title) .native-preview-screen-controls [role=alert]{position:absolute;top:100%;left:0;margin-top:6px;width:max-content;max-width:60vw;background:var(--panel);padding:6px 8px;border-radius:4px}
+}
+
+/* Poses: the sampled pose fills the stage instead of floating small in the middle. */
+.pose-stage{background:radial-gradient(ellipse at 50% 88%,#262a2c 0%,var(--bg) 65%)}
+.pose-stage>img{height:clamp(255px,58vh,620px);max-height:calc(100% - 40px);max-width:90%}
+
+/* Mid widths: keep primary header actions on screen (Review changes stays in Edit; search on Ctrl K). */
+@media(max-width:1180px){.app-shell .editor-header .header-actions .review-action{display:none}}
+@media(max-width:900px){.app-shell .editor-header .header-actions button:has(kbd){display:none}}
+.editor-header .project-bar>.brand,.editor-header .header-actions{flex-shrink:0}
+.editor-header .editor-menu{min-width:0;overflow:hidden}

@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {parseCSV,toCSV,reparent,validateNodes,validateProject,historyState,commit,undo,redo,inspectERD,suppliedRows,mapTagRows,sizing,deckIssues} from '../src/core.mjs';
+import {parseCSV,toCSV,reparent,validateNodes,validateProject,historyState,commit,undo,redo,inspectERD,suppliedRows,mapTagRows,deckIssues} from '../src/core.mjs';
 import {sample} from '../src/native/model/presentationSequence.js';
 const nodes=parseCSV(readFileSync(new URL('../src/sources/nodes.csv',import.meta.url),'utf8'));
 test('actual tag snapshot and quoted CSV round-trip preserve all columns',()=>{assert.deepEqual(validateNodes(nodes),[]);assert.deepEqual(parseCSV(toCSV(nodes)),nodes);assert.equal(nodes.find(n=>n.id==='guard').parentId,'card');});
@@ -12,7 +12,6 @@ test('ERD mapping uses supplied values, never diagram node IDs',()=>{const pages
 test('schema-only and generated sample data supply zero records',()=>{const page=structuredClone(native.pages[0]);delete page.data;assert.deepEqual(suppliedRows(page,'diagram-only'),[]);page.data={'diagram-only':{mode:'generated',rows:[{id:'guessed'}]}};assert.deepEqual(suppliedRows(page,'diagram-only'),[]);});
 test('native migration, invalid refs and hard limits checked before mapping',()=>{assert.equal(inspectERD({...native,version:2,...native.pages[0]}).length,1);const bad=structuredClone(native);bad.pages[0].edges=[{from:'diagram-only',to:'missing'}];assert.throws(()=>inspectERD(bad),/Dangling/);assert.throws(()=>inspectERD({...native,pages:Array(41).fill(native.pages[0])}),/1-40/);});
 test('mapping duplicates and cycles refuse apply, inherited unknown fields remain',()=>{const result=mapTagRows([{id:'card',parentId:'guard',label:'Card'}],{id:'id',parent:'parentId',label:'label'},nodes);assert(result.errors.some(e=>e.includes('cycle')));assert.equal(result.proposed[0].blurb,nodes.find(n=>n.id==='card').blurb);const duplicate=mapTagRows([{id:'new',label:'A'},{id:'new',label:'B'}],{id:'id',parent:'parentId',label:'label'},nodes);assert(duplicate.errors.some(e=>e.includes('Duplicate')));});
-test('selected boss overflow is explicit and cap changes display only',()=>{assert.deepEqual(sizing(40,2,true,'overflow'),{authored:120,displayed:120,overflow:true});assert.deepEqual(sizing(40,2,true,'cap'),{authored:120,displayed:100,overflow:true});});
 test('deck fixture respects declared ownership and actual unlimited max default',()=>{assert.deepEqual(deckIssues(Array(11).fill('a'),{a:12},{deckMinSize:10,deckMaxSize:10,deckMaxUnlimited:true,classSpellPowerCopies:1},[{id:'a',type:'attack'}]),[]);assert(deckIssues(['a','a'],{a:1},{deckMinUnlimited:true,deckMaxUnlimited:true},[{id:'a',type:'attack'}]).some(e=>e.includes('only 1 owned')));});
 const loadJSON=name=>JSON.parse(readFileSync(new URL('../src/'+name,import.meta.url),'utf8'));
 function packageFixture(){

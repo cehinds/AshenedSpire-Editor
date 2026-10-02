@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime} from '../src/scene-studio-model.mjs';
+import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene, moveSequenceScene} from '../src/scene-studio-model.mjs';
 import {parseCSV} from '../src/core.mjs';
 import {parseNativeDocument, serializeNativeDocument} from '../src/native-document.mjs';
 
@@ -200,4 +200,54 @@ test('timeline duration follows native bounds and time formatting is stable', ()
   assert.equal(sceneDuration({seconds: 181}), 5);
   assert.equal(formatTime(65.9), '01:05');
   assert.equal(formatTime(-1), '00:00');
+});
+
+test('sequence timeline lays out enabled scenes end to end for play-all', () => {
+  const p = project();
+  const enabled = sortedScenes(sequence(p)).filter(scene => scene.enabled !== false);
+  const timeline = sequenceTimeline(sequence(p));
+  assert.deepEqual(timeline.map(row => row.id), enabled.map(scene => scene.id));
+  let start = 0;
+  for (const row of timeline) {
+    assert.equal(row.start, start);
+    assert.equal(row.duration, sceneDuration(row.scene));
+    assert.ok(row.textStart >= 0 && row.textStart <= row.duration);
+    start += row.duration;
+  }
+  assert.equal(sequenceLength(timeline), start);
+  const second = timeline[1];
+  assert.deepEqual(locateSequenceTime(timeline, second.start + 0.5), {id: second.id, time: 0.5});
+  assert.deepEqual(locateSequenceTime(timeline, start + 10), {id: timeline.at(-1).id, time: timeline.at(-1).duration});
+  assert.equal(nextSequenceScene(timeline, timeline[0].id), second.id);
+  assert.equal(nextSequenceScene(timeline, timeline.at(-1).id), null);
+  assert.equal(nextSequenceScene(timeline, 'missing'), null);
+  assert.equal(locateSequenceTime([], 3), null);
+});
+
+test('sequence scenes move among active scenes and keep disabled slots after them', () => {
+  const p = project();
+  const before = sequenceTimeline(sequence(p)).map(row => row.id);
+  const disabled = sortedScenes(sequence(p)).filter(scene => scene.enabled === false).map(scene => scene.id);
+  assert.equal(moveSequenceScene(p, before[0], 2), true);
+  assert.deepEqual(sequenceTimeline(sequence(p)).map(row => row.id), [before[1], before[2], before[0], ...before.slice(3)]);
+  assert.equal(moveSequenceScene(p, before[0], 99), true);
+  assert.equal(sequenceTimeline(sequence(p)).at(-1).id, before[0]);
+  assert.equal(moveSequenceScene(p, before[0], -5), true);
+  assert.deepEqual(sequenceTimeline(sequence(p)).map(row => row.id), before);
+  assert.deepEqual(sortedScenes(sequence(p)).filter(scene => scene.enabled === false).map(scene => scene.id), disabled);
+  assert.equal(moveSequenceScene(p, before[0], 0), false);
+  if (disabled.length) assert.equal(moveSequenceScene(p, disabled[0], 0), false);
+  assert.equal(moveSequenceScene(p, 'missing', 1), false);
+});
+
+test('sequence scene moves keep interleaved disabled slots in place', () => {
+  const p = project();
+  const all = sortedScenes(sequence(p));
+  const [a, b] = all.filter(scene => scene.enabled !== false);
+  const disabled = all.find(scene => scene.enabled === false);
+  const rest = all.filter(scene => ![a, b, disabled].includes(scene));
+  [a, disabled, b, ...rest].forEach((scene, index) => {scene.order = index + 1;});
+  assert.equal(moveSequenceScene(p, a.id, 1), true);
+  assert.deepEqual(sortedScenes(sequence(p)).slice(0, 3).map(scene => scene.id), [b.id, disabled.id, a.id]);
+  assert.equal(sortedScenes(sequence(p))[0].enabled !== false, true);
 });

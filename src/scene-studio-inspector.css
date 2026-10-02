@@ -61,3 +61,17 @@
 .studio-inspector .si-object-links button:hover{border-color:#a08a60}
 .studio-inspector .si-footer{padding:13px 11px;border-top:1px solid #353b3e;display:flex;flex-direction:column;gap:5px;color:#77848a;font-size:8px}
 .studio-inspector .si-footer code{color:#a5aea9;background:none;padding:0;font-size:9px}
+.studio-inspector .si-collapsible>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px}
+.studio-inspector .si-collapsible>summary::-webkit-details-marker{display:none}
+.studio-inspector .si-collapsible>summary:before{content:"";width:0;height:0;border-left:4px solid #b09d74;border-top:3px solid transparent;border-bottom:3px solid transparent;transition:transform .12s}
+.studio-inspector .si-collapsible[open]>summary:before{transform:rotate(90deg)}
+.studio-inspector .si-collapsible>summary h3{margin:0;flex:1}
+.studio-inspector .si-collapsible[open]>summary{margin-bottom:9px}
+.studio-inspector .si-collapsible>summary:focus-visible{outline:1px solid #c7a365;outline-offset:2px}
+.studio-inspector .si-group{border-top:1px solid #2c3235}
+.studio-inspector .si-group-head{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 11px;background:#1b1f21;border-top:1px solid #353b3e;color:#e0c086;font-size:9px;text-transform:uppercase;letter-spacing:.6px}
+.studio-inspector .si-group-head strong{font-weight:600}
+.studio-inspector .si-group-head>span:last-child{display:flex;gap:4px}
+.studio-inspector .si-group-head button{border:1px solid #343c41;background:#202426;color:#aab2b5;font-size:8px;padding:2px 6px;border-radius:2px;text-transform:none;letter-spacing:0;cursor:pointer}
+.studio-inspector .si-group-head button:hover{color:#e0c086;border-color:#6a5a3a}
+.studio-inspector .si-group-all{color:#aab2b5;background:none}

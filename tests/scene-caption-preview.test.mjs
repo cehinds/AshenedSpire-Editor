@@ -18,12 +18,12 @@ test('caption resolver agrees with editor staging for inherited, local, invalid 
   const draft = structuredClone(sequence);
   draft.presentation = {...draft.presentation, captionFixedHeight: true, captionHeightVh: 25};
   const scene = draft.scenes[0];
-  for (const [ownStaging, stage] of [[false, {captionHeightVh: 40}], [true, {captionHeightVh: 40}], [true, {captionFixedHeight: false}], [true, {captionFixedHeight: 'yes', captionHeightVh: NaN}], [true, {captionHeightVh: 101}], [true, {captionHeightVh: 1}], [true, {captionHeightVh: 100}]]) {
+  for (const [ownStaging, stage] of [[false, {captionHeightVh: 40}], [true, {captionHeightVh: 40}], [true, {captionFixedHeight: false}], [true, {captionFixedHeight: 'yes', captionHeightVh: NaN}], [true, {captionHeightVh: 101}], [true, {captionHeightVh: 1}], [true, {captionHeightVh: 100}], [true, {captionVerticalAlign: 'middle'}], [true, {captionVerticalAlign: 'sideways'}]]) {
     Object.assign(scene, {ownStaging, stage});
     const effective = getStage(draft, scene);
-    assert.deepEqual(resolveCaptionPreview(draft, scene.id), {captionFixedHeight: effective.captionFixedHeight, captionHeightVh: effective.captionHeightVh});
+    assert.deepEqual(resolveCaptionPreview(draft, scene.id), {captionFixedHeight: effective.captionFixedHeight, captionHeightVh: effective.captionHeightVh, captionVerticalAlign: effective.captionVerticalAlign});
   }
-  assert.deepEqual(resolveCaptionPreview(undefined, 'unknown'), {captionFixedHeight: false, captionHeightVh: 18});
+  assert.deepEqual(resolveCaptionPreview(undefined, 'unknown'), {captionFixedHeight: false, captionHeightVh: 18, captionVerticalAlign: 'auto'});
 });
 
 test('fixed height applies viewport units and automatic sizing removes all adapter state', () => {
@@ -42,6 +42,25 @@ test('fixed height applies viewport units and automatic sizing removes all adapt
   assert.match(captionPreviewStyles, /grid-template-rows:minmax\(0,1fr\) var\(--editor-caption-height\) auto/);
   assert.match(captionPreviewStyles, /overflow:auto/);
   assert.match(captionPreviewStyles, /orientation:portrait/);
+});
+
+test('vertical align toggles one editor class and native default removes them', () => {
+  const screen = screenElement();
+  const host = {querySelector: () => screen};
+  const draft = structuredClone(sequence);
+  draft.presentation = {...draft.presentation, captionFixedHeight: true, captionVerticalAlign: 'bottom'};
+  applyCaptionPreview(host, draft, draft.scenes[0].id);
+  assert.equal(screen.classList.contains('editor-caption-valign-bottom'), true);
+  assert.equal(screen.classList.contains('editor-caption-valign-top'), false);
+  Object.assign(draft.scenes[0], {ownStaging: true, stage: {captionVerticalAlign: 'middle'}});
+  applyCaptionPreview(host, draft, draft.scenes[0].id);
+  assert.equal(screen.classList.contains('editor-caption-valign-middle'), true);
+  assert.equal(screen.classList.contains('editor-caption-valign-bottom'), false);
+  draft.scenes[0].stage.captionVerticalAlign = 'auto';
+  applyCaptionPreview(host, draft, draft.scenes[0].id);
+  assert.equal(['top', 'middle', 'bottom'].some(align => screen.classList.contains(`editor-caption-valign-${align}`)), false);
+  assert.match(captionPreviewStyles, /editor-caption-valign-middle \.prologue-caption\{justify-content:safe center\}/);
+  assert.doesNotMatch(captionPreviewStyles, /(^|[^ ])\.prologue-screen\.editor-caption-valign/m);
 });
 
 function bridgeHarness(draft, studio) {

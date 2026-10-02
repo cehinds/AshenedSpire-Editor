@@ -2,6 +2,7 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { checkPagesBuild } from "./check-pages-build.mjs";
+import { checkConsolidatedPages } from "./check-consolidated-pages.mjs";
 import { consolidatePages } from "./consolidate-pages.mjs";
 
 // Public static delivery cannot enforce account authentication or run Git jobs.
@@ -17,4 +18,5 @@ await writeFile(path.resolve("dist/client/editor-runtime.json"), JSON.stringify(
 }, null, 2) + "\n");
 await checkPagesBuild(path.resolve("dist/client"), process.env.WORKBENCH_BASE_PATH || "/");
 await consolidatePages({ directory: path.resolve("dist/client"), outputDirectory: path.resolve("dist/pages"), base: process.env.WORKBENCH_BASE_PATH || "/" });
+await checkConsolidatedPages(path.resolve("dist/pages/index.html"));
 console.log("Built public offline-authoring preview; local checkout host remains separate.");

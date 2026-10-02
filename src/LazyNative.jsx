@@ -14,3 +14,5 @@ export const SceneStudio = deferred(() => import('./SceneStudio.jsx'), 'SceneStu
 export const GameCardPreview = deferred(() => import('./GameCardPreview.jsx'), 'GameCardPreview', 'native card renderer');
 export const ScenePreview = deferred(() => import('./ScenePreview.jsx'), 'ScenePreview', 'native scene renderer');
 export const InGamePreview = deferred(() => import('./InGamePreview.jsx'), 'InGamePreview', 'in-game preview');
+export const BattlefieldStudio = deferred(() => import('./BattlefieldStudio.jsx'), 'BattlefieldStudio', 'battlefield renderer');
+export const BattlefieldInspector = deferred(() => import('./BattlefieldStudio.jsx'), 'BattlefieldInspector', 'battlefield inspector');

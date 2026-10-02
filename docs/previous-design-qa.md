@@ -65,7 +65,7 @@ No actionable P0/P1/P2 finding remains within the implemented scope.
 ## Accepted constraints and follow-up polish
 
 - [P3] Some compact navigation controls are 36 px tall; increase targets to 44 px during full accessibility integration and physical-touch testing.
-- [x] Native renderers (card, scene, in-game, scene studio) now load on first use via `src/LazyNative.jsx`; the initial JS chunk dropped from ~6.97 MB to ~913 kB. Pages builds still inline every chunk into one HTML file.
+- [x] Native renderers (card, scene, in-game, scene studio) now load on first use via `src/LazyNative.jsx`; follow-up splitting (fetched renderer/CSS text assets, deferred scene audio, compacted asset map, lazy host tools) brought the entry chunk from ~6.97 MB to ~176 kB with no chunk over 500 kB in `npm run build`. Pages builds still inline everything into one HTML file.
 - Physical touch, screen reader use, text zoom extremes, exhaustive recovery conflicts, and engine/native-host end-to-end behavior remain untested.
 - Scene/UI previews are composition/geometry studies. Full native renderers, effect artwork, equipment/run ownership and private Workshop execution require adapters; the UI and README state these boundaries.
 

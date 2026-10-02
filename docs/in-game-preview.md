@@ -16,7 +16,7 @@ The game's card renderer and token resolver render the selected definition, orde
 
 Battlefield, UI settings, Poses/effects, Combat workshop and Project tools share an isolated encounter using the native combat engine. It uses drafted card definitions and deck, the selected scenario card, seed, ruleset and HP, and supported native UI/game settings. Draft changes restart the encounter. Full screen provides more room to play.
 
-Poses/effects also offers native presentation playback for the authored pose and matching bindings. Presentation-only playback does not inflict damage. Battlefield Lab's proposal controls remain separate from native layout settings, and the private Combat Workshop service is not connected. The preview states these boundaries alongside the game.
+Poses/effects also offers native presentation playback for the authored pose and matching bindings. Presentation-only playback does not inflict damage. Battlefield edits native stores: w4a formation fit/spacing (native UI document save), `gameConfig.presentation.*` (Game settings promotion) and `balance.ui.combatantStage` (reviewed combatantStage source adapter); only authored screen rows (`p.lab.rows`) remain a preview/export proposal, and the private Combat Workshop service is not connected. The preview states these boundaries alongside the game.
 
 ## Source snapshot and delivery
 

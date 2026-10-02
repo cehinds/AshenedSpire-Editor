@@ -69,6 +69,8 @@ function NativeStage({ctx,view,device,restart,guides,interactive,maxHeight,onMet
  </div>;
 }
 
+// A committed key burst remounts the native frame and this overlay; keep keyboard focus on the nudged figure.
+let refocusActor=null;
 const scaleKey=actor=>actor.role==='player'?'playerSpriteScale':'enemySpriteScale';
 
 function StageOverlay({ctx,metrics,scale,interactive}){
@@ -116,11 +118,13 @@ function StageOverlay({ctx,metrics,scale,interactive}){
  }
  // Keyboard: arrows move the column (Shift ×10), +/- resize. Bursts commit as one edit after a pause.
  const pending=useRef(null);latest.current.flush=()=>{const p=pending.current;pending.current=null;setNudge(null);if(!p)return;
+  if(document.activeElement?.closest?.('.bf-actor-body'))refocusActor=p.actor.eid;
   const column=p.actor.formationRow==='back-row'?'back':'front',inward=p.actor.role==='player'?p.dx:-p.dx,writes=[];
   if(p.steps){const spec=presentationField(scaleKey(p.actor));writes.push([spec,clamp(round(presentationValue(overrides,spec)+p.steps*spec.step,spec.step),spec.min,spec.max)]);}
   if(p.dx||p.dy)for(const [axis,delta] of [['X',inward],['Y',p.dy]]){const spec=presentationField(column+'Offset'+axis);writes.push([spec,clamp(Math.round(presentationValue(overrides,spec)+delta),spec.min,spec.max)]);}
   ctx.update(n=>{n.gameSettings??=emptyGameSettings();for(const [spec,value] of writes)n.gameSettings.overrides[SETTING_PREFIX+spec.key]=value;},writes.map(([spec,value])=>`${spec.label} ${value}`).join(', '));};
  useEffect(()=>()=>{clearTimeout(pending.current?.timer);},[]);
+ useEffect(()=>{if(refocusActor==null)return;const target=[...document.querySelectorAll('.bf-actor-body')].find(button=>button.dataset.eid===String(refocusActor));if(target){refocusActor=null;target.focus();}},[metrics]);
  function key(event,actor){
   if(!interactive)return;
   const step=event.shiftKey?10:1,moves={ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]};
@@ -145,7 +149,7 @@ function StageOverlay({ctx,metrics,scale,interactive}){
    const style=box(actor.art,{transform:`translate(${dx}px,${dy-grow}px)`,height:Math.max(8,actor.art.height*scale+grow)});
    const label=`${actor.name}${actor.cell?' · '+actor.cell:''} · ${Math.round(actor.art.height)} px · ${pct(actor.art.height,field.height)}% of field`;
    return <div key={actor.eid} className={'bf-actor'+(selected===actor.eid?' selected':'')+(interactive?' interactive':'')} style={style}>
-    <button type="button" className="bf-actor-body" aria-label={`Select ${label}`} title={interactive?`${label}. Drag or use arrow keys to move its ${actor.formationRow==='back-row'?'back':'front'} column; drag the top handle or press + / − to resize.`:label} onClick={()=>battlefieldView.select(actor.eid)} onKeyDown={event=>key(event,actor)} onPointerDown={event=>begin(event,actor,'move')}/>
+    <button type="button" className="bf-actor-body" data-eid={actor.eid} aria-label={`Select ${label}`} title={interactive?`${label}. Drag or use arrow keys to move its ${actor.formationRow==='back-row'?'back':'front'} column; drag the top handle or press + / − to resize.`:label} onClick={()=>battlefieldView.select(actor.eid)} onKeyDown={event=>key(event,actor)} onPointerDown={event=>begin(event,actor,'move')}/>
     {interactive?<span className="bf-handle" role="presentation" title={`Drag to change ${actor.role} sprite scale`} onPointerDown={event=>begin(event,actor,'scale')}/>:null}
     <span className="bf-actor-label">{label}</span>
    </div>;

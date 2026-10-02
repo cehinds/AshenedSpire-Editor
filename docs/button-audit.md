@@ -414,3 +414,75 @@ CUA exercised shared caption height across two scenes, a sparse local height ove
 Fixed caption height is an editor preview adapter retained in exports. The unmodified game renderer does not consume those extension fields in ordinary checkout gameplay.
 
 Final single-file CUA verification confirmed decoded native artwork (640 px source), master caption geometry at approximately 24vh, Restart reaching the native scene end, Stop returning to zero, and In game playback retaining approximately 24vh. No console warnings/errors were captured. Screenshot: qa/menu-layout/master-default.png in the main authoring checkout. These checks did not write a game checkout.
+
+## October 2, 2026 audit
+
+Scope: latest `dev` (e30d752) on the Vite dev host (`npm run dev -- --port 5181`, automatic loopback session, accounts paused). Driven with headless Chromium (Playwright) at 1440×900, 900×760 and 390×844, plus 800/1000/1100 toolbar checks. Scripts lived outside the repository. Screenshots: `docs/screenshots/audit-20261002/` (desktop and phone per workspace, Scenes Master default and All scenes timeline, Battlefield after edit, Project Builds).
+
+Evidence labels: **Browser-exercised** = clicked/keyed in this run with the observed result; **Source-reviewed** = handler read, not clicked; **Host-restricted** = needs an imported local checkout, an OS file picker or a real build, so it was not executed (the host reported "Host connected" with no repositories).
+
+### Method and global results
+
+- Every workspace and every canvas mode (44 entries, including In game) at three viewports: no horizontal page overflow, no off-screen controls (after fixes), no clipped workspace titles, no overlapping toolbar controls.
+- Navigation alone (workspace, mode, inspector mode, rail scene, Master default, timeline scope, Battlefield device/encounter/class/guides/grid, menu open/close, Find, dialogs) never changed the stored authoring draft and never enabled Undo.
+- Top bar: every File / Edit / View / Build / Window / Help item clicked in all nine workspaces and Project Files (≈330 item activations). Each produced a dialog, download, file chooser, toast, mode/workspace change or focus move; Undo/Redo correctly disabled with empty history; draft commands correctly disabled in repository modes.
+- Keyboard: ArrowDown/Up open, Home/End, letter search, ArrowLeft/Right between menus with wrap, Escape returns focus to the trigger, Tab closes an unpinned menu. Pin survives outside clicks and action selection; drag, reset and close work; Escape closes a dialog before its pinned menu. Ctrl+K opens Find with the search field focused.
+- Dialogs (Find, Review changes, Review reset, Preview health, About, Native checkout document, New card): initial focus inside, Tab and Shift+Tab stay inside (App dialogs and native checkout), Escape closes, movable dialogs drag. The New card native `<dialog>` uses the browser's modal inertness rather than the App focus trap.
+- Generic toolbar/inspector sweep: every visible enabled button per workspace and mode (two samples of repeated record buttons) was clicked with a DOM-mutation, toast, download, dialog, draft and Undo check. No inert control was found other than re-selecting the already active mode/tab.
+- Console: no page errors and no console errors. Expected noise only: the aborted duplicate `/api/auth/session` and `/api/workbench/status` requests from React StrictMode / navigation, and Chromium's sandbox warning for the native ERD iframe (`allow-scripts allow-same-origin`, required for its own storage).
+
+### Content
+
+| Area | Browser-exercised | Source-reviewed / host-restricted |
+|---|---|---|
+| Cards | + New card review dialog; previous/next card; Library launcher; In game switch and View → Visual / In game kept in sync with the footer; zoom, Fit, Upgraded, fullscreen; inspector Selection / Table (Inspect selects record) / Form / Layout (layer up/down, All/None) / JSON (reset buffer) / Prompt (review proposal dialog); ratio and rules-font steppers with Undo; Open animation bindings → Poses / Bindings; Inspect tags → Tags | Import card artwork and per-part background import (file picker); Add card to game (host-restricted). |
+| Decks | Collection / In game / Validation; card selection, Add/Remove limits, Cancel session changes | Drag-and-drop to deck source-reviewed. |
+| Tags / ERD | In game, Tree, ERD 0.2.4, Import, CSV modes; tree/table selection; Choose native .erd.json opens file chooser | ERD internal commands (native iframe); import mapping/apply needs a file. |
+
+### Presentation
+
+| Area | Browser-exercised | Source-reviewed / host-restricted |
+|---|---|---|
+| Scenes studio | Restart → Play → Pause → Resume → Stop (returns to 0); Play all advanced to scene 2 with Pause all / Resume all / Stop; Timeline ↔ All scenes scope (00:25 total); Master default component list; rail selection; Add scene, Move scene later (undoable); zoom, Fit, grid, snap, safe area, mobile, tool strip, object selection, lock; inspector float, close, Toggle inspector, Reset studio layout; Window → Focus editor / Library / Inspector route into the studio | Canvas drag/resize transforms and timeline edge drags source-reviewed (previous audit exercised them). Native audio output not audible in headless runs. |
+| Battlefield | Figure select; pointer drag of a figure (one undoable column-offset edit, Undo restores the exact draft); arrow-key burst nudging; + sprite-scale key; top-handle scale drag; Battlefield / hand row drag (labelled preview proposal); all sprite/row scale steppers; device/encounter/class/guides/grid view choices (no draft change); Layout / In game / Sizing diagnostics / Compare | Checkout promotion of presentation settings is host-restricted. |
+| UI settings | Config band steppers, In game, Compare, New wireframe review | Native UI document save host-restricted. |
+| Poses & effects | Stage play/restart, pose thumbnails, sequence duration steppers, Add effect clip, In game, Bindings | Replace pose PNG/WebP (file picker). |
+| Movable layout | Menu drag/pin/reset/close; dialog drag; Window → Reset window positions and Restore default layout | Inspector width resize source-reviewed. |
+
+### Settings
+
+Project → Game settings: Export native settings JSON downloads; Add override uses required-field validation; Overrides tab responds. Native settings promotion to a checkout is host-restricted (no imported checkout).
+
+### Source control
+
+Repositories / Files / Builds render with "Host connected", no imported repositories, and draft commands disabled in these modes. Import local repository, branch create/switch/delete, file save, install/build/test jobs were not executed (host-restricted; covered by existing fixture tests).
+
+### Verification
+
+Build → Validate authoring draft passes; Preview / Editor health dialogs report no captured runtime errors. `npm run review:quick`, `npm run build` and `npm test` pass after the fixes below.
+
+### Interchange
+
+Export current document, CSV, XLSX and whole-project exports each produced a download in every workspace; Import authoring package and Ctrl+O open the file chooser. Package import content and XLSX import review need user files (not exercised).
+
+### Delivery
+
+No push, no Pages publication and no checkout writes were performed. The dev server was stopped after the audit.
+
+### Fixes made
+
+| Finding | Fix |
+|---|---|
+| Scenes header: stale absolute menu positioning in `scene-studio.css` overrode the flowing shell header. On phones the File menu sat 5 px off-screen and the menu row overlapped the studio document bar; the fixed 39 px / 66 px header rows ignored the wrapped header. | Removed the obsolete absolute/margin rules and fixed header rows so the shared shell layout applies; phone padding matches other workspaces; floating inspector top offset follows the real header height. |
+| Battlefield keyboard nudging lost focus after each committed key burst (the native frame remounts the overlay), so later arrow / + / − presses did nothing. | Focus returns to the same figure once the overlay re-measures. |
+| Stepper buttons stored float noise (e.g. Player sprite scale `0.9500000000000001`, shown in the toast and saved in the draft). | `NumberControl` rounds stepped values to the step's precision. |
+| No-op edits (e.g. "Reset to inherited value" when already inherited, reset-to-source when unchanged) pushed identical Undo entries, enabling Undo without a change. | `update` skips committing an unchanged project; Reset local draft skips an identical baseline. |
+| Find anything did not return focus to its trigger on close (React `autoFocus` ran before the dialog captured the previous focus). | Removed the redundant `autoFocus`; the dialog effect already focuses the search field. |
+| Tablet (781–1050 px) toolbars hid Undo/Redo entirely (the command menu only appears ≤780 px) and squeezed titles into up to five lines. | History icons stay visible; titles take their own row with library, mode and history controls together on the next row. |
+| Phone toolbars wrapped the workspace command select onto its own row, clipped to "Battlefie…". | Title takes its own row; library, mode and workspace selects share one row and the command select can widen to 150 px. |
+
+### Remaining boundaries
+
+- Host-restricted actions (checkout import, branch operations, file saves, builds, native settings promotion, Add card to game) and OS file-picker imports were not executed in the browser.
+- The first page load in React StrictMode writes the (unchanged) recovered draft back to local storage; this is not an authoring change.
+- Keys pressed during the ~1 s native frame reload after a Battlefield edit are not applied; focus returns once the figure is measured again.

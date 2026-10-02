@@ -51,7 +51,7 @@ async function body(req) {
 }
 
 function password(value) {
-  if (typeof value !== "string" || value.length < 12 || value.length > 128 || Buffer.byteLength(value) > 512) fail(400, "Password must contain 12–128 characters.");
+  if (typeof value !== "string" || value.length < 5 || value.length > 128 || Buffer.byteLength(value) > 512) fail(400, "Password must contain 5–128 characters.");
 }
 
 function username(value) {
@@ -67,7 +67,7 @@ function reply(res, status, value) {
   res.end(JSON.stringify(value));
 }
 
-export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs = 8 * 60 * 60_000, bootstrapMs = 30 * 60_000, previewMs = 15 * 60_000, failureLimit = 5, failureWindowMs = 15 * 60_000 } = {}) {
+export function createAuthHost({ root = process.cwd(), accountsPaused = true, requireLogin = true, now = Date.now, sessionMs = 8 * 60 * 60_000, bootstrapMs = 30 * 60_000, previewMs = 15 * 60_000, failureLimit = 5, failureWindowMs = 15 * 60_000 } = {}) {
   root = path.resolve(root);
   const storage = path.join(root, ".workbench");
   const filename = path.join(storage, "auth.json");
@@ -85,13 +85,24 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
   }
 
   const ready = (async () => {
+    // Paused accounts preserve legacy storage without opening or changing it.
+    if (accountsPaused) return;
     await mkdir(storage, { recursive: true, mode: 0o700 });
     await assertStorage();
+    if (!requireLogin) return;
+    // O_NOFOLLOW is not enforced on every host (notably Windows).
+    // Only a genuinely absent directory entry may enable first-owner setup.
+    let entry;
+    try { entry = await lstat(filename, { bigint: true }); }
+    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    if (!entry.isFile() || entry.isSymbolicLink()) fail(500, "Authentication store unavailable; preserve file and repair local permissions.");
     let handle;
     try { handle = await open(filename, constants.O_RDONLY | constants.O_NOFOLLOW); }
-    catch (error) { if (error.code === "ENOENT") return; fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
+    catch { fail(500, "Authentication store unavailable; preserve file and repair local permissions."); }
     try {
-      const stat = await handle.stat();
+      const stat = await handle.stat({ bigint: true });
+      const current = await lstat(filename, { bigint: true });
+      if (!current.isFile() || current.isSymbolicLink() || current.dev !== stat.dev || current.ino !== stat.ino || entry.dev !== stat.dev || entry.ino !== stat.ino) fail(500, "Invalid authentication store.");
       if (!stat.isFile() || stat.size > 8192) fail(500, "Invalid authentication store.");
       const value = JSON.parse(await handle.readFile("utf8"));
       username(value.username);
@@ -102,9 +113,17 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
   })();
   ready.catch(() => {});
 
+  function canAccess(session) {
+    return Boolean(session?.authenticated || ((accountsPaused || !requireLogin) && session?.localAccess));
+  }
+
+  function checkLocalClient(req) {
+    if ((accountsPaused || !requireLogin) && !["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(req.socket?.remoteAddress)) fail(403, "Password-free editor access requires a loopback connection.");
+  }
+
   function clean() {
     for (const [id, session] of sessions) if (session.expires <= now()) sessions.delete(id);
-    for (const [id, preview] of previews) if (preview.expires <= now() || !sessions.get(preview.session)?.authenticated) previews.delete(id);
+    for (const [id, preview] of previews) if (preview.expires <= now() || !canAccess(sessions.get(preview.session))) previews.delete(id);
     for (const [id, failure] of failures) if (failure.until <= now()) failures.delete(id);
   }
 
@@ -122,15 +141,16 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
     while (sessions.size >= 1000) sessions.delete(sessions.keys().next().value);
     const token = random();
     const id = digest(token);
-    const life = authenticated ? sessionMs : bootstrapMs;
-    const session = { authenticated, csrfToken: random(), expires: now() + life };
+    const life = authenticated || accountsPaused || !requireLogin ? sessionMs : bootstrapMs;
+    const session = { authenticated, localAccess: accountsPaused || !requireLogin, csrfToken: random(), expires: now() + life };
     sessions.set(id, session);
     res.setHeader("Set-Cookie", authCookie(token, { encrypted: Boolean(req.socket?.encrypted), maxAge: life / 1000 }));
     return { id, ...session };
   }
 
   function view(session) {
-    return { setupRequired: !owner, authenticated: Boolean(session?.authenticated), username: session?.authenticated ? owner.username : null, csrfToken: session.csrfToken, ...(session.authenticated ? { expiresAt: new Date(session.expires).toISOString() } : {}) };
+    if (accountsPaused) return {accountsPaused: true, mode: "local", localAccess: true, setupRequired: false, authenticated: false, username: null, csrfToken: session.csrfToken, expiresAt: new Date(session.expires).toISOString()};
+    return { mode: requireLogin ? "password" : "local", localAccess: session?.localAccess === true, setupRequired: requireLogin && !owner, authenticated: Boolean(session?.authenticated), username: session?.authenticated ? owner.username : null, csrfToken: session.csrfToken, ...(canAccess(session) ? { expiresAt: new Date(session.expires).toISOString() } : {}) };
   }
 
   async function store(record, initial = false) {
@@ -179,9 +199,15 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
 
   async function handle(req, res) {
     checkRequest(req, req.method !== "GET");
+    checkLocalClient(req);
     await ready;
     const route = new URL(req.url, "http://local.invalid").pathname;
     let session = current(req);
+    if (accountsPaused) {
+      if (route !== `${AUTH}/session` || req.method !== "GET") fail(404, "Editor accounts are paused.");
+      if (req.headers.origin && req.headers.origin !== `${req.socket?.encrypted ? "https" : "http"}://${req.headers.host}`) fail(403, "Cross-origin local access blocked.");
+      return reply(res, 200, view(session || issue(req, res)));
+    }
     if (route === `${AUTH}/session` && req.method === "GET") return reply(res, 200, view(session || issue(req, res)));
     if (req.method !== "POST" || !["setup", "login", "logout", "password"].some(action => route === `${AUTH}/${action}`)) fail(404, "Authentication endpoint not found.");
     if (!session || !same(req.headers["x-auth-csrf"], session.csrfToken)) fail(403, "Refresh session and supply X-Auth-CSRF token.");
@@ -189,6 +215,7 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
     if (route === `${AUTH}/logout`) {
       sessions.delete(session.id); clean(); return reply(res, 200, view(issue(req, res)));
     }
+    if (!requireLogin) fail(409, "This editor does not use a local password. Connect GitHub through Account.");
     const key = rate(req);
     if (busy) fail(429, "Authentication operation in progress. Try again shortly.");
     busy = true;
@@ -218,21 +245,24 @@ export function createAuthHost({ root = process.cwd(), now = Date.now, sessionMs
 
   async function authorize(req) {
     checkRequest(req);
+    checkLocalClient(req);
     await ready;
     const session = current(req);
-    if (session?.authenticated) { req.authSession = session; return; }
+    const sameOrigin = !req.headers.origin || req.headers.origin === `${req.socket?.encrypted ? "https" : "http"}://${req.headers.host}`;
+    if (accountsPaused && canAccess(session) && !sameOrigin) fail(403, "Cross-origin local access blocked.");
+    if (canAccess(session)) { req.authSession = session; return; }
     const url = new URL(req.url, "http://local.invalid");
     const match = url.pathname.match(/^\/api\/workbench\/preview\/([a-z0-9][a-z0-9_.-]{0,145})\/~([a-f0-9]{64})\/(dist|build|out)(?:\/|$)/);
     if (["GET", "HEAD"].includes(req.method) && match) {
       const preview = previews.get(digest(match[2]));
-      if (preview && preview.repoId === match[1] && preview.expires > now() && sessions.get(preview.session)?.authenticated && (!url.searchParams.has("job") || url.searchParams.get("job") === preview.generation)) { req.authPreview = preview; return; }
+      if (preview && preview.repoId === match[1] && preview.expires > now() && canAccess(sessions.get(preview.session)) && (!url.searchParams.has("job") || url.searchParams.get("job") === preview.generation)) { req.authPreview = preview; return; }
     }
-    fail(401, "Sign in to use local workspace.");
+    fail(401, accountsPaused ? "Reconnect local editor host to use the workspace." : requireLogin ? "Sign in to use local workspace." : "Refresh the editor to renew the local session.");
   }
 
   function artifactUrl(value, req, repoId, generation) {
     const session = current(req);
-    if (!session?.authenticated) fail(401, "Sign in to preview build.");
+    if (!canAccess(session)) fail(401, "Refresh the editor session to preview build.");
     clean();
     let token;
     for (const [id, preview] of previews) if (preview.session === session.id && preview.repoId === repoId && preview.generation === generation && preview.expires > now()) { token = preview.token; break; }

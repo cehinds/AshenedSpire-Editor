@@ -1,6 +1,8 @@
+import {validateCardLayout} from './card-layout.mjs';
 import {validate as validatePose} from './native/model/presentationSequence.js';
 import {validateWireframes} from './authoring-create.mjs';
 import {validateGameSettingsOptional} from './game-settings.mjs';
+import {validateLab,fitProblems} from './battlefield-lab.mjs';
 
 export const clone = value => structuredClone(value);
 export const SCHEMA = 'ashenspire.workbench/1';
@@ -35,10 +37,15 @@ export function validateProject(p) {const e=[];if(p?.schema!==SCHEMA)return ['Un
   if(p.nodes.some(n=>!n||typeof n.id!=='string'||typeof n.parentId!=='string'||typeof n.label!=='string'))return ['Malformed tag record'];
   if(p.cards.some(c=>!c||typeof c.id!=='string'||typeof c.name!=='string'||!c.name||!Array.isArray(c.effects)||c.effects.some(e=>!e||typeof e.op!=='string')||c.textTemplate!==undefined&&typeof c.textTemplate!=='string'))return ['Malformed card definition'];
   const ids=new Set();for(const card of p.cards){if(!/^[A-Za-z0-9][A-Za-z0-9._:-]*$/.test(card.id)||ids.has(card.id))e.push('Card IDs must be safe and unique');ids.add(card.id);}
+  if(p.tagging!==undefined){
+    if(!Array.isArray(p.tagging)||p.tagging.some(row=>!row||typeof row!=='object'||['family','scope','objectId','tagId'].some(key=>typeof row[key]!=='string')||!row.family||!row.objectId||!row.tagId))return ['Malformed native tag assignments'];
+    const links=new Set();for(const row of p.tagging){const key=JSON.stringify([row.family,row.scope,row.objectId,row.tagId]);if(links.has(key))e.push('Duplicate native tag assignment');links.add(key);}
+  }
+  if(p.effects!==undefined&&(!p.effects||typeof p.effects!=='object'||Array.isArray(p.effects)||Object.values(p.effects).some(entry=>!entry||typeof entry!=='object'||Array.isArray(entry))))return ['Malformed native node effects'];
   const scenes=p.scenes.components.sequence.scenes,sceneIds=new Set();for(const s of scenes){if(!s||typeof s.id!=='string'||!s.id||sceneIds.has(s.id)||typeof s.name!=='string'||typeof s.text!=='string')return ['Malformed scene definition'];sceneIds.add(s.id);}
   const bands=p.ui?.sizing?.bands;if(!bands||typeof bands!=='object'||Object.values(bands).some(v=>!Number.isFinite(v)||v<0)||Math.abs(Object.values(bands).reduce((a,b)=>a+b,0)-100)>.0001)e.push('UI bands must be nonnegative and sum to 100');
-  for(const s of Object.values(p.styles)){if(!s||typeof s!=='object'||s.fontSize!==undefined&&(!Number.isFinite(s.fontSize)||s.fontSize<12||s.fontSize>24)||s.art!==undefined&&(typeof s.art!=='string'||!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(s.art)||s.art.length>3_000_000))e.push('Invalid card presentation sidecar');}
-  if(!Number.isFinite(p.lab.base)||p.lab.base<30||p.lab.base>80||![1,2].includes(p.lab.role)||!['overflow','cap'].includes(p.lab.policy)||!Number.isFinite(p.lab.cardScale))e.push('Invalid battlefield proposal');
+  for(const s of Object.values(p.styles)){if(!s||typeof s!=='object'||validateCardLayout(s.layout).length||s.theme!==undefined&&!['native','paper'].includes(s.theme)||s.fontSize!==undefined&&(!Number.isFinite(s.fontSize)||s.fontSize<12||s.fontSize>24)||['ratioWidth','ratioHeight'].some(key=>s[key]!==undefined&&(!Number.isFinite(s[key])||s[key]<1||s[key]>20))||s.art!==undefined&&(typeof s.art!=='string'||!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(s.art)||s.art.length>3_000_000))e.push('Invalid card presentation sidecar');}
+  e.push(...validateLab(p.lab).map(message=>'Battlefield: '+message),...fitProblems(p.ui).map(message=>'Battlefield fit: '+message));
   try {e.push(...validatePose(p.pose).map(message=>'Presentation: '+message));}catch {e.push('Malformed presentation project');}
   if(p.erdNative!=null){
     try {
@@ -77,4 +84,3 @@ export function inspectERD(data) {
 }
 export function suppliedRows(page,entityId){const n=page.nodes.find(n=>n.id===entityId),d=page.data?.[entityId];if(!n||d?.mode!=='imported'||!Array.isArray(d.rows))return [];return d.rows.map(row=>Array.isArray(row)?Object.fromEntries((n.fields||[]).map((f,i)=>[f.name,row[i]])):row);}
 export function mapTagRows(rows,mapping,existing){const proposed=rows.map((r,i)=>{const id=String(r[mapping.id]??'').trim(),base=existing.find(n=>n.id===id)||Object.fromEntries(Object.keys(existing[0]||{id:'',parentId:'',label:''}).map(k=>[k,'']));return {...base,id,parentId:String(r[mapping.parent]??'').trim(),label:String(r[mapping.label]??'').trim(),_row:i+1};});const merged=new Map(existing.map(n=>[n.id,n]));for(const r of proposed)merged.set(r.id,r);const duplicates=proposed.filter((r,i)=>proposed.findIndex(q=>q.id===r.id)!==i).map(r=>`Duplicate supplied ID ${r.id}`);return {proposed,errors:[...duplicates,...proposed.filter(r=>!r.label).map(r=>`Row ${r._row}: label required`),...validateNodes([...merged.values()])],changed:proposed.filter(r=>existing.some(n=>n.id===r.id)).length};}
-export function sizing(base,role,selected,policy){const authored=base*role*(selected?1.5:1);return {authored,displayed:policy==='cap'?Math.min(100,authored):authored,overflow:authored>100};}

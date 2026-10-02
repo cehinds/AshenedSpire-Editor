@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createServer } from "node:http";
-import { mkdtemp, mkdir, readFile, readdir, rm, stat, symlink, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, readdir, realpath, rm, stat, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -13,6 +13,8 @@ const pause = milliseconds => new Promise(resolve => setTimeout(resolve, millise
 async function source(root, name, native = false) {
   const dir = path.join(root, name); await mkdir(dir);
   git(dir, "init", "-b", "main"); git(dir, "config", "user.name", "Fixture"); git(dir, "config", "user.email", "fixture@example.test");
+  git(dir, "config", "core.autocrlf", "false");
+  await writeFile(path.join(dir, ".gitattributes"), "* text=auto eol=lf\n");
   await writeFile(path.join(dir, "game.txt"), "main game\n");
   await writeFile(path.join(dir, ".gitignore"), "dist/\nnode_modules/\n");
   if (native) {
@@ -34,13 +36,11 @@ async function source(root, name, native = false) {
 }
 
 async function serve(root) {
-  const host = createWorkspaceHost({ root, defaults: [], commandTimeout: 10_000, jobTimeout: 10_000 }); await host.ready;
+  const host = createWorkspaceHost({ root, defaults: [], commandTimeout: 30_000, jobTimeout: 60_000 }); await host.ready;
   const server = createServer((req, res) => host.middleware(req, res, () => { res.statusCode = 404; res.end(); }));
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
   const origin = `http://127.0.0.1:${server.address().port}`;
   const bootstrap = await fetch(origin + "/api/auth/session"); let cookie = bootstrap.headers.get("set-cookie").split(";")[0]; const session = await bootstrap.json();
-  const signin = await fetch(origin + `/api/auth/${session.setupRequired ? "setup" : "login"}`, { method: "POST", headers: { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": session.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-  assert.equal(signin.status, 200); cookie = signin.headers.get("set-cookie").split(";")[0];
   const status = await fetch(origin + "/api/workbench/status", { headers: { Cookie: cookie } }).then(response => response.json());
   async function api(route, method = "GET", body, headers = {}) {
     const response = await fetch(origin + "/api/workbench" + route, { method, headers: { Cookie: cookie, ...(method !== "GET" ? { Origin: origin, "Content-Type": "application/json", "X-Workbench-CSRF": status.csrfToken } : {}), ...headers }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -69,7 +69,7 @@ test("local imports isolate files and preserve main/test/dev; branch mutations a
     const prefix = `/repos/${repo.id}`;
     assert.equal((await api(prefix + "/connect", "POST", {})).status, 200, "Import reads local Git objects despite unusable origin URL");
     const checkout = path.join(root, ".workbench/repos", repo.id);
-    assert.equal(git(checkout, "remote", "get-url", "origin").trim(), original);
+    assert.equal(git(checkout, "remote", "get-url", "origin").trim(), await realpath(original));
     if (process.platform !== "win32") assert.notEqual((await stat(path.join(checkout, "game.txt"))).ino, (await stat(path.join(original, "game.txt"))).ino);
     let info = await api(prefix + "/branches"); assert.equal(info.body.current, "main"); assert.deepEqual(info.body.branches.map(branch => branch.name).sort(), ["dev", "main", "test"]);
     assert.equal(info.body.branches.find(branch => branch.name === "dev").head, git(original, "rev-parse", "dev").trim());
@@ -113,7 +113,8 @@ test("reviewed local native settings promotion invokes tool, validates profile, 
   try {
     const original = await source(temp, "AshenSpire", true); const root = path.join(temp, "editor"); await mkdir(root); app = await serve(root);
     const { api } = app; const repo = (await api("/repos", "POST", { path: original })).body.repo; const prefix = `/repos/${repo.id}`;
-    assert.equal((await api(prefix + "/connect", "POST", {})).status, 200);
+    const connection = await api(prefix + "/connect", "POST", {});
+    assert.equal(connection.status, 200, JSON.stringify(connection.body));
     const capabilities = (await api(prefix + "/git")).body; assert.equal(capabilities.adapter, "ashenspire-node"); assert.equal(capabilities.canPromoteSettings, true);
     const profile = { game: "Ashen Spire", schemaVersion: 1, overrides: { "settings.musicVolume": 35 } };
     assert.equal((await api(prefix + "/jobs", "POST", { task: "settings", profile }, { Cookie: "" })).status, 401);

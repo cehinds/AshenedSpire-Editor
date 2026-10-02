@@ -9,6 +9,9 @@ import { createWorkspaceHost, parseRepository, planCommand, redact, workspaceHos
 
 const git = (dir, ...args) => execFileSync("git", args, { cwd: dir, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+// Allow real subprocess completion on busy Windows hosts; these are not performance assertions.
+const fixtureCommandTimeout = 30_000;
+const fixtureJobTimeout = 60_000;
 
 async function fixture(root, name, native = false) {
   const dir = path.join(root, name);
@@ -16,6 +19,8 @@ async function fixture(root, name, native = false) {
   git(dir, "init", "-b", "main");
   git(dir, "config", "user.email", "fixture@example.test");
   git(dir, "config", "user.name", "Fixture");
+  git(dir, "config", "core.autocrlf", "false");
+  await writeFile(path.join(dir, ".gitattributes"), "* text=auto eol=lf\n");
   await mkdir(path.join(dir, "src"));
   await writeFile(path.join(dir, "src/game.txt"), "source game\n");
   await writeFile(path.join(dir, ".env"), "SECRET=blocked\n");
@@ -38,7 +43,7 @@ async function fixture(root, name, native = false) {
 }
 
 async function start(root, sources) {
-  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 10_000, jobTimeout: 10_000 });
+  const host = createWorkspaceHost({ root, defaults: [], cloneSource: repo => sources[repo.id], commandTimeout: 30_000, jobTimeout: 60_000 });
   await host.ready;
   const server = createServer((req, res) => host.middleware(req, res, () => { res.statusCode = 404; res.end(); }));
   await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
@@ -47,19 +52,18 @@ async function start(root, sources) {
   const bootstrap = await fetch(`${origin}/api/auth/session`);
   cookie = bootstrap.headers.get("set-cookie").split(";")[0];
   const initial = await bootstrap.json();
-  const signin = await fetch(`${origin}/api/auth/${initial.setupRequired ? "setup" : "login"}`, { method: "POST", headers: { Cookie: cookie, Origin: origin, "Content-Type": "application/json", "X-Auth-CSRF": initial.csrfToken }, body: JSON.stringify({ username: "FixtureOwner", password: "fixture-password-123!" }) });
-  assert.equal(signin.status, 200); cookie = signin.headers.get("set-cookie").split(";")[0];
   const status = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: cookie } }).then(response => response.json());
   async function api(route, method = "GET", body, headers = {}) {
     const response = await fetch(`${origin}/api/workbench${route}`, { method, headers: { Cookie: cookie, ...(method === "GET" ? {} : { Origin: origin, "Content-Type": "application/json", "X-Workbench-CSRF": status.csrfToken }), ...headers }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
     return { response, status: response.status, body: await response.json() };
   }
   async function finish(id) {
-    for (let attempts = 0; attempts < 200; attempts++) {
+    const deadline = Date.now() + fixtureJobTimeout + 15_000;
+    while (Date.now() < deadline) {
       const { body } = await api("/jobs");
       const job = body.jobs.find(value => value.id === id);
       if (job.status !== "running") return job;
-      await pause(20);
+      await pause(50);
     }
     assert.fail("Fixture job did not finish.");
   }
@@ -95,7 +99,7 @@ test("local host clones, edits safely, builds, isolates artifacts, and persists 
     const sources = { "tester--fixture": source, "cehinds--ashenspire": native };
     app = await start(root, sources);
     const { api } = app;
-    assert.deepEqual(app.status.capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
+    assert.deepEqual(app.status.capabilities, ["repositories", "files", "builds", "branches", "local-import", "native-source"]);
     assert.equal((await api("/status")).response.headers.get("access-control-allow-origin"), null);
     const reboundStatus = await new Promise((resolve, reject) => {
       const req = request(`${app.origin}/api/workbench/status`, { headers: { Host: "evil.test" } }, response => { response.resume(); response.on("end", () => resolve(response.statusCode)); });
@@ -202,12 +206,22 @@ test("local host clones, edits safely, builds, isolates artifacts, and persists 
 
 test("Vite plugin exposes same local middleware for dev and built preview", async () => {
   const temp = await mkdtemp(path.join(tmpdir(), "workbench-vite-"));
+  const installed = [];
+  const httpServer = createServer((req, res) => installed[0](req, res, () => { res.statusCode = 404; res.end(); }));
   try {
     const plugin = workspaceHostPlugin({ root: temp, defaults: [] });
-    const installed = [];
-    const server = { middlewares: { use: middleware => installed.push(middleware) } };
+    const server = { httpServer, middlewares: { use: middleware => installed.push(middleware) } };
     plugin.configureServer(server); plugin.configurePreviewServer(server);
     assert.equal(installed.length, 2); assert.equal(installed[0], installed[1]);
-    await pause(50);
-  } finally { await rm(temp, { recursive: true, force: true }); }
+    await new Promise(resolve => httpServer.listen(0, "127.0.0.1", resolve));
+    const origin = `http://127.0.0.1:${httpServer.address().port}`;
+    const bootstrap = await fetch(`${origin}/api/auth/session`);
+    const session = await bootstrap.json();
+    const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0] } });
+    assert.equal(response.status, 200);
+    assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import", "native-source"]);
+  } finally {
+    if (httpServer.listening) await new Promise(resolve => httpServer.close(resolve));
+    await rm(temp, { recursive: true, force: true });
+  }
 });

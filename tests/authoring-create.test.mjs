@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {createCardDefinition, createWireframeDefinition, suggestDraftId, validateWireframes} from '../src/authoring-create.mjs';
-import {historyState, commit, undo, redo} from '../src/core.mjs';
+import {createCardDefinition, createCardDraft, applyCardDraft, createWireframeDefinition, suggestDraftId, validateWireframes} from '../src/authoring-create.mjs';
+import {historyState, commit, undo, redo, parseCSV} from '../src/core.mjs';
 const json = path => JSON.parse(readFileSync(new URL('../src/' + path, import.meta.url), 'utf8'));
 
 test('new card preserves native effects, upgrades and unknown fields without sharing template objects', () => {
@@ -41,4 +41,36 @@ test('card and wireframe creation are reversible draft transactions with no muta
   assert.equal(history.present.cards.length, original.cards.length + 1); assert.equal(history.present.wireframes.length, 1);
   assert.deepEqual(undo(history).present, original); assert.deepEqual(redo(undo(history)).present, history.present);
   assert.equal(original.wireframes.length, 0);
+});
+
+test('reviewed card creation copies complete separate tag rows and explicit upgrade identity without touching the template', () => {
+  const sourceTagging = parseCSV(readFileSync(new URL('../src/sources/tagging.csv', import.meta.url), 'utf8'));
+  const nodes = parseCSV(readFileSync(new URL('../src/sources/nodes.csv', import.meta.url), 'utf8'));
+  const cards = json('cards.json');
+  cards[0].upgrade.id = cards[0].id;
+  const templateRows = sourceTagging.filter(row => row.family === 'card' && row.objectId === cards[0].id);
+  templateRows[0].foreign = {retain: ['opaque']};
+  const project = {cards, nodes, owned: {}, tagging: sourceTagging};
+  const before = structuredClone(project);
+  const proposal = createCardDraft(project, cards[0].id, {id: 'qa.card-draft', name: 'QA draft'});
+  assert.equal(proposal.definition.upgrade.id, proposal.definition.id);
+  assert.equal(proposal.ownedCopies, 2);
+  assert.deepEqual(proposal.tagging, templateRows.map(row => ({...row, objectId: 'qa.card-draft'})));
+  assert.equal(proposal.tagging.filter(row => row.tagId === 'classification.attack').length, 1);
+  applyCardDraft(project, proposal);
+  assert.equal(project.cards.at(-1).id, 'qa.card-draft');
+  assert.equal(project.owned['qa.card-draft'], 2);
+  assert.deepEqual(project.cards.slice(0, -1), before.cards);
+  assert.deepEqual(project.tagging.slice(0, before.tagging.length), before.tagging);
+  proposal.tagging[0].foreign.retain.push('proposal edit');
+  assert.deepEqual(project.tagging.at(-templateRows.length).foreign, {retain: ['opaque']});
+  assert.deepEqual(sourceTagging, before.tagging);
+});
+
+test('creation refuses missing classification or existing native IDs rather than inventing assignments', () => {
+  const project = {cards: json('cards.json'), nodes: [{id: 'classification', parentId: ''}, {id: 'classification.attack', parentId: 'classification'}], tagging: []};
+  const identity = {id: 'qa.draft', name: 'QA draft'};
+  assert.throws(() => createCardDraft(project, 'ambush', identity), /exactly one native classification/);
+  project.tagging = [{family: 'card', scope: '', objectId: 'ambush', tagId: 'classification.attack'}, {family: 'card', scope: '', objectId: 'qa.draft', tagId: 'classification.attack'}];
+  assert.throws(() => createCardDraft(project, 'ambush', identity), /already has native/);
 });

@@ -18,6 +18,6 @@
 .auth-account{max-height:94dvh;overflow:auto;width:min(560px,100%)}
 .auth-dialog-title{display:flex;justify-content:space-between;gap:20px;align-items:start}
 .auth-dialog-title button{min-height:30px}
-.auth-owner-label{font-size:10px;color:var(--green);border:1px solid var(--line);padding:5px 8px;border-radius:3px;white-space:nowrap}
-.auth-owner-label.offline{color:var(--gold)}
-@media(max-width:780px){.auth-screen{padding:18px}.auth-card{padding:23px}.auth-owner-label{max-width:115px;overflow:hidden;text-overflow:ellipsis;font-size:9px;padding:5px}.editor-header .header-actions .account-status{display:none}}
+.auth-github-label{font-size:10px;color:var(--green);border:1px solid var(--line);padding:5px 8px;border-radius:3px;white-space:nowrap}
+.auth-github-label.offline{color:var(--gold)}
+@media(max-width:780px){.auth-screen{padding:18px}.auth-card{padding:23px}.auth-github-label{max-width:115px;overflow:hidden;text-overflow:ellipsis;font-size:9px;padding:5px}.editor-header .header-actions .account-status{display:none}}

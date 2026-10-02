@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {useAuth} from './AuthGate.jsx';
+import {useLocalHost} from './AuthGate.jsx';
 import './repository.css';
 import {LocalBranches} from './LocalBranches.jsx';
 
@@ -8,12 +8,12 @@ const localRepos = repos => repos.filter(repo => repo.kind === 'local');
 
 export function RepositoryWorkspace({mode, ctx = {}})
 {
-    const auth = useAuth();
-    const offline = auth?.offline === true;
-    const authenticated = auth ? auth.authenticated === true : true;
+    const localHost = useLocalHost();
+    const offline = localHost?.offline === true;
+    const hostAvailable = localHost?.connected === true;
     const [host, setHost] = useState(null);
     const [repos, setRepos] = useState([]);
-    const [repoId, setRepoId] = useState('');
+    const [repoId, setRepoId] = useState(ctx.repositorySelection || '');
     const [loading, setLoading] = useState(true);
     const [busy, setBusy] = useState('');
     const [error, setError] = useState('');
@@ -38,12 +38,12 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const loadedRepoId = useRef(null);
     const dirty = file !== null && text !== file.content;
     const repo = repos.find(item => item.id === repoId);
-    const connected = authenticated && !offline && host?.connected === true;
+    const connected = hostAvailable && !offline && host?.connected === true;
     const ready = connected && repo?.status === 'connected';
 
     const request = useCallback(async (path, options = {}) =>
     {
-        if (offline) throw new Error('Local authenticated host required. Offline preview supports authoring drafts only.');
+        if (offline) throw new Error('Local editor host required. Offline preview supports authoring drafts only.');
         const controller = new AbortController();
         requests.current.add(controller);
         try
@@ -58,7 +58,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             const value = await response.json();
             if (!response.ok)
             {
-                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-auth-expired'));
+                if (response.status === 401) window.dispatchEvent(new CustomEvent('workbench-host-disconnected'));
                 const problem = new Error(value.error || `Host request failed (${response.status}).`);
                 problem.status = response.status;
                 throw problem;
@@ -100,13 +100,14 @@ export function RepositoryWorkspace({mode, ctx = {}})
     useEffect(() =>
     {
         let active = true;
-        if (!authenticated || offline)
+        if (!hostAvailable || offline)
         {
             setHost(null);
             setLoading(false);
-            if (offline) setError('Local authenticated host required. Offline preview supports authoring drafts only.');
+            if (offline) setError('Local editor host required. Offline preview supports authoring drafts only.');
             return;
         }
+        setHost(null);
         setLoading(true);
         setError('');
         async function load()
@@ -120,7 +121,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
                 const value = await requestRef.current('/repos');
                 if (!active || !alive.current) return;
                 setRepos(localRepos(value.repos));
-                setRepoId(previous => previous || localRepos(value.repos)[0]?.id || '');
+                setRepoId(previous => localRepos(value.repos).some(item => item.id === previous) ? previous : localRepos(value.repos)[0]?.id || '');
             }
             catch (problem) { if (active && alive.current && problem.name !== 'AbortError') { setHost(null); setError(problem.message); } }
             finally { if (active && alive.current) setLoading(false); }
@@ -131,7 +132,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             active = false;
             requests.current.forEach(controller => controller.abort());
         };
-    }, [authenticated, offline]);
+    }, [hostAvailable, offline, localHost?.connectionId]);
 
     useEffect(() =>
     {
@@ -185,7 +186,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
         if (loadedRepoId.current !== repoId)
         {
             loadedRepoId.current = repoId;
-            setTrees({}); setExpanded(new Set([''])); setFile(null); setText(''); if (authenticated && !offline) setError(''); setMessage('');
+            setTrees({}); setExpanded(new Set([''])); setFile(null); setText(''); if (hostAvailable && !offline) setError(''); setMessage('');
         }
         setPreview(null); setCurrentArtifacts({artifacts: [], reason: 'Checking verified build outputs…'});
         navigationGeneration.current += 1;
@@ -224,7 +225,18 @@ export function RepositoryWorkspace({mode, ctx = {}})
 
     function selectRepo(id)
     {
-        guard(() => { navigationGeneration.current += 1; setRepoId(id); setInstallReview(false); });
+        guard(() => { navigationGeneration.current += 1; setRepoId(id); ctx.setRepositorySelection?.(id); setInstallReview(false); });
+    }
+
+    function openRepositoryMode(id, nextMode)
+    {
+        // Review the entire navigation once, preserving pending repository selection.
+        ctx.openWorkspace('project', nextMode, () => {
+            navigationGeneration.current += 1;
+            setRepoId(id);
+            ctx.setRepositorySelection?.(id);
+            setInstallReview(false);
+        });
     }
 
     function loadFile(path)
@@ -313,7 +325,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
     const currentJobArtifacts = repoJobs.some(job => job.status === 'succeeded' && job.artifactState !== 'stale' && !job.artifactsStale && job.artifacts?.length);
 
     return <section className="repository-workspace" aria-label={`${mode} workspace`}>
-        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require this editor’s authenticated host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
+        <div className="repo-host-bar"><div><strong>{connected ? 'Local repository host' : loading ? 'Checking repository host…' : 'Repository host unavailable'}</strong><p>{connected ? `${host.host || 'local'} · checkout files and jobs · separate from browser draft` : 'Local checkouts, file writes, and builds require this editor’s local host.'}</p></div><span className={'repo-badge ' + (connected ? 'good' : '')}>{connected ? 'Host connected' : 'Not connected'}</span></div>
         <LocalBranches repoId={ready ? repoId : ''} disabled={!ready || !!busy || running} dirty={dirty} onChanged={branchChanged}/>
         {error ? <div role="alert" className="repo-notice error">{error}</div> : null}
         {message ? <div role="status" className="repo-notice">{message}</div> : null}
@@ -327,7 +339,7 @@ export function RepositoryWorkspace({mode, ctx = {}})
             </form>
             <div className="repo-list">{repos.map(item => <article className={'repo-card ' + (item.id === repoId ? 'selected' : '')} key={item.id}>
                 <div className="repo-card-top"><h3>{item.name}</h3><span className={'repo-badge ' + (item.status === 'connected' ? 'good' : '')}>{item.status}</span></div><code>{item.url}</code><p>Branch: {item.branch || 'current local branch'}{item.head ? ` · ${item.head.slice(0, 10)}` : ''}</p>{item.checkoutScope === 'game-source' ? <p>Game source checkout includes runtime assets. Large original artwork omitted.</p> : null}{item.error ? <div className="repo-notice error">{item.error}</div> : null}
-                <div className="repo-buttons"><button disabled={!connected || !!busy} onClick={() => action('connect:' + item.id, async () => { const result = await request(`/repos/${encodeURIComponent(item.id)}/connect`, {method: 'POST', body: '{}'}); await refreshRepos(); selectRepo(item.id); if (result.warning || result.remoteUpdated === false) setError(result.warning || 'Local checkout remains connected.'); else setMessage(item.status === 'connected' ? 'Local checkout status refreshed; files preserved.' : 'Local repository copied. Isolated checkout ready.'); })}>{busy === 'connect:' + item.id ? item.status === 'connected' ? 'Refreshing…' : 'Copying…' : item.status === 'connected' ? 'Refresh local status' : 'Open local checkout'}</button><button disabled={!connected || !!busy} onClick={() => selectRepo(item.id)}>Select repository</button>{item.status === 'connected' ? <><button disabled={!!busy} onClick={() => { selectRepo(item.id); ctx.setMode?.('Files'); }}>Browse files</button><button disabled={!!busy} onClick={() => { selectRepo(item.id); ctx.setMode?.('Builds'); }}>Builds</button></> : null}</div>
+                <div className="repo-buttons"><button disabled={!connected || !!busy} onClick={() => action('connect:' + item.id, async () => { const result = await request(`/repos/${encodeURIComponent(item.id)}/connect`, {method: 'POST', body: '{}'}); await refreshRepos(); selectRepo(item.id); if (result.warning || result.remoteUpdated === false) setError(result.warning || 'Local checkout remains connected.'); else setMessage(item.status === 'connected' ? 'Local checkout status refreshed; files preserved.' : 'Local repository copied. Isolated checkout ready.'); })}>{busy === 'connect:' + item.id ? item.status === 'connected' ? 'Refreshing…' : 'Copying…' : item.status === 'connected' ? 'Refresh local status' : 'Open local checkout'}</button><button disabled={!connected || !!busy} onClick={() => selectRepo(item.id)}>Select repository</button>{item.status === 'connected' ? <><button disabled={!!busy} onClick={() => openRepositoryMode(item.id, 'Files')}>Browse files</button><button disabled={!!busy} onClick={() => openRepositoryMode(item.id, 'Builds')}>Builds</button></> : null}</div>
                 {connected && item.status !== 'connected' ? <BranchEditor key={item.id + item.branch} repo={item} disabled={!!busy} save={value => action('branch', async () => { await request(`/repos/${encodeURIComponent(item.id)}`, {method: 'PATCH', body: JSON.stringify({branch: value})}); await refreshRepos(); })}/> : null}
             </article>)}</div>
         </> : <>

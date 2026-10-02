@@ -34,7 +34,7 @@ test('authenticated local native load/edit/review/save reaches build output and 
         await writeFile(path.join(source, 'package-lock.json'), JSON.stringify({name: 'bridge-fixture', version: '1.0.0', lockfileVersion: 3, packages: {}}));
         await writeFile(path.join(source, 'build.mjs'), "import {readFileSync,mkdirSync,writeFileSync} from 'node:fs'; const ui=JSON.parse(readFileSync('native-ui.json','utf8')); mkdirSync('dist',{recursive:true}); writeFileSync('dist/index.html','<html><body>HUD '+ui.sizing.bands.hud+'</body></html>');\n");
         git('add', '.'); git('commit', '-m', 'Native bridge fixture');
-        host = createWorkspaceHost({root, defaults: [], commandTimeout: 10000, jobTimeout: 10000});
+        host = createWorkspaceHost({root, defaults: [], commandTimeout: 30000, jobTimeout: 60000});
         await host.ready;
         server = createServer((req, res) => host.middleware(req, res, () => {res.statusCode = 404; res.end();}));
         await new Promise((resolve, reject) => {server.once('error', reject); server.listen(0, '127.0.0.1', resolve);});
@@ -42,8 +42,6 @@ test('authenticated local native load/edit/review/save reaches build output and 
         const bootstrap = await fetch(origin + '/api/auth/session');
         let cookie = bootstrap.headers.get('set-cookie').split(';')[0];
         const session = await bootstrap.json();
-        const setup = await fetch(origin + '/api/auth/setup', {method: 'POST', headers: {Cookie: cookie, Origin: origin, 'Content-Type': 'application/json', 'X-Auth-CSRF': session.csrfToken}, body: JSON.stringify({username: 'FixtureOwner', password: 'fixture-password-123!'})});
-        assert.equal(setup.status, 200); cookie = setup.headers.get('set-cookie').split(';')[0];
         const status = await fetch(origin + '/api/workbench/status', {headers: {Cookie: cookie}}).then(response => response.json());
         async function api(route, method = 'GET', value)
         {

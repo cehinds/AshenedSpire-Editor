@@ -1,6 +1,5 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
-import runtime from './native/game-preview/runtime.js?raw';
-import nativeCss from './native/game-preview/styles.css?raw';
+import {useNativeSources} from './native-sources.js';
 import nativeLicense from './native/game-preview/LICENSE?raw';
 import nativeCredits from './native/game-preview/CREDITS.md?raw';
 import {nativeAssetPaths} from './native/game-preview/assets.js';
@@ -10,7 +9,7 @@ const scriptSafe = value => value.replace(/<\/script/gi, '<\\/script');
 const allAssets = () => true;
 const noGlobals = Object.freeze({});
 
-function frameDocument(boot, assetFilter, initialGlobals) {
+function frameDocument({runtime, styles: nativeCss}, boot, assetFilter, initialGlobals) {
   const url = path => new URL(publicUrl(path), window.location.href).href;
   const assets = Object.fromEntries(Object.entries(nativeAssetPaths).filter(([key]) => assetFilter(key)).map(([key,path]) => [key,url(path)]));
   const css = nativeCss.replace(/url\(\s*(['"]?)([^'"\)]+)\1\s*\)/g, (full,quote,path) => {
@@ -57,6 +56,7 @@ function frameDocument(boot, assetFilter, initialGlobals) {
 
 /** A script-only sandbox: renderer code has no editor DOM, storage or host access. */
 export function NativePreviewFrame({title, boot, snapshot, height = 650, assetFilter = allAssets, onStatus, initialGlobals = noGlobals, toolbar, compactControls = false, bare = false, width = '100%'}) {
+  const sources = useNativeSources();
   const iframe = useRef(null);
   const container = useRef(null);
   const state = useRef({snapshot, revision: 0, ready: false, onStatus});
@@ -65,7 +65,7 @@ export function NativePreviewFrame({title, boot, snapshot, height = 650, assetFi
   const [expanded,setExpanded] = useState(false);
   state.current.snapshot = snapshot;
   state.current.onStatus = onStatus;
-  const srcDoc = useMemo(() => frameDocument(boot,assetFilter,initialGlobals), [boot,assetFilter,initialGlobals]);
+  const srcDoc = useMemo(() => frameDocument(sources,boot,assetFilter,initialGlobals), [sources,boot,assetFilter,initialGlobals]);
   const sendSnapshot = () => {
     if (!state.current.ready || !iframe.current?.contentWindow) return;
     const revision = ++state.current.revision;

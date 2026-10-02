@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import {retryNativeSources} from './native-sources.js';
 // Lazy wrappers so only the selected branch's renderer downloads.
 import {ScenePreview, GameCardPreview} from './LazyNative.jsx';
 import {GameRuntimePreview} from './GameRuntimePreview.jsx';
@@ -16,7 +17,7 @@ class PreviewBoundary extends Component {
       <strong>This draft could not be previewed.</strong>
       <p>{this.state.error}</p>
       <p>Your authoring draft is still available. Correct it or undo the last edit, then retry.</p>
-      <button onClick={() => this.setState({error: null})}>Retry preview</button>
+      <button onClick={() => { retryNativeSources(); this.setState({error: null}); }}>Retry preview</button>
     </div>;
     return this.props.children;
   }

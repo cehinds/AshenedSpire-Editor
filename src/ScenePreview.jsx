@@ -1,15 +1,16 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {Notice} from './Controls.jsx';
 import {publicFrameUrl as publicUrl} from './paths.js';
-import runtime from './native/game-preview/runtime.js?raw';
-import styles from './native/game-preview/styles.css?raw';
+import {useNativeSources} from './native-sources.js';
 import {nativeAssetPaths} from './native/game-preview/assets.js';
 import {sceneFrameDocument, sceneFramePayload} from './scene-playback.mjs';
 import './scene-preview.css';
 
-const sceneAssets = Object.entries(nativeAssetPaths).filter(([key]) => key.startsWith('assets/prologue/') || styles.includes(key));
+let sceneAssetCache = null;
+const sceneAssets = styles => sceneAssetCache ??= Object.entries(nativeAssetPaths).filter(([key]) => key.startsWith('assets/prologue/') || styles.includes(key));
 
 export function ScenePreview({ctx: {p, scene}}) {
+  const {runtime, styles} = useNativeSources();
   const sequence = p.scenes.components.sequence;
   const [device, setDevice] = useState('Desktop');
   const [boot, setBoot] = useState({playing: false, revision: 0});
@@ -39,7 +40,7 @@ export function ScenePreview({ctx: {p, scene}}) {
     window.addEventListener('message', receive);
     return () => window.removeEventListener('message', receive);
   }, []);
-  const document = useMemo(() => sceneFrameDocument({runtime, styles, assets: Object.fromEntries(sceneAssets.map(([key, path]) => [key, new URL(publicUrl(path), window.location.href).href])), payload: JSON.parse(settled), channel: channel.current}), [settled]);
+  const document = useMemo(() => sceneFrameDocument({runtime, styles, assets: Object.fromEntries(sceneAssets(styles).map(([key, path]) => [key, new URL(publicUrl(path), window.location.href).href])), payload: JSON.parse(settled), channel: channel.current}), [settled]);
   const enabled = sequence.scenes.some(item => item.enabled !== false);
   const launch = playing => {
     setProblem('');

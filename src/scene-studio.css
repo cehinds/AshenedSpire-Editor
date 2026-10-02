@@ -78,3 +78,5 @@
 .studio-sequence-empty{margin:10px;font-size:9px;color:#8d9c9c}
 .studio-sequence-tracks .studio-clip.scene{cursor:grab;touch-action:none}.studio-sequence-tracks .studio-clip.moving{opacity:.55;cursor:grabbing}.studio-sequence-drop{position:absolute;top:1px;bottom:1px;width:3px;margin-left:-1px;background:#e3c27a;box-shadow:0 0 6px #e3c27a;z-index:4;pointer-events:none}
 .studio-sequence-delay{position:absolute;top:3px;bottom:3px;width:7px;margin-left:-3px;cursor:ew-resize;z-index:3;touch-action:none}.studio-sequence-delay::after{content:'';position:absolute;left:2px;top:2px;bottom:2px;width:3px;border-radius:1px;background:#b9a6ec;opacity:.5}.studio-sequence-delay:hover::after,.studio-sequence-delay:focus-visible::after{opacity:1}.studio-sequence-delay[aria-disabled=true]{pointer-events:none}
+.scene-studio .studio-caption-flag{position:absolute;transform:translateY(-100%);margin-top:-2px;z-index:3;pointer-events:auto;font-size:9px;line-height:1.4;padding:1px 6px;background:#2a2418ee;color:#e0c086;border:1px solid #6a5a3a;white-space:nowrap}
+.scene-studio .studio-caption-flag.overflow{background:#3a1d17ee;color:#f1b19f;border-color:#8a3f2f}

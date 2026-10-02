@@ -69,7 +69,7 @@ function metrics(force=false){
   const selected=payload.sequence.scenes.find(scene=>scene.id===payload.selectedId);
   const layers=(selected?.spriteLayers||[]).filter(layer=>layer.enabled);
   const plate=currentPlate();
-  const value={type:'metrics',actor:normalizedRect(plate?.querySelector('.prologue-actor')),text:normalizedRect(host.querySelector('.prologue-caption')),background:normalizedRect(plate?.querySelector('.prologue-background')),stage:normalizedRect(host.querySelector('.prologue-stage')),plate:normalizedRect(plate),overlays:[...(plate?.querySelectorAll('.prologue-overlay')||[])].map((element,index)=>({id:layers[index]?.id||String(index),rect:normalizedRect(element)}))};
+  const value={type:'metrics',actor:normalizedRect(plate?.querySelector('.prologue-actor')),text:normalizedRect(host.querySelector('.prologue-caption')),background:normalizedRect(plate?.querySelector('.prologue-background')),caption:fitCaption(host),stage:normalizedRect(host.querySelector('.prologue-stage')),plate:normalizedRect(plate),overlays:[...(plate?.querySelectorAll('.prologue-overlay')||[])].map((element,index)=>({id:layers[index]?.id||String(index),rect:normalizedRect(element)}))};
   const signature=JSON.stringify(value);
   if(force||signature!==lastMetrics){lastMetrics=signature;send(value);}
 }

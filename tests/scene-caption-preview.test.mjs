@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {resolveCaptionPreview, applyCaptionPreview, captionPreviewStyles} from '../src/scene-caption-preview.mjs';
+import {resolveCaptionPreview, applyCaptionPreview, fitCaption, captionPreviewStyles} from '../src/scene-caption-preview.mjs';
 import {getStage} from '../src/scene-studio-model.mjs';
 import {sceneFramePayload, sceneFrameDocument} from '../src/scene-playback.mjs';
 import {studioFrameDocument} from '../src/scene-studio-frame.mjs';
@@ -18,12 +18,12 @@ test('caption resolver agrees with editor staging for inherited, local, invalid 
   const draft = structuredClone(sequence);
   draft.presentation = {...draft.presentation, captionFixedHeight: true, captionHeightVh: 25};
   const scene = draft.scenes[0];
-  for (const [ownStaging, stage] of [[false, {captionHeightVh: 40}], [true, {captionHeightVh: 40}], [true, {captionFixedHeight: false}], [true, {captionFixedHeight: 'yes', captionHeightVh: NaN}], [true, {captionHeightVh: 101}], [true, {captionHeightVh: 1}], [true, {captionHeightVh: 100}], [true, {captionVerticalAlign: 'middle'}], [true, {captionVerticalAlign: 'sideways'}]]) {
+  for (const [ownStaging, stage] of [[false, {captionHeightVh: 40}], [true, {captionHeightVh: 40}], [true, {captionFixedHeight: false}], [true, {captionFixedHeight: 'yes', captionHeightVh: NaN}], [true, {captionHeightVh: 101}], [true, {captionHeightVh: 1}], [true, {captionHeightVh: 100}], [true, {captionVerticalAlign: 'middle'}], [true, {captionVerticalAlign: 'sideways'}], [true, {captionOverflow: 'shrink'}], [true, {captionOverflow: 'wrap'}]]) {
     Object.assign(scene, {ownStaging, stage});
     const effective = getStage(draft, scene);
-    assert.deepEqual(resolveCaptionPreview(draft, scene.id), {captionFixedHeight: effective.captionFixedHeight, captionHeightVh: effective.captionHeightVh, captionVerticalAlign: effective.captionVerticalAlign});
+    assert.deepEqual(resolveCaptionPreview(draft, scene.id), {captionFixedHeight: effective.captionFixedHeight, captionHeightVh: effective.captionHeightVh, captionVerticalAlign: effective.captionVerticalAlign, captionOverflow: effective.captionOverflow});
   }
-  assert.deepEqual(resolveCaptionPreview(undefined, 'unknown'), {captionFixedHeight: false, captionHeightVh: 18, captionVerticalAlign: 'auto'});
+  assert.deepEqual(resolveCaptionPreview(undefined, 'unknown'), {captionFixedHeight: false, captionHeightVh: 18, captionVerticalAlign: 'auto', captionOverflow: 'scroll'});
 });
 
 test('fixed height applies viewport units and automatic sizing removes all adapter state', () => {
@@ -108,4 +108,38 @@ test('studio draft refresh responds to master edits, selected scene overrides an
   update({...payload, sequence: changed, selectedId: changed.scenes[0].id});
   assert.equal(screen.style['--editor-caption-height'], undefined);
   assert.equal(screen.classList.contains('editor-caption-fixed'), false);
+});
+
+test('overflow modes apply only with a fixed height and shrink fits text without resizing the box', () => {
+  const screen = screenElement();
+  const draft = structuredClone(sequence);
+  draft.presentation = {...draft.presentation, captionFixedHeight: false, captionOverflow: 'shrink'};
+  applyCaptionPreview({querySelector: () => screen}, draft, draft.scenes[0].id);
+  assert.equal(screen.classList.contains('editor-caption-overflow-shrink'), false);
+  draft.presentation.captionFixedHeight = true;
+  applyCaptionPreview({querySelector: () => screen}, draft, draft.scenes[0].id);
+  assert.equal(screen.classList.contains('editor-caption-overflow-shrink'), true);
+  draft.presentation.captionOverflow = 'clip';
+  applyCaptionPreview({querySelector: () => screen}, draft, draft.scenes[0].id);
+  assert.equal(screen.classList.contains('editor-caption-overflow-shrink'), false);
+  assert.equal(screen.classList.contains('editor-caption-overflow-clip'), true);
+  assert.match(captionPreviewStyles, /editor-caption-overflow-shrink,\.editor-caption-overflow-clip\) \.prologue-caption\{overflow:hidden\}/);
+
+  // Text height scales with --prologue-text-scale; the box stays 100px tall.
+  const caption = {dataset: {}, textContent: 'x'.repeat(40), clientHeight: 100, clientWidth: 300, scale: 1, style: {setProperty(_, value) {caption.scale = Number(value);}, removeProperty() {caption.scale = 1;}}, get scrollHeight() {return 160 * caption.scale;}};
+  const shrinkScreen = screenElement();
+  shrinkScreen.classList.toggle('editor-caption-overflow-shrink', true);
+  const host = {querySelector: selector => selector === '.prologue-caption' ? caption : shrinkScreen};
+  globalThis.getComputedStyle = () => ({getPropertyValue: () => '1'});
+  try {
+    const result = fitCaption(host);
+    assert.equal(result.overflow, false);
+    assert.ok(result.fit <= 0.63 && result.fit > 0.55, String(result.fit));
+    caption.textContent = 'x'.repeat(400);
+    Object.defineProperty(caption, 'scrollHeight', {get() {return 1000 * caption.scale;}});
+    assert.deepEqual(fitCaption(host), {overflow: true, fit: 0.4});
+    shrinkScreen.classList.toggle('editor-caption-overflow-shrink', false);
+    assert.equal(fitCaption(host).fit, 1);
+    assert.equal(caption.scale, 1);
+  } finally {delete globalThis.getComputedStyle;}
 });

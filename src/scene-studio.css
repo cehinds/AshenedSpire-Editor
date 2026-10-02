@@ -79,3 +79,13 @@
 .studio-sequence-delay{position:absolute;top:3px;bottom:3px;width:7px;margin-left:-3px;cursor:ew-resize;z-index:3;touch-action:none}.studio-sequence-delay::after{content:'';position:absolute;left:2px;top:2px;bottom:2px;width:3px;border-radius:1px;background:#b9a6ec;opacity:.5}.studio-sequence-delay:hover::after,.studio-sequence-delay:focus-visible::after{opacity:1}.studio-sequence-delay[aria-disabled=true]{pointer-events:none}
 .scene-studio .studio-caption-flag{position:absolute;transform:translateY(-100%);margin-top:-2px;z-index:3;pointer-events:auto;font-size:9px;line-height:1.4;padding:1px 6px;background:#2a2418ee;color:#e0c086;border:1px solid #6a5a3a;white-space:nowrap}
 .scene-studio .studio-caption-flag.overflow{background:#3a1d17ee;color:#f1b19f;border-color:#8a3f2f}
+
+/* Phone: the scene rail becomes a horizontal thumbnail strip above the canvas so composition gets the full width. */
+@media(max-width:650px){
+.scene-studio.studio-layout,.scene-studio.studio-layout.inspector-undocked{grid-template-columns:minmax(0,1fr);grid-template-rows:55px auto minmax(0,1fr)}
+.studio-layout .studio-scenes{border-right:0;border-bottom:1px solid var(--line);padding:0 6px 4px;max-height:132px}
+.studio-layout .studio-scenes>input{display:none}
+.studio-layout .studio-scene-list{flex-direction:row;overflow-x:auto;overflow-y:hidden;gap:4px;padding-bottom:2px}
+.studio-layout .studio-scene-item{width:92px;min-height:0;padding:4px;flex:none}
+.studio-layout .studio-scene-actions{display:none}
+}

@@ -1,0 +1,73 @@
+/* Shell polish: one compact header row, tighter inspector controls and consistent spacing.
+   Loaded last so it refines the earlier workspace rules without changing their structure. */
+
+/* Header: brand, menus, identity and actions share one row in every workspace. */
+.editor-header{flex-direction:row;align-items:stretch}
+.editor-header .project-bar{flex:1;min-width:0;min-height:40px;gap:14px;padding:0 12px}
+.editor-header .brand{font-size:14px;margin-right:2px}
+.editor-header .editor-menu{position:static;background:none;border:0;padding:0;min-height:0}
+.editor-header .editor-menu-triggers{height:40px}
+.editor-header .editor-menu-triggers>button{min-width:0;padding:5px 9px;font-size:11px;border-radius:3px;color:var(--muted)}
+.editor-header .editor-menu-triggers>button:hover,.editor-header .editor-menu-triggers>button[aria-expanded=true]{color:var(--gold)}
+.editor-header .source-identity{padding-left:14px;border-left:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;min-width:0}
+.editor-header .source-identity span{margin:0 8px}
+.editor-header .header-actions{gap:6px;align-items:center}
+.editor-header .header-actions button{padding:6px 11px;font-size:11px}
+.editor-header .header-actions kbd{margin-left:6px;font-size:9px;padding:1px 4px;border:1px solid var(--line);border-radius:3px;color:var(--muted);background:var(--bg)}
+.app-shell:has(>.editor-header){grid-template-rows:41px minmax(0,1fr) 25px}
+@media(max-width:1050px){.app-shell .library-panel.mobile-open{top:41px}}
+
+/* Scene studio previously overlaid the menu absolutely; it now flows like every workspace. */
+.scene-studio-active .editor-menu{position:static;left:auto;top:auto}
+.scene-studio-active .brand{margin-right:2px}
+.app-shell.scene-studio-active:has(>.editor-header){grid-template-rows:39px minmax(0,1fr) 23px}
+.scene-studio-active .editor-header .project-bar,.scene-studio-active .editor-header .editor-menu-triggers{min-height:38px;height:38px}
+
+@media(max-width:780px){
+ .app-shell:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) 31px}
+ .editor-header .project-bar{flex-wrap:wrap;gap:0 8px;padding:0 8px;min-height:0}
+ .editor-header .brand{min-height:40px}
+ .editor-header .editor-menu{order:3;flex:1 0 100%;border-top:1px solid var(--line);margin:0 -8px;padding:0 4px}
+ .editor-header .editor-menu-triggers{height:32px}
+ .editor-header .editor-menu-triggers>button{min-height:28px;padding:4px 8px}
+ .editor-header .header-actions{min-height:40px}
+ .app-shell .library-panel.mobile-open,.app-shell .inspector-panel.mobile-open{top:73px}
+ .app-shell.scene-studio-active:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) 23px}
+ .scene-studio-active .editor-header .project-bar{height:auto}
+ .scene-studio-active .editor-header .editor-menu-triggers{height:32px;min-height:32px}
+}
+
+/* Workspace navigation: clearer active state without a heavy boxed outline. */
+.workspace-nav button{border-radius:3px;border-left:2px solid transparent}
+.workspace-nav button:hover:not(.selected){color:var(--text);background:var(--panel);border-color:transparent}
+.workspace-nav button.selected{border-color:transparent;border-left-color:var(--gold);background:var(--raised)}
+@media(max-width:780px){.workspace-nav button.selected{border-left-color:transparent;border-bottom:2px solid var(--gold)}}
+
+/* Number controls: label, inline reset and unit on one row; range shown on hover. */
+.number-control{margin:14px 0}
+.number-control-head{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:6px}
+.number-control-head>label{flex:1;min-width:0}
+.number-control-head>.text-button{padding:0;font-size:10px}
+.number-control-head>span{font-size:10px}
+.number-control small.error{display:block;margin-top:5px}
+.number-row>button{height:28px;font-size:14px;line-height:1}
+
+/* Card and tag native previews: status and hint share one quiet line. */
+.game-card-preview{display:flex;flex-direction:column;min-height:0}
+.game-card-preview .native-preview-status{padding:4px 0 0;font-size:11px}
+.game-card-preview-note{margin:2px 0 0;font-size:11px;line-height:1.5;opacity:.85}
+
+/* Primary action rows that previously touched adjacent content. */
+.work-surface .button-row{margin-top:14px;margin-bottom:14px}
+.work-surface table+.button-row,.work-surface .table-scroll+.button-row{margin-top:16px}
+.work-surface .button-row+h3,.work-surface .button-row+h4,.work-surface button.primary+strong,.work-surface button.primary+h3{display:block;margin-top:18px}
+
+/* Status strip: quieter, one line. */
+.state-strip{font-size:10px;letter-spacing:.2px}
+
+/* Phones: search stays in Edit and Ctrl K so brand and primary actions share the first row. */
+@media(max-width:520px){
+ .app-shell .editor-header .header-actions button:has(kbd){display:none}
+ .editor-header .header-actions{margin-left:auto}
+ .editor-header .header-actions button{padding:6px 9px}
+}

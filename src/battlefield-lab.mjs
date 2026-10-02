@@ -1,7 +1,8 @@
 // Battlefield studio model. Every editable value maps to a native store:
 //  - p.ui (ui/scenes/w4a-combat.json) formation sizing/positioning — native UI document save
 //  - p.gameSettings.overrides gameConfig.presentation.* — native settings profile / defaults promotion
-//  - p.lab.stage — balance.ui.combatantStage tokens; preview + export only (no checkout adapter)
+//  - p.lab.stage — balance.ui.combatantStage tokens; preview, export, and the reviewed
+//    combatantStage source adapter (src/native-js-source.mjs) into src/content/balance.js
 // Device, encounter, class and guides are view choices kept outside authored records and undo.
 
 export const LAB_SCHEMA = 'ashenspire.battlefield-lab/2';

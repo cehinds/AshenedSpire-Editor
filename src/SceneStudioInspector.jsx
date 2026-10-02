@@ -118,6 +118,7 @@ export function SceneStudioInspector({ctx: {p, scene, update}, selection = 'scen
       {check('Fixed text-box height', 'captionFixedHeight')}
       {number('Text-box height', 'captionHeightVh', 1, 100, 1, 'vh')}
       {select('Vertical align', 'captionVerticalAlign', {auto: 'Native default', top: 'Top', middle: 'Middle', bottom: 'Bottom'})}
+      {select('Text overflow', 'captionOverflow', {scroll: 'Scroll', shrink: 'Shrink to fit', clip: 'Clip'})}
       {select('Position', 'textPosition', positions)}
       {select('Align', 'textAlign', {left: 'Left', center: 'Center', right: 'Right'})}
       <div className="si-pair">{number('Inset X', 'textInsetX', 0, 40, 1, '%')}{number('Inset Y', 'textInsetY', 0, 40, 1, '%')}</div>

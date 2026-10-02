@@ -28,17 +28,24 @@ import {publicFrameUrl as publicUrl} from './paths.js';
 import {sceneFramePayload} from './scene-playback.mjs';
 import {studioFrameDocument} from './scene-studio-frame.mjs';
 import {getActor, getStage, patchActor, patchStage, sceneArtUrl, reorderScene, addScene, sceneDuration, moveSequenceScene, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene} from './scene-studio-model.mjs';
-import {auditionSceneAudio, stopSceneAudio} from './scene-studio-audio.mjs';
+import {loadSceneAudio} from './scene-audio-browser.js';
+// The native audio engine (~0.5 MB) downloads after the studio is idle or on the first audition.
+let sceneAudio = null;
+const audioStopped = {state: 'stopped', message: 'Native audio stopped.'};
+let audioTicket = 0; // Stop while the engine is still downloading cancels that audition.
+const auditionSceneAudio = (...args) => {const ticket = ++audioTicket;return loadSceneAudio().then(controller => {sceneAudio = controller;return ticket === audioTicket ? controller.start(...args) : {...audioStopped};});};
+const stopSceneAudio = () => {audioTicket++;return sceneAudio ? sceneAudio.stop() : {...audioStopped};};
+const preloadSceneAudio = () => {const idle = globalThis.requestIdleCallback || (callback => setTimeout(callback, 1500));idle(() => loadSceneAudio().then(controller => {sceneAudio = controller;}, () => {}));};
 import {SceneStudioInspector} from './SceneStudioInspector.jsx';
 import {SceneDefaultsInspector} from './SceneDefaultsInspector.jsx';
 import {useMovablePanel} from './useMovablePanel.js';
-import runtime from './native/game-preview/runtime.js?raw';
-import nativeStyles from './native/game-preview/styles.css?raw';
+import {useNativeSources} from './native-sources.js';
 import {nativeAssetPaths} from './native/game-preview/assets.js';
 import './scene-studio.css';
 
 const WORKSPACES = [['cards','Cards'],['decks','Decks'],['tags','Tags / ERD'],['scenes','Scenes'],['battlefield','Battlefield'],['ui','UI settings'],['poses','Poses & effects'],['combat','Combat workshop'],['project','Project tools']];
-const assets = Object.entries(nativeAssetPaths).filter(([key])=>key.startsWith('assets/prologue/') || nativeStyles.includes(key));
+let assetCache=null;
+const prologueAssets = nativeStyles => assetCache ??= Object.entries(nativeAssetPaths).filter(([key])=>key.startsWith('assets/prologue/') || nativeStyles.includes(key));
 const number = n=>Math.round(n*100)/100;
 const clamp = (n,a,b)=>Math.min(b,Math.max(a,n));
 const stamp = n=>`${Math.floor(n/60).toString().padStart(2,'0')}:${(n%60).toFixed(2).padStart(5,'0')}`;
@@ -84,9 +91,10 @@ function WidthResize({label,value,onChange,min,max,initial,direction=1}){
 }
 
 function NativeStage({project,scene,dimensions,channel,frameRef,onMessage,timeRef,pendingRef}) {
+  const {runtime,styles:nativeStyles}=useNativeSources();
   const previousScene=useRef(scene.id);
   const payload = useMemo(()=>{const start=previousScene.current===scene.id?timeRef.current:pendingRef?.current?.time??1;previousScene.current=scene.id;return {...sceneFramePayload(project,scene.id,{},false),studio:{time:start}};},[project.scenes,project.gameSettings,scene.id,dimensions[0]]);
-  const result = useMemo(()=>{try{return {document:studioFrameDocument({runtime,styles:nativeStyles,assets:Object.fromEntries(assets.map(([key,path])=>[key,new URL(publicUrl(path),window.location.href).href])),payload,channel})};}catch(error){return {document:'',error:error.message};}},[payload,channel]);
+  const result = useMemo(()=>{try{return {document:studioFrameDocument({runtime,styles:nativeStyles,assets:Object.fromEntries(prologueAssets(nativeStyles).map(([key,path])=>[key,new URL(publicUrl(path),window.location.href).href])),payload,channel})};}catch(error){return {document:'',error:error.message};}},[payload,channel]);
   useEffect(()=>{onMessage(result.error?{type:'error',message:result.error}:{type:'loading'});},[result,onMessage]);
   useEffect(()=>{const receive=event=>{if(event.source===frameRef.current?.contentWindow&&event.data?.channel===channel)onMessage(event.data);};window.addEventListener('message',receive);return()=>window.removeEventListener('message',receive);},[channel,onMessage]);
   return <iframe ref={frameRef} title={dimensions[0]>760?'Native scene canvas':'Native mobile scene preview'} sandbox="allow-scripts" srcDoc={result.document} width={dimensions[0]} height={dimensions[1]} tabIndex={-1}/>;
@@ -98,6 +106,7 @@ export function SceneStudio({ctx,saveDraft,exportCurrent,openNative,conflict,iss
   const [audioStatus,setAudioStatus]=useState('Native cues ready'),[audioError,setAudioError]=useState('');
   const stopAudio=()=>{setAudioStatus(stopSceneAudio().message);setAudioError('');};
   const auditionAudio=async()=>{setAudioError('');try{const result=await auditionSceneAudio(scene,p.gameSettings?.overrides||{});setAudioStatus(result.message);}catch(error){setAudioError(error.message);}};
+  useEffect(()=>{preloadSceneAudio();},[]);
   useEffect(()=>{setAudioStatus('Native cues ready');setAudioError('');return()=>{stopSceneAudio();};},[scene.id,scene.music,scene.stinger]);
   const [layout,setLayout]=useState(readStudioLayout);
   const {grid,snap,safe,phone,device,timelineHeight,railWidth,inspectorWidth,inspectorFloating,inspectorVisible,timelineScope}=layout;
@@ -217,6 +226,7 @@ export function SceneStudio({ctx,saveDraft,exportCurrent,openNative,conflict,iss
               {grid?<div className="studio-grid" aria-hidden="true">{Array.from({length:19},(_,i)=><i key={i} style={{left:(i+1)*5+'%'}}/>)}{Array.from({length:19},(_,i)=><b key={i} style={{top:(i+1)*5+'%'}}/>)}</div>:null}
               {safe?<div className="studio-safe-area"><span>Action safe · 90%</span></div>:null}
               {['actor','text'].map(id=>metrics[id]&&(id!=='actor'||scene.character)?<button key={id} className="studio-hit-area" title={id==='actor'?'Select traveller':'Select dialogue'} aria-label={id==='actor'?'Traveller on canvas':'Dialogue on canvas'} style={{left:metrics[id].x+'%',top:metrics[id].y+'%',width:metrics[id].width+'%',height:metrics[id].height+'%'}} onPointerDown={e=>{e.stopPropagation();changeSelection(id);if(id==='actor'||id==='text')startDrag(e,'move',id);}}/>:null)}
+              {metrics.text&&(metrics.caption?.overflow||metrics.caption?.fit<1)?<span className={'studio-caption-flag'+(metrics.caption.overflow?' overflow':'')} role="status" style={{left:metrics.text.x+'%',top:metrics.text.y+'%'}} title={metrics.caption.overflow?'Text is taller than the fixed text box. Choose Shrink to fit, raise the height or shorten the narration.':'Shrink to fit reduced this scene’s text size in the preview.'}>{metrics.caption.overflow?'Text overflows box':`Text shrunk to ${Math.round(metrics.caption.fit*100)}%`}</span>:null}
               {rect&&['actor','text','background'].includes(selection)?<div className={'studio-selection '+selection+' '+(locked?'locked':'')} style={{left:rect.x+'%',top:rect.y+'%',width:rect.width+'%',height:rect.height+'%'}} onPointerDown={e=>startDrag(e)}><span>{selection==='actor'?'Traveller':selection==='text'?'Dialogue':'Background'}{locked?' · locked':''}</span>{selection==='actor'&&!locked?['n'].map(corner=><button key={corner} aria-label={'Resize traveller '+corner} className={'studio-handle '+corner} onPointerDown={e=>startDrag(e,'resize')}/>):null}</div>:null}
             </div>
             <span className="studio-artboard-label">{dimensions[0]} × {dimensions[1]} · Native renderer</span>

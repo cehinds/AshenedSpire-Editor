@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene, moveSequenceScene} from '../src/scene-studio-model.mjs';
+import {clearStageOverrides, presentationDefault, presentationIsSet, resetPresentation, stageOverrides, sceneArtUrl, sceneArtOptions, getActor, patchActor, getStage, patchStage, patchPresentation, reorderScene, addScene, sortedScenes, sceneDuration, formatTime, sequenceTimeline, sequenceLength, locateSequenceTime, nextSequenceScene, moveSequenceScene} from '../src/scene-studio-model.mjs';
 import {parseCSV} from '../src/core.mjs';
 import {parseNativeDocument, serializeNativeDocument} from '../src/native-document.mjs';
 
@@ -250,4 +250,38 @@ test('sequence scene moves keep interleaved disabled slots in place', () => {
   assert.equal(moveSequenceScene(p, a.id, 1), true);
   assert.deepEqual(sortedScenes(sequence(p)).slice(0, 3).map(scene => scene.id), [b.id, disabled.id, a.id]);
   assert.equal(sortedScenes(sequence(p))[0].enabled !== false, true);
+});
+
+test('master overrides are listed per key, cleared back to inheritance and reset to native defaults', () => {
+  const p = project();
+  const seq = sequence(p);
+  const [first, second, third] = sortedScenes(seq);
+  const nightWash = seq.scenes.filter(scene => scene.ownStaging && Object.hasOwn(scene.stage || {}, 'wash')).map(scene => scene.id);
+  assert.deepEqual(stageOverrides(seq, 'wash').map(scene => scene.id), nightWash);
+  patchStage(p, first.id, {textScale: 1.4, lineHeight: 2});
+  patchStage(p, second.id, {textScale: 0.8});
+  Object.assign(third, {ownStaging: true, stage: {textScale: 'huge'}});
+  assert.deepEqual(stageOverrides(seq, 'textScale').map(scene => scene.id), [first.id, second.id]);
+  assert.equal(clearStageOverrides(p, ['textScale']), 3);
+  assert.deepEqual(stageOverrides(seq, 'textScale'), []);
+  assert.equal(first.ownStaging, true);
+  assert.deepEqual(first.stage, {lineHeight: 2});
+  assert.equal(second.ownStaging, false);
+  assert.deepEqual(second.stage, {});
+  assert.equal(clearStageOverrides(p, ['textScale']), 0);
+
+  assert.equal(presentationIsSet(seq, 'textScale'), false);
+  patchPresentation(p, {textScale: 1.3, captionOverflow: 'shrink'});
+  assert.equal(presentationIsSet(seq, 'textScale'), true);
+  assert.equal(getStage(seq).captionOverflow, 'shrink');
+  patchPresentation(p, {speed: presentationDefault('speed')});
+  assert.equal(presentationIsSet(seq, 'speed'), false);
+  assert.ok(resetPresentation(p, ['textScale', 'captionOverflow', 'notAKey']));
+  assert.equal(Object.hasOwn(seq.presentation, 'textScale'), false);
+  assert.equal(getStage(seq).textScale, presentationDefault('textScale'));
+  assert.equal(getStage(seq).captionOverflow, 'scroll');
+  assert.equal(resetPresentation(p, ['textScale']), false);
+  assert.equal(patchPresentation(p, {captionOverflow: 'explode'}), false);
+  // Native still reads every remaining presentation value after a reset.
+  assert.equal(config(p).presentation.textScale, presentationDefault('textScale'));
 });

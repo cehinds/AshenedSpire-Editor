@@ -80,6 +80,39 @@ export function patchPresentation(project, patch) {
   return true;
 }
 
+export const presentationDefault = key => presentationDefaults[key];
+
+// True when the master block stores its own value instead of the native default.
+export function presentationIsSet(sequence, key) {
+  return Object.hasOwn(sequence?.presentation || {}, key) && validRuleValue(presentationRules[key], sequence.presentation[key]) && sequence.presentation[key] !== presentationDefaults[key];
+}
+
+// Removing a stored master value restores the native default the renderer already ships.
+export function resetPresentation(project, keys) {
+  const presentation = sequenceOf(project)?.presentation;
+  const present = (keys || []).filter(key => presentation && Object.hasOwn(presentation, key));
+  for (const key of present) delete presentation[key];
+  return present.length > 0;
+}
+
+// Scenes whose effective value for key comes from their own staging rather than the master.
+export function stageOverrides(sequence, key) {
+  return sortedScenes(sequence).filter(scene => scene.ownStaging && Object.hasOwn(scene.stage || {}, key) && validStageValue(key, scene.stage[key]));
+}
+
+// Drops local values so the scenes inherit the master again. Native merges
+// presentation with stage for ownStaging scenes, so an emptied stage is
+// equivalent to ownStaging false.
+export function clearStageOverrides(project, keys) {
+  let cleared = 0;
+  for (const scene of sequenceOf(project)?.scenes || []) {
+    if (!scene.stage) continue;
+    for (const key of keys || []) if (Object.hasOwn(scene.stage, key)) {delete scene.stage[key];cleared++;}
+    if (scene.ownStaging && !Object.keys(scene.stage).length) scene.ownStaging = false;
+  }
+  return cleared;
+}
+
 export function getStage(sequence, scene) {
   const stage = {...presentationDefaults};
   for (const [key, value] of Object.entries(sequence?.presentation || {})) {
@@ -141,6 +174,7 @@ const stageRules = {
   "captionFixedHeight": {"type": "boolean"},
   "captionHeightVh": {"type": "number", "min": 1, "max": 100},
   "captionVerticalAlign": {"type": "choice", "choices": ["auto", "top", "middle", "bottom"]},
+  "captionOverflow": {"type": "choice", "choices": ["scroll", "shrink", "clip"]},
   "layout": {
     "type": "choice",
     "choices": [
@@ -448,6 +482,7 @@ const presentationDefaults = {
   "captionFixedHeight": false,
   "captionHeightVh": 18,
   "captionVerticalAlign": "auto",
+  "captionOverflow": "scroll",
   "transitionSeconds": 5,
   "speed": 1,
   "tintSource": "accent",

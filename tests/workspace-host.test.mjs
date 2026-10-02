@@ -99,7 +99,7 @@ test("local host clones, edits safely, builds, isolates artifacts, and persists 
     const sources = { "tester--fixture": source, "cehinds--ashenspire": native };
     app = await start(root, sources);
     const { api } = app;
-    assert.deepEqual(app.status.capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
+    assert.deepEqual(app.status.capabilities, ["repositories", "files", "builds", "branches", "local-import", "native-source"]);
     assert.equal((await api("/status")).response.headers.get("access-control-allow-origin"), null);
     const reboundStatus = await new Promise((resolve, reject) => {
       const req = request(`${app.origin}/api/workbench/status`, { headers: { Host: "evil.test" } }, response => { response.resume(); response.on("end", () => resolve(response.statusCode)); });
@@ -219,7 +219,7 @@ test("Vite plugin exposes same local middleware for dev and built preview", asyn
     const session = await bootstrap.json();
     const response = await fetch(`${origin}/api/workbench/status`, { headers: { Cookie: bootstrap.headers.get("set-cookie").split(";")[0] } });
     assert.equal(response.status, 200);
-    assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import"]);
+    assert.deepEqual((await response.json()).capabilities, ["repositories", "files", "builds", "branches", "local-import", "native-source"]);
   } finally {
     if (httpServer.listening) await new Promise(resolve => httpServer.close(resolve));
     await rm(temp, { recursive: true, force: true });

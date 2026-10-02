@@ -69,6 +69,8 @@ function NativeStage({ctx,view,device,restart,guides,interactive,maxHeight,onMet
  </div>;
 }
 
+// A committed key burst remounts the native frame and this overlay; keep keyboard focus on the nudged figure.
+let refocusActor=null;
 const scaleKey=actor=>actor.role==='player'?'playerSpriteScale':'enemySpriteScale';
 
 function StageOverlay({ctx,metrics,scale,interactive}){
@@ -116,11 +118,13 @@ function StageOverlay({ctx,metrics,scale,interactive}){
  }
  // Keyboard: arrows move the column (Shift ×10), +/- resize. Bursts commit as one edit after a pause.
  const pending=useRef(null);latest.current.flush=()=>{const p=pending.current;pending.current=null;setNudge(null);if(!p)return;
+  if(document.activeElement?.closest?.('.bf-actor-body'))refocusActor=p.actor.eid;
   const column=p.actor.formationRow==='back-row'?'back':'front',inward=p.actor.role==='player'?p.dx:-p.dx,writes=[];
   if(p.steps){const spec=presentationField(scaleKey(p.actor));writes.push([spec,clamp(round(presentationValue(overrides,spec)+p.steps*spec.step,spec.step),spec.min,spec.max)]);}
   if(p.dx||p.dy)for(const [axis,delta] of [['X',inward],['Y',p.dy]]){const spec=presentationField(column+'Offset'+axis);writes.push([spec,clamp(Math.round(presentationValue(overrides,spec)+delta),spec.min,spec.max)]);}
   ctx.update(n=>{n.gameSettings??=emptyGameSettings();for(const [spec,value] of writes)n.gameSettings.overrides[SETTING_PREFIX+spec.key]=value;},writes.map(([spec,value])=>`${spec.label} ${value}`).join(', '));};
  useEffect(()=>()=>{clearTimeout(pending.current?.timer);},[]);
+ useEffect(()=>{if(refocusActor==null)return;const target=[...document.querySelectorAll('.bf-actor-body')].find(button=>button.dataset.eid===String(refocusActor));if(target){refocusActor=null;target.focus();}},[metrics]);
  function key(event,actor){
   if(!interactive)return;
   const step=event.shiftKey?10:1,moves={ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]};
@@ -145,7 +149,7 @@ function StageOverlay({ctx,metrics,scale,interactive}){
    const style=box(actor.art,{transform:`translate(${dx}px,${dy-grow}px)`,height:Math.max(8,actor.art.height*scale+grow)});
    const label=`${actor.name}${actor.cell?' · '+actor.cell:''} · ${Math.round(actor.art.height)} px · ${pct(actor.art.height,field.height)}% of field`;
    return <div key={actor.eid} className={'bf-actor'+(selected===actor.eid?' selected':'')+(interactive?' interactive':'')} style={style}>
-    <button type="button" className="bf-actor-body" aria-label={`Select ${label}`} title={interactive?`${label}. Drag or use arrow keys to move its ${actor.formationRow==='back-row'?'back':'front'} column; drag the top handle or press + / − to resize.`:label} onClick={()=>battlefieldView.select(actor.eid)} onKeyDown={event=>key(event,actor)} onPointerDown={event=>begin(event,actor,'move')}/>
+    <button type="button" className="bf-actor-body" data-eid={actor.eid} aria-label={`Select ${label}`} title={interactive?`${label}. Drag or use arrow keys to move its ${actor.formationRow==='back-row'?'back':'front'} column; drag the top handle or press + / − to resize.`:label} onClick={()=>battlefieldView.select(actor.eid)} onKeyDown={event=>key(event,actor)} onPointerDown={event=>begin(event,actor,'move')}/>
     {interactive?<span className="bf-handle" role="presentation" title={`Drag to change ${actor.role} sprite scale`} onPointerDown={event=>begin(event,actor,'scale')}/>:null}
     <span className="bf-actor-label">{label}</span>
    </div>;
@@ -250,7 +254,7 @@ export function BattlefieldInspector({ctx}){
   </>;}
  }else if(section==='fit')body=<>{['Fit','Depth','Spacing'].map(group=><div key={group}><h3>{group}</h3>{FIT_FIELDS.filter(f=>f.group===group).map(f=>{const value=getPath(p.ui,f.path),source=getPath(baseline.ui,f.path);return <NumberControl key={f.path.join('.')} label={f.label} value={value} min={f.min} max={f.max} step={f.step} unit={f.unit} onChange={v=>edits.fit(f.path,v,`${f.label} set to ${v}`)} onReset={value!==source?()=>edits.resetFit(f.path):undefined}/>;})}</div>)}<small>Native file: ui/scenes/w4a-combat.json. Shared with UI settings.</small></>;
  else if(section==='rows'){const rows=measuredRows(p.lab,metrics),authored=Boolean(lab.rows);body=<>{ROW_FIELDS.map(f=><NumberControl key={f.key} label={f.label} value={rows[f.key]} min={f.min} max={f.max} step={1} unit="%" onChange={v=>{const next=shiftRows(rows,f.key,v);if(next!==rows)edits.rows(next);else ctx.tell(`${f.label} ${v}% leaves no valid split`);}}/>)}{authored?<button type="button" className="text-button" onClick={edits.resetRows}>Reset to native CSS rows</button>:null}<Notice tone="warning">The game's combat CSS fixes rows at {NATIVE_ROWS.tall.hud} / {NATIVE_ROWS.tall.field} / {NATIVE_ROWS.tall.hand}% ({NATIVE_ROWS.short.hud} / {NATIVE_ROWS.short.field} / {NATIVE_ROWS.short.hand}% below 700 px height) and overrides the UI band adapter. Authored rows are a preview and export proposal; no checkout adapter changes that CSS.</Notice><small>Drag the Battlefield / hand bar on the Layout canvas to change the split.</small></>;}
- else if(section==='stage')body=<>{STAGE_FIELDS.map(f=><NumberControl key={f.key} label={f.label} value={lab.stage[f.key]??STAGE_DEFAULTS[f.key]} min={f.min} max={f.max} step={f.step} unit={f.unit} onChange={v=>edits.stage(f.key,v)} onReset={f.key in lab.stage?()=>edits.resetStage(f.key):undefined}/>)}<Notice tone="warning">balance.ui.combatantStage has no checkout adapter. These tokens apply to previews and whole-project export only.</Notice></>;
+ else if(section==='stage')body=<>{STAGE_FIELDS.map(f=><NumberControl key={f.key} label={f.label} value={lab.stage[f.key]??STAGE_DEFAULTS[f.key]} min={f.min} max={f.max} step={f.step} unit={f.unit} onChange={v=>edits.stage(f.key,v)} onReset={f.key in lab.stage?()=>edits.resetStage(f.key):undefined}/>)}<Notice>Native store: balance.ui.combatantStage in src/content/balance.js. Overrides preview here and export with the project; <button type="button" className="text-button" onClick={()=>ctx.openNative?.()}>save to game…</button> reviews a literal-only change, verifies it by evaluating balance.js on the local host, then writes with a revision check. The game validator accepts center 25–75%, clearances 0–25 vh and intent gap 0–24 px.</Notice></>;
  else body=<>{SECTION_GROUPS[section].map(group=><div key={group}>{SECTION_GROUPS[section].length>1?<h3>{group}</h3>:null}{PRESENTATION_FIELDS.filter(f=>f.group===group).map(f=><PresentationControl key={f.key} ctx={ctx} field={f}/>)}</div>)}<small>Native settings: gameConfig.presentation.*. Saved in the Game settings profile; promote to checkout defaults from Project tools.</small></>;
  return <div className="bf-inspector">
   <div className="bf-inspector-head"><h2>Battlefield</h2><select aria-label="Battlefield inspector section" value={section} onChange={e=>setSection(e.target.value)}>{SECTIONS.map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></div>

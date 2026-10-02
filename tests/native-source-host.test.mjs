@@ -66,9 +66,15 @@ test('card adapter reviews, verifies by evaluation, and saves edited and new car
     {
         const cards = await evaluate(checkout, CARDS, 'rogueCards');
         const edited = {...JSON.parse(JSON.stringify(cards.find(card => card.id === 'quickCut'))), name: 'Quick Cut, "edited"', cost: 1};
+        const same = JSON.parse(JSON.stringify(cards.find(card => card.id === 'quickCut')));
+        const noop = await api(`/repos/${id}/native-source/review`, 'POST', {adapter: 'card', path: CARDS, card: same, mode: 'replace'});
+        assert.equal(noop.status, 200, noop.body.error);
+        assert.equal(noop.body.unchanged, true, 'Unedited card reports no semantic change');
+        assert.equal((await api(`/repos/${id}/native-source/save`, 'POST', {adapter: 'card', path: CARDS, card: same, mode: 'replace', revision: noop.body.revision, expected: noop.body.expected})).status, 422, 'Formatting-only save refused');
         const review = await api(`/repos/${id}/native-source/review`, 'POST', {adapter: 'card', path: CARDS, card: edited, mode: 'replace'});
         assert.equal(review.status, 200, review.body.error);
         assert.equal(review.body.verified, true);
+        assert.equal(review.body.unchanged, false);
         assert.equal(review.body.exportName, 'rogueCards');
         assert.match(review.body.diff, /\+ +name: 'Quick Cut, "edited"'/);
         assert.equal(review.body.before, original);

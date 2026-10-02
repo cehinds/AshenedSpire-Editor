@@ -698,7 +698,9 @@ export function createWorkspaceHost({ root = process.cwd(), defaults = DEFAULTS,
           const evaluated = await evaluateNativeSource(dirname, filename, plan.content, plan.exportName);
           const problems = verifyNativeSource(adapter, { ...options, mode: plan.mode, exportName: plan.exportName }, evaluated);
           if (problems.length) fail(422, `Native verification rejected the change; nothing was written. ${problems.slice(0, 6).join(" ")}`);
-          if (!save) return reply(res, 200, { path: relative, adapter, revision: current.revision, before: current.content, after: plan.content, expected: sha256(plan.content), exportName: plan.exportName, mode: plan.mode, diff: changedRegion(current.content, plan.content), verified: true });
+          const unchanged = plan.mode === "replace" && JSON.stringify(evaluated.before) === JSON.stringify(evaluated.after);
+          if (save && unchanged) fail(422, "Draft matches the checkout's evaluated value; nothing to save.");
+          if (!save) return reply(res, 200, { path: relative, adapter, revision: current.revision, before: current.content, after: plan.content, expected: sha256(plan.content), exportName: plan.exportName, mode: plan.mode, diff: changedRegion(current.content, plan.content), unchanged, verified: true });
           await writeRevisionChecked(filename, plan.content, current.revision);
           return reply(res, 200, { path: relative, adapter, exportName: plan.exportName, mode: plan.mode, verified: true, ...await readText(filename) });
         } finally { if (save) saving.delete(key); }

@@ -98,10 +98,10 @@ export function NativeSourcePanel({ctx, adapter, repoId, request, busy, action, 
         </>}
         <div className="button-row">
             <button disabled={busy || !repoId || (adapter === 'card' ? !file : !Object.keys(stage).length || stageProblems.length > 0)} onClick={() => action(prepare)}>Review {adapter === 'card' ? (mode === 'append' ? 'card addition' : 'card change') : 'stage change'}</button>
-            {review ? <button className="primary" disabled={busy || stale || review.before === review.after} onClick={() => action(save)}>{adapter === 'card' ? verb : 'Save stage tokens to game'}</button> : null}
+            {review ? <button className="primary" disabled={busy || stale || review.unchanged || review.before === review.after} onClick={() => action(save)}>{adapter === 'card' ? verb : 'Save stage tokens to game'}</button> : null}
         </div>
         {review ? <>
-            <p role="status">{stale ? 'Draft changed since review. Review again.' : `Verified: the host evaluated the result in an isolated Node process and it matches this draft (${review.exportName}). Revision ${review.revision.slice(0, 12)}.`}</p>
+            <p role="status">{stale ? 'Draft changed since review. Review again.' : review.unchanged ? 'No change: the draft already matches the checkout value. Only source formatting would differ, so saving is disabled.' : `Verified: the host evaluated the result in an isolated Node process and it matches this draft (${review.exportName}). Revision ${review.revision.slice(0, 12)}.`}</p>
             <pre className="native-source-diff" aria-label="Reviewed source change">{review.diff || 'No change.'}</pre>
             <details><summary>Full before / after</summary><div className="native-bridge-diff"><label>Current checkout<textarea readOnly value={review.before}/></label><label>Proposed module<textarea readOnly value={review.after}/></label></div></details>
         </> : null}

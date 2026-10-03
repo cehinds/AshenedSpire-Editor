@@ -1,0 +1,13 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+import {build} from 'esbuild';
+import {ASSETS} from '../public/parts/footer-atelier/model.mjs';
+const root=fileURLToPath(new URL('../public/parts/footer-atelier/',import.meta.url));
+const sources=Object.fromEntries(await Promise.all(ASSETS.map(async id=>[id,'data:image/png;base64,'+(await readFile(path.join(root,'assets',id+'.png'))).toString('base64')])));
+const bundle=await build({entryPoints:[path.join(root,'app.mjs')],bundle:true,format:'esm',write:false,minify:true,target:'es2022'});
+let html=await readFile(path.join(root,'index.html'),'utf8');
+html=html.replace('<link rel="stylesheet" href="style.css">',`<style>${await readFile(path.join(root,'style.css'),'utf8')}</style>`);
+html=html.replace('<script type="module" src="app.mjs"></script>',()=>`<script>globalThis.FOOTER_ASSETS=${JSON.stringify(sources)}</script><script type="module">${bundle.outputFiles[0].text.replace(/<\/script/gi,'<\\/script')}</script>`);
+await writeFile(new URL('../public/footer-atelier.html',import.meta.url),html);
+console.log(`Built portable Footer Atelier (${Math.round(Buffer.byteLength(html)/1024/1024)} MiB), including all component artwork.`);

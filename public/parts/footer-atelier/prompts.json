@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "reference.png",
+  "components": [
+    {
+      "id": "plate",
+      "prompt": "Use case: stylized-concept. Create ONE modular game HUD component: a horizontal blank End Turn button plate, wide 3:1 proportions, front-facing orthographic. Match the reference's weathered blackened steel, antique brass hairline bevels and engraved concentric / angular detailing; dark charcoal inset face with subtle warm ember edge glints. Elegant restrained dark fantasy painted realism, not exaggerated baroque. A single broad uninterrupted dark centre reserved for editable text; NO text, numbers, symbols, gems or icons. Symmetric tapering clipped corners with small circular rivets. Entire object isolated on true transparent alpha, generous tiny clear margin, no scene, ground, board, checkerboard or cast shadow outside object. Fills width of image. Reference is style only; do not recreate orb."
+    },
+    {
+      "id": "draw",
+      "prompt": "Use case: stylized-concept. ONE isolated modular dark-fantasy Draw pile illustration for a footer HUD. Front-facing with slight depth: three neatly stacked tall rectangular playing cards in a compact low weathered blackened-steel cradle, antique brass thin bevels and engraving matching the supplied SP frame reference. Top card back is charcoal leather with a restrained embossed antique brass diamond sigil, visibly layered card edges. Painterly realistic tactile materials, quiet readable silhouette at small scale. No circle, no mana gems, no green orb. No lettering or numbers. No labels or button surrounding it. Object isolated on true transparent alpha, no background, no checkerboard, no floor, no external cast shadow. Entire compact stack centred with little empty margin."
+    },
+    {
+      "id": "spent-cards",
+      "prompt": "Use case: stylized-concept. ONE isolated modular dark-fantasy Discard and Exhaust pile illustration for a footer HUD. Small stack of three worn charcoal playing cards, slightly offset/fanned, in a low blackened steel cradle. Uppermost card has a faint extinguished ember/ash motif and an ash-grey corner, antique brass hairline bevel and etched border matching supplied SP frame reference. Tactile painterly realism, restrained weathering, clear silhouette at small HUD size. No lettering, numbers, labels, circle, gemstones, green orb or button backdrop. Entire compact object centred isolated on true transparent alpha, no background, checkerboard, floor, external shadow; little empty margin."
+    },
+    {
+      "id": "potions",
+      "prompt": "Use case: stylized-concept. ONE isolated modular dark-fantasy Potions footer illustration: three squat small apothecary flasks seated together in a shallow weathered blackened steel cradle with antique brass thin trim and subtle engraved corners matching reference SP harness. Red healing glass left, sapphire blue mana glass centre, muted amber glass right, dark metal stoppers. Front-facing orthographic with slight realistic depth. Hand-painted highly polished game UI asset with tactile metal and glass, restrained light from the liquids, compact readable silhouette. No text, labels, numbers, extra icons, gems, green orb, big ornate backdrop. Entire object isolated on true transparent alpha, no floor, background, checkerboard or external cast shadow. Little empty margin."
+    },
+    {
+      "id": "connector",
+      "prompt": "Use case: stylized-concept. ONE isolated modular horizontal short metal connector for assembling fantasy HUD components. A slim straight weathered blackened steel rail with two very thin antique brass inset lines, symmetric small round joint/rivet at each end. Understated engraving, tactile realistic painted finish matching reference's circular steel/brass SP frame. Wide 5:1 proportions, perfectly horizontal, orthographic front view. No text, icons, numbers, extra components, or gems. True transparent alpha outside object, no board, background, checkerboard, floor or external shadow. Single item fills width, centered."
+    }
+  ]
+}

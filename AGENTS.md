@@ -106,3 +106,7 @@ October 2, 2026: card definitions, tag assignments (`tagging.csv`), node effects
 ## Card component controls
 
 October 2, 2026: text stays upright automatically when its component rotates. Keep a per-component Follow rotation option. Component controls support group selection, lock/unlock, enable/disable, reversible removal/restoration and adding safe text/artwork presentation components. A locked or inactive member protects its entire linked group from accidental transforms and artwork drops. Preserve native definitions and exact restoration, undo/redo and whole-project export; extra presentation components do not change card mechanics or imply a checkout layout adapter.
+
+## Footer Atelier
+
+October 3, 2026: the user approved the modular illustrated combat footer and requested implementation in the Editor and game with a low-resolution variant. Keep artwork separate from game-bound text layers, including configurable font family, size, weight, style, alignment and position. Footer Atelier lives in UI settings and supports dragging, resizing, grid/edge/centre snapping and attached groups. Preserve original SP/mana components and generation provenance. JSON exports retain the version 1 ashenspire.footer contract; checkout saves are explicit, reviewed and revision-checked. Keep generated portable HTML derived from its source.

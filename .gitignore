@@ -12,3 +12,5 @@
 *.log
 .DS_Store
 Thumbs.db
+
+/public/footer-atelier.html

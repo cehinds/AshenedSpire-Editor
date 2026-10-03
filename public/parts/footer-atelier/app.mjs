@@ -1,9 +1,10 @@
+import {footerMessageTarget,footerMessageOrigin} from './bridge.mjs';
 import {ASSETS,NAMES,FONTS,BINDINGS,TEXT_DEFAULTS,textContent,clone,clamp,preset,validate,bounds,selectedIds,move,snap,attach,resize} from './model.mjs';
 const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),KEY='ashenedspire.footer-atelier.v1';
 let doc=preset(),selected='end-plate',mode='assembly',zoom=1,drag=null,guides=[],sheetHits=[],assets={},past=[],future=[],storageOK=true;
 const status=(message,error=false)=>{$('status').textContent=message;$('status').classList.toggle('error',error);};
 try{const saved=localStorage.getItem(KEY);if(saved)doc=validate(JSON.parse(saved));}catch{status('Saved draft could not be read. A fresh preset is open.',true);}
-function publish(){parent.postMessage({type:'footer-atelier:change',document:doc},location.origin==='null'?'*':location.origin);}
+function publish(){parent.postMessage({type:'footer-atelier:change',document:doc},footerMessageTarget(location));}
 function persist(){publish();try{localStorage.setItem(KEY,JSON.stringify(doc));storageOK=true;}catch{storageOK=false;status('Browser storage unavailable. Use Save layout to keep your work.',true);}}
 function remember(before){if(JSON.stringify(before)===JSON.stringify(doc))return;past.push(clone(before));if(past.length>80)past.shift();future=[];persist();}
 function update(fn,message='Draft saved locally'){const before=clone(doc);fn();try{doc=validate(doc);remember(before);if(storageOK)status(message);}catch(e){doc=before;status(e.message,true);}refresh();}
@@ -44,7 +45,7 @@ for(const [id,k] of [['canvas-w','width'],['canvas-h','height']])$(id).onchange=
 $('reset').onclick=()=>{update(()=>{doc=preset($('preset').value);selected='end-plate';},'Preset loaded. Undo restores your previous composition.');setMode('assembly');};
 function download(blob,name){const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Exported '+name);}
 $('export').onclick=()=>download(new Blob([JSON.stringify(doc,null,2)],{type:'application/json'}),'ashenspire-footer.json');
-window.addEventListener('message',event=>{if(event.source!==parent||event.origin!==location.origin)return;if(event.data?.type==='footer-atelier:export')$('export').click();if(event.data?.type==='footer-atelier:request')publish();if(event.data?.type==='footer-atelier:load'){try{const next=validate(event.data.document);update(()=>{doc=next;selected=doc.items[0]?.id;},'Loaded checkout layout into draft');setMode('assembly');}catch(error){status(error.message,true);}}});
+window.addEventListener('message',event=>{if(event.source!==parent||!footerMessageOrigin(event.origin,location))return;if(event.data?.type==='footer-atelier:export')$('export').click();if(event.data?.type==='footer-atelier:request')publish();if(event.data?.type==='footer-atelier:load'){try{const next=validate(event.data.document);update(()=>{doc=next;selected=doc.items[0]?.id;},'Loaded checkout layout into draft');setMode('assembly');}catch(error){status(error.message,true);}}});
 $('import').onclick=()=>$('file').click();$('file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2e6)throw Error('Layout exceeds the 2 MB limit.');const next=validate(JSON.parse(await file.text()));update(()=>{doc=next;selected=doc.items[0]?.id;},'Imported layout');setMode('assembly');}catch(error){status(error.message,true);}e.target.value='';};
 $('png').onclick=()=>{const out=document.createElement('canvas');out.width=canvas.width;out.height=canvas.height;render(out.getContext('2d'),true);out.toBlob(blob=>{if(blob)download(blob,mode==='components'?'footer-components.png':'footer-assembled.png');else status('PNG export failed.',true);},'image/png');};
 new ResizeObserver(()=>{if(!drag)fit();}).observe($('viewport'));

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "newArtwork": "Built-in image_gen, 2026-10-03",
+  "resourceSource": {
+    "chat": "Replace action costs with stamina",
+    "threadId": "01a1026c-ade1-7982-af5b-d0263747e6a0",
+    "path": "D:/repos/.codex/worktrees/8bce/AshenSpire/docs/design/sp-orb-editor/components"
+  },
+  "components": [
+    {
+      "id": "connector",
+      "file": "assets/connector.png",
+      "sha256": "c448a5bf32cf20d7d147cf107d88029e3e0e0ba6d3ec72fc3993181f7431e760",
+      "bytes": 633466,
+      "source": "new footer artwork"
+    },
+    {
+      "id": "diamond",
+      "file": "assets/diamond.png",
+      "sha256": "36cda4cba048ed38b0c9cd88e6ec4ec9657336c2c5c4320577eb51caf1361e26",
+      "bytes": 810248,
+      "source": "reference SP Atelier"
+    },
+    {
+      "id": "draw",
+      "file": "assets/draw.png",
+      "sha256": "7e93451b1745b14269e0ded6f3583eff3976f7b0640e401297cc65e038a9c538",
+      "bytes": 1853180,
+      "source": "new footer artwork"
+    },
+    {
+      "id": "frame",
+      "file": "assets/frame.png",
+      "sha256": "af183ba06950abc425821e547e3baf29dc7ebd4bfecc867edd52fad0d17d12ab",
+      "bytes": 1574463,
+      "source": "reference SP Atelier"
+    },
+    {
+      "id": "orb",
+      "file": "assets/orb.png",
+      "sha256": "f31ac0a1985194c9aa76a4fda7a2b9a1c23f96f7958cb8e5af48e4af251fe991",
+      "bytes": 1710886,
+      "source": "reference SP Atelier"
+    },
+    {
+      "id": "plate",
+      "file": "assets/plate.png",
+      "sha256": "85486709f5db9417ccf6d8ca76882ea1f12fff6d86038d426bf24b6912c5eb94",
+      "bytes": 1943150,
+      "source": "new footer artwork"
+    },
+    {
+      "id": "potions",
+      "file": "assets/potions.png",
+      "sha256": "f34481fe4084e0b5f2e5f991908e16bcccfdcc94076af0aaa6416aa1eff20d0c",
+      "bytes": 2370747,
+      "source": "new footer artwork"
+    },
+    {
+      "id": "sigil",
+      "file": "assets/sigil.png",
+      "sha256": "3b925ecf7406691069271ad2fc719e1e6018ae28ce20ca1564d53daebe0ddc04",
+      "bytes": 963839,
+      "source": "reference SP Atelier"
+    },
+    {
+      "id": "spent-cards",
+      "file": "assets/spent-cards.png",
+      "sha256": "c2f15aa3236ba56ff55ffafbe1674a7395076a9737c7339abd19448593fafd4e",
+      "bytes": 1881374,
+      "source": "new footer artwork"
+    },
+    {
+      "id": "spent",
+      "file": "assets/spent.png",
+      "sha256": "400bfb4e342e198b27d84ee71781ca4990b52ed629e425f86e1f2c29f85f9b73",
+      "bytes": 786694,
+      "source": "reference SP Atelier"
+    }
+  ]
+}

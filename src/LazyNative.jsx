@@ -49,3 +49,5 @@ export const RepositoryWorkspace = deferred(() => import('./RepositoryWorkspace.
 export const GameSettings = deferred(() => import('./GameSettings.jsx'), 'GameSettings', 'game settings');
 export const NativeDocumentBridge = deferred(() => import('./NativeDocumentBridge.jsx'), 'NativeDocumentBridge', 'native document tools', {quiet: true});
 export const BookAtelier = deferred(() => import('./BookAtelier.jsx'), 'BookAtelier', 'Book Atelier');
+
+export const FooterAtelier = deferred(() => import('./FooterAtelier.jsx'), 'FooterAtelier', 'Footer Atelier');

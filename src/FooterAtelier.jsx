@@ -1,3 +1,4 @@
+import {footerMessageTarget,footerMessageOrigin} from '../public/parts/footer-atelier/bridge.mjs';
 import {useEffect, useRef, useState} from 'react';
 import {publicUrl} from './paths.js';
 import {useLocalHost} from './AuthGate.jsx';
@@ -15,11 +16,11 @@ export function FooterAtelier() {
  useEffect(()=>{token.current='';setRepos([]);setRepoId('');setReview(null);},[host?.connectionId,local]);
  useEffect(()=>{
   const receive=event=>{
-   if(event.source!==frame.current?.contentWindow||event.origin!==location.origin||event.data?.type!=='footer-atelier:change')return;
+   if(event.source!==frame.current?.contentWindow||!footerMessageOrigin(event.origin,location)||event.data?.type!=='footer-atelier:change')return;
    try{setDraft(validate(event.data.document));}catch(problem){setError(problem.message);}
   };
   window.addEventListener('message',receive);
-  frame.current?.contentWindow?.postMessage({type:'footer-atelier:request'},location.origin==='null'?'*':location.origin);
+  frame.current?.contentWindow?.postMessage({type:'footer-atelier:request'},footerMessageTarget(location));
   return ()=>window.removeEventListener('message',receive);
  },[]);
  async function action(fn){setError('');setBusy(true);try{await fn();}catch(problem){setError(problem.message);}finally{setBusy(false);}}
@@ -38,7 +39,7 @@ export function FooterAtelier() {
  const source=()=>request(`/repos/${encodeURIComponent(repoId)}/file?path=${encodeURIComponent(FOOTER_SOURCE)}`);
  async function load(){
   const next=readFooterSource((await source()).content);
-  frame.current?.contentWindow?.postMessage({type:'footer-atelier:load',document:next},location.origin==='null'?'*':location.origin);
+  frame.current?.contentWindow?.postMessage({type:'footer-atelier:load',document:next},footerMessageTarget(location));
   setReview(null);setMessage('Loaded checkout layout into the Footer Atelier draft.');
  }
  async function prepare(){

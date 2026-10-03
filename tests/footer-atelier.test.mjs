@@ -50,3 +50,12 @@ test('reviewed game source preserves wrapper settings and rejects unrelated JSON
  assert.deepEqual(readFooterSource(review.after),next);assert.throws(()=>readFooterSource(JSON.stringify(next)));
  assert.throws(()=>reviewFooterSource('{}',next));
 });
+
+import {footerMessageTarget,footerMessageOrigin} from '../public/parts/footer-atelier/bridge.mjs';
+test('downloaded file and opaque blob frames communicate without trusting foreign HTTP origins',()=>{
+ for(const location of [{protocol:'file:',origin:'file://'},{protocol:'file:',origin:'null'},{protocol:'blob:',origin:'null'}]){
+  assert.equal(footerMessageTarget(location),'*');assert.equal(footerMessageOrigin('null',location),true);assert.equal(footerMessageOrigin('https://foreign.test',location),false);
+ }
+ const location={protocol:'https:',origin:'https://editor.test'};
+ assert.equal(footerMessageTarget(location),'https://editor.test');assert.equal(footerMessageOrigin('https://editor.test',location),true);assert.equal(footerMessageOrigin('null',location),false);assert.equal(footerMessageOrigin('https://foreign.test',location),false);
+});

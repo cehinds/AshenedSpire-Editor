@@ -4,7 +4,7 @@ import {clone,reparent,inspectERD,suppliedRows,mapTagRows,toCSV,deckIssues,undo,
 import {Notice,NumberControl,TextField,JsonEditor,DataTable,Card,rulesText,download,loadImage,PoseImage} from './Controls.jsx';
 import {WireframeCreation} from './AuthoringCreate.jsx';
 import {publicUrl,publicHtml} from './paths.js';
-import {InGamePreview,ScenePreview,BattlefieldStudio,BattlefieldInspector,RepositoryWorkspace,GameSettings,BookAtelier} from './LazyNative.jsx';
+import {InGamePreview,ScenePreview,BattlefieldStudio,BattlefieldInspector,RepositoryWorkspace,GameSettings,BookAtelier,FooterAtelier} from './LazyNative.jsx';
 import {SceneInspector} from './SceneInspector.jsx';
 import './pose-controls.css';
 import {CardRatioInspector} from './CardRatioInspector.jsx';
@@ -41,7 +41,7 @@ function Scenes({ctx:c}){const {p,scene,mode,update}=c;const patch=(k,v)=>update
 function Battlefield({ctx}){return <BattlefieldStudio ctx={ctx}/>;}
 function uiProblems(q){if(!q||typeof q!=='object'||!q.sizing?.bands)return ['Native sizing.bands required'];const values=Object.values(q.sizing.bands);return values.some(v=>!Number.isFinite(v)||v<0)||Math.abs(values.reduce((a,b)=>a+b,0)-100)>.0001?['Nonnegative band values must sum to 100']:[];}
 function ConfigPreview({ui,device}){return <div className={'config-preview '+device.toLowerCase()}>{Object.entries(ui.sizing.bands).map(([name,size])=><div key={name} style={{height:size+'%'}}><span>{name}</span><strong>{size}%</strong></div>)}</div>;}
-function UI({ctx:c}){return <><WireframeCreation ctx={c}/><UILayout ctx={c}/></>;}
+function UI({ctx:c}){if(c.mode==='Footer Atelier')return <FooterAtelier/>;return <><WireframeCreation ctx={c}/><UILayout ctx={c}/></>;}
 function UILayout({ctx:c}){const {p,mode,update}=c;if(mode==='JSON')return <JsonEditor live={c.inspectorMode==='JSON'} showReset value={p.ui} validate={uiProblems} onApply={q=>update(n=>n.ui=q)}/>;return <div className="padded">{mode==='Compare'?<><div className="compare-grid">{['Desktop','Tablet','Phone'].map(d=><div key={d}><h3>{d}</h3><ConfigPreview ui={p.ui} device={d}/></div>)}</div><Notice>Geometry preview. Runtime layout modes, clamps and saved-build renderer require the UI Studio host.</Notice></>:<><h2>Combat layout bands</h2><p>Changing a band transfers slack to the scene band. Native fields and variables remain intact.</p><ConfigPreview ui={p.ui} device="Desktop"/><div className="form-grid">{Object.entries(p.ui.sizing.bands).filter(([k])=>k!=='scene').map(([k,v])=><NumberControl key={k} label={k+' band'} value={v} min={0} max={v+p.ui.sizing.bands.scene} unit="%" onChange={next=>update(n=>{n.ui.sizing.bands.scene-=next-v;n.ui.sizing.bands[k]=next;})}/>)}</div><Notice>Sum {Object.values(p.ui.sizing.bands).reduce((a,b)=>a+b,0)}%. Structural checks only; full config compiler not connected.</Notice></>}</div>;}
 function Poses({ctx:c}){const {p,mode,card,update,poseSelected,setPoseSelected,clipId,setClipId}=c;const [time,setTime]=useState(0),[playing,setPlaying]=useState(false),[loop,setLoop]=useState(true),[speed,setSpeed]=useState(1);const sampled=sample(p.pose,Math.min(time,p.pose.duration));const patch=fn=>update(n=>{fn(n.pose);const e=validatePose(n.pose);if(e.length)throw new Error(e[0]);},'Native presentation draft updated');
  const timeline=useRef(null),poseRail=useRef(null),[collapsedPoses,setCollapsedPoses]=useState(true);

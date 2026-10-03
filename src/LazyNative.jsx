@@ -48,3 +48,4 @@ export const BattlefieldInspector = deferred(() => import('./BattlefieldStudio.j
 export const RepositoryWorkspace = deferred(() => import('./RepositoryWorkspace.jsx'), 'RepositoryWorkspace', 'repository tools');
 export const GameSettings = deferred(() => import('./GameSettings.jsx'), 'GameSettings', 'game settings');
 export const NativeDocumentBridge = deferred(() => import('./NativeDocumentBridge.jsx'), 'NativeDocumentBridge', 'native document tools', {quiet: true});
+export const BookAtelier = deferred(() => import('./BookAtelier.jsx'), 'BookAtelier', 'Book Atelier');

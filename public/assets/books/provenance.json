@@ -1,0 +1,89 @@
+{
+  "generator": "OpenAI built-in image_gen",
+  "assets": [
+    {
+      "id": "classic",
+      "kind": "covers",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-cfcee540-2725-47ec-9ca1-183c67fc978b.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached original Shield Manual book sprite. Create a reusable blank book base at exactly the SAME angle, silhouette, framing, cover dimensions and painterly rendering quality. Remove only the central shield emblem and its shadow, replacing it with continuous richly scratched leather. Recolor ALL leather to neutral charcoal grey: front cover, thick curved left spine, lower back cover edge, and hanging bookmark ribbon. Keep ornate raised corner plates, rivets and spine bands warm antique GOLD, with strong bevels, engraved scratches and convincing shadows. Keep page block natural cream parchment. Gray leather MUST be neutral grayscale, without brown cast, so it can be recolored at runtime. Preserve the luxurious original ornate edge border, surface grain, scratches, lighting and depth. No central icon, no text. Genuine transparent background. A single complete blank book asset, not a sheet."
+    },
+    {
+      "id": "shield",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-ef31ca7b-0fa4-4f87-b315-be1a0c088e0f.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: a quartered heraldic heater shield, with engraved leaf patterns in its four panels, a thick raised beveled gold rim. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "blade",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-864800b4-c841-4557-8fe4-efb7798becee.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: one elegant broad longsword pointed upwards, an engraved crossguard, leather wrapped hilt and sharply beveled blade. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "focus",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-80614cbe-4e7a-4625-9387-9882edb84da5.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: a faceted crystal held upright inside an ornate circular focusing ring. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "paired",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-cbe1c278-b150-4fc8-ba75-8dc94a44d39f.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: two graceful crossed daggers with engraved guards. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "spell",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-ca7fba51-c7d3-4ed1-8d11-2ed87220ee51.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: an open spellbook with curling pages beneath a small flame-shaped magical crystal. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "universal",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-cbe0e452-900c-4714-a9ee-330a6ba161fe.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: an ornate eight-point compass rose around a small central jewel. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "reaver",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-5edda886-e6d4-4ef9-a5ef-0183bc847a14.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: a fierce single-headed battle axe with an engraved crescent blade. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "starseer",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-8509c01b-1707-459b-899d-ad6247a4293c.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: an eight-point star nested inside a crescent moon. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "rogue",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-9fc2ca9d-57e3-4cc2-9f87-6b7324221249.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: a hooded cowl and a downward pointing dagger, a single coherent heraldic badge. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "herald",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-979bb914-e37c-4786-8735-d8fb9f4c9554.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem: a radiant rising sun with a small upright sword through its center. The reference image is ONLY the material and illustration quality reference, not the composition. Isolate ONLY the emblem; no book backing, leather panel, background, labels or text. Front-facing orthographic, centered, occupy 85% of square canvas with margin. Richly painted antique gold metal relief, deep umber recessed engraving, bright golden beveled edges, subtle scratches and patina, strong dimensional thickness and a small attached contact shadow. Fine ornamental detail with bold silhouette readable at 48 pixels. Match the luxurious weathered metal craftsmanship of the reference book's shield. Not a flat pictogram, not a vector silhouette. Light from upper left. Transparent background."
+    },
+    {
+      "id": "scholar",
+      "kind": "covers",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-aae36c86-233d-4e39-855d-09fe6fc5525e.png",
+      "prompt": "Use case: precise-object-edit. Edit target is the attached blank book base. Create one variant as an ornate scholarly grimoire: replace the corner fittings with elaborate gold filigree plates, add delicate etched gold double borders and a small gold clasp on the right edge. Keep central cover clear. Critical: keep EXACT same camera angle, square framing, book placement, pageblock placement, outer silhouette and empty central cover area so separate symbols can be layered unchanged. Preserve painterly RPG inventory asset style, rich grain, tactile wear, gold bevels, highlights and depth. ALL leather must remain strictly neutral grayscale including spine, front, back cover and ribbon. Metal is antique warm gold; pages are cream parchment. No center icon, no lettering, no cast shadow outside object. Genuine transparent background. ONE complete book base."
+    },
+    {
+      "id": "field",
+      "kind": "covers",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-e28cd2a6-3885-457c-b6ee-758bf3eac173.png",
+      "prompt": "Use case: precise-object-edit. Edit target is the attached blank book base. Create one variant as a rugged field journal: replace ornate corner fittings with simple small brass protective corners and rivets, retain raised gold spine bands, use sturdy stitched leather edging and a shorter frayed bookmark. Keep central cover clear. Critical: keep EXACT same camera angle, square framing, book placement, pageblock placement, outer silhouette and empty central cover area so separate symbols can be layered unchanged. Preserve painterly RPG inventory asset style, rich grain, tactile wear, gold bevels, highlights and depth. ALL leather must remain strictly neutral grayscale including spine, front, back cover and ribbon. Metal is antique warm gold; pages are cream parchment. No center icon, no lettering, no cast shadow outside object. Genuine transparent background. ONE complete book base."
+    },
+    {
+      "id": "feat",
+      "kind": "symbols",
+      "source": "D:\\repos\\.codex\\generated_images\\01a0ff06-e5e2-7cd3-8aca-e49dc8ae6b5e\\exec-59b6643c-df81-4983-9a13-9bed6914119c.png",
+      "prompt": "Use case: stylized-concept. Create ONE separate transparent RPG book-cover emblem representing a learned FEAT: an ornate laurel wreath cradling a raised six-point diamond-shaped mastery star, with a small engraved ribbon knot at the base. Reference image is ONLY metal material and illustrated quality reference. Isolate ONLY the emblem, front-facing orthographic centered occupying 85% of square canvas. No book, panel, background, lettering or text. Richly painted antique gold relief, deep umber recessed engraving, bright beveled edges, scratched patina, dimensional thickness, tiny attached contact shadows, upper-left light. Strong readable silhouette at 48px. Match the original shield book's luxurious weathered craftsmanship; never a flat pictogram or vector silhouette. Genuine transparent background."
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 # AshenedSpire Editor Instructions
 
+## Book artwork direction
+
+October 3, 2026: Book Atelier belongs in Project tools. Preserve the approved rich painted book bindings and separate relief emblems, including a feat emblem. Tint the entire leather binding (front, spine, back and ribbon) while preserving brass and parchment. The user withdrew the proposed replacement colors: retain the original ten-recipe palette. Book artwork drafts participate in project persistence and undo; local game saves require explicit before/after review and revision checks. Art recipes do not change XP or learning rules.
+
 ## AshenSpire direction
 
 User expanded scope to GitHub repository integration, adding repositories, file hierarchy, and game builds. Project tools now owns Repositories / Files / Builds. Keep server-managed isolated checkouts separate from authoring snapshots. Repository text writes require explicit save and revision checks; builds use declared package scripts and show real job logs and artifacts. Existing host Git credentials stay outside browser input. Do not imply private repositories are connected before clone succeeds. Account UI is paused by the latest user correction; do not request editor or GitHub credentials. Existing host GitHub credentials stay outside the editor. No GitHub password or token is entered or stored by the editor frontend. Keep CI/Pages workflow support in the existing repository. Preserve dev → test → main promotion. User explicitly permits dividing work across as many agents as needed.

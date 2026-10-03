@@ -17,7 +17,7 @@ import {emptyGameSettings} from './game-settings.mjs';
 import {battlefieldDocument} from './battlefield-lab.mjs';
 import {validate as validatePose} from './native/model/presentationSequence.js';
 export const NAV=[['Content',[['cards','Cards'],['decks','Decks'],['tags','Tags / ERD']]],['Presentation',[['scenes','Scenes'],['battlefield','Battlefield'],['ui','UI settings'],['poses','Poses & effects']]],['Test',[['combat','Combat workshop']]],['Project',[['project','Project tools']]]];
-export const MODES={cards:['Visual','Table','Form','Layout','JSON','Prompt'],decks:['Collection','Validation'],tags:['Table','Tree','ERD 0.2.4','Import','CSV'],scenes:['Compose','Words & sound','JSON'],battlefield:['Layout','Sizing diagnostics','Compare','JSON'],ui:['Config','Compare','JSON'],poses:['Stage','Bindings','JSON'],combat:['Scenario','JSON'],project:['Overview','Repositories','Files','Builds','Game settings','Assets','Sources','History']};
+export const MODES={cards:['Visual','Table','Form','Layout','JSON','Prompt'],decks:['Collection','Validation'],tags:['Table','Tree','ERD 0.2.4','Import','CSV'],scenes:['Compose','Words & sound','JSON'],battlefield:['Layout','Sizing diagnostics','Compare','JSON'],ui:['Config','Compare','JSON'],poses:['Stage','Bindings','JSON'],combat:['Scenario','JSON'],project:['Overview','Repositories','Files','Builds','Game settings','Book Atelier','Assets','Sources','History']};
 for(const modes of Object.values(MODES))modes.splice(1,0,'In game');
 const canvasModes=workspace=>MODES[workspace].filter(mode=>!isInspectorEditingMode(workspace,mode));
 const inspectorModes=workspace=>MODES[workspace].filter(mode=>isInspectorEditingMode(workspace,mode));
@@ -27,7 +27,7 @@ function readInitial(){try{const p=JSON.parse(localStorage.getItem(KEY)||localSt
 export function App(){
  const localHost=useLocalHost();
  const [h,setH]=useState(()=>historyState(readInitial())),p=h.present;
- const [ws,setWs]=useState('cards'),[modes,setModes]=useState({}),mode=modes[ws]||canvasModes(ws)[0];
+ const [ws,setWs]=useState(()=>location.hash==='#book-atelier'?'project':'cards'),[modes,setModes]=useState(()=>location.hash==='#book-atelier'?{project:'Book Atelier'}:{}),mode=modes[ws]||canvasModes(ws)[0];
  const [inspectorChoices,setInspectorChoices]=useState({}),inspectorMode=inspectorChoices[ws]||'Selection';
  const [cardSection,setCardSection]=useState('identity');
  const [cardLayoutSelection,setCardLayoutSelection]=useState(['identity']),[cardLayoutView,setCardLayoutView]=useState({gridEnabled:true,gridSize:10,snapEnabled:true,rotationSnap:15}),[cardLayoutBoxes,setCardLayoutBoxes]=useState(null);

@@ -95,6 +95,10 @@ IDs are unique. Image paths must stay within the catalog folder; PNG, JPEG and W
 
 Additional standalone illustrations can be supplied in `card-art-library/variants.json` using the same version-1 cards schema and unique `variant:` IDs, with images in `variants/`. The optional catalog merges when the library is opened; alternate counts remain separate from canonical game-card coverage. It does not change game definitions or choose runtime card replacements.
 
+## Hosted preview and standalone HTML
+
+The complete Editor build remains one self-contained `dist/pages/index.html` artifact. Large hosted previews use lossless compressed chunks because the full illustrated library exceeds GitHub's per-file storage limit. The hosted loader verifies every chunk and the reconstructed HTML before opening the editor at the same URL. Download mode provides the exact original HTML bytes for standalone use; the compression changes delivery only, without reducing artwork quality or omitting the library. Existing small previews and immutable build identities remain unchanged.
+
 ## Artwork source archive
 
 Canonical PNG masters and receipts are delivered through the AshenSpire-art repository. The local authoring archive is `D:/repos/AshenedSpire-Editor/art/card-portraits-2026-10-05/masters`; alternate PNG masters are under `D:/repos/AshenedSpire-Editor/art/card-variants-2026-10-06/masters`. These large authoring files stay outside Editor public builds and this feature commit. Source receipts retain generation prompts, original output paths, dimensions and SHA-256 hashes. Optimized WebP copies are committed in `public/parts/card-assembler/card-art-library/`, and the game exporter validates them against receipts before publishing through the pinned art release.

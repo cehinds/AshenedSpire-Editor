@@ -146,3 +146,84 @@ test("dev → test pull requests build, verify and upload the test HTML candidat
   assert.doesNotMatch(pages, /pull_request/);
   assert.match(pages, /run: npm run build:pages\n\s+- run: npm run check:pages-html/);
 });
+
+// Large hosted builds retain the exact source artifact but avoid oversized Git blobs.
+import { randomBytes, createHash, webcrypto } from 'node:crypto';
+import vm from 'node:vm';
+import { decodeHostedHtml } from '../scripts/pages-delivery.mjs';
+
+async function largeFixture(t) {
+  const f=await fixture(t);
+  const original=Buffer.from(`<!doctype html><html lang="en"><body>Original editor · 🔥<script>window.originalEditor=true;</script><!--${randomBytes(4096).toString('hex')}--></body></html>`);
+  await writeFile(path.join(f.buildDirectory,'index.html'),original);
+  const identity={...f,branch:'dev',buildNumber:'20-1',commit,deliveryOptions:{thresholdBytes:128,chunkBytes:256}};
+  const history=await addPagesBuild(identity),destination=path.join(f.siteDirectory,'dev','20-1');
+  const manifest=JSON.parse(await readFile(path.join(destination,'editor-delivery.json'),'utf8'));
+  const readChunk=async file=>readFile(path.join(destination,file));
+  return {...f,original,identity,history,destination,manifest,readChunk};
+}
+
+test('large hosted HTML is lossless bounded transport while build artifact and original digest remain unchanged',async t=>{
+  const f=await largeFixture(t);
+  assert.ok(f.manifest.chunks.length>1);
+  assert.ok(f.manifest.chunks.every(c=>c.bytes<=256));
+  assert.deepEqual(Buffer.from(await decodeHostedHtml(f.manifest,f.readChunk)),f.original);
+  assert.deepEqual(await readFile(path.join(f.buildDirectory,'index.html')),f.original);
+  assert.equal(f.history.builds[0].delivery.originalSha256,createHash('sha256').update(f.original).digest('hex'));
+  const plain=await addPagesBuild({...f,branch:'test',buildNumber:'21-1',commit});
+  assert.equal(plain.builds[0].digest,plain.builds[1].digest,'transport never changes the original build digest');
+  assert.equal(plain.builds[1].delivery,undefined);
+  assert.deepEqual(await readFile(path.join(f.siteDirectory,'test','21-1','index.html')),f.original);
+  const loader=await readFile(path.join(f.destination,'index.html'),'utf8');
+  assert.match(loader,/Download single HTML/);assert.match(loader,/document\.open\(\);document\.write\(html\);document\.close\(\)/);
+});
+
+test('chunk corruption, truncation, wrong original content and escaped chunk names fail verification',async t=>{
+  const f=await largeFixture(t);
+  await assert.rejects(decodeHostedHtml(f.manifest,async file=>{const b=Buffer.from(await f.readChunk(file));b[0]^=1;return b;}),/verification failed/);
+  await assert.rejects(decodeHostedHtml(f.manifest,async file=>(await f.readChunk(file)).subarray(1)),/verification failed/);
+  await assert.rejects(decodeHostedHtml({...f.manifest,originalSha256:'0'.repeat(64)},f.readChunk),/content verification failed/);
+  await assert.rejects(decodeHostedHtml({...f.manifest,originalBytes:f.original.length-1},f.readChunk),/size exceeds/);
+  await assert.rejects(decodeHostedHtml({...f.manifest,chunks:[{...f.manifest.chunks[0],file:'../private.bin'}]},f.readChunk),/Invalid.*chunk/);
+});
+
+test('large build retries preserve immutable hosted chunks and reject changed source bytes',async t=>{
+  const f=await largeFixture(t),before=await readFile(path.join(f.destination,'index.html'));
+  await addPagesBuild({...f.identity,deliveryOptions:{thresholdBytes:1,chunkBytes:32}});
+  assert.deepEqual(await readFile(path.join(f.destination,'index.html')),before);
+  await writeFile(path.join(f.buildDirectory,'index.html'),Buffer.concat([f.original,Buffer.from('changed')]));
+  await assert.rejects(addPagesBuild(f.identity),/Immutable/);
+});
+
+async function loaderHarness(f,{download=false,corrupt=false}={}) {
+  const html=await readFile(path.join(f.destination,'index.html'),'utf8'),script=html.match(/<script>([\s\S]*)<\/script>/)[1];
+  const nodes=new Map(),state={href:'https://example.test/editor/dev/20-1/',written:null,blob:null};
+  const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,disabled:false,textContent:'',click(){this.onclick?.();}});return nodes.get(id);};
+  let done;const completed=new Promise(resolve=>done=resolve);
+  let errorHidden=false;Object.defineProperty(node('error'),'hidden',{get(){return errorHidden;},set(value){errorHidden=value;if(!value)done();}});
+  let scriptContext;const document={getElementById:node,open(){state.opened=true;state.transportReleased=vm.runInContext('original===null && pending===null && downloadUrl===null',scriptContext);},write(text){state.written=text;},close(){done();},createElement(){return {click(){done();}};}};
+  class BrowserURL extends URL {static createObjectURL(blob){state.blob=blob;return 'blob:verified-editor';}}
+  const context={document,location:{href:state.href},crypto:webcrypto,TextDecoder,Uint8Array,Blob,ReadableStream,DecompressionStream,URL:BrowserURL,AbortSignal,
+    fetch:async url=>({ok:true,arrayBuffer:async()=>{const b=Buffer.from(await f.readChunk(path.basename(url.pathname)));if(corrupt)b[0]^=1;return b;}})};
+  scriptContext=vm.createContext(context);vm.runInContext(script,scriptContext);
+  if(download)node('download').click();
+  let timer;try{await Promise.race([completed,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('loader timed out')),5000);})]);}finally{clearTimeout(timer);}
+  return {state,nodes};
+}
+
+test('hosted loader opens exact original HTML at the same URL and download returns those exact bytes',async t=>{
+  const f=await largeFixture(t),opened=await loaderHarness(f);
+  assert.equal(opened.state.written,f.original.toString('utf8'));
+  assert.equal(opened.state.transportReleased,true);
+  assert.equal(opened.state.href,'https://example.test/editor/dev/20-1/');
+  const saved=await loaderHarness(f,{download:true});
+  assert.equal(saved.state.written,null);
+  assert.deepEqual(Buffer.from(await saved.state.blob.arrayBuffer()),f.original);
+});
+
+test('hosted loader exposes a retryable error and never opens unverified content',async t=>{
+  const f=await largeFixture(t),result=await loaderHarness(f,{corrupt:true});
+  assert.equal(result.state.written,null);
+  assert.equal(result.nodes.get('retry').hidden,false);
+  assert.match(result.nodes.get('error').textContent,/verification failed/);
+});

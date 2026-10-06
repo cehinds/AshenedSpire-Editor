@@ -1,0 +1,13 @@
+{
+  "id": "emberCommunion",
+  "kind": "card",
+  "name": "Ember Communion",
+  "class": "herald",
+  "generator": "built-in image_gen",
+  "prompt": "Premium AshenSpire card illustration EMBER COMMUNION. Dark fantasy painted realism. A weathered bronze communal chalice resting between two armored gauntlets offered by a hooded chapel celebrant, tiny warm ember flame in the cup gives off golden healing motes and a delicate pale blue mana halo. Quiet ritual of sharing warmth, worn stone altar, destroyed gothic chapel arches and enormous ash-gray sky overhead. Subject and chalice low in composition, cup glowing at lower-center. No wounded people, no gore, no writing, no cardframe, no border, no UI. Fully painted 1024x1536 portrait with extra spacious detailed background above and sides for cropping. Rich weathered metals, cinematic soft smoke, strong readable card-sized focal object. This card restores mana and health; caring, restorative energy rather than attack.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-34d874d3-9ede-4ef0-9b06-2d411e6c0333.png",
+  "sourceMaster": "masters/card-emberCommunion.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "e5bc3c8f80865676d7212089cd6d53ee8c27216fba4a0dfce966da9ea3ed5464"
+}

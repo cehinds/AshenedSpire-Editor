@@ -1,0 +1,56 @@
+{
+  "subjectKey": "card:starlance",
+  "kind": "card",
+  "id": "starlance",
+  "name": "Starlance",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 9,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "hasStatus",
+          "of": "self",
+          "status": "starstoneCharge"
+        }
+      }
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 13,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: {damage.2} instead.",
+  "flavor": "Light forced through a starstone lens.\n\nDiscovered when the great lens scorched a line across the chart-room table. The Astronomer had the table kept as it was, and recorded that the line ran true to the south-west.\n\nThe line has lengthened since.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starlance (starlance, Starseer). PRIMARY VISUAL READ: A long narrow brilliant azure lance of magic projected forward by a robed scholar.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":9,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}}},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":13,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: {damage.2} instead.. Lore for setting/material context only, do not replace the ability with a story vignette: Light forced through a starstone lens.\n\nDiscovered when the great lens scorched a line across the chart-room table. The Astronomer had the table kept as it was, and recorded that the line ran true to the south-west.\n\nThe line has lengthened since.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-3c50988d-e144-4ef9-ab02-f294792d7730.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starlance.png",
+  "sha256": "66925ba45ef17ba627d7db6e212b13b7b32a5c36ddc6f7a11c4b31245a6b7e15",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:05:23.934Z"
+}

@@ -1,0 +1,43 @@
+{
+  "subjectKey": "card:guardCounter",
+  "kind": "card",
+  "id": "guardCounter",
+  "name": "Guard Counter",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 4,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "hasBlock",
+          "of": "self"
+        }
+      }
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 10,
+      "if": {
+        "p": "hasBlock",
+        "of": "self"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. If you have Block: deal {damage.2} instead.",
+  "flavor": "Riposte of the sworn Wardens.\n\nThe enemy commits; the Bastion answers, and its answer is always the greater. So the Wardens taught the drill, and so they told of the Spring Wars, in which they claimed never to have struck first.\n\nThe Northern Holds remember it otherwise.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Guard Counter (guardCounter, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":4,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"hasBlock\",\"of\":\"self\"}}},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":10,\"if\":{\"p\":\"hasBlock\",\"of\":\"self\"}}]. Rules: Deal {damage} damage. If you have Block: deal {damage.2} instead.. Canonical flavor: Riposte of the sworn Wardens.\n\nThe enemy commits; the Bastion answers, and its answer is always the greater. So the Wardens taught the drill, and so they told of the Spring Wars, in which they claimed never to have struck first.\n\nThe Northern Holds remember it otherwise.. Depict this specific action or idea, with distinct scene and camera composition. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Use the referenced picture ONLY as a guide to painting quality, texture and atmosphere, not its composition or generic knight. Match characters and props to this card, not an unrelated battlefield. Colors follow the specific magic/ability/lore, with restrained ember accents. Place the main action/focal objects in lower two thirds; top35% detailed atmospheric landscape/architecture/sky, no people, no faces, no floating weapons/focal objects, generous top and side background for interactive crop. No UI, no border, no frame, no letters, no labels, no text, no numbers. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b15195eb-29f9-468e-a56e-df12ae0352c3.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-guardCounter.png",
+  "sha256": "d9e8c82634381ac7314424f74a54937c06033381b2c9070a687f8c1eb5f4c6f5",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:37:53.916Z"
+}

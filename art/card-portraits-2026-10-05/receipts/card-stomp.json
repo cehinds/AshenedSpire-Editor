@@ -1,0 +1,32 @@
+{
+  "subjectKey": "card:stomp",
+  "kind": "card",
+  "id": "stomp",
+  "name": "Stomp",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 12
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 8
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage.",
+  "flavor": "Heel-strike of the Fell Courtyard.\n\nThe Wardens named it unworthy and used it all the same, for in the courtyard the fallen seldom stayed down. Sellswords held that the Wardens objected only to being seen at it.\n\nMany an old Bastion helm bears the dent of a heel.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Stomp (stomp, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":12},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":8}]. Rules: Deal {damage} damage and {poiseDamage} Poise damage.. Canonical flavor: Heel-strike of the Fell Courtyard.\n\nThe Wardens named it unworthy and used it all the same, for in the courtyard the fallen seldom stayed down. Sellswords held that the Wardens objected only to being seen at it.\n\nMany an old Bastion helm bears the dent of a heel.. Depict this specific action or idea in a distinct readable scene, prioritize relevant weapon, stance or ritual. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Reference image is only painting quality/texture/atmosphere guidance, do not copy its pose or generic knight if unrelated. Colors follow the specific ability/lore with restrained ember accents. Place action/focal subjects lower two thirds; top35% detailed atmospheric environment/architecture/sky, no people, faces or floating focal objects. Generous top and side background for reposition/crop. Full-bleed standalone painting with no frame, border, UI, letters, labels, numbers or text. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8a6d0a05-426a-4e16-acb2-41e8e8f62d64.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-stomp.png",
+  "sha256": "2965e0e04ac21dab9ae8937ea47c5b107f524728e3968e88716ce5aa811dd218",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:40:59.871Z"
+}

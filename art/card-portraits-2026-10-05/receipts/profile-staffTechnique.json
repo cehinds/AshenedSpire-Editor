@@ -1,0 +1,13 @@
+{
+  "id": "staffTechnique",
+  "kind": "profile",
+  "name": "Staff Channel",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Staff Channel (staffTechnique), equipment technique. Canonical action:  [{\"op\":\"block\",\"target\":\"self\",\"amount\":3},{\"op\":\"draw\",\"amount\":1}]. Lore/mood: Breath set behind the focus.\n\nCounted to the rhythm of the star tables, recited until the rhythm lived in the breath. The Starwatch taught the tables were only numbers; the apprentices held the rhythm older.\n\nOn the night of the eclipse, the Astronomer read the last table aloud, and did not stop at its end.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-5880dc8f-6fff-4001-9b55-ee2db4660853.png",
+  "sourceMaster": "masters/profile-staffTechnique.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "ef9a7fdddbb8b4c13d86d951d6ab8c261bac04e4719b7d5db7499721c80dd3c6"
+}

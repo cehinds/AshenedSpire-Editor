@@ -1,0 +1,37 @@
+{
+  "subjectKey": "card:dodgeRoll",
+  "kind": "card",
+  "id": "dodgeRoll",
+  "name": "Dodge Roll",
+  "class": "colorless",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 3
+    },
+    {
+      "op": "gainPoise",
+      "target": "self",
+      "amount": 3
+    },
+    {
+      "op": "gainWard",
+      "target": "self",
+      "amount": 3
+    }
+  ],
+  "textTemplate": "Gain {block} Block, {gainPoise} Poise and {gainWard} Ward. Light: 1 Stamina. Medium: 1 Stamina. Heavy: 2 Stamina.",
+  "flavor": "Tumble of the ship-breakers.\n\nLearned upon hulls that shift with every tide at the Grave of Ships. The hulls were already rotting at anchor when the trade stopped, and on the night of the Burning, every hold went warm at once.\n\nGull-Bet's gang opened the holds the following spring. She has not said what was inside.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Dodge Roll (dodgeRoll, colorless). Exact card effects to depict: [{\"op\":\"block\",\"target\":\"self\",\"amount\":3},{\"op\":\"gainPoise\",\"target\":\"self\",\"amount\":3},{\"op\":\"gainWard\",\"target\":\"self\",\"amount\":3}]. Rules meaning: Gain {block} Block, {gainPoise} Poise and {gainWard} Ward. Light: 1 Stamina. Medium: 1 Stamina. Heavy: 2 Stamina.. Canonical lore/context: Tumble of the ship-breakers.\n\nLearned upon hulls that shift with every tide at the Grave of Ships. The hulls were already rotting at anchor when the trade stopped, and on the night of the Burning, every hold went warm at once.\n\nGull-Bet's gang opened the holds the following spring. She has not said what was inside.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-591e07e6-e774-4947-a19c-deb8a2afe65c.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-dodgeRoll.png",
+  "sha256": "2ddc6ffc2611ca83b5be5ba0f905d42700cb9265bafb9e213e49c69c2ea85d5c",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.178Z"
+}

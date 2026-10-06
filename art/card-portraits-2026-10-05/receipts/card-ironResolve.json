@@ -1,0 +1,51 @@
+{
+  "subjectKey": "card:ironResolve",
+  "kind": "card",
+  "id": "ironResolve",
+  "name": "Iron Resolve",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 5,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "inStance",
+          "stance": "bulwark"
+        }
+      }
+    },
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 9,
+      "if": {
+        "p": "inStance",
+        "stance": "bulwark"
+      }
+    }
+  ],
+  "textTemplate": "Gain {block} Block. If in Bulwark Stance: gain {block.2} instead.",
+  "flavor": "Standing order of the Bastion.\n\nRead at the muster peal: a Warden holds until relieved, and relief comes by the bell. The bell-roll kept the names of all who held.\n\nAfter the Burning, the roll runs on for many pages, in a hand no scribe knew, bearing names no Warden ever enlisted.",
+  "keywords": [],
+  "master": {
+    "absolutePath": "D:/repos/AshenSpire/art/card-illustrations-2026-10-01/sources/iron-resolve.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "sha256": "ec311e6f9a6444d13b3cda33cff733d5109dc54cad6ab89c4ecae9d9aa3466ec",
+    "sourceRoot": "D:/repos/AshenSpire"
+  },
+  "prompt": "Create a single AshenSpire card illustration: Iron Resolve (ironResolve, reaver). Actual effect: [{\"op\":\"block\",\"target\":\"self\",\"amount\":5,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"inStance\",\"stance\":\"bulwark\"}}},{\"op\":\"block\",\"target\":\"self\",\"amount\":9,\"if\":{\"p\":\"inStance\",\"stance\":\"bulwark\"}}]. Rules: Gain {block} Block. If in Bulwark Stance: gain {block.2} instead.. Canonical flavor: Standing order of the Bastion.\n\nRead at the muster peal: a Warden holds until relieved, and relief comes by the bell. The bell-roll kept the names of all who held.\n\nAfter the Burning, the roll runs on for many pages, in a hand no scribe knew, bearing names no Warden ever enlisted.. Depict this specific action or idea, with distinct scene and camera composition. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Use the referenced picture ONLY as a guide to painting quality, texture and atmosphere, not its composition or generic knight. Match characters and props to this card, not an unrelated battlefield. Colors follow the specific magic/ability/lore, with restrained ember accents. Place the main action/focal objects in lower two thirds; top35% detailed atmospheric landscape/architecture/sky, no people, no faces, no floating weapons/focal objects, generous top and side background for interactive crop. No UI, no border, no frame, no letters, no labels, no text, no numbers. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-fd490020-35c6-4e82-a2a0-62ba2bbe870c.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-ironResolve.png",
+  "sha256": "6ac376b894d857089eb0c0d5a7809fb92ea29fb389ef96b3b7ec6ee5db800046",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:37:53.962Z"
+}

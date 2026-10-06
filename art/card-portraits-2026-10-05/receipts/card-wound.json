@@ -1,0 +1,13 @@
+{
+  "id": "wound",
+  "kind": "card",
+  "name": "Wound",
+  "class": "colorless",
+  "prompt": "Create a polished game card illustration for AshenSpire, portrait 1024x1536, painted weathered medieval dark fantasy material detail matching style reference only. PRIMARY VISUAL: A quiet recovery scene with a well-used empty suit of medieval armor beside neatly folded CLEAN linen bandages and a small closed healing salve jar on a stone bench. No person is present. A soft dawn beam symbolizes recovery after battle. No blood, injuries, anatomical details, surgical instruments, or violence. Maintain generous atmospheric background in upper35percent, main subject lower2/3, extra room around subjects for cropping. Ruined gothic environment, restrained dramatic light and ash. No text, letters, numbers, frame, UI or watermark. This is non-graphic, nonviolent symbolic artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-2a59fb9a-f206-4731-8586-71e0d267a44d.png",
+  "sourceMaster": "masters/card-wound.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "fce30c5aa6569dbd4141e858ee365f908db0250f48332c1bf6def12dfd530720"
+}

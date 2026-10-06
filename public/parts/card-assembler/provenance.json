@@ -1,0 +1,433 @@
+{
+  "schema": "ashenspire.card-assembler.provenance",
+  "version": 1,
+  "sourceKit": "D:/repos/.codex/visualizations/2026/10/01/01a0f976-c95b-7872-8f4f-46e22590c7da/card-layer-kit-2026-10-05",
+  "sourceCatalogSha256": "87d3b3723e7574d7edb483c30236513320dbc0985554667ee779285e63347f1e",
+  "note": "PNG component copies retain exact kit bytes. Layers are reconstructed from flattened visual references; game resource icons retain source provenance. No game runtime integration.",
+  "assets": [
+    {
+      "id": "as.card.frame.balanced.v1",
+      "source": "assets/frame/balanced.png",
+      "sha256": "c2753e18fa70e9df90ac6415ab22474597bdc621485a429f4d9253303487f931",
+      "construction": "imagegen reconstructed transparent perimeter",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-8458596a-0bec-422e-b8ab-7bf074a34fca.png",
+      "masterSha256": "9980934fe6a1c3b06a13dc1f68c5c57ff4a62f9461c3e7cf5473c3cfdc0e41a5"
+    },
+    {
+      "id": "as.card.frame.crested.v1",
+      "source": "assets/frame/crested.png",
+      "sha256": "ab620cf2c6a6eeaa9b0086e29bd01b626efff855d322be12a61ee9bb7a97f49b",
+      "construction": "imagegen reconstructed transparent perimeter",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-50d82f87-0b1a-458a-aec6-83575729def3.png",
+      "masterSha256": "dde294f5c3f614a9bd52d3a847d787c1d1ae6133f78cd616db3428588813f6bd"
+    },
+    {
+      "id": "as.card.frame.chamfered.v1",
+      "source": "assets/frame/chamfered.png",
+      "sha256": "9e95b031f63eb58b1941e63427b9ab7f514026b86e0f41ee660b990901ad36f9",
+      "construction": "imagegen reconstructed transparent perimeter",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-7faf79f2-a167-469c-b8cc-1c729fa76004.png",
+      "masterSha256": "0346872e42ffec2f580e00b091521b0afb3097c992687f971521c71bfaf7c624"
+    },
+    {
+      "id": "as.card.background.charcoal.v1",
+      "source": "assets/background/charcoal.png",
+      "sha256": "772520ca2cd10dfe587747b0c5809e0cac12ba36d6313b6de8ecaa3cbf460ef7",
+      "construction": "imagegen reconstructed clean material",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-e3a04ad0-2ae3-4c13-9574-21f31aca61b3.png",
+      "masterSha256": "7a65181eb20cad9ef96a52972cd247302a564ad3c451be7b8941c4665b327209"
+    },
+    {
+      "id": "as.card.background.slate.v1",
+      "source": "assets/background/slate.png",
+      "sha256": "ff9dc231ff37f3a51294fb8cfc01c6df773bf4b3a115887a7ce5b26ef958077e",
+      "construction": "imagegen reconstructed clean material",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-12a7d7c6-97bd-4611-a88d-be6591d5bc6e.png",
+      "masterSha256": "f1c06a0918eaa98ff289e34566c2080dfcf49a4f94298068abab6198de2df295"
+    },
+    {
+      "id": "as.card.background.cinder.v1",
+      "source": "assets/background/cinder.png",
+      "sha256": "84cbc998bb1b451eb9c4de171fc4d34957c1850cf83fb7655e7ba73e1fbaae76",
+      "construction": "imagegen reconstructed clean material",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-29a72227-7af1-4cec-b2ea-75da680e994f.png",
+      "masterSha256": "19385b02bc32a9792a7142429ba71ba76b38c7c4ff7eaa3bffb04c20599ecb00"
+    },
+    {
+      "id": "as.card.icon.action-emerald.v1",
+      "source": "assets/icon/action-emerald.png",
+      "sha256": "0a077e3c4b8b0cd0b00d69c83f1987413210ff9351f07cb381f56327e6d3cb71",
+      "construction": "unchanged current-game resource",
+      "originalSource": "D:\\repos\\.codex\\visualizations\\2026\\10\\01\\01a0f976-c95b-7872-8f4f-46e22590c7da\\card-hybrids-2026-10-05\\references\\action-emerald.webp",
+      "masterSha256": "a7534f34dedacd7b5f446124720b45aed25848ac4554423ccaed417ccd0daf74"
+    },
+    {
+      "id": "as.card.icon.mana-blue.v1",
+      "source": "assets/icon/mana-blue.png",
+      "sha256": "7a0957881bf62930ef37bebbb9411b31b94c9b3371e69e0efc66362b285a1165",
+      "construction": "unchanged current-game resource",
+      "originalSource": "D:\\repos\\.codex\\visualizations\\2026\\10\\01\\01a0f976-c95b-7872-8f4f-46e22590c7da\\card-hybrids-2026-10-05\\references\\mana-diamond.webp",
+      "masterSha256": "77c208d441821333462ac407325920ac9995d0182c29bde427214a635a2be200"
+    },
+    {
+      "id": "as.card.icon.action-diamond.v1",
+      "source": "assets/icon/action-diamond.png",
+      "sha256": "67e6a209e894dd153750c10945b8e8e246d7f1b771d7caad8631438c485607eb",
+      "construction": "unchanged current-game resource",
+      "originalSource": "D:\\repos\\.codex\\visualizations\\2026\\10\\01\\01a0f976-c95b-7872-8f4f-46e22590c7da\\card-hybrids-2026-10-05\\references\\action-diamond-alternate.webp",
+      "masterSha256": "bc7e1be418a2e4636f51a0ebbbcd689d7e6bd7908dfa65f475ecf0b4133c71b8"
+    },
+    {
+      "id": "as.card.artwork.hand-gorefire-slash.v1",
+      "source": "assets/artwork/hand-gorefire-slash.png",
+      "sha256": "4807aa1bb6b0a1d6f5c3adf096e0afae45a2c7965049fcae5a2e7ab7d655d4b0",
+      "construction": "unchanged reviewed ability painting",
+      "originalSource": "D:\\repos\\.codex\\worktrees\\04f4\\AshenSpire\\docs\\design\\board-fidelity-2026-10-04\\masters\\abilities\\hand-gorefire-slash.png",
+      "masterSha256": "41166c497c83486cdf300318dd6b3ac6e7baa73f92e42343e5d10dba7a4dc0cd"
+    },
+    {
+      "id": "as.card.artwork.hand-shield-defend.v1",
+      "source": "assets/artwork/hand-shield-defend.png",
+      "sha256": "3c07c3375fef60e906174c5cd1809eeecd7ea3f5994fdff442814bea28f37fc9",
+      "construction": "unchanged reviewed ability painting",
+      "originalSource": "D:\\repos\\.codex\\worktrees\\04f4\\AshenSpire\\docs\\design\\board-fidelity-2026-10-04\\masters\\abilities\\hand-shield-defend.png",
+      "masterSha256": "6fc6d935f307104d272df75b8cf483780eb0360f4298b7de8950812c02a71a5b"
+    },
+    {
+      "id": "as.card.artwork.draft-kindle.v1",
+      "source": "assets/artwork/draft-kindle.png",
+      "sha256": "7e758c3ad515b9a85c953b4f2160853b15fb669862ea8c8d9c2e4ad441c669dd",
+      "construction": "unchanged reviewed ability painting",
+      "originalSource": "D:\\repos\\.codex\\worktrees\\04f4\\AshenSpire\\docs\\design\\board-fidelity-2026-10-04\\masters\\abilities\\draft-kindle.png",
+      "masterSha256": "7c036b5c095444bab6c1472ca2deeecffaee7b93ff5719c2ab863e8a276ad3f1"
+    },
+    {
+      "id": "as.card.artwork.forge-guides-strike.v1",
+      "source": "assets/artwork/forge-guides-strike.png",
+      "sha256": "8cd5c78a1c24a07b392cdd35d6eb4ce2e713cfc974150fbf46b242c570cc60e4",
+      "construction": "unchanged reviewed ability painting",
+      "originalSource": "D:\\repos\\.codex\\worktrees\\04f4\\AshenSpire\\docs\\design\\board-fidelity-2026-10-04\\masters\\abilities\\forge-guides-strike.png",
+      "masterSha256": "d26aa3e2799aa942d2a9cf241f663edd863a27ec563111aae23e1892a122f62f"
+    },
+    {
+      "id": "as.card.frame.restrained.v1",
+      "source": "assets/frame/restrained.png",
+      "sha256": "c673cb0f5960885569a12658a8db64a1435ee40c146b4d73aa6ee3092ec64733",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.frame.forged.v1",
+      "source": "assets/frame/forged.png",
+      "sha256": "a5d76de61861a9a33ca26c18c0280d10b999740a1ecec1b08c4b30779b68e4ac",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.art-border.fine.v1",
+      "source": "assets/art-border/fine.png",
+      "sha256": "6f666278b75452cd42c625a4693be53a92052ca2452262b44d04de33ff64d362",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.art-border.bevel.v1",
+      "source": "assets/art-border/bevel.png",
+      "sha256": "a6cbb8f223e7f350b6ab0d934682365ae092dc2cf0fa82fba8994514b3d67a2b",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.art-border.rounded.v1",
+      "source": "assets/art-border/rounded.png",
+      "sha256": "ad2cf382448c739fdb47164a9fa08a70b0f04d015694940443eb913cc10a7c7d",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.header.plain.v1",
+      "source": "assets/header/plain.png",
+      "sha256": "7bfc09521d26dededd3493c27619a162c11acea9b2cace83cd12fc53ec754cfd",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.header.recessed.v1",
+      "source": "assets/header/recessed.png",
+      "sha256": "104e1d235f823d0274b255bc60cdf9718a36bc291ed8f1bbbc600c3bbbcf0499",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.header.beveled.v1",
+      "source": "assets/header/beveled.png",
+      "sha256": "3945eefe37a73afc1a1da1917f5cca9021fcd3a39a294584513236588cdf5dd5",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.header.arched.v1",
+      "source": "assets/header/arched.png",
+      "sha256": "7beb0019bc5fcbd275e435b1d27935cfc5f00fb5a2cba4e61ff96beb2b5fce34",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.type-strip.flat.v1",
+      "source": "assets/type-strip/flat.png",
+      "sha256": "335f872bff8d4df5130475b681f12b3d3645c1fa676a0d53029225595f0c6bc3",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.type-strip.bevel.v1",
+      "source": "assets/type-strip/bevel.png",
+      "sha256": "03490b89ecf690757e68c7c7790a7da716bebbbe0c5ad5ecd779bd5591cab335",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.type-strip.crest.v1",
+      "source": "assets/type-strip/crest.png",
+      "sha256": "063cee76dc661efd47da151d03c1cce8a8f27fb17970fc405d0901c0d7b3e1c6",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.type-strip.inset.v1",
+      "source": "assets/type-strip/inset.png",
+      "sha256": "b4c25285682b3977bf6f23521bda4fdfd715b6ddfa987f882b62b9338f2905e7",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.rules-panel.open.v1",
+      "source": "assets/rules-panel/open.png",
+      "sha256": "002a4df125dc0c56ec9b575f84e9548c6a9f76502c8e4f6f3dbdf7dc3035fc09",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.rules-panel.beveled.v1",
+      "source": "assets/rules-panel/beveled.png",
+      "sha256": "4e7e727732eb219860d4e9fa98cc5a2de8e3f9391c39ff4fb9cfc26e65a6c073",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.rules-panel.rounded.v1",
+      "source": "assets/rules-panel/rounded.png",
+      "sha256": "2728dd135758d52e354ff35c21dff1539b8c3f8b5171b88171cf7b316c047029",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.rules-panel.arched.v1",
+      "source": "assets/rules-panel/arched.png",
+      "sha256": "333c939f55f97d168c05f4d2508ce684355e496e3def47aa69580045047020c5",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.rules-panel.split.v1",
+      "source": "assets/rules-panel/split.png",
+      "sha256": "756a714235249600baab013c6ec856c149040469373873fbdae45fedf1ad605f",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.divider.line.v1",
+      "source": "assets/divider/line.png",
+      "sha256": "05afbfd6209d00a5beabba3caeb652dcd97773da26315eb4031e7b39bc614c83",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.divider.diamond.v1",
+      "source": "assets/divider/diamond.png",
+      "sha256": "6a980b1716bbc140db60fcc4c9cd4b11e368b1bcad276a3d56132467cab48cd2",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.divider.star.v1",
+      "source": "assets/divider/star.png",
+      "sha256": "d83bd86d26fa70a5112b00d7ad16a92860d05e4516ea4287d44ae0af0aa68f00",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.divider.short.v1",
+      "source": "assets/divider/short.png",
+      "sha256": "05afbfd6209d00a5beabba3caeb652dcd97773da26315eb4031e7b39bc614c83",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.divider.double.v1",
+      "source": "assets/divider/double.png",
+      "sha256": "3472dcaa70c8b12fb32e21b642544539911d37738973414e14fb7f7bd5d3affc",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.cost-mount.round-rim.v1",
+      "source": "assets/cost-mount/round-rim.png",
+      "sha256": "5eccb6ee3f22a33cbb7756bd64bf9a3fde04e7e6d36e859843cd6ded58d210a0",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.cost-mount.rail.v1",
+      "source": "assets/cost-mount/rail.png",
+      "sha256": "e6dc02f7ac44d56048c683a7b848049bce3d73ebb3d0be06f6321648a05d258a",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.cost-mount.pennant.v1",
+      "source": "assets/cost-mount/pennant.png",
+      "sha256": "560cab88db91352793f3e8063cace1f17316b23a38cd8ae568933d045e1d5570",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.cost-mount.crest.v1",
+      "source": "assets/cost-mount/crest.png",
+      "sha256": "ef362e7fcb1b2bf79f585c29fb7323f7bd6018fe620a6c44c23def5b887b2de9",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.cost-mount.pair.v1",
+      "source": "assets/cost-mount/pair.png",
+      "sha256": "e621d562b94778269b94395f4cb2b787f4c35337e1477eb760ab09333bc02128",
+      "construction": "native editable SVG",
+      "originalSource": null,
+      "masterSha256": null
+    },
+    {
+      "id": "as.card.full-art.frame.v1",
+      "source": "assets/full-art/frame.png",
+      "sha256": "1fe4ba7f330c67fca0a61c65eabdf40a18e1aab50145843bbb33ce5b3da31de9",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "base",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.knight-scene.v1",
+      "source": "assets/full-art/knight-scene.png",
+      "sha256": "44646e73c749cce0fd78b71ea0f38155c77faeb6791c22e74cb274230abc7b95",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "art",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.parchment.v1",
+      "source": "assets/full-art/parchment.png",
+      "sha256": "0949257201425783d7c83bde417ebd4657c9d53a8fea28a2ca1c4400a251041c",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "panel",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.pennant.v1",
+      "source": "assets/full-art/pennant.png",
+      "sha256": "95887e9c269a4996cf95a5c2df960461682ec6387d82b5875a84b43fefdad87b",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "flag",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.action-diamond.v1",
+      "source": "assets/full-art/action-diamond.png",
+      "sha256": "3b925ecf7406691069271ad2fc719e1e6018ae28ce20ca1564d53daebe0ddc04",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "energy-icon",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.mana-diamond.v1",
+      "source": "assets/full-art/mana-diamond.png",
+      "sha256": "36cda4cba048ed38b0c9cd88e6ec4ec9657336c2c5c4320577eb51caf1361e26",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "mana-icon",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.full-art.stamina-orb.v1",
+      "source": "assets/full-art/stamina-orb.png",
+      "sha256": "f31ac0a1985194c9aa76a4fda7a2b9a1c23f96f7958cb8e5af48e4af251fe991",
+      "originalSource": "D:/repo/assets/gorefire.json",
+      "sourceLayer": "stamina-icon",
+      "construction": "Exact original embedded PNG bytes; source crop retained as layout metadata"
+    },
+    {
+      "id": "as.card.artwork.extended-knight.v1",
+      "source": "assets/extended-art/knight.png",
+      "sha256": "ccf8423033787f313d98239b76e2e7fc53b6adc5bd95a03581214e94b429c47f",
+      "construction": "Built-in image_gen portrait background extension; original catalog image retained separately",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-9f55d56a-baf9-46e2-90d7-f886134b38b5.png",
+      "prompt": "Edit target: the attached artwork (black-armored knight with ember sword facing ruined gothic castle, sunset). Create a high quality EXTENDED PORTRAIT canvas version for a freely crop-able card artwork library. Outpaint more background ABOVE the existing scene, adding approximately 60 percent of the original height as NEW headroom, and modest extra background at the sides and below. Target portrait 2:3. Preserve the existing subject's pose, identity, costume, weapon, light, painted gritty detail and original scene relationships. Place the existing action in the LOWER TWO THIRDS of the taller image; the top third must be detailed atmospheric environment with NO new main subjects. This is a zoomed-out extended view, not a tight recomposition. Continue the same cloudy sky, smoke, architecture, terrain or magical atmosphere naturally with no seams, mirrored padding, blur-fill or blank areas. All parts of the main subject originally visible should remain visible. No text, frame, card border, interface, banners, symbols or parchment. Extra breathing room for moving artwork behind a title and cropping interactively. Opaque complete artwork."
+    },
+    {
+      "id": "as.card.artwork.extended-gorefire.v1",
+      "source": "assets/extended-art/gorefire.png",
+      "sha256": "3efdea2b5199d060988f766767910d6bc0fb2eff3dcc90f9671497d23dd5cc53",
+      "construction": "Built-in image_gen portrait background extension; original catalog image retained separately",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-79311692-4119-4a16-975a-c1653840bd45.png",
+      "prompt": "Edit target: the attached artwork (diagonal flaming sword slash amid dark volcanic rocks and embers). Create a high quality EXTENDED PORTRAIT canvas version for a freely crop-able card artwork library. Outpaint more background ABOVE the existing scene, adding approximately 60 percent of the original height as NEW headroom, and modest extra background at the sides and below. Target portrait 2:3. Preserve the existing subject's pose, identity, costume, weapon, light, painted gritty detail and original scene relationships. Place the existing action in the LOWER TWO THIRDS of the taller image; the top third must be detailed atmospheric environment with NO new main subjects. This is a zoomed-out extended view, not a tight recomposition. Continue the same cloudy sky, smoke, architecture, terrain or magical atmosphere naturally with no seams, mirrored padding, blur-fill or blank areas. All parts of the main subject originally visible should remain visible. No text, frame, card border, interface, banners, symbols or parchment. Extra breathing room for moving artwork behind a title and cropping interactively. Opaque complete artwork."
+    },
+    {
+      "id": "as.card.artwork.extended-shield.v1",
+      "source": "assets/extended-art/shield.png",
+      "sha256": "ecf8f2a705c6adbb9848837c9455670dd11944c7d6df853a4f2dceb90217fcc9",
+      "construction": "Built-in image_gen portrait background extension; original catalog image retained separately",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-e4acdbd5-8caa-4968-a43c-05c6bf7397a6.png",
+      "prompt": "Edit target: the attached artwork (weathered gold and iron shield with star insignia in cold blue mist). Create a high quality EXTENDED PORTRAIT canvas version for a freely crop-able card artwork library. Outpaint more background ABOVE the existing scene, adding approximately 60 percent of the original height as NEW headroom, and modest extra background at the sides and below. Target portrait 2:3. Preserve the existing subject's pose, identity, costume, weapon, light, painted gritty detail and original scene relationships. Place the existing action in the LOWER TWO THIRDS of the taller image; the top third must be detailed atmospheric environment with NO new main subjects. This is a zoomed-out extended view, not a tight recomposition. Continue the same cloudy sky, smoke, architecture, terrain or magical atmosphere naturally with no seams, mirrored padding, blur-fill or blank areas. All parts of the main subject originally visible should remain visible. No text, frame, card border, interface, banners, symbols or parchment. Extra breathing room for moving artwork behind a title and cropping interactively. Opaque complete artwork."
+    },
+    {
+      "id": "as.card.artwork.extended-kindle.v1",
+      "source": "assets/extended-art/kindle.png",
+      "sha256": "51de7e4d7c03a7e1df89e6a421dcc69800f8752ae630486112a4e647ec3bd446",
+      "construction": "Built-in image_gen portrait background extension; original catalog image retained separately",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-2a3a2d4f-4072-41fd-9025-20a88c723a75.png",
+      "prompt": "Edit target: the attached artwork (hooded ember mage cupping flame amid ruined gothic towers). Create a high quality EXTENDED PORTRAIT canvas version for a freely crop-able card artwork library. Outpaint more background ABOVE the existing scene, adding approximately 60 percent of the original height as NEW headroom, and modest extra background at the sides and below. Target portrait 2:3. Preserve the existing subject's pose, identity, costume, weapon, light, painted gritty detail and original scene relationships. Place the existing action in the LOWER TWO THIRDS of the taller image; the top third must be detailed atmospheric environment with NO new main subjects. This is a zoomed-out extended view, not a tight recomposition. Continue the same cloudy sky, smoke, architecture, terrain or magical atmosphere naturally with no seams, mirrored padding, blur-fill or blank areas. All parts of the main subject originally visible should remain visible. No text, frame, card border, interface, banners, symbols or parchment. Extra breathing room for moving artwork behind a title and cropping interactively. Opaque complete artwork."
+    },
+    {
+      "id": "as.card.artwork.extended-strike.v1",
+      "source": "assets/extended-art/strike.png",
+      "sha256": "82da34015c83346bfc5f1ad8eb3394a6a32da97ac701d297e69330b1b3ce9cee",
+      "construction": "Built-in image_gen portrait background extension; original catalog image retained separately",
+      "originalSource": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-aa7cadda-cea7-4c1e-9058-b4be144cbead.png",
+      "prompt": "Edit target: the attached artwork (hooded swordsman striking left in blue-white energy among ruined towers). Create a high quality EXTENDED PORTRAIT canvas version for a freely crop-able card artwork library. Outpaint more background ABOVE the existing scene, adding approximately 60 percent of the original height as NEW headroom, and modest extra background at the sides and below. Target portrait 2:3. Preserve the existing subject's pose, identity, costume, weapon, light, painted gritty detail and original scene relationships. Place the existing action in the LOWER TWO THIRDS of the taller image; the top third must be detailed atmospheric environment with NO new main subjects. This is a zoomed-out extended view, not a tight recomposition. Continue the same cloudy sky, smoke, architecture, terrain or magical atmosphere naturally with no seams, mirrored padding, blur-fill or blank areas. All parts of the main subject originally visible should remain visible. No text, frame, card border, interface, banners, symbols or parchment. Extra breathing room for moving artwork behind a title and cropping interactively. Opaque complete artwork."
+    }
+  ]
+}

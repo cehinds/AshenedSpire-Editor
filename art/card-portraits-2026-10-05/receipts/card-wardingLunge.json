@@ -1,0 +1,31 @@
+{
+  "subjectKey": "card:wardingLunge",
+  "kind": "card",
+  "id": "wardingLunge",
+  "name": "Warding Lunge",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 8
+    },
+    {
+      "op": "enterStance",
+      "stance": "gorefire"
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Enter Gorefire Stance.",
+  "flavor": "Guarded advance into the breaking stance.\n\nTaught as the moment to cease holding and begin taking ground. The Warden was to know that moment by the bell. When the Bellfoundry bell cracked, a new line was added beneath.\n\nKnow it by the smell of the courtyard.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Warding Lunge\" (wardingLunge, reaver). Actual ability to illustrate: [{\"op\":\"block\",\"target\":\"self\",\"amount\":8},{\"op\":\"enterStance\",\"stance\":\"gorefire\"}]. Rules meaning: Gain {block} Block. Enter Gorefire Stance.. Canonical inspiration: Guarded advance into the breaking stance.\n\nTaught as the moment to cease holding and begin taking ground. The Warden was to know that moment by the bell. When the Bellfoundry bell cracked, a new line was added beneath.\n\nKnow it by the smell of the courtyard.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-7ceeba9c-0536-4572-9b9c-4a57b61f0ce9.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-wardingLunge.png",
+  "sha256": "48afb8ca81942cfd97d3d89c41241d5a85b1124da3c5ff95b1b0c3655f428793",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:45:39.022Z"
+}

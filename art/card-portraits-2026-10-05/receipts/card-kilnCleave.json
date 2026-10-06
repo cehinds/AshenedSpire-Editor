@@ -1,0 +1,13 @@
+{
+  "id": "kilnCleave",
+  "kind": "card",
+  "name": "Kiln Cleave",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Kiln Cleave (kilnCleave), colorless attack. Canonical action: Deal {damage} damage. Apply {burn} Burn. Deal {poiseDamage} Poise damage. [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":10},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"burn\",\"stacks\":4},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":3}]. Lore/mood: Axe of the Dead Foundry.\n\nThe Foundry's fires went out with the Crown Flame, and its forges have been warm ever since, though none has lit them. Corran, a foundryman, broke this axe from a cold mould at dawn and carried it up the Basalt Stair.\n\nHe says no one poured it.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-daaeee52-048e-4691-a634-335eed135f68.png",
+  "sourceMaster": "masters/card-kilnCleave.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "fee01c426ecff3d3605c2fd03f0ec98fe9b3121f71631d60d4cc215ee9e9de52"
+}

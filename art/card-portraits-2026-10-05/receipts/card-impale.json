@@ -1,0 +1,38 @@
+{
+  "subjectKey": "card:impale",
+  "kind": "card",
+  "id": "impale",
+  "name": "Impale",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 9
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 6,
+      "if": {
+        "p": "hasStatus",
+        "of": "target",
+        "status": "staggered"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. If the target is Staggered: apply {bleed} Bleed.",
+  "flavor": "Pinning thrust of the weald hamlets.\n\nLearned in the first winter of the Blight, against what rose from the drowned hamlet and would not stay down. A pinned thing stops, the hamlets say. The Wardens would once have burned such things.\n\nBut the fire went into the Wardens that winter.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Impale\" (impale, reaver). Actual ability to illustrate: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":9},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"bleed\",\"stacks\":6,\"if\":{\"p\":\"hasStatus\",\"of\":\"target\",\"status\":\"staggered\"}}]. Rules meaning: Deal {damage} damage. If the target is Staggered: apply {bleed} Bleed.. Canonical inspiration: Pinning thrust of the weald hamlets.\n\nLearned in the first winter of the Blight, against what rose from the drowned hamlet and would not stay down. A pinned thing stops, the hamlets say. The Wardens would once have burned such things.\n\nBut the fire went into the Wardens that winter.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-45d7647c-eaf7-4ecb-9fb1-1ef05186a3ee.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-impale.png",
+  "sha256": "1270fea3d1d4a0b094c226ebba1b2f22c3e6724ca67f49dcb4be3bde9bd22962",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:47:07.355Z"
+}

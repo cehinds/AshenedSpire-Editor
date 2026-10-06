@@ -1,0 +1,11 @@
+{
+  "id": "emerald-ward",
+  "name": "Emerald Ward",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A hooded armored guardian seen three-quarter from behind braces one gauntlet against an immense translucent emerald magical barrier. Broken stones hover around its curving surface, green light illuminates weathered iron and torn cloak in a ruined gothic courtyard. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-7ebe7646-9acb-48d6-a52f-29f872d5f13a.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/emerald-ward.png",
+  "sha256": "9a2cd67c204940a4e15e31f85817e4ec6ee4c6d72dae0f23123f006d289de382",
+  "width": 1024,
+  "height": 1536
+}

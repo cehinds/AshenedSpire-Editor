@@ -1,0 +1,32 @@
+{
+  "subjectKey": "card:ruinousBlow",
+  "kind": "card",
+  "id": "ruinousBlow",
+  "name": "Ruinous Blow",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 20
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 12
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage.",
+  "flavor": "Whole-body blow of the Wardens.\n\nReserved for a gate where all else has failed, and called a Warden's last argument. What becomes of the Warden who makes it, the drill does not say.\n\nThe pages that follow are stained through.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Ruinous Blow, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":20},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":12}]. Context: Whole-body blow of the Wardens.\n\nReserved for a gate where all else has failed, and called a Warden's last argument. What becomes of the Warden who makes it, the drill does not say.\n\nThe pages that follow are stained through.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-3601d232-cb7f-4757-aae3-c4c2ccdc81a5.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-ruinousBlow.png",
+  "sha256": "849fb5877d23679cebdff023a64dc8a3740289b43f38cbda54240257be45b006",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:51:56.969Z"
+}

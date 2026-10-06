@@ -1,0 +1,32 @@
+{
+  "subjectKey": "card:cleavingBlow",
+  "kind": "card",
+  "id": "cleavingBlow",
+  "name": "Cleaving Blow",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 7
+    },
+    {
+      "op": "poiseDamage",
+      "target": "allEnemies",
+      "amount": 3
+    }
+  ],
+  "textTemplate": "Deal {damage} damage to ALL enemies. Deal {poiseDamage} Poise damage to ALL.",
+  "flavor": "Heavy sweep of the weald hamlets.\n\nLearned by watching the Wardens from beyond the walls, for no Warden would teach the unmarked. It is swung in the winters when blight-hounds come down out of the lanternwood in packs.\n\nThe Wardens called the weald their charge. The hamlets paid for that charge in spring grain.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Cleaving Blow (cleavingBlow, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":7},{\"op\":\"poiseDamage\",\"target\":\"allEnemies\",\"amount\":3}]. Rules: Deal {damage} damage to ALL enemies. Deal {poiseDamage} Poise damage to ALL.. Canonical flavor: Heavy sweep of the weald hamlets.\n\nLearned by watching the Wardens from beyond the walls, for no Warden would teach the unmarked. It is swung in the winters when blight-hounds come down out of the lanternwood in packs.\n\nThe Wardens called the weald their charge. The hamlets paid for that charge in spring grain.. Depict this specific action or idea in a distinct readable scene, prioritize relevant weapon, stance or ritual. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Reference image is only painting quality/texture/atmosphere guidance, do not copy its pose or generic knight if unrelated. Colors follow the specific ability/lore with restrained ember accents. Place action/focal subjects lower two thirds; top35% detailed atmospheric environment/architecture/sky, no people, faces or floating focal objects. Generous top and side background for reposition/crop. Full-bleed standalone painting with no frame, border, UI, letters, labels, numbers or text. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-3b14b0ac-2c36-4e7e-abc4-23fd1c299345.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-cleavingBlow.png",
+  "sha256": "c54529b7f159e7f90b3539dffbc3fc27c2d5c3992bf3c2dfbeafc1a9a9534522",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:40:59.856Z"
+}

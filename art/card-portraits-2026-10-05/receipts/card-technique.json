@@ -1,0 +1,31 @@
+{
+  "subjectKey": "card:technique",
+  "kind": "card",
+  "id": "technique",
+  "name": "Footwork",
+  "class": "colorless",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 3
+    },
+    {
+      "op": "draw",
+      "amount": 1
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Draw {draw} card.",
+  "flavor": "Steps cut into the road.\n\nToo even to be natural, too worn to be recent. The Forsaken credit them to the climbers before. They run past the farthest point any Forsaken is known to have reached, and some lead onto the viaducts, older than the kingdom.\n\nClimbers before you cut steps. Use them.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Footwork (technique, colorless). Exact card effects to depict: [{\"op\":\"block\",\"target\":\"self\",\"amount\":3},{\"op\":\"draw\",\"amount\":1}]. Rules meaning: Gain {block} Block. Draw {draw} card.. Canonical lore/context: Steps cut into the road.\n\nToo even to be natural, too worn to be recent. The Forsaken credit them to the climbers before. They run past the farthest point any Forsaken is known to have reached, and some lead onto the viaducts, older than the kingdom.\n\nClimbers before you cut steps. Use them.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-925a672c-48ef-42e2-8fd2-c445c9aebbb0.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-technique.png",
+  "sha256": "34c87aca8d38cdf0f9a99c2397cc6e719261ad306193b515ed38b83835543d6a",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.125Z"
+}

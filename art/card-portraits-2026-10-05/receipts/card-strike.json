@@ -1,0 +1,27 @@
+{
+  "subjectKey": "card:strike",
+  "kind": "card",
+  "id": "strike",
+  "name": "Strike",
+  "class": "colorless",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 6
+    }
+  ],
+  "textTemplate": "Deal {damage} damage.",
+  "flavor": "First cut of the hamlets.\n\nMade with whatever edge the hamlet owns. Marl's Hollow sends one climber each winter, chosen at the well, and the chosen spends the last evening at the whetting post learning this and nothing more.\n\nThe marked learned a thousand cuts. It did them no good.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Reused existing approved extended-background illustration.",
+  "originalPath": "D:/repos/AshenedSpire-Editor/public/parts/card-assembler/assets/extended-art/strike.png",
+  "generator": "existing approved built-in image_gen output",
+  "sourceMaster": "masters/card-strike.png",
+  "sha256": "82da34015c83346bfc5f1ad8eb3394a6a32da97ac701d297e69330b1b3ce9cee",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.273Z"
+}

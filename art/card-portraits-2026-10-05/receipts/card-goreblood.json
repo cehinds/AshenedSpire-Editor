@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:goreblood",
+  "kind": "card",
+  "id": "goreblood",
+  "name": "Goreblood",
+  "class": "reaver",
+  "type": "power",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "goreblood",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Poise thresholds no longer increase after filling.",
+  "flavor": "The Wardens' name for blood-madness.\n\nThe state in which a fighter has spilled enough of their own blood that fear no longer holds. In sworn men the Wardens called it virtue; in sellswords, vice. The two are described in the same words.\n\nIts only instruction: keep standing.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Goreblood\" (goreblood, reaver). Actual ability to illustrate: [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"goreblood\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules meaning: Poise thresholds no longer increase after filling.. Canonical inspiration: The Wardens' name for blood-madness.\n\nThe state in which a fighter has spilled enough of their own blood that fear no longer holds. In sworn men the Wardens called it virtue; in sellswords, vice. The two are described in the same words.\n\nIts only instruction: keep standing.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-987f934a-fcf7-4631-8df1-df93cb862175.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-goreblood.png",
+  "sha256": "a8affbf960706af345eef69047b0e7029d73db173b9981fe5cdfede2ab3ae379",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:48:32.184Z"
+}

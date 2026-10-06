@@ -1,0 +1,13 @@
+{
+  "id": "envenomCard",
+  "kind": "card",
+  "name": "Envenom",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Envenom (envenomCard), rogue power. Canonical action: Your attacks apply 1 Venom per stack. [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"envenom\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Lore/mood: Poison from a surgeon's second shelf.\n\nThe second shelf held what the first could not treat. Thieves who entered the surgeons' houses after the Burning found the second shelves full and the first bare.\n\nThe apprentices will not say which was emptied first.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-0bf14e03-74b9-4dd3-8d9e-353ced2efcc9.png",
+  "sourceMaster": "masters/card-envenomCard.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "5a9bcc5cf4e88a933aac907e05ab8a1173d72fbfbe6cef5b9218b395a4087891"
+}

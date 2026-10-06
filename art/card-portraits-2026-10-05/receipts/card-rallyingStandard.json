@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:rallyingStandard",
+  "kind": "card",
+  "id": "rallyingStandard",
+  "name": "Rallying Standard",
+  "class": "reaver",
+  "type": "power",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "rallyingStandard",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "At the start of your turn, gain 1 Strength and take 1 damage.",
+  "flavor": "Banner of the Bastion muster.\n\nRaised when the bell rang the line into place. The drill ends thus: raise the standard, sound the bell, log that the line held.\n\nThe final muster is logged as held, at dawn. The Bastion has seen no dawn since the Burning.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Rallying Standard (rallyingStandard, reaver). Actual effect: [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"rallyingStandard\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: At the start of your turn, gain 1 Strength and take 1 damage.. Canonical flavor: Banner of the Bastion muster.\n\nRaised when the bell rang the line into place. The drill ends thus: raise the standard, sound the bell, log that the line held.\n\nThe final muster is logged as held, at dawn. The Bastion has seen no dawn since the Burning.. Depict this specific action or idea in a distinct readable scene, prioritize relevant weapon, stance or ritual. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Reference image is only painting quality/texture/atmosphere guidance, do not copy its pose or generic knight if unrelated. Colors follow the specific ability/lore with restrained ember accents. Place action/focal subjects lower two thirds; top35% detailed atmospheric environment/architecture/sky, no people, faces or floating focal objects. Generous top and side background for reposition/crop. Full-bleed standalone painting with no frame, border, UI, letters, labels, numbers or text. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-230b11b3-a7ea-4a59-b689-f1c8165b72c5.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-rallyingStandard.png",
+  "sha256": "b1105902440767b0f323ad7975f779c8843f10c1132997e782b402deec397fd0",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:40:59.958Z"
+}

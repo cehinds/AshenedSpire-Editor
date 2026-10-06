@@ -1,0 +1,42 @@
+{
+  "subjectKey": "card:shieldwall",
+  "kind": "card",
+  "id": "shieldwall",
+  "name": "Shieldwall",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 12
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "bulwarkEcho",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      },
+      "if": {
+        "p": "inStance",
+        "stance": "bulwark"
+      }
+    }
+  ],
+  "textTemplate": "Gain {block} Block. If in Bulwark Stance: gain 4 Block next turn.",
+  "flavor": "Formation of the Bastion's shield line.\n\nRim locked to rim across the Fell Courtyard. The Wardens credited it with holding the gate through three hungry winters of the Spring Wars, when Hold petitioners camped below the walls.\n\nThe field-book enters the price of spring in the same column as the petitioners turned away.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Shieldwall\" (shieldwall, reaver). Actual ability to illustrate: [{\"op\":\"block\",\"target\":\"self\",\"amount\":12},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"bulwarkEcho\",\"stacks\":{\"f\":\"add\",\"args\":[1]},\"if\":{\"p\":\"inStance\",\"stance\":\"bulwark\"}}]. Rules meaning: Gain {block} Block. If in Bulwark Stance: gain 4 Block next turn.. Canonical inspiration: Formation of the Bastion's shield line.\n\nRim locked to rim across the Fell Courtyard. The Wardens credited it with holding the gate through three hungry winters of the Spring Wars, when Hold petitioners camped below the walls.\n\nThe field-book enters the price of spring in the same column as the petitioners turned away.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-2244832f-6ee0-4249-a77a-a1b47ab2982e.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-shieldwall.png",
+  "sha256": "9827297e2eca1afb3de009bb79fca8b36aff164d0ca5bd0219d0424b40e9226a",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:45:38.931Z"
+}

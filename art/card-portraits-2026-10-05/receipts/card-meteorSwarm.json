@@ -1,0 +1,50 @@
+{
+  "subjectKey": "card:meteorSwarm",
+  "kind": "card",
+  "id": "meteorSwarm",
+  "name": "Meteor Swarm",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 5
+    },
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 5,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage to ALL enemies. Starstone: {damage.2} again.",
+  "flavor": "Many falls, called as one.\n\nChart 43 records two falls in a single night. Miners were sent to both sites and found no crater at either. The Astronomer entered both regardless, for his lens could not err.\n\nA third mark on chart 43, in another ink, is nowhere explained.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Meteor Swarm (meteorSwarm, Starseer). PRIMARY VISUAL READ: Multiple dark violet-glowing meteoric stones sweeping through the lower and middle scene over an empty rocky field.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":5},{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":5,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage to ALL enemies. Starstone: {damage.2} again.. Lore for setting/material context only, do not replace the ability with a story vignette: Many falls, called as one.\n\nChart 43 records two falls in a single night. Miners were sent to both sites and found no crater at either. The Astronomer entered both regardless, for his lens could not err.\n\nA third mark on chart 43, in another ink, is nowhere explained.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-1168dcb6-79c4-4df0-8daa-1aeafc0051cf.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-meteorSwarm.png",
+  "sha256": "22ff6f8cd96bf445b0d7c3b1b889fabd94515279ffe83b274f39cf6063816741",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:13:36.532Z"
+}

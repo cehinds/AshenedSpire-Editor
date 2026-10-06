@@ -1,0 +1,13 @@
+{
+  "id": "kindledOmen",
+  "kind": "card",
+  "name": "Kindled Omen",
+  "class": "starseer",
+  "sourceMaster": "masters/card-kindledOmen.png",
+  "prompt": "Reused approved Kindled Omen extended-art portrait unchanged. Original AshenSpire subject, generous detailed background for cropping.",
+  "generator": "built-in image_gen (approved existing portrait reused)",
+  "originalOutputPath": "D:/repos/AshenedSpire-Editor/public/parts/card-assembler/assets/extended-art/kindle.png",
+  "sha256": "51de7e4d7c03a7e1df89e6a421dcc69800f8752ae630486112a4e647ec3bd446",
+  "width": 1024,
+  "height": 1536
+}

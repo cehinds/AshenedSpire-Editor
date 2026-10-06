@@ -1,0 +1,13 @@
+{
+  "id": "moonlitShieldCard",
+  "kind": "card",
+  "name": "Moonlit Shield",
+  "class": "starseer",
+  "sourceMaster": "masters/card-moonlitShieldCard.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Moonlit Shield\",\"class\":\"starseer\",\"type\":\"power\",\"action\":\"Whenever you gain Starstone Charge, gain 3 Block.\",\"effects\":[{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"moonlitShield\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"Frost raised by moonlight upon starstone.\\n\\nIt rises along the rails of Starwatch Terrace on clear nights, where the apprentices once judged the cold by it. From the Tidebound Chapel across the water, the salt-priests have watched it form the shape of a word.\\n\\nThey have not written it down.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-433c6bd0-bc2f-40c5-b898-d4041305591f.png",
+  "sha256": "f6b42bc47d82966ea73dad5a669425549c80d60afef46ef3277f406e6581bde9",
+  "width": 1024,
+  "height": 1536
+}

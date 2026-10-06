@@ -1,0 +1,32 @@
+{
+  "subjectKey": "card:shieldBash",
+  "kind": "card",
+  "id": "shieldBash",
+  "name": "Shield Bash",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 4
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage.",
+  "flavor": "Rim-strike of the Wardens' shield line.\n\nDrilled in the years of the Spring Wars, when envoys of the Northern Holds came to the Bastion gate to haggle the price of a spring. The Wardens struck with the rim, for the face bore the gilded crest.\n\nTwice the Holds were struck. Twice they paid.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Shield Bash (shieldBash, reaver). Exact card effects to depict: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":4}]. Rules meaning: Deal {damage} damage and {poiseDamage} Poise damage.. Canonical lore/context: Rim-strike of the Wardens' shield line.\n\nDrilled in the years of the Spring Wars, when envoys of the Northern Holds came to the Bastion gate to haggle the price of a spring. The Wardens struck with the rim, for the face bore the gilded crest.\n\nTwice the Holds were struck. Twice they paid.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-2336fe51-164c-42ef-848c-9e96b9981efc.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-shieldBash.png",
+  "sha256": "f6c4803876e3e02d4cced14af677f21e184e8d97a73074119de0e753e819b9b4",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.239Z"
+}

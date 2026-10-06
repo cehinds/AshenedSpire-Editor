@@ -1,0 +1,13 @@
+{
+  "id": "astromancerCard",
+  "kind": "card",
+  "name": "Astromancer",
+  "class": "starseer",
+  "sourceMaster": "masters/card-astromancerCard.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Astromancer\",\"class\":\"starseer\",\"type\":\"power\",\"action\":\"At the start of your turn, gain Starstone Charge and draw a card.\",\"effects\":[{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"astromancer\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"The Starwatch's discipline, carried away.\\n\\nAn apprentice took the charts and left the Observatory before the eclipse. The Starwatch recorded it as theft. The apprentice's line in the roll has been scraped away.\\n\\nNot so thoroughly that the name cannot be guessed.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-21a7dc34-bfff-46dc-abe3-9e4d945c53cc.png",
+  "sha256": "ca0a5ea6a97ad23b913fd9ce2c321c6e33869cd38874f23f3b9c1ca3c313d2a4",
+  "width": 1024,
+  "height": 1536
+}

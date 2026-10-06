@@ -1,0 +1,54 @@
+{
+  "subjectKey": "card:radiantSpray",
+  "kind": "card",
+  "id": "radiantSpray",
+  "name": "Radiant Spray",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 4
+    },
+    {
+      "op": "applyStatus",
+      "target": "allEnemies",
+      "status": "vulnerable",
+      "stacks": 1
+    },
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 4,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} to ALL enemies. Apply {vulnerable} Vulnerable to ALL. Starstone: deal {damage.2} to ALL again.",
+  "flavor": "Flare cast wide.\n\nIn the years the Spire was built, a flare lit every terrace of the Observatory at once, and the apprentices on watch lost their sight for days. The log gives no source.\n\nWhen their sight returned, they were asked not to speak of it.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Radiant Spray (radiantSpray, Starseer). PRIMARY VISUAL READ: A vivid fan-shaped spray of small blue-white radiant projectiles from a scholarly caster's hand.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":4},{\"op\":\"applyStatus\",\"target\":\"allEnemies\",\"status\":\"vulnerable\",\"stacks\":1},{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":4,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} to ALL enemies. Apply {vulnerable} Vulnerable to ALL. Starstone: deal {damage.2} to ALL again.. Lore for setting/material context only, do not replace the ability with a story vignette: Flare cast wide.\n\nIn the years the Spire was built, a flare lit every terrace of the Observatory at once, and the apprentices on watch lost their sight for days. The log gives no source.\n\nWhen their sight returned, they were asked not to speak of it.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-f20efa8c-ef68-473c-85af-5a0b78885d52.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-radiantSpray.png",
+  "sha256": "e7908ea91e99ad829b3d8efb716766fb900c7a390e66c7912824968482be990f",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:16:50.103Z"
+}

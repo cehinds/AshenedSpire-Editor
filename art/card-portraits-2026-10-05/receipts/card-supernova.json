@@ -1,0 +1,43 @@
+{
+  "subjectKey": "card:supernova",
+  "kind": "card",
+  "id": "supernova",
+  "name": "Supernova",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 8,
+      "hits": {
+        "f": "energySpent"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage to ALL enemies, scaling with Stamina spent.",
+  "flavor": "Brightest working in the charts.\n\nThe final predictive chart forecasts a light great enough to burn the paper it is drawn upon. The Starwatch took it for the fate of a star.\n\nThe chart is unsigned and undated. The apprentices swore it was not among the sheets they left upon his desk.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Supernova (supernova, Starseer). PRIMARY VISUAL READ: A brilliant controlled blue-white stellar burst suspended near ground in an empty ruined courtyard, a distant robed caster framing its scale.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":8,\"hits\":{\"f\":\"energySpent\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage to ALL enemies, scaling with Stamina spent.. Lore for setting/material context only, do not replace the ability with a story vignette: Brightest working in the charts.\n\nThe final predictive chart forecasts a light great enough to burn the paper it is drawn upon. The Starwatch took it for the fate of a star.\n\nThe chart is unsigned and undated. The apprentices swore it was not among the sheets they left upon his desk.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-29b5d740-faa5-494b-a3cd-a8303663809f.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-supernova.png",
+  "sha256": "8e20c4153c08065a8a0b5f0213f5f9e0c96bd0358968ae46681824dd4a675ee1",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:16:50.153Z"
+}

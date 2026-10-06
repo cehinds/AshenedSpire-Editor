@@ -1,0 +1,41 @@
+{
+  "subjectKey": "card:lastStand",
+  "kind": "card",
+  "id": "lastStand",
+  "name": "Last Stand",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": {
+        "f": "missingHp",
+        "of": "self",
+        "max": 20
+      }
+    }
+  ],
+  "textTemplate": "Ethereal. Gain Block equal to your missing HP (max 20).",
+  "flavor": "Final entry of the Fell Courtyard gate log.\n\nOne gate, one man, it reads. The man is not named, as though the writer thought none would need it.\n\nThe dead are counted twice upon the page, and the counts do not agree.",
+  "keywords": [
+    "ethereal"
+  ],
+  "master": {
+    "absolutePath": "D:/repos/AshenSpire/art/card-illustrations-2026-10-01/sources/last-stand.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "sha256": "5317136a7c97001d0981765439a6ad4a9e3bb098aa9eb7903cc4a345fa70ca1c",
+    "sourceRoot": "D:/repos/AshenSpire"
+  },
+  "prompt": "Create one distinct AshenSpire card illustration \"Last Stand\" (lastStand, reaver). Actual ability to illustrate: [{\"op\":\"block\",\"target\":\"self\",\"amount\":{\"f\":\"missingHp\",\"of\":\"self\",\"max\":20}}]. Rules meaning: Ethereal. Gain Block equal to your missing HP (max 20).. Canonical inspiration: Final entry of the Fell Courtyard gate log.\n\nOne gate, one man, it reads. The man is not named, as though the writer thought none would need it.\n\nThe dead are counted twice upon the page, and the counts do not agree.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8325b3c0-24a1-4491-80a2-a15bab4958ad.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-lastStand.png",
+  "sha256": "d9cbd9fc38a00d21d3b6232d5f3fa8038e598cc12ece7db40b2c4bc1e4deb4f8",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:49:08.832Z"
+}

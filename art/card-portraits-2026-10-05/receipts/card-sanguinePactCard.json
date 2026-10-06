@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:sanguinePactCard",
+  "kind": "card",
+  "id": "sanguinePactCard",
+  "name": "Sanguine Pact",
+  "class": "reaver",
+  "type": "power",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "sanguinePact",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Whenever Bleed bursts on an enemy, gain 2 Strength.",
+  "flavor": "Soldier's bargain of the Bastion's lesser shrine.\n\nBlood spilled from an enemy is sworn to the one who spilled it. The Wardens thought it a harmless field-born custom, like the harvest tithe. The Chapel called it a mockery of the Writing, and fined the shrine.\n\nThe fine was paid. The shrine was in use the night of the Burning.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Sanguine Pact, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"sanguinePact\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Context: Soldier's bargain of the Bastion's lesser shrine.\n\nBlood spilled from an enemy is sworn to the one who spilled it. The Wardens thought it a harmless field-born custom, like the harvest tithe. The Chapel called it a mockery of the Writing, and fined the shrine.\n\nThe fine was paid. The shrine was in use the night of the Burning.. Use a symbolic magical preparation: weathered weapon, crimson magical light and a sworn warrior in an atmospheric ruined shrine. No blood, no injuries, no self harm, no cutting of skin, no sacrifice of any person. The cost or pact is represented only by fading crimson light and ash. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-5152e652-678f-4edc-9fb7-da7282bbbc53.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-sanguinePactCard.png",
+  "sha256": "a541ed29bd59fe89dbfebc144421eff0e0c5ad5081c5417eff9880ec5a9780ce",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:53:23.263Z"
+}

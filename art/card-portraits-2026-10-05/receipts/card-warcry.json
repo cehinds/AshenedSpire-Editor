@@ -1,0 +1,34 @@
+{
+  "subjectKey": "card:warcry",
+  "kind": "card",
+  "id": "warcry",
+  "name": "Warcry",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "strength",
+      "stacks": 1
+    },
+    {
+      "op": "draw",
+      "amount": 1
+    }
+  ],
+  "textTemplate": "Gain {strength} Strength. Draw {draw} card. Exhaust.",
+  "flavor": "The bell-roll, shouted.\n\nA custom of the gates farthest from the Bellfoundry, where the bell could not be heard. The Wardens held that the roll bore power of its own if read in order. Sellswords, who were not on it, shouted it all the same.\n\nIt is said the Bell Keeper answers, with a cracked bell.",
+  "keywords": [
+    "exhaust"
+  ],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Warcry\" (warcry, reaver). Actual ability to illustrate: [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"strength\",\"stacks\":1},{\"op\":\"draw\",\"amount\":1}]. Rules meaning: Gain {strength} Strength. Draw {draw} card. Exhaust.. Canonical inspiration: The bell-roll, shouted.\n\nA custom of the gates farthest from the Bellfoundry, where the bell could not be heard. The Wardens held that the roll bore power of its own if read in order. Sellswords, who were not on it, shouted it all the same.\n\nIt is said the Bell Keeper answers, with a cracked bell.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-49c20948-4554-46f0-baf2-c4675634634e.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-warcry.png",
+  "sha256": "1a4f8df9e242da03fd65b79e885a55477325013ecc5a8070adc65d6910ca3076",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:47:07.395Z"
+}

@@ -1,0 +1,31 @@
+{
+  "subjectKey": "card:evasiveGuard",
+  "kind": "card",
+  "id": "evasiveGuard",
+  "name": "Evasive Guard",
+  "class": "colorless",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 1
+    },
+    {
+      "op": "dodgeRoll",
+      "target": "self"
+    }
+  ],
+  "textTemplate": "Gain {block} Block, then roll to evade: on a success, gain Block equal to the dodge.",
+  "flavor": "Sidestep of the Pale Marches ice-fishers.\n\nThe lakes have not thawed since the Burning. The ice cracks all the year round, and gives only beneath a second pair of feet; the fishers learned to trust the sound.\n\nWidow Arne of Sallow Lake says the sound changed last winter. She fishes no longer.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Evasive Guard (evasiveGuard, colorless). Exact card effects to depict: [{\"op\":\"block\",\"target\":\"self\",\"amount\":1},{\"op\":\"dodgeRoll\",\"target\":\"self\"}]. Rules meaning: Gain {block} Block, then roll to evade: on a success, gain Block equal to the dodge.. Canonical lore/context: Sidestep of the Pale Marches ice-fishers.\n\nThe lakes have not thawed since the Burning. The ice cracks all the year round, and gives only beneath a second pair of feet; the fishers learned to trust the sound.\n\nWidow Arne of Sallow Lake says the sound changed last winter. She fishes no longer.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-70869e67-9d54-4cdf-81bf-d3f5b0a7f3d9.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-evasiveGuard.png",
+  "sha256": "9299206874712a55da5ce978ddfe7e5652a9fab04225ff70527799fe7e291b4d",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.161Z"
+}

@@ -1,0 +1,48 @@
+{
+  "subjectKey": "card:starstonePebble",
+  "kind": "card",
+  "id": "starstonePebble",
+  "name": "Starstone Pebble",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 6
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 3,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: deal {damage.2} more.",
+  "flavor": "Chip of catalogued starstone.\n\nSuch stones were weighed and numbered by the Observatory's apprentices in their first winter. The Astronomer held them inert once cooled, and wrote as much throughout his catalogue.\n\nYet frost formed upon their labels by night. Never upon the stones.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starstone Pebble (starstonePebble, Starseer). PRIMARY VISUAL READ: A small bright azure starstone projectile released from a scholar's hand; clearly a humble concentrated pebble of magic, not a huge meteor.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: deal {damage.2} more.. Lore for setting/material context only, do not replace the ability with a story vignette: Chip of catalogued starstone.\n\nSuch stones were weighed and numbered by the Observatory's apprentices in their first winter. The Astronomer held them inert once cooled, and wrote as much throughout his catalogue.\n\nYet frost formed upon their labels by night. Never upon the stones.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-48f34220-8cdb-4c6b-a3c8-da8520bf336a.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starstonePebble.png",
+  "sha256": "59f31271a7a8160fc124268246c061a2df51b440964ae10777054906a5adf720",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:03:03.506Z"
+}

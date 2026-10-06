@@ -1,0 +1,13 @@
+{
+  "id": "cinderSigil",
+  "kind": "card",
+  "name": "Cinder Sigil",
+  "class": "starseer",
+  "sourceMaster": "masters/card-cinderSigil.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Cinder Sigil\",\"class\":\"starseer\",\"type\":\"attack\",\"action\":\"Deal {damage} damage. Starstone: apply {burn} Burn.\",\"effects\":[{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":7},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"burn\",\"stacks\":2,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"A star traced in hot ash.\\n\\nThe Observatory's apprentices drew them on the terrace to fix a sighting, and swept them away at dawn. After the eclipse the sigils would not sweep; they had burned into the stone.\\n\\nThe terrace is covered in them now, none drawn by hand.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-500cf9ad-3452-49f7-9ec3-db351a056ae3.png",
+  "sha256": "e7e9931c18a99afd89c06958c503f4dcb16b44e89f6f9775a919de2645332b1d",
+  "width": 1024,
+  "height": 1536
+}

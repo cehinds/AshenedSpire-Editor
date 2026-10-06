@@ -1,0 +1,13 @@
+{
+  "id": "cheapShot",
+  "kind": "card",
+  "name": "Cheap Shot",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Cheap Shot (cheapShot), rogue attack. Canonical action: Deal {damage} damage. If the target is Weak, deal {damage.2} more. [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":10},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6,\"if\":{\"p\":\"hasStatus\",\"of\":\"target\",\"status\":\"weak\"}}]. Lore/mood: Blow at the already wounded.\n\nThe Tollmouth fence calls it the only honest bargain on the river, and charges for lessons in teeth. He says he learned the practice from a Court magistrate who levied fines the same way.\n\nThe jar upon his counter is nearly full.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-4013706a-5745-470f-8568-b3757945e072.png",
+  "sourceMaster": "masters/card-cheapShot.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "e1a453df8b6a4352be32913ec84937459d7e7cd5b12ade3afe8af1230b9edc43"
+}

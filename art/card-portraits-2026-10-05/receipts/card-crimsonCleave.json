@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:crimsonCleave",
+  "kind": "card",
+  "id": "crimsonCleave",
+  "name": "Crimson Cleave",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 8
+    },
+    {
+      "op": "applyStatus",
+      "target": "allEnemies",
+      "status": "bleed",
+      "stacks": 2
+    }
+  ],
+  "textTemplate": "Deal {damage} damage to ALL enemies. Apply {bleed} Bleed to ALL.",
+  "flavor": "Wide cut of the Fell Courtyard watch.\n\nTaught for a gate choked with bodies. On the night the Bastion burned, the dead came up the Muster Stair in numbers the watch had no word for, and this was the only answer it had.\n\nThe gate log names the watch whole at the bell. Its hand changes halfway down the page.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Crimson Cleave (crimsonCleave, reaver). Exact card effects to depict: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":8},{\"op\":\"applyStatus\",\"target\":\"allEnemies\",\"status\":\"bleed\",\"stacks\":2}]. Rules meaning: Deal {damage} damage to ALL enemies. Apply {bleed} Bleed to ALL.. Canonical lore/context: Wide cut of the Fell Courtyard watch.\n\nTaught for a gate choked with bodies. On the night the Bastion burned, the dead came up the Muster Stair in numbers the watch had no word for, and this was the only answer it had.\n\nThe gate log names the watch whole at the bell. Its hand changes halfway down the page.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-6c9b8061-3c41-4795-84a2-778ff029bf82.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-crimsonCleave.png",
+  "sha256": "88abb3aa14d32b09a91401c30805077d5a7a7ebe83b8e8eeb542c893851022a3",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.193Z"
+}

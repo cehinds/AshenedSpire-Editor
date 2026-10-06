@@ -1,0 +1,13 @@
+{
+  "id": "urgentHeal",
+  "kind": "card",
+  "name": "Urgent Heal",
+  "class": "herald",
+  "sourceMaster": "masters/card-urgentHeal.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  Depict supernatural combat symbolically, no visible wounds, blood, injury detail, or gore. {\"name\":\"Urgent Heal\",\"class\":\"herald\",\"type\":\"skill\",\"action\":\"Heal {heal} HP.\",\"effects\":[{\"op\":\"heal\",\"target\":\"self\",\"amount\":4}],\"lore\":\"Rite of the Furnace Chapel, for wounds taken in its service.\\n\\nPerformed swiftly, its prayer cut to the first line. The rubric bids the wound be bound beneath the brand, never over it, that the mark be left clear.\\n\\nWe bind the wound beneath the unspent brand.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-290fa016-13f0-4eae-9e03-be89b5a054e8.png",
+  "sha256": "c44f8418724334c0ed78fc991ba2391948aedbfe486565b11594e05ddaa5bf85",
+  "width": 1024,
+  "height": 1536
+}

@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:constellationCard",
+  "kind": "card",
+  "id": "constellationCard",
+  "name": "Constellation",
+  "class": "starseer",
+  "type": "power",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "constellation",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Whenever you gain Starstone Charge, deal 4 damage to a random enemy.",
+  "flavor": "Sorcery of three stars, after the Goldbough crest.\n\nThree flames upon three twigs. The Chapel taught that the crest came first, and the stars were named for it.\n\nThe Starwatch's oldest plate, cut before the kingdom, shows the same three stars, and a faint fourth. The Chapel's copy omits it.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Constellation (constellationCard, Starseer). PRIMARY VISUAL READ: A constellation of connected blue-white star nodes suspended around a scholar in the lower two-thirds of the painting.. Actual ability effects: [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"constellation\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Whenever you gain Starstone Charge, deal 4 damage to a random enemy.. Lore for setting/material context only, do not replace the ability with a story vignette: Sorcery of three stars, after the Goldbough crest.\n\nThree flames upon three twigs. The Chapel taught that the crest came first, and the stars were named for it.\n\nThe Starwatch's oldest plate, cut before the kingdom, shows the same three stars, and a faint fourth. The Chapel's copy omits it.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-55b5ee67-898b-4aac-b283-22cb84aad936.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-constellationCard.png",
+  "sha256": "11a9f2270acf660440809cf8ab778c62f8a004f0fc4ece3aa48d61527cf2eca8",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:19:23.093Z"
+}

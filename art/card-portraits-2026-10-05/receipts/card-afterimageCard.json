@@ -1,0 +1,13 @@
+{
+  "id": "afterimageCard",
+  "kind": "card",
+  "name": "Afterimage",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Afterimage (afterimageCard), rogue power. Canonical action: Every third card you play grants 3 Block. [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"afterimage\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Lore/mood: Reflection left in the Regent's glass.\n\nThe mirrors of the Hall held a thief's image a heartbeat longer than they should. The Regent's stewards recorded it as the Hall's loyalty.\n\nThe glass has grown slower with each winter since the Burning.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-a5120944-848b-494f-8244-6cc3d982f0dd.png",
+  "sourceMaster": "masters/card-afterimageCard.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "602f89822c6ab807b8d86ddbb73c9c62d3b52fd9a0cd1f90d9867abe8185e4d9"
+}

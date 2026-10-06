@@ -1,0 +1,41 @@
+{
+  "subjectKey": "card:lucidity",
+  "kind": "card",
+  "id": "lucidity",
+  "name": "Lucidity",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "gainEnergy",
+      "amount": 1
+    },
+    {
+      "op": "draw",
+      "amount": 1
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Gain {gainEnergy} Stamina. Draw {draw} card.",
+  "flavor": "Clarity for the work.\n\nPractised on the one clear night in forty the reach allowed. The Astronomer worked such nights without sleep, and bade his apprentices do the same.\n\nThey believed he saw more than the charts show, and wrote it elsewhere.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Lucidity (lucidity, Starseer). PRIMARY VISUAL READ: A calm scholar with a clear pale-blue luminous halo and ordered crystal light, concentrating amid the ruined observatory.. Actual ability effects: [{\"op\":\"gainEnergy\",\"amount\":1},{\"op\":\"draw\",\"amount\":1},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Gain {gainEnergy} Stamina. Draw {draw} card.. Lore for setting/material context only, do not replace the ability with a story vignette: Clarity for the work.\n\nPractised on the one clear night in forty the reach allowed. The Astronomer worked such nights without sleep, and bade his apprentices do the same.\n\nThey believed he saw more than the charts show, and wrote it elsewhere.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-88084df6-87a0-4346-a19e-c51baf07ba78.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-lucidity.png",
+  "sha256": "42554313687ff60c69ae65f1be1b940a6e62eb9c0d833fb9920541a2c40e485e",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:10:30.554Z"
+}

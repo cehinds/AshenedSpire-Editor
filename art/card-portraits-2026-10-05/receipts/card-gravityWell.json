@@ -1,0 +1,52 @@
+{
+  "subjectKey": "card:gravityWell",
+  "kind": "card",
+  "id": "gravityWell",
+  "name": "Gravity Well",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "allEnemies",
+      "status": "vulnerable",
+      "stacks": 2
+    },
+    {
+      "op": "applyStatus",
+      "target": "allEnemies",
+      "status": "weak",
+      "stacks": 1,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Apply {vulnerable} Vulnerable to ALL enemies. Starstone: apply {weak} Weak to ALL.",
+  "flavor": "Pull of the Observatory's great pendulum.\n\nThe pendulum swung true for most of the Starwatch's history. In the years the Spire was built, it leaned toward the coast, and did not recover.\n\nThe Astronomer ordered the foundations inspected. The report is blank.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Gravity Well (gravityWell, Starseer). PRIMARY VISUAL READ: A dark violet gravity well near ground level, bending starlight and lifting surrounding loose stones in orbital arcs.. Actual ability effects: [{\"op\":\"applyStatus\",\"target\":\"allEnemies\",\"status\":\"vulnerable\",\"stacks\":2},{\"op\":\"applyStatus\",\"target\":\"allEnemies\",\"status\":\"weak\",\"stacks\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Apply {vulnerable} Vulnerable to ALL enemies. Starstone: apply {weak} Weak to ALL.. Lore for setting/material context only, do not replace the ability with a story vignette: Pull of the Observatory's great pendulum.\n\nThe pendulum swung true for most of the Starwatch's history. In the years the Spire was built, it leaned toward the coast, and did not recover.\n\nThe Astronomer ordered the foundations inspected. The report is blank.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8e1a9bf7-e575-42b9-a99a-ab17e57f3faa.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-gravityWell.png",
+  "sha256": "350807ff3669d6f2353bfe44065139167edf783465b907451afef0ef64320f8f",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:13:36.803Z"
+}

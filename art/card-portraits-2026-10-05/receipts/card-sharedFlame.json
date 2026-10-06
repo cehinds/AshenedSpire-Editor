@@ -1,0 +1,13 @@
+{
+  "id": "sharedFlame",
+  "kind": "card",
+  "name": "Shared Flame",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Shared Flame (sharedFlame), colorless skill. Canonical action: An ally heals {heal} HP. Exhaust. [{\"op\":\"heal\",\"target\":\"ally\",\"amount\":7}]. Lore/mood: Warmth passed between two climbers.\n\nHands over one coal, breath beneath one coat, with no hearth and no ledger. The Chapel would have named it theft. It is the only warmth upon the ring owed to no one.\n\nWarmth passed between two outlives the fire.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-095062d7-bd27-45eb-a67e-a0fa5f31d5da.png",
+  "sourceMaster": "masters/card-sharedFlame.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "c1a7c4b7c6e604890db9bd3416e3875b6fa2bc9985ec81ec6b18a480d34a6cd3"
+}

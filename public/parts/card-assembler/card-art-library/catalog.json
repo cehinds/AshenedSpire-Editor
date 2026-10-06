@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "totalSubjects": 236,
-  "complete": false,
+  "totalSubjects": 237,
+  "complete": true,
   "cards": [
     {
       "id": "card:acrobaticsRogue",
@@ -32,6 +32,14 @@
       "name": "Aimed Shot",
       "class": "rogue",
       "src": "art/card-aimedShot.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ambush",
+      "name": "Ambush",
+      "class": "rogue",
+      "src": "art/card-ambush.webp",
       "width": 1024,
       "height": 1536
     },
@@ -84,6 +92,22 @@
       "height": 1536
     },
     {
+      "id": "card:astralArmorCard",
+      "name": "Astral Armor",
+      "class": "starseer",
+      "src": "art/card-astralArmorCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:astralCleave",
+      "name": "Astral Cleave",
+      "class": "starseer",
+      "src": "art/card-astralCleave.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:astralInsight",
       "name": "Astral Insight",
       "class": "starseer",
@@ -104,6 +128,22 @@
       "name": "Attune",
       "class": "starseer",
       "src": "art/card-attune.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:azureCoilCard",
+      "name": "Azure Coil",
+      "class": "starseer",
+      "src": "art/card-azureCoilCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:backstep",
+      "name": "Backstep",
+      "class": "rogue",
+      "src": "art/card-backstep.webp",
       "width": 1024,
       "height": 1536
     },
@@ -140,6 +180,22 @@
       "height": 1536
     },
     {
+      "id": "card:blightBloom",
+      "name": "Blight Bloom",
+      "class": "herald",
+      "src": "art/card-blightBloom.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:blightNova",
+      "name": "Blight Nova",
+      "class": "herald",
+      "src": "art/card-blightNova.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:blightTouch",
       "name": "Blight Touch",
       "class": "herald",
@@ -148,10 +204,42 @@
       "height": 1536
     },
     {
+      "id": "card:blightward",
+      "name": "Blightward",
+      "class": "herald",
+      "src": "art/card-blightward.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:blightwardLash",
+      "name": "Blightward Lash",
+      "class": "herald",
+      "src": "art/card-blightwardLash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:blindingSand",
       "name": "Blinding Sand",
       "class": "colorless",
       "src": "art/card-blindingSand.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodHarvest",
+      "name": "Blood Harvest",
+      "class": "herald",
+      "src": "art/card-bloodHarvest.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodOfferingRite",
+      "name": "Blood Offering",
+      "class": "herald",
+      "src": "art/card-bloodOfferingRite.webp",
       "width": 1024,
       "height": 1536
     },
@@ -188,6 +276,14 @@
       "height": 1536
     },
     {
+      "id": "card:bloodletting",
+      "name": "Bloodletting",
+      "class": "herald",
+      "src": "art/card-bloodletting.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:brace",
       "name": "Brace",
       "class": "reaver",
@@ -200,6 +296,14 @@
       "name": "Bracing Stance",
       "class": "reaver",
       "src": "art/card-bracingStance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:butterflyPlague",
+      "name": "Plague of Butterflies",
+      "class": "herald",
+      "src": "art/card-butterflyPlague.webp",
       "width": 1024,
       "height": 1536
     },
@@ -252,6 +356,38 @@
       "height": 1536
     },
     {
+      "id": "card:cometFragment",
+      "name": "Comet Fragment",
+      "class": "starseer",
+      "src": "art/card-cometFragment.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:communionCard",
+      "name": "Communion",
+      "class": "herald",
+      "src": "art/card-communionCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:constellationCard",
+      "name": "Constellation",
+      "class": "starseer",
+      "src": "art/card-constellationCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:contagion",
+      "name": "Contagion",
+      "class": "herald",
+      "src": "art/card-contagion.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:coupDeGrace",
       "name": "Coup de Grace",
       "class": "rogue",
@@ -264,6 +400,30 @@
       "name": "Crimson Cleave",
       "class": "reaver",
       "src": "art/card-crimsonCleave.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:crimsonRite",
+      "name": "Crimson Rite",
+      "class": "herald",
+      "src": "art/card-crimsonRite.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:crystalBarrier",
+      "name": "Crystal Barrier",
+      "class": "starseer",
+      "src": "art/card-crystalBarrier.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:cullTheWeak",
+      "name": "Cull the Weak",
+      "class": "herald",
+      "src": "art/card-cullTheWeak.webp",
       "width": 1024,
       "height": 1536
     },
@@ -300,6 +460,14 @@
       "height": 1536
     },
     {
+      "id": "card:desperateRite",
+      "name": "Desperate Rite",
+      "class": "herald",
+      "src": "art/card-desperateRite.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:disorient",
       "name": "Disorient",
       "class": "rogue",
@@ -312,6 +480,22 @@
       "name": "Dodge Roll",
       "class": "colorless",
       "src": "art/card-dodgeRoll.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:emberCommunion",
+      "name": "Ember Communion",
+      "class": "herald",
+      "src": "art/card-emberCommunion.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:emberTideCard",
+      "name": "Ember Tide",
+      "class": "herald",
+      "src": "art/card-emberTideCard.webp",
       "width": 1024,
       "height": 1536
     },
@@ -380,10 +564,26 @@
       "height": 1536
     },
     {
+      "id": "card:exsanguinate",
+      "name": "Exsanguinate",
+      "class": "herald",
+      "src": "art/card-exsanguinate.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:fanOfKnives",
       "name": "Fan of Knives",
       "class": "rogue",
       "src": "art/card-fanOfKnives.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:feint",
+      "name": "Feint",
+      "class": "rogue",
+      "src": "art/card-feint.webp",
       "width": 1024,
       "height": 1536
     },
@@ -412,10 +612,34 @@
       "height": 1536
     },
     {
+      "id": "card:frostNova",
+      "name": "Frost Nova",
+      "class": "starseer",
+      "src": "art/card-frostNova.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:frostVeil",
+      "name": "Frost Veil",
+      "class": "starseer",
+      "src": "art/card-frostVeil.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:garrote",
       "name": "Garrote",
       "class": "rogue",
       "src": "art/card-garrote.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:gildedOath",
+      "name": "Gilded Oath",
+      "class": "herald",
+      "src": "art/card-gildedOath.webp",
       "width": 1024,
       "height": 1536
     },
@@ -440,6 +664,22 @@
       "name": "Goreslash",
       "class": "reaver",
       "src": "art/card-goreslash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:graveOffering",
+      "name": "Grave Offering",
+      "class": "herald",
+      "src": "art/card-graveOffering.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:gravityWell",
+      "name": "Gravity Well",
+      "class": "starseer",
+      "src": "art/card-gravityWell.webp",
       "width": 1024,
       "height": 1536
     },
@@ -480,6 +720,22 @@
       "name": "Hamstring",
       "class": "colorless",
       "src": "art/card-hamstring.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:hamstringRogue",
+      "name": "Hamstring",
+      "class": "rogue",
+      "src": "art/card-hamstringRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:harbingerOfBlightCard",
+      "name": "Harbinger of Blight",
+      "class": "herald",
+      "src": "art/card-harbingerOfBlightCard.webp",
       "width": 1024,
       "height": 1536
     },
@@ -580,10 +836,34 @@
       "height": 1536
     },
     {
+      "id": "card:lastMercy",
+      "name": "Last Mercy",
+      "class": "herald",
+      "src": "art/card-lastMercy.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:lastRites",
+      "name": "Last Rites",
+      "class": "herald",
+      "src": "art/card-lastRites.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:lastStand",
       "name": "Last Stand",
       "class": "reaver",
       "src": "art/card-lastStand.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:lifeTitheCard",
+      "name": "Life Tithe",
+      "class": "herald",
+      "src": "art/card-lifeTitheCard.webp",
       "width": 1024,
       "height": 1536
     },
@@ -596,10 +876,50 @@
       "height": 1536
     },
     {
+      "id": "card:lowBlow",
+      "name": "Low Blow",
+      "class": "rogue",
+      "src": "art/card-lowBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:lucidity",
+      "name": "Lucidity",
+      "class": "starseer",
+      "src": "art/card-lucidity.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:martyrBlood",
+      "name": "Martyr's Blood",
+      "class": "herald",
+      "src": "art/card-martyrBlood.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:masterOfStrategy",
       "name": "Master of Strategy",
       "class": "colorless",
       "src": "art/card-masterOfStrategy.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:meteorSwarm",
+      "name": "Meteor Swarm",
+      "class": "starseer",
+      "src": "art/card-meteorSwarm.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:meteorite",
+      "name": "Meteorite",
+      "class": "starseer",
+      "src": "art/card-meteorite.webp",
       "width": 1024,
       "height": 1536
     },
@@ -620,6 +940,14 @@
       "height": 1536
     },
     {
+      "id": "card:moonrendCut",
+      "name": "Moonrend Cut",
+      "class": "starseer",
+      "src": "art/card-moonrendCut.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:nockAndWait",
       "name": "Nock and Wait",
       "class": "rogue",
@@ -632,6 +960,14 @@
       "name": "Opportunist",
       "class": "rogue",
       "src": "art/card-opportunistCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:painOffering",
+      "name": "Pain Offering",
+      "class": "herald",
+      "src": "art/card-painOffering.webp",
       "width": 1024,
       "height": 1536
     },
@@ -660,10 +996,34 @@
       "height": 1536
     },
     {
+      "id": "card:pilfer",
+      "name": "Pilfer",
+      "class": "rogue",
+      "src": "art/card-pilfer.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:pinningShot",
       "name": "Pinning Shot",
       "class": "rogue",
       "src": "art/card-pinningShot.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:plagueBearer",
+      "name": "Plague Bearer",
+      "class": "herald",
+      "src": "art/card-plagueBearer.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:pocketSand",
+      "name": "Pocket Sand",
+      "class": "rogue",
+      "src": "art/card-pocketSand.webp",
       "width": 1024,
       "height": 1536
     },
@@ -700,6 +1060,14 @@
       "height": 1536
     },
     {
+      "id": "card:quickCut",
+      "name": "Quick Cut",
+      "class": "rogue",
+      "src": "art/card-quickCut.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:quickGuard",
       "name": "Quick Guard",
       "class": "colorless",
@@ -712,6 +1080,14 @@
       "name": "Quickstep",
       "class": "reaver",
       "src": "art/card-quickstep.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:radiantSpray",
+      "name": "Radiant Spray",
+      "class": "starseer",
+      "src": "art/card-radiantSpray.webp",
       "width": 1024,
       "height": 1536
     },
@@ -740,10 +1116,26 @@
       "height": 1536
     },
     {
+      "id": "card:reclamation",
+      "name": "Reclamation",
+      "class": "herald",
+      "src": "art/card-reclamation.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:rend",
       "name": "Rend",
       "class": "reaver",
       "src": "art/card-rend.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ricochet",
+      "name": "Ricochet",
+      "class": "rogue",
+      "src": "art/card-ricochet.webp",
       "width": 1024,
       "height": 1536
     },
@@ -772,6 +1164,14 @@
       "height": 1536
     },
     {
+      "id": "card:rogueShiv",
+      "name": "Shiv",
+      "class": "rogue",
+      "src": "art/card-rogueShiv.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:rondelParry",
       "name": "Rondel Parry",
       "class": "reaver",
@@ -784,6 +1184,14 @@
       "name": "Ruinous Blow",
       "class": "reaver",
       "src": "art/card-ruinousBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sacredHarvest",
+      "name": "Sacred Harvest",
+      "class": "herald",
+      "src": "art/card-sacredHarvest.webp",
       "width": 1024,
       "height": 1536
     },
@@ -804,10 +1212,42 @@
       "height": 1536
     },
     {
+      "id": "card:scholarsInsight",
+      "name": "Scholar's Insight",
+      "class": "starseer",
+      "src": "art/card-scholarsInsight.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:scourge",
+      "name": "Scourge",
+      "class": "herald",
+      "src": "art/card-scourge.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:secondBloom",
+      "name": "Second Bloom",
+      "class": "herald",
+      "src": "art/card-secondBloom.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:serratedBlade",
       "name": "Serrated Blade",
       "class": "reaver",
       "src": "art/card-serratedBlade.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:serratedShiv",
+      "name": "Serrated Shiv",
+      "class": "rogue",
+      "src": "art/card-serratedShiv.webp",
       "width": 1024,
       "height": 1536
     },
@@ -908,6 +1348,22 @@
       "height": 1536
     },
     {
+      "id": "card:smokePellet",
+      "name": "Smoke Pellet",
+      "class": "rogue",
+      "src": "art/card-smokePellet.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:smokeVeil",
+      "name": "Smoke Veil",
+      "class": "rogue",
+      "src": "art/card-smokeVeil.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:spikedReprisal",
       "name": "Spiked Reprisal",
       "class": "colorless",
@@ -924,6 +1380,22 @@
       "height": 1536
     },
     {
+      "id": "card:starShower",
+      "name": "Star Shower",
+      "class": "starseer",
+      "src": "art/card-starShower.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starSlicer",
+      "name": "Star Slicer",
+      "class": "starseer",
+      "src": "art/card-starSlicer.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:starSpark",
       "name": "Star Spark",
       "class": "starseer",
@@ -932,10 +1404,82 @@
       "height": 1536
     },
     {
+      "id": "card:starbladePhalanx",
+      "name": "Starblade Phalanx",
+      "class": "starseer",
+      "src": "art/card-starbladePhalanx.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:starcaller",
       "name": "Starcaller",
       "class": "starseer",
       "src": "art/card-starcaller.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starfallBeam",
+      "name": "Starfall Beam",
+      "class": "starseer",
+      "src": "art/card-starfallBeam.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:stargazerCard",
+      "name": "Stargazer",
+      "class": "starseer",
+      "src": "art/card-stargazerCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starlance",
+      "name": "Starlance",
+      "class": "starseer",
+      "src": "art/card-starlance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starstoneArc",
+      "name": "Starstone Arc",
+      "class": "starseer",
+      "src": "art/card-starstoneArc.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starstoneKris",
+      "name": "Starstone Kris",
+      "class": "starseer",
+      "src": "art/card-starstoneKris.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starstonePebble",
+      "name": "Starstone Pebble",
+      "class": "starseer",
+      "src": "art/card-starstonePebble.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starstoneWard",
+      "name": "Starstone Ward",
+      "class": "starseer",
+      "src": "art/card-starstoneWard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:stigmataCard",
+      "name": "Stigmata",
+      "class": "herald",
+      "src": "art/card-stigmataCard.webp",
       "width": 1024,
       "height": 1536
     },
@@ -980,6 +1524,14 @@
       "height": 1536
     },
     {
+      "id": "card:supernova",
+      "name": "Supernova",
+      "class": "starseer",
+      "src": "art/card-supernova.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:sweepingBlow",
       "name": "Sweeping Blow",
       "class": "colorless",
@@ -996,6 +1548,14 @@
       "height": 1536
     },
     {
+      "id": "card:thornHaloCard",
+      "name": "Thorn Halo",
+      "class": "herald",
+      "src": "art/card-thornHaloCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:thousandCutsRogue",
       "name": "Thousand Cuts",
       "class": "rogue",
@@ -1004,10 +1564,26 @@
       "height": 1536
     },
     {
+      "id": "card:timeDilation",
+      "name": "Time Dilation",
+      "class": "starseer",
+      "src": "art/card-timeDilation.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:toxicVolley",
       "name": "Toxic Volley",
       "class": "rogue",
       "src": "art/card-toxicVolley.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:transfusion",
+      "name": "Transfusion",
+      "class": "herald",
+      "src": "art/card-transfusion.webp",
       "width": 1024,
       "height": 1536
     },
@@ -1028,10 +1604,26 @@
       "height": 1536
     },
     {
+      "id": "card:twinPrick",
+      "name": "Twin Prick",
+      "class": "rogue",
+      "src": "art/card-twinPrick.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:twinbladeFlurry",
       "name": "Twinblade Flurry",
       "class": "reaver",
       "src": "art/card-twinbladeFlurry.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:twinkling",
+      "name": "Twinkling",
+      "class": "starseer",
+      "src": "art/card-twinkling.webp",
       "width": 1024,
       "height": 1536
     },
@@ -1116,6 +1708,14 @@
       "height": 1536
     },
     {
+      "id": "card:warmLitany",
+      "name": "Warm Litany",
+      "class": "herald",
+      "src": "art/card-warmLitany.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:warriorsVow",
       "name": "Warrior's Vow",
       "class": "reaver",
@@ -1140,10 +1740,26 @@
       "height": 1536
     },
     {
+      "id": "card:witheringTouch",
+      "name": "Withering Touch",
+      "class": "herald",
+      "src": "art/card-witheringTouch.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
       "id": "card:wound",
       "name": "Wound",
       "class": "colorless",
       "src": "art/card-wound.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:zealotryCard",
+      "name": "Zealotry",
+      "class": "herald",
+      "src": "art/card-zealotryCard.webp",
       "width": 1024,
       "height": 1536
     },

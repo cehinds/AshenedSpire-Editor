@@ -1,0 +1,13 @@
+{
+  "id": "executionWindow",
+  "kind": "card",
+  "name": "Execution Window",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Execution Window (executionWindow), rogue skill. Canonical action: Apply {vulnerable} Vulnerable. Become Prepared. Draw {draw} card. Exhaust. [{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"vulnerable\",\"stacks\":3},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"prepared\",\"stacks\":{\"f\":\"add\",\"args\":[1]}},{\"op\":\"draw\",\"amount\":1}]. Lore/mood: The moment the watch looks away.\n\nEvery guard has one. In the years of the Mark Trade, the watch's were written into the roster for a fee: the hours each bridge would stand unguarded, and beside each hour, a name.\n\nNone of those names appear in any Court record.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-a7bf0bb9-b74c-49b5-ac5b-78df4112c916.png",
+  "sourceMaster": "masters/card-executionWindow.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "cee07a82a41a19f108f13d8f9774d1dd9f46d3897492792ee092b4c232368817"
+}

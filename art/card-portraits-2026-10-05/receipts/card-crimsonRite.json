@@ -1,0 +1,13 @@
+{
+  "id": "crimsonRite",
+  "kind": "card",
+  "name": "Crimson Rite",
+  "class": "herald",
+  "sourceMaster": "masters/card-crimsonRite.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  This is a symbolic non-graphic ritual painting. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: An adult Furnace Saint channels a powerful red-gold torrent out of a full ornate chalice toward a shadow adversary; a smaller returning spiral of gold restores the saint. High altar, the flow visibly cycles both ways, no liquid blood. Card title (never render text): Crimson Rite. Class: herald.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-fb1c313c-f711-4b48-a0cf-3523b0d2e113.png",
+  "sha256": "d5fde7055eaeda944cc4b6d4badeacf5675c700ffcde73c07c83a0575b8f190f",
+  "width": 1024,
+  "height": 1536
+}

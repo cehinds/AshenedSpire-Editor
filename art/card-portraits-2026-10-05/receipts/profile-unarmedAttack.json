@@ -1,0 +1,13 @@
+{
+  "id": "unarmedAttack",
+  "kind": "profile",
+  "name": "Unarmed Strike",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Unarmed Strike (unarmedAttack), equipment technique. Canonical action:  [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6}]. Lore/mood: Blow of the empty fist.\n\nThe last thing a Forsaken owns once the blade is broken and the cairn has kept it. No hamlet teaches it; it is learned the first winter a sword is traded for salt.\n\nA last resort, still yours.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-1bfe5a88-0030-4c84-8087-5322be562158.png",
+  "sourceMaster": "masters/profile-unarmedAttack.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "8d0185dc853c6fa3122441467d598f62841ba276c6725d2c45e08f85322dde25"
+}

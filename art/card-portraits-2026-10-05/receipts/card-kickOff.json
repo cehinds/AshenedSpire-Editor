@@ -1,0 +1,34 @@
+{
+  "subjectKey": "card:kickOff",
+  "kind": "card",
+  "id": "kickOff",
+  "name": "Kick Off",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 4
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 3
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage. Exhaust.",
+  "flavor": "Boot-strike of the Muster Stair.\n\nSellswords learned it upon steps steep enough that the fall does the killing. The Wardens forbade it as common, and had adopted it within a season.\n\nWhat is kicked from the stair now climbs it again.",
+  "keywords": [
+    "exhaust"
+  ],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Kick Off\" (kickOff, reaver). Actual ability to illustrate: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":4},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":3}]. Rules meaning: Deal {damage} damage and {poiseDamage} Poise damage. Exhaust.. Canonical inspiration: Boot-strike of the Muster Stair.\n\nSellswords learned it upon steps steep enough that the fall does the killing. The Wardens forbade it as common, and had adopted it within a season.\n\nWhat is kicked from the stair now climbs it again.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b274a40c-d72f-40a6-b7ed-445c1c4bd5e1.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-kickOff.png",
+  "sha256": "496047afdb94db417670d59cb6c3518a23e84186222c7f109a95aef9f6571930",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:45:38.974Z"
+}

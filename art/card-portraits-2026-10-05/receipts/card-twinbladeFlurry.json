@@ -1,0 +1,28 @@
+{
+  "subjectKey": "card:twinbladeFlurry",
+  "kind": "card",
+  "id": "twinbladeFlurry",
+  "name": "Twinblade Flurry",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 3,
+      "hits": 3
+    }
+  ],
+  "textTemplate": "Deal {damage} damage {hits} times.",
+  "flavor": "Two short blades, worked in turn, as the weald's sellswords used them.\n\nToo poor for a shield and too proud to carry a Warden's, they were hired for the Bastion's narrow gates. It is said part of their wage was paid in marks rather than coin: a right to the city's warmth.\n\nThose who refused the mark are the ones who tell of it.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Twinblade Flurry\" (twinbladeFlurry, reaver). Actual ability to illustrate: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3,\"hits\":3}]. Rules meaning: Deal {damage} damage {hits} times.. Canonical inspiration: Two short blades, worked in turn, as the weald's sellswords used them.\n\nToo poor for a shield and too proud to carry a Warden's, they were hired for the Bastion's narrow gates. It is said part of their wage was paid in marks rather than coin: a right to the city's warmth.\n\nThose who refused the mark are the ones who tell of it.. Depict this specific subject with its appropriate weapon, stance, magic or ritual in a distinct scene. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-cf18f630-62e3-4a43-a293-aa58bcbc8266.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-twinbladeFlurry.png",
+  "sha256": "90d192407d4b5e23abf3afff1cf79d546d3b648ece4b6c659f46a2888a869cab",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:44:01.424Z"
+}

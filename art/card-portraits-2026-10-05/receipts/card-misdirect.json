@@ -1,0 +1,13 @@
+{
+  "id": "misdirect",
+  "kind": "card",
+  "name": "Misdirect",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Misdirect (misdirect), rogue skill. Canonical action: Gain {block} Block. Apply {weak} Weak to ALL enemies. Become Prepared. [{\"op\":\"block\",\"target\":\"self\",\"amount\":6},{\"op\":\"applyStatus\",\"target\":\"allEnemies\",\"status\":\"weak\",\"stacks\":1},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"prepared\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Lore/mood: Art of leading the watch astray.\n\nPerfected on the night of the Courtly Decree, when the brand-men came down to the river to mark the last of the unmarked by dawn, and the ice-cutters paid the bridge watch to lead them in circles.\n\nThe Decree said dawn. On that side of the river, dawn came late.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-a12175ee-01c3-4f24-9cd2-e3382246799e.png",
+  "sourceMaster": "masters/card-misdirect.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "28dc5b4ab2dd61e7a9ec8e83aa38748fdf2061d65914918c5b64a12174137fc5"
+}

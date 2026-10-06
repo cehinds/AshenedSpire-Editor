@@ -1,0 +1,13 @@
+{
+  "id": "hamstringRogue",
+  "kind": "card",
+  "name": "Hamstring",
+  "class": "rogue",
+  "sourceMaster": "masters/card-hamstringRogue.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  Non-graphic adventure illustration. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: A crouching adult rogue hooks a knife behind the joint of an empty steel training mannequin, disrupting the mannequin's balance, sparks on metal only. Clearly nonliving wooden-and-metal dummy, no flesh, no injury. Frozen Fourth Bridge. Card title (never render text): Hamstring. Class: rogue.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-a28dd76b-26c7-4f77-b0de-ac7724da38f1.png",
+  "sha256": "0d82d4e001405daea360031418f2827ba6e2da67c7504df90c2b4f2687cf60c6",
+  "width": 1024,
+  "height": 1536
+}

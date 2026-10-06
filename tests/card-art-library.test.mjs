@@ -74,3 +74,22 @@ test('consolidated editor resolves each library resource lazily from the parent 
  assert.equal(libraryResourceUrl(url,resolve),url);
  assert.throws(()=>libraryResourceUrl('https://card-assembler.local/parts/card-assembler/card-art-library/catalog.json',null),/unavailable/);
 });
+
+test('a Blob-hosted assembler loads both catalogs and imports chosen bytes through its parent',async t=>{
+ const original=Object.getOwnPropertyDescriptor(globalThis,'parent'),resolved=[];
+ Object.defineProperty(globalThis,'parent',{configurable:true,value:{__ASHENEDSPIRE_ASSET_URL__:name=>{resolved.push(name);return `blob:fixture/${name}`;}}});
+ t.after(()=>{if(original)Object.defineProperty(globalThis,'parent',original);else delete globalThis.parent;});
+ t.mock.method(globalThis,'fetch',async src=>{
+  if(src.endsWith('/catalog.json'))return Response.json({...catalog(),totalSubjects:237});
+  if(src.endsWith('/variants.json'))return Response.json(catalog([{...card,id:'variant:frost-aegis',src:'variants/frost.webp'}]));
+  if(src.endsWith('/variants/frost.webp'))return new Response(new Uint8Array([82,73,70,70]));
+  throw Error(`Unexpected resource: ${src}`);
+ });
+ const manifest=libraryManifestUrl('blob:https://example.test/editor-frame');
+ const loaded=await loadArtCatalogs(manifest);
+ assert.equal(loaded.total,237);assert.equal(loaded.variantCount,1);
+ assert.equal(resolved.length,2,'opening the library fetches no image bytes');
+ const chosen=await fetchCardArtwork(loaded.cards[1]);
+ assert.equal(chosen.type,'image/webp');assert.deepEqual([...new Uint8Array(await chosen.arrayBuffer())],[82,73,70,70]);
+ assert.deepEqual(resolved,['parts/card-assembler/card-art-library/catalog.json','parts/card-assembler/card-art-library/variants.json','parts/card-assembler/card-art-library/variants/frost.webp']);
+});

@@ -1,0 +1,42 @@
+{
+  "subjectKey": "card:poiseBreaker",
+  "kind": "card",
+  "id": "poiseBreaker",
+  "name": "Poise Breaker",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 11
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 10
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 8,
+      "if": {
+        "p": "hasStatus",
+        "of": "target",
+        "status": "staggered"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage. If the target is Staggered: deal {poiseDamage.2} more Poise damage.",
+  "flavor": "Knee-strike of Drillmaster Hask.\n\nHer answer to anything larger than a Warden: a knight and a kennel hound, she wrote, bend at the same place. She drew them both.\n\nBeside them, in later ink, a third figure grown of briar, under a name found nowhere else in the book.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Poise Breaker, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":11},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":10},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":8,\"if\":{\"p\":\"hasStatus\",\"of\":\"target\",\"status\":\"staggered\"}}]. Context: Knee-strike of Drillmaster Hask.\n\nHer answer to anything larger than a Warden: a knight and a kennel hound, she wrote, bend at the same place. She drew them both.\n\nBeside them, in later ink, a third figure grown of briar, under a name found nowhere else in the book.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-60a32dcb-c814-4d1f-a227-aa020de3dcfa.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-poiseBreaker.png",
+  "sha256": "eb609d0df38532128b242495076a4a17435d5cc6294be0e0a0eff51e095764f1",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:54:50.065Z"
+}

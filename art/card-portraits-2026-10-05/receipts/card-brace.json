@@ -1,0 +1,26 @@
+{
+  "subjectKey": "card:brace",
+  "kind": "card",
+  "id": "brace",
+  "name": "Brace",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "enterStance",
+      "stance": "brace"
+    }
+  ],
+  "textTemplate": "Enter Brace Stance.",
+  "flavor": "The crouch before either stance.\n\nKnees bent, weight low, the body made ready to be struck. The field-book gives it the first page, and calls it the one lesson all Wardens learned alike, sworn or hired, marked or not.\n\nA later hand has corrected it.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Brace, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"enterStance\",\"stance\":\"brace\"}]. Context: The crouch before either stance.\n\nKnees bent, weight low, the body made ready to be struck. The field-book gives it the first page, and calls it the one lesson all Wardens learned alike, sworn or hired, marked or not.\n\nA later hand has corrected it.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-81480c3d-5a8d-447e-8102-6b9c671d4ed6.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-brace.png",
+  "sha256": "0c822fa00a1b1e897e16eb6ea320ab4a3c92c788e32440fe8de8e42c779e44fa",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:56:28.740Z"
+}

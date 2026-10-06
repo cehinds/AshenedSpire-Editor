@@ -1,0 +1,13 @@
+{
+  "id": "bowTechnique",
+  "kind": "profile",
+  "name": "Steady Aim",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Steady Aim (bowTechnique), equipment technique. Canonical action:  [{\"op\":\"block\",\"target\":\"self\",\"amount\":3},{\"op\":\"draw\",\"amount\":1}]. Lore/mood: The poacher's pause before loosing.\n\nBreath out, hand set, wait for the bell. Weald poachers learned patience from the Bastion's gamekeepers, who hanged the impatient. The gamekeepers walk the lanternwood yet, among the corrupted.\n\nThey count beneath their breath. The count never ends.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-1d9b0268-26be-422e-8060-97dfd0777128.png",
+  "sourceMaster": "masters/profile-bowTechnique.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "5f500d65f009348a7d9b7414628cab052903461b218f5711b7f0396f86d5128c"
+}

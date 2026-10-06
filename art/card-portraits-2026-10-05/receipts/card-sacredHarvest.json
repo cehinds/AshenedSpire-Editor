@@ -1,0 +1,13 @@
+{
+  "id": "sacredHarvest",
+  "kind": "card",
+  "name": "Sacred Harvest",
+  "class": "herald",
+  "sourceMaster": "masters/card-sacredHarvest.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  This is a symbolic non-graphic ritual painting. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: Adult herald sweeps a richly gilded sickle through spectral red-gold grain, the gathered sparks flow back into the herald as restorative light. Chapel ruins and fields behind, dramatic diagonal action, no human target. Card title (never render text): Sacred Harvest. Class: herald.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-6e6d04d9-a574-4f62-b544-4e814899c861.png",
+  "sha256": "23a0348e8989c59253b8462cc52151909b0cd93711450c0b7e60c1f9706129ab",
+  "width": 1024,
+  "height": 1536
+}

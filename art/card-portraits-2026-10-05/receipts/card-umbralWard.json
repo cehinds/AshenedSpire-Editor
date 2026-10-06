@@ -1,0 +1,13 @@
+{
+  "id": "umbralWard",
+  "kind": "card",
+  "name": "Umbral Ward",
+  "class": "starseer",
+  "sourceMaster": "masters/card-umbralWard.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Umbral Ward\",\"class\":\"starseer\",\"type\":\"skill\",\"action\":\"Gain {block} Block. Starstone: {block.2} instead.\",\"effects\":[{\"op\":\"block\",\"target\":\"self\",\"amount\":20,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}}},{\"op\":\"block\",\"target\":\"self\",\"amount\":30,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"Ward of shadow, after the eclipse.\\n\\nDuring the eclipse the Observatory cast no shadow, which the Starwatch recorded as a curiosity of the light. The apprentices upon the terrace cast shadows as ever.\\n\\nTheirs fell toward the Observatory, not away.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-608a4c39-7ec7-4852-bc9f-eacff960b121.png",
+  "sha256": "19e46c0b4dd15a5dff5a65d31aab80687f064d207105ddcdf9eff40d2b0fca52",
+  "width": 1024,
+  "height": 1536
+}

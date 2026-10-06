@@ -1,0 +1,13 @@
+{
+  "id": "bloodletterRogue",
+  "kind": "card",
+  "name": "Bloodletter",
+  "class": "rogue",
+  "prompt": "Create a polished game card illustration for AshenSpire, portrait 1024x1536, painted weathered medieval dark fantasy material detail matching style reference only. PRIMARY VISUAL: A weathered curved dagger held upright in a gloved rogue hand, trailing fine CRIMSON MAGICAL LIGHT ribbons over an empty ruined courtyard. Depict an enchanted weapon ready for use, with no contact with anyone. The red is luminous sorcery, never blood. No wounds, victims, harmed bodies, severed parts, or self-harm. Maintain generous atmospheric background in upper35percent, main subject lower2/3, extra room around subjects for cropping. Ruined gothic environment, restrained dramatic light and ash. No text, letters, numbers, frame, UI or watermark. This is non-graphic, nonviolent symbolic artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-8474f74c-51f8-4e52-a16b-f0bed3fef9b5.png",
+  "sourceMaster": "masters/card-bloodletterRogue.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "e2738a7c3dbbf23dfb2a10271030acfd060a11935ec92e0d2bab5a386d820f70"
+}

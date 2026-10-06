@@ -1,0 +1,13 @@
+{
+  "id": "cinderLance",
+  "kind": "card",
+  "name": "Cinder Lance",
+  "class": "starseer",
+  "sourceMaster": "masters/card-cinderLance.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Cinder Lance\",\"class\":\"starseer\",\"type\":\"attack\",\"action\":\"Deal {damage} damage. Starstone: apply {frost} Frost.\",\"effects\":[{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":12},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"frost\",\"stacks\":2,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"A shaft of burning ash, cold at its point.\\n\\nThe Astronomer's first experiment with the ash of starstone, logged as a failure: the ash burned without heat. His apprentices kept the log.\\n\\nWhere the lance struck the Observatory's wall, frost still forms each night.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-34d2214c-b3f1-4bd8-8d8d-994f2b41c223.png",
+  "sha256": "9b3c1c5d2c71684a9779482127d9b6d044d4e62ddceb96617195ee7860b05e42",
+  "width": 1024,
+  "height": 1536
+}

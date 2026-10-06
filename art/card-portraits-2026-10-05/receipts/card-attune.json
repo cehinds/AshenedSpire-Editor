@@ -1,0 +1,13 @@
+{
+  "id": "attune",
+  "kind": "card",
+  "name": "Attune",
+  "class": "starseer",
+  "sourceMaster": "masters/card-attune.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Attune\",\"class\":\"starseer\",\"type\":\"skill\",\"action\":\"Restore {restoreMana} Mana. Exhaust.\",\"effects\":[{\"op\":\"restoreMana\",\"target\":\"self\",\"amount\":1}],\"lore\":\"First exercise of the apprentice.\\n\\nHold the stone until pulse and rhythm match. The Starwatch taught that starstone answers rhythm, not force, and credited the principle to the Astronomer.\\n\\nThe standing stones upon the marches road hum in the same rhythm. They are older than he.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-08185849-7577-4b8e-9d17-dae96d1fe906.png",
+  "sha256": "0708c078a6615e7c19932a65ccbf19e83c09ab87545159c03da822b331456dbf",
+  "width": 1024,
+  "height": 1536
+}

@@ -1,0 +1,37 @@
+{
+  "subjectKey": "card:scholarsInsight",
+  "kind": "card",
+  "id": "scholarsInsight",
+  "name": "Scholar's Insight",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "draw",
+      "amount": 2
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Draw {draw} cards.",
+  "flavor": "Discipline of the double copy.\n\nApprentices copied each chart twice, for the second copy is the true one. The two copies of chart 9 differ in a single figure: the distance from the three hearths to a point upon the coast.\n\nBoth copies left the Observatory with the apprentice who took the charts.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Scholar's Insight (scholarsInsight, Starseer). PRIMARY VISUAL READ: A robed scholar discovering a luminous celestial pattern above an old open book, luminous patterns without readable writing.. Actual ability effects: [{\"op\":\"draw\",\"amount\":2},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Draw {draw} cards.. Lore for setting/material context only, do not replace the ability with a story vignette: Discipline of the double copy.\n\nApprentices copied each chart twice, for the second copy is the true one. The two copies of chart 9 differ in a single figure: the distance from the three hearths to a point upon the coast.\n\nBoth copies left the Observatory with the apprentice who took the charts.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-c02aa6de-8cce-4813-a7a2-6e5801e4d3c9.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-scholarsInsight.png",
+  "sha256": "e7d7466859e4680a87f023b9e898f6d04c91b7b4489e173758e9af1ec22c8262",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:05:23.867Z"
+}

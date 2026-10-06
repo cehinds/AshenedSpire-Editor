@@ -1,0 +1,13 @@
+{
+  "id": "sweepingBlow",
+  "kind": "card",
+  "name": "Sweeping Blow",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Sweeping Blow (sweepingBlow), colorless attack. Canonical action: Deal {damage} damage to ALL enemies. [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":6}]. Lore/mood: Wide swing for the viaduct.\n\nWhere the corrupted come three abreast and the stone is narrow. The Forsaken councils teach that the viaducts were always built to funnel something, long before there were corrupted to funnel.\n\nThe corrupted walk them because the stone expects a crowd.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-ef0d1e81-ee1a-4a21-9be5-cc1e85d847e6.png",
+  "sourceMaster": "masters/card-sweepingBlow.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "355a19a40e39c531e5b19269d8c627e5313aa167a6175c84cdbd14135e1cd562"
+}

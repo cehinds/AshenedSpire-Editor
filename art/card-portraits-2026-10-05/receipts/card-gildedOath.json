@@ -1,0 +1,13 @@
+{
+  "id": "gildedOath",
+  "kind": "card",
+  "name": "Gilded Oath",
+  "class": "herald",
+  "sourceMaster": "masters/card-gildedOath.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  This is a symbolic non-graphic ritual painting. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: An adult novice swears before a magnificent gilded branch crest: three small flames on three twigs and a fourth bare twig. Their hands glow with strength and agile golden energy. Towering Furnace Chapel nave behind. Card title (never render text): Gilded Oath. Class: herald.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-cb37675c-802b-4d9b-a8da-95afeef17718.png",
+  "sha256": "19effefbbb6a98e3e7e113be2b5bf3ea88dad5e68c4078e8b3e12665491a749a",
+  "width": 1024,
+  "height": 1536
+}

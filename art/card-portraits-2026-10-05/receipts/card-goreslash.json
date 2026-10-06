@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:goreslash",
+  "kind": "card",
+  "id": "goreslash",
+  "name": "Goreslash",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 6
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 2
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed.",
+  "flavor": "Short cut of the Bastion's hired blades.\n\nThe sellswords had no patience for the Wardens' long forms. A long cut belongs in songs, they said, and the songs of the Bastion were paid for by the Wardens.\n\nThe sellswords kept a verse of their own. Only its tune survives.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Reused existing approved extended-background illustration.",
+  "originalPath": "D:/repos/AshenedSpire-Editor/public/parts/card-assembler/assets/extended-art/gorefire.png",
+  "generator": "existing approved built-in image_gen output",
+  "sourceMaster": "masters/card-goreslash.png",
+  "sha256": "3efdea2b5199d060988f766767910d6bc0fb2eff3dcc90f9671497d23dd5cc53",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.445Z"
+}

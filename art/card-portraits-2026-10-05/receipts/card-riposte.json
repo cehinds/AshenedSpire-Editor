@@ -1,0 +1,36 @@
+{
+  "subjectKey": "card:riposte",
+  "kind": "card",
+  "id": "riposte",
+  "name": "Riposte",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 6
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 4,
+      "if": {
+        "p": "hasBlock",
+        "of": "self"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. If you have Block: deal {poiseDamage} Poise damage.",
+  "flavor": "Return off the guard, as the Citadel fencing-masters taught it.\n\nThe Court held it too fine for field-born hands. Its manual shows a bout upon the bridges in the first year of the Mark Trade, a Knight against an unnamed Warden, and declares the Knight victorious.\n\nIn the illustration, the Knight lies upon his back.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Riposte (riposte, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":4,\"if\":{\"p\":\"hasBlock\",\"of\":\"self\"}}]. Rules: Deal {damage} damage. If you have Block: deal {poiseDamage} Poise damage.. Canonical flavor: Return off the guard, as the Citadel fencing-masters taught it.\n\nThe Court held it too fine for field-born hands. Its manual shows a bout upon the bridges in the first year of the Mark Trade, a Knight against an unnamed Warden, and declares the Knight victorious.\n\nIn the illustration, the Knight lies upon his back.. Depict this specific action or idea in a distinct readable scene, prioritize relevant weapon, stance or ritual. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Reference image is only painting quality/texture/atmosphere guidance, do not copy its pose or generic knight if unrelated. Colors follow the specific ability/lore with restrained ember accents. Place action/focal subjects lower two thirds; top35% detailed atmospheric environment/architecture/sky, no people, faces or floating focal objects. Generous top and side background for reposition/crop. Full-bleed standalone painting with no frame, border, UI, letters, labels, numbers or text. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-4d051134-540f-4c76-ae83-cc7547c886dc.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-riposte.png",
+  "sha256": "53b9ae563feef53f176b25845ec8e90ed9994890c101a9194a0f0fcf08e601c5",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:40:59.713Z"
+}

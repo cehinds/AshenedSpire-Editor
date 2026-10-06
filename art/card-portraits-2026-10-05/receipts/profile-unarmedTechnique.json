@@ -1,0 +1,13 @@
+{
+  "id": "unarmedTechnique",
+  "kind": "profile",
+  "name": "Dodge Roll",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Dodge Roll (unarmedTechnique), equipment technique. Canonical action:  [{\"op\":\"block\",\"target\":\"self\",\"amount\":3},{\"op\":\"gainPoise\",\"target\":\"self\",\"amount\":3},{\"op\":\"gainWard\",\"target\":\"self\",\"amount\":3}]. Lore/mood: Art of the empty hand.\n\nMostly the art of not being where the blow lands, taught by the ship-breakers upon hulls that shift with the tide. Gull-Bet calls it the first thing the Forsaken ever had that the marked envied.\n\nThat has been true for a very short while.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-46abffc8-a084-4579-99e7-234ee59fd808.png",
+  "sourceMaster": "masters/profile-unarmedTechnique.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "2e674b4453b3bcdcd592e6b1de287ff0e4635acef8c23c966bc32e44d25f58c0"
+}

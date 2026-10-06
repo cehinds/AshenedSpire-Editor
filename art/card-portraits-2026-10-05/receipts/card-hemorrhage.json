@@ -1,0 +1,34 @@
+{
+  "subjectKey": "card:hemorrhage",
+  "kind": "card",
+  "id": "hemorrhage",
+  "name": "Hemorrhage",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": {
+        "f": "stacks",
+        "status": "bleed",
+        "of": "target"
+      }
+    }
+  ],
+  "textTemplate": "Double the target's Bleed. Exhaust.",
+  "flavor": "Second cut, laid into an open wound.\n\nThe Court's surgeons, who studied such matters, recorded that Wardens bled longer than other men beneath the knife, and blamed the thinness of field-born blood. The finding was signed by the surgeons as one body.\n\nNo cases were attached to it.",
+  "keywords": [
+    "exhaust"
+  ],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Hemorrhage\" (hemorrhage, reaver). Safe visual scene specification: A serrated crimson-glowing sword resting on dark cloth beside a veteran armored hand, symbolic magical red motes suspended over the steel. No wound, no injury, no actual blood, no harmed person. Symbolically communicate the card ability; do not literalize other combat details. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8d1387ce-07a6-45d5-bfb0-d005e26cdd7f.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-hemorrhage.png",
+  "sha256": "b61f9b83d67666332921503bf9bf761b0ce9946d3bf197f5955de3778eaaceb5",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:44:01.064Z"
+}

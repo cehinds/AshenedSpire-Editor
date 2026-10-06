@@ -1,0 +1,29 @@
+{
+  "subjectKey": "card:warriorsVow",
+  "kind": "card",
+  "id": "warriorsVow",
+  "name": "Warrior's Vow",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "enterStance",
+      "choose": "classStance"
+    }
+  ],
+  "textTemplate": "Innate. Enter a Stance of your choice. Exhaust.",
+  "flavor": "Contract of the sellswords of the Fell Courtyard.\n\nHold the gate until relieved; pay in advance. The weald's hired blades held a paid contract sacred, having few other sacred things, and the Wardens despised them for it.\n\nThe last was signed the week before the Burning. Its date of release is blank.",
+  "keywords": [
+    "innate",
+    "exhaust"
+  ],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Warrior's Vow, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"enterStance\",\"choose\":\"classStance\"}]. Context: Contract of the sellswords of the Fell Courtyard.\n\nHold the gate until relieved; pay in advance. The weald's hired blades held a paid contract sacred, having few other sacred things, and the Wardens despised them for it.\n\nThe last was signed the week before the Burning. Its date of release is blank.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-87e13dd9-1a63-4aac-9948-3b2949ec6ec9.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-warriorsVow.png",
+  "sha256": "37bf0d3ac28ec4f9f67c2c55e85a702c53dd0068b89ff05eadd66598c87a104f",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:51:56.996Z"
+}

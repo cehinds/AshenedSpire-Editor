@@ -76,15 +76,17 @@ Full-art follow-up: 49 focused tests passed across the model, appearance, intera
 
 Parts → Card artwork library opens an optional external catalog. Search by card name or canonical ID and filter by class. Artwork thumbnails load lazily; card artwork is not embedded into the portable assembler or decoded during startup. Selecting an entry replaces the selected artwork layer, keeping its layout with a fresh crop. When another type of layer is selected, the entry adds a separate artwork layer beside the existing artwork in the stack. Locked artwork must be unlocked before replacement.
 
-Each chosen file goes through the existing image import validation and becomes an embedded custom image in Save design, exports, Undo, and browser recovery. The library itself requires its folder alongside the editor. A standalone portable HTML without that folder shows an unavailable message while normal image import remains usable.
+Each chosen file goes through the existing image import validation and becomes an embedded custom image in Save design, exports, Undo, and browser recovery. The standalone assembler requires its library folder alongside it. Without that folder it shows an unavailable message while normal image import remains usable. The consolidated Editor Pages build includes the library through its parent asset registry and resolves chosen images lazily from that registry.
 
 Catalog location: `public/parts/card-assembler/card-art-library/catalog.json`.
 
 ```json
 {
   "version": 1,
+  "totalSubjects": 237,
+  "complete": true,
   "cards": [
-    {"id":"canonical-card-id", "name":"Card name", "class":"Reaver", "src":"art/card-id.webp", "width":1024, "height":1536}
+    {"id":"card:canonical-card-id", "name":"Card name", "class":"Reaver", "src":"art/card-id.webp", "width":1024, "height":1536}
   ]
 }
 ```
@@ -95,4 +97,4 @@ Additional standalone illustrations can be supplied in `card-art-library/variant
 
 ## Artwork source archive
 
-Canonical PNG masters are preserved locally under `D:/repos/AshenedSpire-Editor/art/card-portraits-2026-10-05/masters`; alternate PNG masters are under `D:/repos/AshenedSpire-Editor/art/card-variants-2026-10-06/masters`. These large authoring files stay outside public builds and this feature commit. Source receipts retain generation prompts, original output paths, dimensions and SHA-256 hashes. Optimized WebP copies are committed in `public/parts/card-assembler/card-art-library/`, and the game exporter validates them against receipts before publishing.
+Canonical PNG masters and receipts are delivered through the AshenSpire-art repository. The local authoring archive is `D:/repos/AshenedSpire-Editor/art/card-portraits-2026-10-05/masters`; alternate PNG masters are under `D:/repos/AshenedSpire-Editor/art/card-variants-2026-10-06/masters`. These large authoring files stay outside Editor public builds and this feature commit. Source receipts retain generation prompts, original output paths, dimensions and SHA-256 hashes. Optimized WebP copies are committed in `public/parts/card-assembler/card-art-library/`, and the game exporter validates them against receipts before publishing through the pinned art release.

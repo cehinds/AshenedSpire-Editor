@@ -1,0 +1,36 @@
+{
+  "subjectKey": "card:bloodhuntersStrike",
+  "kind": "card",
+  "id": "bloodhuntersStrike",
+  "name": "Bloodhunter's Strike",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 4
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": {
+        "f": "stacks",
+        "status": "bleed",
+        "of": "target"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage, plus 1 for each Bleed on the target.",
+  "flavor": "Strike of the Bastion kennels.\n\nTaught by the kennelmaster before the hounds turned. The kennel book names them the finest in the three cities, trained upon the scent of blood alone, and never loosed on the weald's own people.\n\nAfter the Burning, the hamlets' dogs were found in those same kennels.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Bloodhunter's Strike, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":4},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":{\"f\":\"stacks\",\"status\":\"bleed\",\"of\":\"target\"}}]. Context: Strike of the Bastion kennels.\n\nTaught by the kennelmaster before the hounds turned. The kennel book names them the finest in the three cities, trained upon the scent of blood alone, and never loosed on the weald's own people.\n\nAfter the Burning, the hamlets' dogs were found in those same kennels.. Use a symbolic magical preparation: weathered weapon, crimson magical light and a sworn warrior in an atmospheric ruined shrine. No blood, no injuries, no self harm, no cutting of skin, no sacrifice of any person. The cost or pact is represented only by fading crimson light and ash. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-e8162230-0818-419c-a769-e1b35eac2af8.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-bloodhuntersStrike.png",
+  "sha256": "69df535b4dfd728d966dbba6052425d6a5eee2b66cf061e2db504f10b3644263",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:51:57.013Z"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "shieldGuard",
+  "kind": "profile",
+  "name": "Shield Defend",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Shield Defend (shieldGuard), equipment technique. Canonical action:  [{\"op\":\"block\",\"target\":\"self\",\"amount\":5}]. Lore/mood: Shield set against the blow, as the Wardens taught.\n\nBastion shields bore strips of bell-bronze upon the rim, cast from metal left when the great bell was founded. The Wardens said the bronze rang the hour when struck.\n\nIt rings at other hours too.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "reused approved built-in image_gen extension",
+  "originalOutputPath": "D:/repos/AshenedSpire-Editor/public/parts/card-assembler/assets/extended-art/shield.png",
+  "sourceMaster": "masters/profile-shieldGuard.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "ecf8f2a705c6adbb9848837c9455670dd11944c7d6df853a4f2dceb90217fcc9"
+}

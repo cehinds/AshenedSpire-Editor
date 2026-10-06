@@ -1,0 +1,13 @@
+{
+  "id": "ashOath",
+  "kind": "card",
+  "name": "Oath of Ash",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Oath of Ash (ashOath), colorless skill. Canonical action: An ally gains {strength} Strength; you gain {strength.2}. Exhaust. [{\"op\":\"applyStatus\",\"target\":\"ally\",\"status\":\"strength\",\"stacks\":2},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"strength\",\"stacks\":1}]. Lore/mood: Oath sworn in ash.\n\nA smear upon each other's wrist, where the mark would have been; no witness, no name. It binds twice, once for each. The Court held that an unwitnessed oath binds no one.\n\nThe Court is sewn to its oaths now.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-9da59f1e-7305-4faa-8abe-24dce124c066.png",
+  "sourceMaster": "masters/card-ashOath.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "f22482e81df649b9d95e2151a3b0d79c8b062c8702b3219cf3ce4f862b257f0d"
+}

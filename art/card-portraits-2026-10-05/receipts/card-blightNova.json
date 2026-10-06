@@ -1,0 +1,13 @@
+{
+  "id": "blightNova",
+  "kind": "card",
+  "name": "Blight Nova",
+  "class": "herald",
+  "sourceMaster": "masters/card-blightNova.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  This is a symbolic non-graphic ritual painting. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: An adult Furnace Saint speaks with raised arms as countless abstract golden sparks merge into a blinding crimson nova around a thorn-covered shadow effigy. Vast nave with many closed ledgers, no readable names or letters. Card title (never render text): Blight Nova. Class: herald.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-6e21a977-3718-4a6d-897a-6c3c7bbaa610.png",
+  "sha256": "a7d282359b15059bca8061e240cd41bf73b001d3fcf649e51fb828796caa06ae",
+  "width": 1024,
+  "height": 1536
+}

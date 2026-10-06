@@ -1,0 +1,30 @@
+{
+  "subjectKey": "card:enterGorefire",
+  "kind": "card",
+  "id": "enterGorefire",
+  "name": "Enter: Gorefire",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "enterStance",
+      "stance": "gorefire"
+    },
+    {
+      "op": "draw",
+      "amount": 1
+    }
+  ],
+  "textTemplate": "Enter Gorefire Stance. Draw {draw} card.",
+  "flavor": "The breaking stance, first of the Wardens' two.\n\nThe drill is to hold the flame in the blade, not the hand. Sergeants warned that the stance takes the hand if held too long. Sellswords held it longest of all, which the Wardens took for greed.\n\nHold the flame in the blade; it still takes the hand.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Enter: Gorefire (enterGorefire, reaver). Actual effect: [{\"op\":\"enterStance\",\"stance\":\"gorefire\"},{\"op\":\"draw\",\"amount\":1}]. Rules: Enter Gorefire Stance. Draw {draw} card.. Canonical flavor: The breaking stance, first of the Wardens' two.\n\nThe drill is to hold the flame in the blade, not the hand. Sergeants warned that the stance takes the hand if held too long. Sellswords held it longest of all, which the Wardens took for greed.\n\nHold the flame in the blade; it still takes the hand.. Depict this specific action or idea, with distinct scene and camera composition. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Use the referenced picture ONLY as a guide to painting quality, texture and atmosphere, not its composition or generic knight. Match characters and props to this card, not an unrelated battlefield. Colors follow the specific magic/ability/lore, with restrained ember accents. Place the main action/focal objects in lower two thirds; top35% detailed atmospheric landscape/architecture/sky, no people, no faces, no floating weapons/focal objects, generous top and side background for interactive crop. No UI, no border, no frame, no letters, no labels, no text, no numbers. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-ce04808f-13ac-4cf3-a205-2eb9ca30a982.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-enterGorefire.png",
+  "sha256": "c0b20ee58c7c853962f23e473e27f36a6a18705fe468380f37fdd05f13957c32",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:37:54.616Z"
+}

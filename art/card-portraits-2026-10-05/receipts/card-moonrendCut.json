@@ -1,0 +1,43 @@
+{
+  "subjectKey": "card:moonrendCut",
+  "kind": "card",
+  "id": "moonrendCut",
+  "name": "Moonrend Cut",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 8
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 6
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage.",
+  "flavor": "Crescent stroke of the Observatory's night-porters.\n\nThe porters walked the Basalt Stair with lanterns and curved blades, and claimed the moon's passage over the caldera showed them where to cut. The Starwatch called it folklore, and employed them regardless.\n\nTheir blades are found in the lower galleries, in hands no longer quite their own.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Moonrend Cut (moonrendCut, Starseer). PRIMARY VISUAL READ: A crescent sweep of cold moon-blue magical swordlight across the lower scene, robed caster at its origin.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":8},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":6},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage and {poiseDamage} Poise damage.. Lore for setting/material context only, do not replace the ability with a story vignette: Crescent stroke of the Observatory's night-porters.\n\nThe porters walked the Basalt Stair with lanterns and curved blades, and claimed the moon's passage over the caldera showed them where to cut. The Starwatch called it folklore, and employed them regardless.\n\nTheir blades are found in the lower galleries, in hands no longer quite their own.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-9127cd4b-d249-4d97-a9c5-654bc3956071.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-moonrendCut.png",
+  "sha256": "5c76d11ac7fcc202e1a7a6732934f5602a8af63e4dddfbb0310cb9021222ae04",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:13:36.139Z"
+}

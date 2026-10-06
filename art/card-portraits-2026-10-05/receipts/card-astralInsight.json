@@ -1,0 +1,13 @@
+{
+  "id": "astralInsight",
+  "kind": "card",
+  "name": "Astral Insight",
+  "class": "starseer",
+  "sourceMaster": "masters/card-astralInsight.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Astral Insight\",\"class\":\"starseer\",\"type\":\"skill\",\"action\":\"Gain {block} Block. Draw {draw} card. Starstone: draw {draw.2} more.\",\"effects\":[{\"op\":\"block\",\"target\":\"self\",\"amount\":5},{\"op\":\"draw\",\"amount\":1},{\"op\":\"draw\",\"amount\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"Clear sight into the charts.\\n\\nThe apprentices believed the Starwatch's ledgers were meant to end where the charts of the fourth hearth began. There the Astronomer once underlined a line, and later struck through his own mark.\\n\\nThe charts of the fourth hearth were not among those carried away.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-05dc19eb-1373-4beb-9c91-7122d5024851.png",
+  "sha256": "2724665b3a877fa50353fda2cb393b33428a8188f0e2b6607805defbca1cb9b3",
+  "width": 1024,
+  "height": 1536
+}

@@ -1,0 +1,53 @@
+{
+  "subjectKey": "card:astralCleave",
+  "kind": "card",
+  "id": "astralCleave",
+  "name": "Astral Cleave",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 10
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 8
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage. Starstone: deal {damage.2} more.",
+  "flavor": "Cut of cold force.\n\nFirst seen when a falling fragment passed through the lens gallery and sheared the telescope in two before cooling upon the floor. The Astronomer recorded a fall. Maud Vell, at the eyepiece, called it a throw.\n\nShe was dismissed at the season's end.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Astral Cleave (astralCleave, Starseer). PRIMARY VISUAL READ: A broad cleaving stroke with an enormous translucent astral blade, luminous blue arc and a robed caster.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":10},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":8},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage and {poiseDamage} Poise damage. Starstone: deal {damage.2} more.. Lore for setting/material context only, do not replace the ability with a story vignette: Cut of cold force.\n\nFirst seen when a falling fragment passed through the lens gallery and sheared the telescope in two before cooling upon the floor. The Astronomer recorded a fall. Maud Vell, at the eyepiece, called it a throw.\n\nShe was dismissed at the season's end.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-2a66014e-41be-484f-bc9c-c0fe1c9d38aa.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-astralCleave.png",
+  "sha256": "85b5c9982688305be662aea04e471958b560efd0be6154f62643cdaee3d5ab8c",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:16:49.715Z"
+}

@@ -1,0 +1,40 @@
+{
+  "subjectKey": "card:warSurgeon",
+  "kind": "card",
+  "id": "warSurgeon",
+  "name": "War Surgeon",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "heal",
+      "target": "self",
+      "amount": {
+        "f": "mul",
+        "args": [
+          2,
+          {
+            "f": "stacks",
+            "status": "bleed",
+            "of": "allEnemies",
+            "per": 4
+          }
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Heal 2 HP for every 4 Bleed on all enemies. Exhaust.",
+  "flavor": "Field practice of the Bastion's surgeon-wardens.\n\nThey stitched wounds upon the wall, never below it, for a Warden stitched standing remained a Warden, and one carried to the stool was struck from the roll. The Wardens claimed their surgeons outdid the Chapel's physicians.\n\nThe Chapel's own figures burned with the Chapel.",
+  "keywords": [
+    "exhaust"
+  ],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"War Surgeon\" (warSurgeon, reaver). Safe visual scene specification: A weathered medieval field surgeon kneeling beside a seated armored companion, carefully winding a CLEAN linen bandage around a closed armored forearm; healing supplies and a dim camp lantern. No wounds, no exposed flesh, no injury detail, no surgery, no blood, no distressed bodies. Symbolically communicate the card ability; do not literalize other combat details. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-d1b61ba0-c015-4e38-a9d0-d570a2b57f48.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-warSurgeon.png",
+  "sha256": "ab85e007a6031b49e1f95340eee73f08383903dfaba0b1def4c4956eaa199cfd",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:44:00.631Z"
+}

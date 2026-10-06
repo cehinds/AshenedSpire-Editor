@@ -1,0 +1,13 @@
+{
+  "branch": "dev",
+  "buildNumber": "60-1",
+  "commit": "f9440a9b5fdb7bbe8318aeef3e70cb0e5c7134d0",
+  "builtAt": "2026-10-06T09:51:44.463Z",
+  "digest": "cad3fad0e153fcc3493c186b7b82e8f3a6ec806e298ed024ab0ae75c1e42aeac",
+  "delivery": {
+    "encoding": "gzip",
+    "originalBytes": 391945524,
+    "originalSha256": "54824ae120feb4b955e2a7fa3ddfc361b3218f12f7acba15c8a60afe231f099b",
+    "chunks": 7
+  }
+}

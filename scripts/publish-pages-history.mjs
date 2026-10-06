@@ -48,6 +48,7 @@ try {
       console.log(`Preserved Pages history with ${branch}/${buildNumber}/`);
       break;
     }
+    console.error(`Pages history push attempt ${attempt + 1} failed: ${pushed.stderr.trim() || pushed.stdout.trim() || "no Git diagnostic"}`);
     if (attempt === 4) throw new Error("Pages history push failed after five retries; existing history remains intact");
     await new Promise((resolve) => setTimeout(resolve, 400 * (attempt + 1)));
   }

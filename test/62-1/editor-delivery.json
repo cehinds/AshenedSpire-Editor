@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "encoding": "gzip",
+  "originalBytes": 391945528,
+  "originalSha256": "dbf5243bff941bb132b64b936962c425c976b9907a1f6e9ae478beb13c19b98b",
+  "chunks": [
+    {
+      "file": "editor-part-0001.bin",
+      "bytes": 41943040,
+      "sha256": "a0d2141c5805228c5ce243c1d6291775e9eceda23cd0d0b80b1cd76144cd76f2"
+    },
+    {
+      "file": "editor-part-0002.bin",
+      "bytes": 41943040,
+      "sha256": "ad72ec0aa0db71e1f5892afd0e2f00a4e356dc5ee29cbaf04ef852323b95fd35"
+    },
+    {
+      "file": "editor-part-0003.bin",
+      "bytes": 41943040,
+      "sha256": "89a013e1eb466cf31f81173d86d5696e946149caca38429ae71a03b80fe48bed"
+    },
+    {
+      "file": "editor-part-0004.bin",
+      "bytes": 41943040,
+      "sha256": "b9224b67559fadea28059760f046c9a455e838bc346bbd2af6660afc6dd4d42c"
+    },
+    {
+      "file": "editor-part-0005.bin",
+      "bytes": 41943040,
+      "sha256": "773ec9c6443ba4aa161ed447c700eebf281bfff7d1685bac213bcc0275c4e8fc"
+    },
+    {
+      "file": "editor-part-0006.bin",
+      "bytes": 41943040,
+      "sha256": "66830343237021ce0901cfa4c000ff186ed1af5d2d11d7dd6e4e1c929fcf977d"
+    },
+    {
+      "file": "editor-part-0007.bin",
+      "bytes": 28703757,
+      "sha256": "46bfe6b0d1e1d2c213ec1a643ca1495f4d08b20b76223316997f176560e126f2"
+    }
+  ]
+}

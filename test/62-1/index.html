@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Opening AshenedSpire Editor</title><style>body{margin:10vh auto;padding:0 1.5rem;max-width:42rem;background:#181b20;color:#e8dfca;font:17px/1.5 system-ui}button{font:inherit;padding:.65rem 1rem;margin:.3rem;border:1px solid #bda566;border-radius:.4rem;background:#272b30;color:#f1e7cf;cursor:pointer}button:disabled{opacity:.5}#error{color:#ffb7a8}small{color:#c4c7cd}</style></head><body><h1>AshenedSpire Editor</h1><p>This build includes the complete artwork library. Loading it may take a moment.</p><p id="status" role="status" aria-live="polite">Preparing verified download…</p><p id="error" role="alert" hidden></p><button id="download">Download single HTML instead</button><button id="open" hidden>Open editor</button><button id="retry" hidden>Retry</button><p><small>The download preserves the original single-file editor. No artwork is omitted or reduced.</small></p><noscript>JavaScript is needed to unpack this editor. Enable it and reload this page.</noscript><script>
+const manifest={"version":1,"encoding":"gzip","originalBytes":391945528,"originalSha256":"dbf5243bff941bb132b64b936962c425c976b9907a1f6e9ae478beb13c19b98b","chunks":[{"file":"editor-part-0001.bin","bytes":41943040,"sha256":"a0d2141c5805228c5ce243c1d6291775e9eceda23cd0d0b80b1cd76144cd76f2"},{"file":"editor-part-0002.bin","bytes":41943040,"sha256":"ad72ec0aa0db71e1f5892afd0e2f00a4e356dc5ee29cbaf04ef852323b95fd35"},{"file":"editor-part-0003.bin","bytes":41943040,"sha256":"89a013e1eb466cf31f81173d86d5696e946149caca38429ae71a03b80fe48bed"},{"file":"editor-part-0004.bin","bytes":41943040,"sha256":"b9224b67559fadea28059760f046c9a455e838bc346bbd2af6660afc6dd4d42c"},{"file":"editor-part-0005.bin","bytes":41943040,"sha256":"773ec9c6443ba4aa161ed447c700eebf281bfff7d1685bac213bcc0275c4e8fc"},{"file":"editor-part-0006.bin","bytes":41943040,"sha256":"66830343237021ce0901cfa4c000ff186ed1af5d2d11d7dd6e4e1c929fcf977d"},{"file":"editor-part-0007.bin","bytes":28703757,"sha256":"46bfe6b0d1e1d2c213ec1a643ca1495f4d08b20b76223316997f176560e126f2"}]};
+const decodeHostedHtml=async function decodeHostedHtml(manifest, fetchChunk, progress = () => {}) {
+  if (manifest?.version !== 1 || manifest.encoding !== 'gzip' || !Number.isSafeInteger(manifest.originalBytes) || manifest.originalBytes < 1 || !/^[a-f0-9]{64}$/.test(manifest.originalSha256) || !Array.isArray(manifest.chunks) || !manifest.chunks.length) throw Error('Invalid editor delivery manifest.');
+  const hash = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
+  const names = new Set();
+  for (const chunk of manifest.chunks) {
+    if (!/^editor-part-\d{4,}\.bin$/.test(chunk.file) || names.has(chunk.file) || !Number.isSafeInteger(chunk.bytes) || chunk.bytes < 1 || chunk.bytes > 40 * 1024 * 1024 || !/^[a-f0-9]{64}$/.test(chunk.sha256)) throw Error('Invalid editor delivery chunk.');
+    names.add(chunk.file);
+  }
+  // Fetch, verify and decompress sequentially so the compressed archive is never
+  // retained alongside the full editor. At most one compressed part is queued.
+  let nextChunk = 0;
+  const stream = new ReadableStream({async pull(controller) {
+    if (nextChunk === manifest.chunks.length) { progress('Verifying the complete editor…'); controller.close(); return; }
+    const i = nextChunk++, chunk = manifest.chunks[i];
+    progress(`Loading editor artwork and tools (${i + 1}/${manifest.chunks.length})…`);
+    const bytes = new Uint8Array(await fetchChunk(chunk.file));
+    if (bytes.byteLength !== chunk.bytes || await hash(bytes) !== chunk.sha256) throw Error(`Editor download verification failed for part ${i + 1}. Please retry.`);
+    controller.enqueue(bytes);
+  }}, {highWaterMark:0});
+  const reader = stream.pipeThrough(new DecompressionStream('gzip')).getReader();
+  const original = new Uint8Array(manifest.originalBytes); let length = 0;
+  try {
+    while (true) {
+      const {done, value} = await reader.read(); if (done) break;
+      if (length + value.byteLength > manifest.originalBytes) throw Error('Editor decompressed size exceeds its manifest.');
+      original.set(value, length);length += value.byteLength;
+    }
+  } catch (error) { await reader.cancel().catch(() => {}); throw error; }
+  if (length !== manifest.originalBytes) throw Error('Editor decompressed size does not match its manifest.');
+  if (await hash(original) !== manifest.originalSha256) throw Error('Editor content verification failed. Please retry.');
+  return original;
+};
+const status=document.getElementById('status'),error=document.getElementById('error'),download=document.getElementById('download'),openButton=document.getElementById('open'),retry=document.getElementById('retry');
+let intent='open',pending=null,original=null,downloadUrl=null;
+async function load(){
+ if(original)return original;
+ if(pending)return pending;
+ error.hidden=true;retry.hidden=true;
+ pending=decodeHostedHtml(manifest,async file=>{const response=await fetch(new URL(file,location.href),{cache:'no-store',signal:AbortSignal.timeout(120000)});if(!response.ok)throw Error('Editor part could not load (HTTP '+response.status+'). Please retry.');return response.arrayBuffer();},text=>status.textContent=text).then(bytes=>original=bytes).catch(reason=>{pending=null;throw reason;});
+ return pending;
+}
+function failed(reason){status.textContent='The editor has not opened.';error.textContent=reason.message||'Could not load the editor. Please retry.';error.hidden=false;retry.hidden=false;download.disabled=false;openButton.disabled=false;}
+async function openEditor(){intent='open';try{const bytes=await load();if(intent!=='open')return;const html=new TextDecoder('utf-8',{fatal:true}).decode(bytes);original=null;pending=null;if(downloadUrl){URL.revokeObjectURL(downloadUrl);downloadUrl=null;}document.open();document.write(html);document.close();}catch(reason){failed(reason);}}
+download.onclick=async()=>{intent='download';download.disabled=true;try{const bytes=await load();downloadUrl??=URL.createObjectURL(new Blob([bytes],{type:'text/html;charset=utf-8'}));const link=document.createElement('a');link.href=downloadUrl;link.download='AshenedSpire-Editor.html';link.click();status.textContent='Verified single-file editor is ready. Open it here or save another copy.';openButton.hidden=false;download.disabled=false;}catch(reason){failed(reason);}};
+openButton.onclick=openEditor;retry.onclick=()=>{intent==='download'?download.click():openEditor();};
+openEditor();
+</script></body></html>

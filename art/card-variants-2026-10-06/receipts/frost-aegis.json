@@ -1,0 +1,11 @@
+{
+  "id": "frost-aegis",
+  "name": "Frost Aegis",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A massive battered round iron shield with a deep blue crystal boss, silver rim and overlapping ice plates floats above a frozen shattered stair. The shield fills the lower-middle, pale frost erupts outward. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-759a433a-50e6-4e9d-ba4e-ab34e5064ddb.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/frost-aegis.png",
+  "sha256": "215c4f12bf97c86f609ccb28278df8f23421b673973d40fb47c19201826e6a50",
+  "width": 1024,
+  "height": 1536
+}

@@ -1,0 +1,11 @@
+{
+  "id": "cinder-axe",
+  "name": "Cinder Axe",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A heavy battle axe of blackened iron and worn bronze cleaves through a wave of molten sparks above cracked obsidian. Strong diagonal weapon shape with clear haft and one broad crescent cutting edge, crimson-orange inferno and distant volcanic ridges. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-15d20641-be4d-4a88-884f-7ba3ddde4869.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/cinder-axe.png",
+  "sha256": "b72ad3112d3ee9c9469e08c2184da44add9283e6f012567854ff46cea5eead36",
+  "width": 1024,
+  "height": 1536
+}

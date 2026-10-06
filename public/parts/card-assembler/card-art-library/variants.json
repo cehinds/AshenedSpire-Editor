@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "cards": [
+    {
+      "id": "variant:frost-aegis",
+      "name": "Frost Aegis",
+      "class": "Variants",
+      "src": "variants/frost-aegis.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:storm-spear",
+      "name": "Storm Spear",
+      "class": "Variants",
+      "src": "variants/storm-spear.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:emerald-ward",
+      "name": "Emerald Ward",
+      "class": "Variants",
+      "src": "variants/emerald-ward.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:cinder-axe",
+      "name": "Cinder Axe",
+      "class": "Variants",
+      "src": "variants/cinder-axe.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:void-crescent",
+      "name": "Void Crescent",
+      "class": "Variants",
+      "src": "variants/void-crescent.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:golden-hammer",
+      "name": "Golden Hammer",
+      "class": "Variants",
+      "src": "variants/golden-hammer.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:frost-lunge",
+      "name": "Frost Lunge",
+      "class": "Variants",
+      "src": "variants/frost-lunge.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "variant:ashen-bow",
+      "name": "Ashen Bow",
+      "class": "Variants",
+      "src": "variants/ashen-bow.webp",
+      "width": 1024,
+      "height": 1536
+    }
+  ]
+}

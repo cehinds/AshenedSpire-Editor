@@ -1,0 +1,11 @@
+{
+  "id": "void-crescent",
+  "name": "Void Crescent",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A ragged hooded swordsman seen from behind in a wide grounded stance sweeps one curved sword, releasing a luminous violet crescent across a shattered cathedral avenue. One anatomically coherent figure, one weapon, swirling ash and cold stars overhead. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-481e8ea1-c7d1-4487-9a42-4f884d3b2456.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/void-crescent.png",
+  "sha256": "27835b2be5d28199a9d3eb9ff179be14b467de5c25836713ffc42860fecce89e",
+  "width": 1024,
+  "height": 1536
+}

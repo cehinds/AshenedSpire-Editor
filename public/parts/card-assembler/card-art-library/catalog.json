@@ -1,0 +1,1287 @@
+{
+  "version": 1,
+  "totalSubjects": 236,
+  "complete": false,
+  "cards": [
+    {
+      "id": "card:acrobaticsRogue",
+      "name": "Acrobatics",
+      "class": "rogue",
+      "src": "art/card-acrobaticsRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:aegisOfEmbers",
+      "name": "Aegis of Embers",
+      "class": "reaver",
+      "src": "art/card-aegisOfEmbers.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:afterimageCard",
+      "name": "Afterimage",
+      "class": "rogue",
+      "src": "art/card-afterimageCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:aimedShot",
+      "name": "Aimed Shot",
+      "class": "rogue",
+      "src": "art/card-aimedShot.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:arrowVolley",
+      "name": "Arrow Volley",
+      "class": "rogue",
+      "src": "art/card-arrowVolley.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ashCircle",
+      "name": "Ash Circle",
+      "class": "starseer",
+      "src": "art/card-ashCircle.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ashOath",
+      "name": "Oath of Ash",
+      "class": "colorless",
+      "src": "art/card-ashOath.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ashenMote",
+      "name": "Ashen Mote",
+      "class": "starseer",
+      "src": "art/card-ashenMote.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ashfallRite",
+      "name": "Ashfall Rite",
+      "class": "starseer",
+      "src": "art/card-ashfallRite.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:assassinate",
+      "name": "Assassinate",
+      "class": "rogue",
+      "src": "art/card-assassinate.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:astralInsight",
+      "name": "Astral Insight",
+      "class": "starseer",
+      "src": "art/card-astralInsight.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:astromancerCard",
+      "name": "Astromancer",
+      "class": "starseer",
+      "src": "art/card-astromancerCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:attune",
+      "name": "Attune",
+      "class": "starseer",
+      "src": "art/card-attune.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:barbedArrow",
+      "name": "Barbed Arrow",
+      "class": "rogue",
+      "src": "art/card-barbedArrow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bashingBlow",
+      "name": "Bashing Blow",
+      "class": "colorless",
+      "src": "art/card-bashingBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bindingParry",
+      "name": "Binding Parry",
+      "class": "rogue",
+      "src": "art/card-bindingParry.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bladeDanceRogue",
+      "name": "Blade Dance",
+      "class": "rogue",
+      "src": "art/card-bladeDanceRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:blightTouch",
+      "name": "Blight Touch",
+      "class": "herald",
+      "src": "art/card-blightTouch.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:blindingSand",
+      "name": "Blinding Sand",
+      "class": "colorless",
+      "src": "art/card-blindingSand.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodPact",
+      "name": "Blood Pact",
+      "class": "herald",
+      "src": "art/card-bloodPact.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodTithe",
+      "name": "Blood Tithe",
+      "class": "reaver",
+      "src": "art/card-bloodTithe.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodhuntersStrike",
+      "name": "Bloodhunter's Strike",
+      "class": "reaver",
+      "src": "art/card-bloodhuntersStrike.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bloodletterRogue",
+      "name": "Bloodletter",
+      "class": "rogue",
+      "src": "art/card-bloodletterRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:brace",
+      "name": "Brace",
+      "class": "reaver",
+      "src": "art/card-brace.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:bracingStance",
+      "name": "Bracing Stance",
+      "class": "reaver",
+      "src": "art/card-bracingStance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:celestialLance",
+      "name": "Celestial Lance",
+      "class": "starseer",
+      "src": "art/card-celestialLance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:cheapShot",
+      "name": "Cheap Shot",
+      "class": "rogue",
+      "src": "art/card-cheapShot.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:cinderLance",
+      "name": "Cinder Lance",
+      "class": "starseer",
+      "src": "art/card-cinderLance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:cinderSigil",
+      "name": "Cinder Sigil",
+      "class": "starseer",
+      "src": "art/card-cinderSigil.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:cleavingBlow",
+      "name": "Cleaving Blow",
+      "class": "reaver",
+      "src": "art/card-cleavingBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:colossusSmash",
+      "name": "Colossus Smash",
+      "class": "colorless",
+      "src": "art/card-colossusSmash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:coupDeGrace",
+      "name": "Coup de Grace",
+      "class": "rogue",
+      "src": "art/card-coupDeGrace.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:crimsonCleave",
+      "name": "Crimson Cleave",
+      "class": "reaver",
+      "src": "art/card-crimsonCleave.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:dazed",
+      "name": "Dazed",
+      "class": "colorless",
+      "src": "art/card-dazed.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:deadlyTempoCard",
+      "name": "Deadly Tempo",
+      "class": "rogue",
+      "src": "art/card-deadlyTempoCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:deathblow",
+      "name": "Deathblow",
+      "class": "rogue",
+      "src": "art/card-deathblow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:defend",
+      "name": "Defend",
+      "class": "colorless",
+      "src": "art/card-defend.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:disorient",
+      "name": "Disorient",
+      "class": "rogue",
+      "src": "art/card-disorient.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:dodgeRoll",
+      "name": "Dodge Roll",
+      "class": "colorless",
+      "src": "art/card-dodgeRoll.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:emberVigil",
+      "name": "Ember Vigil",
+      "class": "starseer",
+      "src": "art/card-emberVigil.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:enfeeble",
+      "name": "Enfeeble",
+      "class": "colorless",
+      "src": "art/card-enfeeble.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:enterBulwark",
+      "name": "Enter: Bulwark",
+      "class": "reaver",
+      "src": "art/card-enterBulwark.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:enterGorefire",
+      "name": "Enter: Gorefire",
+      "class": "reaver",
+      "src": "art/card-enterGorefire.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:envenomCard",
+      "name": "Envenom",
+      "class": "rogue",
+      "src": "art/card-envenomCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:evasiveGuard",
+      "name": "Evasive Guard",
+      "class": "colorless",
+      "src": "art/card-evasiveGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:executionWindow",
+      "name": "Execution Window",
+      "class": "rogue",
+      "src": "art/card-executionWindow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:executioner",
+      "name": "Executioner",
+      "class": "reaver",
+      "src": "art/card-executioner.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:fanOfKnives",
+      "name": "Fan of Knives",
+      "class": "rogue",
+      "src": "art/card-fanOfKnives.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:fieldDressing",
+      "name": "Field Dressing",
+      "class": "colorless",
+      "src": "art/card-fieldDressing.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:flagellation",
+      "name": "Flagellation",
+      "class": "herald",
+      "src": "art/card-flagellation.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:flameToBlade",
+      "name": "Flame to Blade",
+      "class": "reaver",
+      "src": "art/card-flameToBlade.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:garrote",
+      "name": "Garrote",
+      "class": "rogue",
+      "src": "art/card-garrote.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:goreblood",
+      "name": "Goreblood",
+      "class": "reaver",
+      "src": "art/card-goreblood.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:gorefireSlash",
+      "name": "Gorefire Slash",
+      "class": "reaver",
+      "src": "art/card-gorefireSlash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:goreslash",
+      "name": "Goreslash",
+      "class": "reaver",
+      "src": "art/card-goreslash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:greatswordSunderingHew",
+      "name": "Sundering Hew",
+      "class": "colorless",
+      "src": "art/card-greatswordSunderingHew.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:guardCounter",
+      "name": "Guard Counter",
+      "class": "reaver",
+      "src": "art/card-guardCounter.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:guardianBulwark",
+      "name": "Enter: Bulwark",
+      "class": "colorless",
+      "src": "art/card-guardianBulwark.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:guilt",
+      "name": "Guilt",
+      "class": "colorless",
+      "src": "art/card-guilt.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:hamstring",
+      "name": "Hamstring",
+      "class": "colorless",
+      "src": "art/card-hamstring.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:hemorrhage",
+      "name": "Hemorrhage",
+      "class": "reaver",
+      "src": "art/card-hemorrhage.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:hewingArc",
+      "name": "Hewing Arc",
+      "class": "reaver",
+      "src": "art/card-hewingArc.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:hex",
+      "name": "Hex",
+      "class": "colorless",
+      "src": "art/card-hex.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:honedEdge",
+      "name": "Honed Edge",
+      "class": "colorless",
+      "src": "art/card-honedEdge.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:impale",
+      "name": "Impale",
+      "class": "reaver",
+      "src": "art/card-impale.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ironResolve",
+      "name": "Iron Resolve",
+      "class": "reaver",
+      "src": "art/card-ironResolve.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ironSkin",
+      "name": "Iron Skin",
+      "class": "colorless",
+      "src": "art/card-ironSkin.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ironVowCard",
+      "name": "Iron Vow",
+      "class": "reaver",
+      "src": "art/card-ironVowCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:katanaDrawCut",
+      "name": "Draw Cut",
+      "class": "colorless",
+      "src": "art/card-katanaDrawCut.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:kickOff",
+      "name": "Kick Off",
+      "class": "reaver",
+      "src": "art/card-kickOff.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:kilnCleave",
+      "name": "Kiln Cleave",
+      "class": "colorless",
+      "src": "art/card-kilnCleave.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:kindledOmen",
+      "name": "Kindled Omen",
+      "class": "starseer",
+      "src": "art/card-kindledOmen.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:lastStand",
+      "name": "Last Stand",
+      "class": "reaver",
+      "src": "art/card-lastStand.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:litany",
+      "name": "Litany",
+      "class": "herald",
+      "src": "art/card-litany.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:masterOfStrategy",
+      "name": "Master of Strategy",
+      "class": "colorless",
+      "src": "art/card-masterOfStrategy.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:misdirect",
+      "name": "Misdirect",
+      "class": "rogue",
+      "src": "art/card-misdirect.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:moonlitShieldCard",
+      "name": "Moonlit Shield",
+      "class": "starseer",
+      "src": "art/card-moonlitShieldCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:nockAndWait",
+      "name": "Nock and Wait",
+      "class": "rogue",
+      "src": "art/card-nockAndWait.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:opportunistCard",
+      "name": "Opportunist",
+      "class": "rogue",
+      "src": "art/card-opportunistCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:penance",
+      "name": "Penance",
+      "class": "herald",
+      "src": "art/card-penance.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:perfectHeist",
+      "name": "Perfect Heist",
+      "class": "rogue",
+      "src": "art/card-perfectHeist.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:phoenixChart",
+      "name": "Phoenix Chart",
+      "class": "starseer",
+      "src": "art/card-phoenixChart.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:pinningShot",
+      "name": "Pinning Shot",
+      "class": "rogue",
+      "src": "art/card-pinningShot.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:poiseBreaker",
+      "name": "Poise Breaker",
+      "class": "reaver",
+      "src": "art/card-poiseBreaker.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:prepare",
+      "name": "Prepare",
+      "class": "rogue",
+      "src": "art/card-prepare.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:pyreLight",
+      "name": "Pyre Light",
+      "class": "starseer",
+      "src": "art/card-pyreLight.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:pyreOfCharts",
+      "name": "Pyre of Charts",
+      "class": "starseer",
+      "src": "art/card-pyreOfCharts.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:quickGuard",
+      "name": "Quick Guard",
+      "class": "colorless",
+      "src": "art/card-quickGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:quickstep",
+      "name": "Quickstep",
+      "class": "reaver",
+      "src": "art/card-quickstep.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:rallyingBanner",
+      "name": "Rallying Banner",
+      "class": "colorless",
+      "src": "art/card-rallyingBanner.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:rallyingStandard",
+      "name": "Rallying Standard",
+      "class": "reaver",
+      "src": "art/card-rallyingStandard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:readTheAsh",
+      "name": "Read the Ash",
+      "class": "starseer",
+      "src": "art/card-readTheAsh.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:rend",
+      "name": "Rend",
+      "class": "reaver",
+      "src": "art/card-rend.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:rimeThrust",
+      "name": "Rime Thrust",
+      "class": "colorless",
+      "src": "art/card-rimeThrust.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:riposte",
+      "name": "Riposte",
+      "class": "reaver",
+      "src": "art/card-riposte.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:riteOfCinders",
+      "name": "Rite of Cinders",
+      "class": "starseer",
+      "src": "art/card-riteOfCinders.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:rondelParry",
+      "name": "Rondel Parry",
+      "class": "reaver",
+      "src": "art/card-rondelParry.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:ruinousBlow",
+      "name": "Ruinous Blow",
+      "class": "reaver",
+      "src": "art/card-ruinousBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sanguinePactCard",
+      "name": "Sanguine Pact",
+      "class": "reaver",
+      "src": "art/card-sanguinePactCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sap",
+      "name": "Sap",
+      "class": "rogue",
+      "src": "art/card-sap.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:serratedBlade",
+      "name": "Serrated Blade",
+      "class": "reaver",
+      "src": "art/card-serratedBlade.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:setTheShield",
+      "name": "Set the Shield",
+      "class": "reaver",
+      "src": "art/card-setTheShield.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:setupRogue",
+      "name": "Setup",
+      "class": "rogue",
+      "src": "art/card-setupRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shadowstep",
+      "name": "Shadowstep",
+      "class": "rogue",
+      "src": "art/card-shadowstep.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sharedFlame",
+      "name": "Shared Flame",
+      "class": "colorless",
+      "src": "art/card-sharedFlame.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shieldBash",
+      "name": "Shield Bash",
+      "class": "reaver",
+      "src": "art/card-shieldBash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shieldBastion",
+      "name": "Bastion",
+      "class": "colorless",
+      "src": "art/card-shieldBastion.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shieldCrash",
+      "name": "Shield Crash",
+      "class": "reaver",
+      "src": "art/card-shieldCrash.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shieldGuardian",
+      "name": "Guardian",
+      "class": "colorless",
+      "src": "art/card-shieldGuardian.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shieldwall",
+      "name": "Shieldwall",
+      "class": "reaver",
+      "src": "art/card-shieldwall.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:shootingShard",
+      "name": "Shooting Shard",
+      "class": "starseer",
+      "src": "art/card-shootingShard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:slimed",
+      "name": "Slimed",
+      "class": "colorless",
+      "src": "art/card-slimed.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:smokeBomb",
+      "name": "Smoke Bomb",
+      "class": "rogue",
+      "src": "art/card-smokeBomb.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:spikedReprisal",
+      "name": "Spiked Reprisal",
+      "class": "colorless",
+      "src": "art/card-spikedReprisal.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starPath",
+      "name": "Star Path",
+      "class": "starseer",
+      "src": "art/card-starPath.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starSpark",
+      "name": "Star Spark",
+      "class": "starseer",
+      "src": "art/card-starSpark.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:starcaller",
+      "name": "Starcaller",
+      "class": "starseer",
+      "src": "art/card-starcaller.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:stitchedArms",
+      "name": "Stitched Arms",
+      "class": "reaver",
+      "src": "art/card-stitchedArms.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:stomp",
+      "name": "Stomp",
+      "class": "reaver",
+      "src": "art/card-stomp.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:strike",
+      "name": "Strike",
+      "class": "colorless",
+      "src": "art/card-strike.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sunderingChop",
+      "name": "Sundering Chop",
+      "class": "reaver",
+      "src": "art/card-sunderingChop.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sunderplate",
+      "name": "Sunderplate",
+      "class": "reaver",
+      "src": "art/card-sunderplate.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:sweepingBlow",
+      "name": "Sweeping Blow",
+      "class": "colorless",
+      "src": "art/card-sweepingBlow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:technique",
+      "name": "Footwork",
+      "class": "colorless",
+      "src": "art/card-technique.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:thousandCutsRogue",
+      "name": "Thousand Cuts",
+      "class": "rogue",
+      "src": "art/card-thousandCutsRogue.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:toxicVolley",
+      "name": "Toxic Volley",
+      "class": "rogue",
+      "src": "art/card-toxicVolley.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:transmute",
+      "name": "Transmute",
+      "class": "colorless",
+      "src": "art/card-transmute.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:twinFang",
+      "name": "Twin Fang",
+      "class": "colorless",
+      "src": "art/card-twinFang.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:twinbladeFlurry",
+      "name": "Twinblade Flurry",
+      "class": "reaver",
+      "src": "art/card-twinbladeFlurry.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:umbralWard",
+      "name": "Umbral Ward",
+      "class": "starseer",
+      "src": "art/card-umbralWard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:unbreakable",
+      "name": "Unbreakable",
+      "class": "reaver",
+      "src": "art/card-unbreakable.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:urgentHeal",
+      "name": "Urgent Heal",
+      "class": "herald",
+      "src": "art/card-urgentHeal.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:vanish",
+      "name": "Vanish",
+      "class": "rogue",
+      "src": "art/card-vanish.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:venomcoat",
+      "name": "Venomcoat",
+      "class": "rogue",
+      "src": "art/card-venomcoat.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:vesperWard",
+      "name": "Vesper Ward",
+      "class": "colorless",
+      "src": "art/card-vesperWard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:warSurgeon",
+      "name": "War Surgeon",
+      "class": "reaver",
+      "src": "art/card-warSurgeon.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:warcry",
+      "name": "Warcry",
+      "class": "reaver",
+      "src": "art/card-warcry.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:wardingLunge",
+      "name": "Warding Lunge",
+      "class": "reaver",
+      "src": "art/card-wardingLunge.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:wardingStar",
+      "name": "Warding Star",
+      "class": "starseer",
+      "src": "art/card-wardingStar.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:warriorsVow",
+      "name": "Warrior's Vow",
+      "class": "reaver",
+      "src": "art/card-warriorsVow.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:waxingMoonCard",
+      "name": "Waxing Moon",
+      "class": "starseer",
+      "src": "art/card-waxingMoonCard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:whirlingGuard",
+      "name": "Whirling Guard",
+      "class": "rogue",
+      "src": "art/card-whirlingGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "card:wound",
+      "name": "Wound",
+      "class": "colorless",
+      "src": "art/card-wound.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:bladeAttack",
+      "name": "Slashing Strike",
+      "class": "Equipment",
+      "src": "art/profile-bladeAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:bowPierceAttack",
+      "name": "Piercing Shot",
+      "class": "Equipment",
+      "src": "art/profile-bowPierceAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:bowTechnique",
+      "name": "Steady Aim",
+      "class": "Equipment",
+      "src": "art/profile-bowTechnique.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:daggerPierceAttack",
+      "name": "Piercing Flurry",
+      "class": "Equipment",
+      "src": "art/profile-daggerPierceAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:sceptreArcaneAttack",
+      "name": "Arcane Strike",
+      "class": "Equipment",
+      "src": "art/profile-sceptreArcaneAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:sceptreGuard",
+      "name": "Ritual Ward",
+      "class": "Equipment",
+      "src": "art/profile-sceptreGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:shieldAttack",
+      "name": "Shield Strike",
+      "class": "Equipment",
+      "src": "art/profile-shieldAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:shieldGuard",
+      "name": "Shield Defend",
+      "class": "Equipment",
+      "src": "art/profile-shieldGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:staffGuard",
+      "name": "Arcane Ward",
+      "class": "Equipment",
+      "src": "art/profile-staffGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:staffMagicAttack",
+      "name": "Staff Magic Strike",
+      "class": "Equipment",
+      "src": "art/profile-staffMagicAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:staffTechnique",
+      "name": "Staff Channel",
+      "class": "Equipment",
+      "src": "art/profile-staffTechnique.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:twinbladeAttack",
+      "name": "Twinblade Flurry",
+      "class": "Equipment",
+      "src": "art/profile-twinbladeAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:unarmedAttack",
+      "name": "Unarmed Strike",
+      "class": "Equipment",
+      "src": "art/profile-unarmedAttack.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:unarmedGuard",
+      "name": "Evasive Guard",
+      "class": "Equipment",
+      "src": "art/profile-unarmedGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:unarmedTechnique",
+      "name": "Dodge Roll",
+      "class": "Equipment",
+      "src": "art/profile-unarmedTechnique.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:weaponGuard",
+      "name": "Weapon Guard",
+      "class": "Equipment",
+      "src": "art/profile-weaponGuard.webp",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "id": "profile:weaponTechnique",
+      "name": "Weapon Technique",
+      "class": "Equipment",
+      "src": "art/profile-weaponTechnique.webp",
+      "width": 1024,
+      "height": 1536
+    }
+  ]
+}

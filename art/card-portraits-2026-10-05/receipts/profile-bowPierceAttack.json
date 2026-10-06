@@ -1,0 +1,13 @@
+{
+  "id": "bowPierceAttack",
+  "kind": "profile",
+  "name": "Piercing Shot",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Piercing Shot (bowPierceAttack), equipment technique. Canonical action:  [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6}]. Lore/mood: Shot loosed from low cover.\n\nThe way weald poachers took the deer the Bastion kept for its tables. The Bastion hanged poachers, so the hamlets loosed upon the dawn peal, which hid the sound of the string.\n\nThe Bell Keeper rings the peal yet, though no dawn follows.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-6055612f-d33f-462b-ba7f-912a28d3da4c.png",
+  "sourceMaster": "masters/profile-bowPierceAttack.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "3ce1f86807929f2217187fcaba5202e97217f90a673234e5ca2ceeec4c4115bb"
+}

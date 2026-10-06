@@ -1,0 +1,13 @@
+{
+  "id": "ashenMote",
+  "kind": "card",
+  "name": "Ashen Mote",
+  "class": "starseer",
+  "sourceMaster": "masters/card-ashenMote.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Ashen Mote\",\"class\":\"starseer\",\"type\":\"attack\",\"action\":\"Deal {damage} damage. Starstone: deal {damage.2} more.\",\"effects\":[{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"A fleck of burnt chart, flung like a star.\\n\\nWhen the Observatory's archive burned, the apprentice Hollis gathered its ash in jars, believing the charts might be read again. Some of it could be.\\n\\nIt reads the same sky, though not the one above the Observatory.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-b6c88674-a4e9-4524-ba4b-6946922b6c65.png",
+  "sha256": "f145c5bed5baad92647c28617b7855540026ab70b466d7474fd4e273be48e463",
+  "width": 1024,
+  "height": 1536
+}

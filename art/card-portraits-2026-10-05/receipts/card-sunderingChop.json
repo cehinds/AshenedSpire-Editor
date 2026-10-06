@@ -1,0 +1,36 @@
+{
+  "subjectKey": "card:sunderingChop",
+  "kind": "card",
+  "id": "sunderingChop",
+  "name": "Sundering Chop",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 9
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 7
+    },
+    {
+      "op": "draw",
+      "amount": 1
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage. Draw {draw} card.",
+  "flavor": "Downward blow meant to split a shield.\n\nThe Vanguard's smiths measured their work by it. A shield that survived three chops was sent to the wall; one that did not was sent back to the forge with the smith's name chalked upon it.\n\nFew names were chalked twice.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Sundering Chop, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":9},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":7},{\"op\":\"draw\",\"amount\":1}]. Context: Downward blow meant to split a shield.\n\nThe Vanguard's smiths measured their work by it. A shield that survived three chops was sent to the wall; one that did not was sent back to the forge with the smith's name chalked upon it.\n\nFew names were chalked twice.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-fc6e892e-94ae-42b7-8ca9-7fe8a84d2a1a.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-sunderingChop.png",
+  "sha256": "a4508c8f8a142e064b81573b5b1bd82280af6951c82131d220572dd4de723eca",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:57:58.466Z"
+}

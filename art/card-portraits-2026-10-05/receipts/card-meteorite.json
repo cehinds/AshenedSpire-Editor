@@ -1,0 +1,58 @@
+{
+  "subjectKey": "card:meteorite",
+  "kind": "card",
+  "id": "meteorite",
+  "name": "Meteorite",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 18,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "hasStatus",
+          "of": "self",
+          "status": "starstoneCharge"
+        }
+      }
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 24,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: {damage.2} instead.",
+  "flavor": "Heavy fall, called upon one enemy.\n\nThe largest fragment the Starwatch recovered weighed more than its size allowed. The miners who carried it said it weighed more atop the stair than at its foot.\n\nThe Astronomer had it weighed at both ends, and recorded the results in cipher.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Meteorite (meteorite, Starseer). PRIMARY VISUAL READ: One imposing levitating dark meteorite glowing violet at fissures, summoned close to the ground by a scholar.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":18,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}}},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":24,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: {damage.2} instead.. Lore for setting/material context only, do not replace the ability with a story vignette: Heavy fall, called upon one enemy.\n\nThe largest fragment the Starwatch recovered weighed more than its size allowed. The miners who carried it said it weighed more atop the stair than at its foot.\n\nThe Astronomer had it weighed at both ends, and recorded the results in cipher.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-dfaac77b-92fb-4ac6-bfdc-3c20f18662c3.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-meteorite.png",
+  "sha256": "fbe830f41669daaab0043e10be46fa71fdf75843731e487095912b328f205cc2",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:13:36.439Z"
+}

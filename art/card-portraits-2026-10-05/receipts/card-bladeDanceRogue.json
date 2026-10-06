@@ -1,0 +1,13 @@
+{
+  "id": "bladeDanceRogue",
+  "kind": "card",
+  "name": "Blade Dance",
+  "class": "rogue",
+  "prompt": "Create a polished game card illustration for AshenSpire, portrait 1024x1536, painted weathered medieval dark fantasy material detail matching style reference only. PRIMARY VISUAL: An agile hooded rogue alone practicing a dynamic twisting dance-like martial stance with one short dagger in each hand, a graceful series of faint silver blade trails showing rapid successive movements. Entire figure clearly visible below top third, correct two arms and two hands. Empty ruined stone courtyard, NO opponents, puppets, dolls or coins; no one being harmed. Maintain generous atmospheric background in upper35percent, main subject lower2/3, extra room around subjects for cropping. Ruined gothic environment, restrained dramatic light and ash. No text, letters, numbers, frame, UI or watermark. This is non-graphic, nonviolent symbolic artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-021de3e6-8549-4879-b780-b9d33651fd0d.png",
+  "sourceMaster": "masters/card-bladeDanceRogue.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "7b5d40079edf7bc362c59b7c472f93b90582bb079dabcdc637b731965868b113"
+}

@@ -1,0 +1,50 @@
+{
+  "subjectKey": "card:crystalBarrier",
+  "kind": "card",
+  "id": "crystalBarrier",
+  "name": "Crystal Barrier",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 5
+    },
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 4,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Starstone: {block.2} more.",
+  "flavor": "Pane of starstone, cut as the great lens was cut.\n\nThe great lens cracked in the frost of the eclipse, yet held the light. The Astronomer credited his grinding.\n\nMaud Vell, who ground it, said the crack had closed a little by morning. She would not grind another.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Crystal Barrier (crystalBarrier, Starseer). PRIMARY VISUAL READ: A robust translucent blue crystal barrier growing from the ground before a robed scholar.. Actual ability effects: [{\"op\":\"block\",\"target\":\"self\",\"amount\":5},{\"op\":\"block\",\"target\":\"self\",\"amount\":4,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Gain {block} Block. Starstone: {block.2} more.. Lore for setting/material context only, do not replace the ability with a story vignette: Pane of starstone, cut as the great lens was cut.\n\nThe great lens cracked in the frost of the eclipse, yet held the light. The Astronomer credited his grinding.\n\nMaud Vell, who ground it, said the crack had closed a little by morning. She would not grind another.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b9047c78-fc37-438f-b103-8f30fe222599.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-crystalBarrier.png",
+  "sha256": "9e0c003d27c7ef47fb9c76eb2e5ff635396d70c4ecb2ff5119fe47aa9ca59644",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:03:04.160Z"
+}

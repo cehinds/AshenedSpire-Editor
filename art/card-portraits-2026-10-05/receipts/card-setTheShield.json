@@ -1,0 +1,31 @@
+{
+  "subjectKey": "card:setTheShield",
+  "kind": "card",
+  "id": "setTheShield",
+  "name": "Set the Shield",
+  "class": "reaver",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 7
+    },
+    {
+      "op": "enterStance",
+      "stance": "bulwark"
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Enter Bulwark Stance.",
+  "flavor": "The rim planted, the shoulder behind it.\n\nOld Vanguard drill: the shield is set before the enemy is seen, and the man behind it waits. The drill was called cowardice by the Court's duellists, until the night the Court's gate fell.\n\nThe duellists did not drill again.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Set the Shield, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"block\",\"target\":\"self\",\"amount\":7},{\"op\":\"enterStance\",\"stance\":\"bulwark\"}]. Context: The rim planted, the shoulder behind it.\n\nOld Vanguard drill: the shield is set before the enemy is seen, and the man behind it waits. The drill was called cowardice by the Court's duellists, until the night the Court's gate fell.\n\nThe duellists did not drill again.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-0d8d0931-c9e8-490a-9ea5-8183b600423f.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-setTheShield.png",
+  "sha256": "848d87c13d07510fb298117a79ffbdf73516024858c76816876b54e54c7f6d53",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:57:58.478Z"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "smokeVeil",
+  "kind": "card",
+  "name": "Smoke Veil",
+  "class": "rogue",
+  "sourceMaster": "masters/card-smokeVeil.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  Non-graphic adventure illustration. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: Adult rogue concealed behind a sweeping wall of thick river fog mixed with ash, their cloak silhouette clear in lower foreground; several armored pursuers lose sight of them and hesitate among unlit dock lamps. Cold intricate bridges above. Card title (never render text): Smoke Veil. Class: rogue.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-f059f57a-98fc-4709-a63c-47a092ba3d73.png",
+  "sha256": "ec15d4ac0f812e841e1c8712feef66d61fa2f35cd7f2ced98303eb8d4be81ad8",
+  "width": 1024,
+  "height": 1536
+}

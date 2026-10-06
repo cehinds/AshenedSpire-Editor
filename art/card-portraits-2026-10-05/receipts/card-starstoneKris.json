@@ -1,0 +1,57 @@
+{
+  "subjectKey": "card:starstoneKris",
+  "kind": "card",
+  "id": "starstoneKris",
+  "name": "Starstone Kris",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5
+    },
+    {
+      "op": "draw",
+      "amount": 1,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: draw {draw} card and deal {damage.2} again.",
+  "flavor": "Wavy dagger of starstone.\n\nCarried by apprentices for rough work in the lower galleries. Its first owner wrapped it in cloth and found the cloth frosted by morning. The kris keeps its cold whether carried or not.\n\nIt was coldest, the apprentice noted, in the Astronomer's presence.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starstone Kris (starstoneKris, Starseer). PRIMARY VISUAL READ: A distinctive wavy kris dagger made with starstone-blue crystal accents held by a scholar in a weathered gloved hand.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5},{\"op\":\"draw\",\"amount\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: draw {draw} card and deal {damage.2} again.. Lore for setting/material context only, do not replace the ability with a story vignette: Wavy dagger of starstone.\n\nCarried by apprentices for rough work in the lower galleries. Its first owner wrapped it in cloth and found the cloth frosted by morning. The kris keeps its cold whether carried or not.\n\nIt was coldest, the apprentice noted, in the Astronomer's presence.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-783af541-45d5-4eb8-8a68-7fd0dad7d268.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starstoneKris.png",
+  "sha256": "84c30ff4c214c6d8f9a75353c0d7e4547b0010aae6e67f1dc35ed188814b9ea1",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:19:22.816Z"
+}

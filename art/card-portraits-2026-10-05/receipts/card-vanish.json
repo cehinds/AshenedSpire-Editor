@@ -1,0 +1,13 @@
+{
+  "id": "vanish",
+  "kind": "card",
+  "name": "Vanish",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Vanish (vanish), rogue skill. Canonical action: Gain {block} Block. Become Prepared. Add a Smoke Pellet to your hand. Exhaust. [{\"op\":\"block\",\"target\":\"self\",\"amount\":8},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"prepared\",\"stacks\":{\"f\":\"add\",\"args\":[1]}},{\"op\":\"addCard\",\"card\":\"smokePellet\",\"pile\":\"hand\"}]. Lore/mood: Art of the unmarked beneath the bridges.\n\nTaught to the docks by those who lived under the Citadel's bridges before the Decree, when to be seen was to be entered on a roll. Under the bridges there is nothing but ice.\n\nMost of those teachers vanished in the end. Where to, the docks cannot agree.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-351ff63a-7805-4df7-b819-70ad979033fd.png",
+  "sourceMaster": "masters/card-vanish.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "7d6c1dda17d9f94dde6fc21da297fd3302b999b90f697e568c5aca23f9c591a2"
+}

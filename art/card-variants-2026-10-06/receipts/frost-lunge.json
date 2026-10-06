@@ -1,0 +1,11 @@
+{
+  "id": "frost-lunge",
+  "name": "Frost Lunge",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A cloaked duelist lunges diagonally across a frozen ruined bridge, thrusting a narrow longsword whose point trails crisp blue-white frost. Dynamic side view and clear grounded anatomy, torn cloth blowing behind, icicles and ruined arches in mist. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-b7add325-6435-4bed-8d6d-0481a5da0052.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/frost-lunge.png",
+  "sha256": "81ad38eff020c564f90708b1a7abcee9dbee39be171077b1cc019d70bd0bd972",
+  "width": 1024,
+  "height": 1536
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rimeThrust",
+  "kind": "card",
+  "name": "Rime Thrust",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Rime Thrust (rimeThrust), colorless attack. Canonical action: Deal {damage} damage. Apply {frost} Frost. [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"frost\",\"stacks\":3}]. Lore/mood: Frost spear of the Pale Marches.\n\nIts point was reforged from the broken blade of a Court knight, and marches steel keeps its frost long after leaving the cold. The ice-fishers who made it say the knight gave the blade freely, before the Decree, for a winter's fish.\n\nThe ice-fishers keep no records.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-19651aaf-93c9-44f5-b413-39b52d2beb63.png",
+  "sourceMaster": "masters/card-rimeThrust.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "7bf09ed996589b06803d7941985b50c3ca7f409c3be7d125b75fccd6268dbdd4"
+}

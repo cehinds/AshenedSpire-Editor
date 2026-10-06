@@ -1,0 +1,48 @@
+{
+  "subjectKey": "card:starbladePhalanx",
+  "kind": "card",
+  "id": "starbladePhalanx",
+  "name": "Starblade Phalanx",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 4
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 4,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: deal {damage.2} again.",
+  "flavor": "Blades ground from a single stone.\n\nThe apprentices found that blades from one stone answered one another in sequence, the second truer than the first. The Chapel's censor struck \"answered\" from the record and wrote \"rang\".\n\nThe apprentices kept the first word.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starblade Phalanx (starbladePhalanx, Starseer). PRIMARY VISUAL READ: A coordinated defensive phalanx of spectral blue sword blades hovering around a robed scholar.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":4},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":4,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: deal {damage.2} again.. Lore for setting/material context only, do not replace the ability with a story vignette: Blades ground from a single stone.\n\nThe apprentices found that blades from one stone answered one another in sequence, the second truer than the first. The Chapel's censor struck \"answered\" from the record and wrote \"rang\".\n\nThe apprentices kept the first word.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b81127a5-b8c4-4c54-a0a7-fd7fb94c2641.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starbladePhalanx.png",
+  "sha256": "8041a67405423fba0a36ed3c913a336f5d89a68121ce7aee34081e64b3016523",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:03:03.602Z"
+}

@@ -1,5 +1,7 @@
-import { cp, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { createReadStream } from "node:fs";
+import { copyHostedBuild } from "./pages-delivery.mjs";
 import { createHash } from "node:crypto";
 
 export const channels = ["dev", "test", "main"];
@@ -30,7 +32,11 @@ async function filesIn(directory, relative = "") {
 async function digestBuild(directory) {
   const hash = createHash("sha256");
   for (const file of await filesIn(directory)) {
-    hash.update(file).update("\0").update(await readFile(path.join(directory, file))).update("\0");
+    const location = path.join(directory, file);
+    if (file !== 'index.html' && (await stat(location)).size >= 100 * 1024 * 1024) throw Error(`Pages file exceeds the GitHub blob limit: ${file}`);
+    hash.update(file).update("\0");
+    for await (const bytes of createReadStream(location)) hash.update(bytes);
+    hash.update("\0");
   }
   return hash.digest("hex");
 }
@@ -38,10 +44,11 @@ async function digestBuild(directory) {
 const document = (title, body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>body{margin:3rem auto;padding:0 1rem;max-width:54rem;background:#181b20;color:#e8dfca;font:16px system-ui}a{color:#e3b54f}nav,li{margin:.8rem 0}code{color:#adb5c0}</style></head><body>${body}</body></html>\n`;
 const redirect = (target) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=${target}"><title>AshenedSpire Editor</title></head><body><a href="${target}">Open AshenedSpire Editor</a></body></html>\n`;
 
-export async function addPagesBuild({ siteDirectory, buildDirectory, branch, buildNumber, commit, builtAt = new Date().toISOString() }) {
+export async function addPagesBuild({ siteDirectory, buildDirectory, branch, buildNumber, commit, builtAt = new Date().toISOString(), deliveryOptions }) {
   validateBuildIdentity({ branch, buildNumber, commit });
-  const index = await readFile(path.join(buildDirectory, "index.html"), "utf8");
-  if (!index.includes("<html")) throw new Error("Build is missing an HTML entry document");
+  let index = await readFile(path.join(buildDirectory, "index.html"));
+  if (!index.includes(Buffer.from("<html"))) throw new Error("Build is missing an HTML entry document");
+  index = null;
   const digest = await digestBuild(buildDirectory);
   await mkdir(siteDirectory, { recursive: true });
   let manifest = { schemaVersion: 1, builds: [] };
@@ -57,8 +64,8 @@ export async function addPagesBuild({ siteDirectory, buildDirectory, branch, bui
   if (!previous) {
     const destination = path.join(siteDirectory, branch, buildNumber);
     await mkdir(path.dirname(destination), { recursive: true });
-    await cp(buildDirectory, destination, { recursive: true, force: false, errorOnExist: true });
-    const entry = { branch, buildNumber, commit, builtAt, digest };
+    const delivery = await copyHostedBuild(buildDirectory, destination, deliveryOptions);
+    const entry = { branch, buildNumber, commit, builtAt, digest, ...(delivery ? {delivery} : {}) };
     manifest.builds.push(entry);
     await writeFile(path.join(destination, "build-info.json"), JSON.stringify(entry, null, 2) + "\n");
   }

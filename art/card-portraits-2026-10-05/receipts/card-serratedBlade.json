@@ -1,0 +1,38 @@
+{
+  "subjectKey": "card:serratedBlade",
+  "kind": "card",
+  "id": "serratedBlade",
+  "name": "Serrated Blade",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 7
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 3,
+      "if": {
+        "p": "hasStatus",
+        "of": "target",
+        "status": "bleed"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. If the target has Bleed: apply {bleed} more Bleed.",
+  "flavor": "Saw-backed blade from the forges beneath the Bastion ridge.\n\nWeald smiths filed its teeth for clearing briar, and the Wardens took it up when the Blight came out of the woods. The smiths were never paid for the change of use.\n\nHow the briar learned to bleed, the smiths will not speak of.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Serrated Blade (serratedBlade, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":7},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"bleed\",\"stacks\":3,\"if\":{\"p\":\"hasStatus\",\"of\":\"target\",\"status\":\"bleed\"}}]. Rules: Deal {damage} damage. If the target has Bleed: apply {bleed} more Bleed.. Canonical flavor: Saw-backed blade from the forges beneath the Bastion ridge.\n\nWeald smiths filed its teeth for clearing briar, and the Wardens took it up when the Blight came out of the woods. The smiths were never paid for the change of use.\n\nHow the briar learned to bleed, the smiths will not speak of.. Depict this specific action or idea, with distinct scene and camera composition. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Use the referenced picture ONLY as a guide to painting quality, texture and atmosphere, not its composition or generic knight. Match characters and props to this card, not an unrelated battlefield. Colors follow the specific magic/ability/lore, with restrained ember accents. Place the main action/focal objects in lower two thirds; top35% detailed atmospheric landscape/architecture/sky, no people, no faces, no floating weapons/focal objects, generous top and side background for interactive crop. No UI, no border, no frame, no letters, no labels, no text, no numbers. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b46ba738-62d1-4a24-89c9-77c46d965ebd.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-serratedBlade.png",
+  "sha256": "0d0ed8e2fa5f211a3e854201ce141b6660f0e39807d429b3879027070da9e4a5",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:37:54.103Z"
+}

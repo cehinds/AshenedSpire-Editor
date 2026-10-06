@@ -1,0 +1,51 @@
+{
+  "subjectKey": "card:starstoneWard",
+  "kind": "card",
+  "id": "starstoneWard",
+  "name": "Starstone Ward",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 4
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "weak",
+      "stacks": 1,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Starstone: apply {weak} Weak.",
+  "flavor": "Slab of starstone, raised as a shield.\n\nAfter the fashion of the Observatory's doors, cut by builders whose name the Chapel did not keep. Starstone stays cold where all else warms.\n\nThe apprentices believed those doors were not made to open from within.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starstone Ward (starstoneWard, Starseer). PRIMARY VISUAL READ: A protective azure starstone ward, orbited by small glowing crystal facets around a robed caster.. Actual ability effects: [{\"op\":\"block\",\"target\":\"self\",\"amount\":4},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"weak\",\"stacks\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Gain {block} Block. Starstone: apply {weak} Weak.. Lore for setting/material context only, do not replace the ability with a story vignette: Slab of starstone, raised as a shield.\n\nAfter the fashion of the Observatory's doors, cut by builders whose name the Chapel did not keep. Starstone stays cold where all else warms.\n\nThe apprentices believed those doors were not made to open from within.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-a58c1b78-4177-40a9-8b19-fd661661bb73.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starstoneWard.png",
+  "sha256": "14b15efa145a0dc4aed785850f313e47e4522953cf5857b7ffb4d74ac82d5ac9",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:05:23.921Z"
+}

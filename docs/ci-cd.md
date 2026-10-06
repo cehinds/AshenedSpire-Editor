@@ -46,7 +46,7 @@ Each channel also has `/latest/` and a history index. Repository root URL shows 
 3. `npm run build`: production React compile and Sites packaging.
 4. `npm test`: domain behavior, account/session authentication, local repository clone/edit/build, host protections, static packaging, nested HTML smoke, immutable history and concurrent publication.
 
-One Linux runner, no matrix, no full-engine build, no coverage threshold, no remote GitHub clone inside tests. Fast CI has **one five-minute job timeout**. Versioned Pages has **two separate five-minute jobs**: build, then publication. These are per-job limits, not a promise that end-to-end publication or merge takes five minutes. Runner queue, maintainer review, GitHub availability, Pages deployment, and merge waiting add elapsed time.
+One Linux runner per job, no matrix, no full-engine build, no coverage threshold, no remote GitHub clone inside tests. Fast CI has **one five-minute job timeout**. Versioned Pages has **three separate five-minute jobs**: build, preserve history and upload the site, then deploy. History processing and upload therefore do not consume the deployment job's five-minute budget. These are per-job limits, not a promise that end-to-end publication or merge takes five minutes. Runner queue, maintainer review, GitHub availability, Pages deployment, and merge waiting add elapsed time.
 
 These are deterministic automated code checks. Semantic human or AI code review remains separate. Pull request template and CODEOWNERS route review without forcing additional waiting. Review and merge require normal maintainer pull request actions. Required reviewers and optional CodeRabbit/Copilot reviews can be configured later, outside fast gate.
 
@@ -56,9 +56,9 @@ These are deterministic automated code checks. Semantic human or AI code review 
 
 `build:pages` sets `VITE_EDITOR_RUNTIME=static` before calling Vite's production build through cross-platform Node wrapper. This compiles explicitly labeled offline authoring mode and skips unavailable account API calls. Default `npm run build` remains the local runtime with automatic loopback sessions. The initial `dist/client` build includes `editor-runtime.json` recording public assets, unavailable authentication, and unavailable repository host. Consolidation embeds those resources in `dist/pages/index.html`; only that HTML is uploaded to the publication job. The local build and Sites packaging remain separate from consolidated Pages output.
 
-Publication receives only successfully validated HTML artifacts. `contents: write`, `pages: write`, and `id-token: write` exist only on publication job. Pull request jobs are read-only and do not deploy or execute with publication credentials. Actions are pinned to verified full commit hashes; Dependabot proposes weekly dependency/action updates.
+Publication receives only successfully validated HTML artifacts. The history/upload job has `contents: write`; the separate deployment job has `pages: write` and `id-token: write` and owns the `github-pages` environment and deployment URL. Pull request jobs are read-only and do not deploy or execute with publication credentials. Actions are pinned to verified full commit hashes; Dependabot proposes weekly dependency/action updates.
 
-Publication jobs share one concurrency group with `queue: max`, `cancel-in-progress: false`. GitHub supports up to 100 pending runs. Every publication fetches current shared `gh-pages`, appends its immutable build, updates indexes, and makes a normal non-force push. Compare-and-swap retries preserve another writer's updates. Older completions cannot move a channel's latest link backward. Then one complete site, including earlier builds from every channel, is uploaded and deployed.
+Entire Versioned Pages workflow runs share the `editor-pages-publication` concurrency group with `queue: max`, `cancel-in-progress: false`. The queue covers build, history/upload, and deployment together, so another run cannot deploy a newer site between one run's upload and deployment. GitHub supports up to 100 pending runs. Every publication fetches current shared `gh-pages`, appends its immutable build, updates indexes, and makes a normal non-force push. Compare-and-swap retries preserve another writer's updates. Older completions cannot move a channel's latest link backward. Then one complete site, including earlier builds from every channel, is uploaded as `github-pages`. The deployment job depends on successful history/upload and consumes that same run's artifact without rebuilding it.
 
 History is retained without automatic deletion. GitHub Pages has site/storage limits; eventually archive or prune old numbered builds deliberately. Source branches stay small because generated history lives on `gh-pages`.
 
@@ -69,7 +69,7 @@ Required settings for publication from the existing repository:
 1. Settings → Pages → Source: **GitHub Actions**.
 2. `github-pages` environment: allow deployment branches `dev`, `test`, and `main`. Add all three explicitly if using selected-branch restrictions.
 3. Protect source branches with required status **Functionality and quick review** and pull requests. Keep approval count zero for quick solo merges; add reviewers when team needs them.
-4. Keep generated `gh-pages` outside source-branch protection that would block Actions history commits. Default workflow permissions may stay read-only; publication job declares its own minimum write permissions.
+4. Keep generated `gh-pages` outside source-branch protection that would block Actions history commits. Default workflow permissions may stay read-only; history/upload and deployment jobs each declare their own minimum write permissions.
 5. Optional automatic merging uses normal GitHub branch rules and required green checks. Workflows do not silently merge or bypass protection.
 
 ## Hosted and local behavior

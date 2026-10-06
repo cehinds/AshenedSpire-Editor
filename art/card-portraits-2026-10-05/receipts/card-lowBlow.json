@@ -1,0 +1,13 @@
+{
+  "id": "lowBlow",
+  "kind": "card",
+  "name": "Low Blow",
+  "class": "rogue",
+  "sourceMaster": "masters/card-lowBlow.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source:  Non-graphic adventure illustration. NO injury, self-harm, blood, children, visible wounds, exposed body or gore. Scene: An adult rogue in a low balanced stance uses a swift boot strike to the lower crossbar of a wooden armored training dummy, knocking its center of balance sideways. Clear nonliving dummy, no people struck, no injury. Frost-bitten Citadel gate above. Card title (never render text): Low Blow. Class: rogue.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-19f57ff7-45d1-440d-98f2-190b76ea1d59.png",
+  "sha256": "04af48d10443a08840daec0f23516d05c4eb78aae0ae6c28c2741400c57c7d83",
+  "width": 1024,
+  "height": 1536
+}

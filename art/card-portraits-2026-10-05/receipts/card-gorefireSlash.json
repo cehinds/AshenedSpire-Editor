@@ -1,0 +1,41 @@
+{
+  "subjectKey": "card:gorefireSlash",
+  "kind": "card",
+  "id": "gorefireSlash",
+  "name": "Gorefire Slash",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 3
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed.",
+  "flavor": "Art of the sellswords of the Bastion.\n\nThe hired blades who held the Fell Courtyard wetted their steel with their own blood before each watch, for the Gorefire takes more readily to a blade already red.\n\nThe Wardens called it discipline. The sellswords knew it as a price, paid in advance.",
+  "keywords": [],
+  "master": {
+    "absolutePath": "D:/repos/AshenSpire/art/card-illustrations-2026-10-01/sources/gorefire-slash.png",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "sha256": "308949c21145d3bbbb525ddbf5bb6dcb424faffc0a3596778cc8f9c85275f93e",
+    "sourceRoot": "D:/repos/AshenSpire"
+  },
+  "prompt": "Reused existing approved extended-background illustration.",
+  "originalPath": "D:/repos/AshenedSpire-Editor/public/parts/card-assembler/assets/extended-art/knight.png",
+  "generator": "existing approved built-in image_gen output",
+  "sourceMaster": "masters/card-gorefireSlash.png",
+  "sha256": "ccf8423033787f313d98239b76e2e7fc53b6adc5bd95a03581214e94b429c47f",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.310Z"
+}

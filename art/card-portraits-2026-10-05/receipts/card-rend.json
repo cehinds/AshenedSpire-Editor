@@ -1,0 +1,43 @@
+{
+  "subjectKey": "card:rend",
+  "kind": "card",
+  "id": "rend",
+  "name": "Rend",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 5
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 2
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 2,
+      "if": {
+        "p": "inStance",
+        "stance": "gorefire"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed. Gorefire: apply {bleed.2} more.",
+  "flavor": "Tearing cut for the rot of the weald.\n\nWritten into the field-book after the Burning, by whoever keeps it now. It bids the reader cut the rot from hound and hamlet folk alike, for the rot came up the river road with the Court's traders.\n\nThe ink is fresh. The hand shakes.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create a single AshenSpire card illustration: Rend (rend, reaver). Actual effect: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":5},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"bleed\",\"stacks\":2},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"bleed\",\"stacks\":2,\"if\":{\"p\":\"inStance\",\"stance\":\"gorefire\"}}]. Rules: Deal {damage} damage. Apply {bleed} Bleed. Gorefire: apply {bleed.2} more.. Canonical flavor: Tearing cut for the rot of the weald.\n\nWritten into the field-book after the Burning, by whoever keeps it now. It bids the reader cut the rot from hound and hamlet folk alike, for the rot came up the river road with the Court's traders.\n\nThe ink is fresh. The hand shakes.. Depict this specific action or idea in a distinct readable scene, prioritize relevant weapon, stance or ritual. Portrait 1024x1536, sophisticated gritty dark-fantasy painting, weathered materials, dramatic atmospheric light, rich fine detail. Reference image is only painting quality/texture/atmosphere guidance, do not copy its pose or generic knight if unrelated. Colors follow the specific ability/lore with restrained ember accents. Place action/focal subjects lower two thirds; top35% detailed atmospheric environment/architecture/sky, no people, faces or floating focal objects. Generous top and side background for reposition/crop. Full-bleed standalone painting with no frame, border, UI, letters, labels, numbers or text. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-41117576-a970-40cd-b04b-34beec8951c5.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-rend.png",
+  "sha256": "a83dab9e4200b1b6a2327351c95e1d7ebe7a6940df936b5e830554ed33c16b1a",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:40:59.783Z"
+}

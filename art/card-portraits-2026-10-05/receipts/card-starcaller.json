@@ -1,0 +1,13 @@
+{
+  "id": "starcaller",
+  "kind": "card",
+  "name": "Starcaller",
+  "class": "starseer",
+  "sourceMaster": "masters/card-starcaller.png",
+  "prompt": "Use case: stylized-concept. Asset type: AshenSpire premium full-art game card illustration, one image. Create a distinct narrative painting of the exact card below, express its action and lore visually. Gritty sophisticated dark fantasy painterly realism, weathered materials, fine detail, monumental ruined medieval architecture, atmospheric depth, dramatic restrained supernatural light; no cartoon. Portrait 1024x1536. CRITICAL generous crop room: top 35% is fully detailed atmospheric background and scenery, never empty flat color; keep focal character/action in the lower two-thirds with breathing room at all sides. Full bleed art, no text, letters, numbers, card frames, borders, logos, UI or symbols of game currency. Class-specific identity and effects, not a generic knight. Style reference inspected: blackened metal, windswept fabric, exquisite painted texture, somber ash atmosphere, cinematic space. Exact card source: {\"name\":\"Starcaller\",\"class\":\"starseer\",\"type\":\"attack\",\"action\":\"Deal {damage} damage, scaling with Stamina spent. Starstone: deal {damage.2} more.\",\"effects\":[{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6,\"hits\":{\"f\":\"energySpent\"}},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":8,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}],\"lore\":\"Many falls, called in rhythm.\\n\\nThe apprentices chanted the star tables while practising it in the lens gallery, and on the night it was first attempted, eleven falls were recorded. The Astronomer entered chant and falls upon the same line.\\n\\nHe drew no connection between them. He drew none between anything.\"}",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a1101d-f8e8-7b01-8971-35ad6703eb7b\\exec-b908f458-0b2c-4e53-b9f2-0f7f922008ba.png",
+  "sha256": "70af428c764b6128ba5af6ebf48380ddca9eb2067b67210d31b6546502250927",
+  "width": 1024,
+  "height": 1536
+}

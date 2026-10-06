@@ -1,0 +1,13 @@
+{
+  "id": "weaponGuard",
+  "kind": "profile",
+  "name": "Weapon Guard",
+  "class": "Equipment",
+  "generator": "built-in image_gen",
+  "prompt": "Create a premium dark fantasy game card illustration of WEAPON GUARD, a two-handed weapon parry, NOT shield defense. Portrait 1024x1536. Lower middle foreground: weathered armored warrior in charcoal torn cloak gripping one long iron poleaxe firmly in BOTH gauntleted hands, holding its long wooden haft crosswise horizontally to intercept a single descending steel blade from offscreen. Clear two hands grip the SAME straight poleaxe shaft, mechanical contact point sparks, body braced defensively. No shields anywhere. No magical barrier. Cinematic chipped steel, worn bronze, cold rain and desaturated blue gothic ruins. Large upper half of composition contains rich turbulent storm clouds and distant ruined spires, plenty of crop headroom. Painted realistic detail and strong readable silhouettes, no text, no border, no lettering, no UI, no gore.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-3bd19ccc-0005-43b1-99d2-3de191c35508.png",
+  "sourceMaster": "masters/profile-weaponGuard.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "804b9579f82f8cc761659de0b92bb1fda7f1eddfeaa833787133237dd6c908ca"
+}

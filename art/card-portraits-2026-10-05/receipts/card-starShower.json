@@ -1,0 +1,49 @@
+{
+  "subjectKey": "card:starShower",
+  "kind": "card",
+  "id": "starShower",
+  "name": "Star Shower",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 3,
+      "hits": 3
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 3,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage {hits} times. Starstone: one more hit of {damage.2}.",
+  "flavor": "Sorcery of the Starwatch, called in sequence.\n\nThe log of one autumn vigil counts forty small falls in a single night, none of which reached the ground warm. An apprentice asked in the margin whence forty falls could come.\n\nThe answer, in the Astronomer's hand, was cut from the page.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Star Shower (starShower, Starseer). PRIMARY VISUAL READ: A distinct shower of numerous small azure magical bolts curving from a staff across the lower half.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3,\"hits\":3},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage {hits} times. Starstone: one more hit of {damage.2}.. Lore for setting/material context only, do not replace the ability with a story vignette: Sorcery of the Starwatch, called in sequence.\n\nThe log of one autumn vigil counts forty small falls in a single night, none of which reached the ground warm. An apprentice asked in the margin whence forty falls could come.\n\nThe answer, in the Astronomer's hand, was cut from the page.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-e13e107e-7da1-433e-af7f-ea06ace42fa5.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starShower.png",
+  "sha256": "fb6eab286d3efa78b26a1c85d3a844a4ae147ca6928dd6bcce49639d9947ae18",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:03:04.206Z"
+}

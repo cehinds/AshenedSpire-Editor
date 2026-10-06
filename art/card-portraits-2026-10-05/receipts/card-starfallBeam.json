@@ -1,0 +1,58 @@
+{
+  "subjectKey": "card:starfallBeam",
+  "kind": "card",
+  "id": "starfallBeam",
+  "name": "Starfall Beam",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 12,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "hasStatus",
+          "of": "self",
+          "status": "starstoneCharge"
+        }
+      }
+    },
+    {
+      "op": "damage",
+      "target": "allEnemies",
+      "amount": 20,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage to ALL enemies. Starstone: {damage.2} instead.",
+  "flavor": "Column of falling light.\n\nModelled upon a fall the Astronomer charted in advance. He foresaw where it would strike upon the caldera rim, and sent no warning to the mine camps there, for they were unmarked, and absent from the Court's maps.\n\nHis margin gives the fall's weight to the grain. Of the camps, nothing.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starfall Beam (starfallBeam, Starseer). PRIMARY VISUAL READ: A concentrated vertical column of blue-white star energy touching stone below a robed caster's outstretched hand, lower two-thirds focal action.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":12,\"if\":{\"p\":\"not\",\"pred\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}}},{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":20,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage to ALL enemies. Starstone: {damage.2} instead.. Lore for setting/material context only, do not replace the ability with a story vignette: Column of falling light.\n\nModelled upon a fall the Astronomer charted in advance. He foresaw where it would strike upon the caldera rim, and sent no warning to the mine camps there, for they were unmarked, and absent from the Court's maps.\n\nHis margin gives the fall's weight to the grain. Of the camps, nothing.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-b4b7966b-4d11-48af-b66e-06599e3d18a1.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starfallBeam.png",
+  "sha256": "9cf2d70a087d43b4ff057c8c5fe5a43ecff3f4ffa6da9274442cb2e18a3674e1",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:19:23.160Z"
+}

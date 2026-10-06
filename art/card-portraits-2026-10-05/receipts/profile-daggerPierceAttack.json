@@ -1,0 +1,13 @@
+{
+  "id": "daggerPierceAttack",
+  "kind": "profile",
+  "name": "Piercing Flurry",
+  "class": "equipment",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Piercing Flurry (daggerPierceAttack), equipment technique. Canonical action:  [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6}]. Lore/mood: Two quick openings, as the Court's surgeons let a vein.\n\nTheir apprentices taught it on the docks once the Court stopped paying them. One teaches it yet, for cinders, beneath the ice below the Citadel.\n\nHe learned to open people. He taught himself to close them, and does not sell that part.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-21dfe447-ea97-457b-82bb-71448ab46550.png",
+  "sourceMaster": "masters/profile-daggerPierceAttack.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "da63acf08c2d9efbde4b8f07aa29fdb63d5aca494430490f8fdc7da589a7892f"
+}

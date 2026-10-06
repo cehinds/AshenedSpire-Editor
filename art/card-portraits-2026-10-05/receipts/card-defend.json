@@ -1,0 +1,27 @@
+{
+  "subjectKey": "card:defend",
+  "kind": "card",
+  "id": "defend",
+  "name": "Defend",
+  "class": "colorless",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 5
+    }
+  ],
+  "textTemplate": "Gain {block} Block.",
+  "flavor": "First guard of the road.\n\nTwo crossed lines upon a cairn stone: hold. Cut by climbers for climbers, before the Burning, when the ring was closed to the unmarked.\n\nThe mark does not say what to hold against, nor for how long.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one original AshenSpire card illustration, subject Defend (defend, colorless). Exact card effects to depict: [{\"op\":\"block\",\"target\":\"self\",\"amount\":5}]. Rules meaning: Gain {block} Block.. Canonical lore/context: First guard of the road.\n\nTwo crossed lines upon a cairn stone: hold. Cut by climbers for climbers, before the Burning, when the ring was closed to the unmarked.\n\nThe mark does not say what to hold against, nor for how long.. Translate the actual action/idea into a distinct readable cinematic scene; do not render any wording. Portrait 1024x1536. Fine gritty painted dark fantasy, weathered steel and cloth, ruined gothic landscape, ash, ember-light and strong material detail. STYLE REFERENCE ONLY: provided knight painting establishes material detail and atmosphere; do not copy its knight, pose, sword or scene unless this specific card calls for them. Place the main action in the lower two thirds. The upper 35 percent is richly painted atmospheric background and environment with no faces, characters, weapons or focal objects; substantial usable top headroom and side breathing room for user repositioning/cropping. Complete edge-to-edge artwork, no frame, no border, no text, no letters, no numbers, no UI, no card icons. Restrained non-graphic fantasy combat.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-7c2dfde0-acee-4e16-b50f-85760fccf867.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-defend.png",
+  "sha256": "f994256f9dedc62e2933d43eb350199a8434202d7369b18651e1782e567d7997",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:33:23.064Z"
+}

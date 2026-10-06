@@ -1,0 +1,13 @@
+{
+  "id": "slimed",
+  "kind": "card",
+  "name": "Slimed",
+  "class": "colorless",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Slimed (slimed), colorless status. Canonical action: Exhaust. []. Lore/mood: Grey muck from the drowned hamlet.\n\nIt clings, and will not wash out in cold water. The hamlet flooded before the Burning, in a flood the Wardens called natural.\n\nIt is warmer than anything in the weald has a right to be.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-8c8172cc-1d90-4986-ab1c-cec1dd4dd338.png",
+  "sourceMaster": "masters/card-slimed.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "8836916e62d6cf208f24b972e6166fd2f4dec375045cf0a28a715009e91eb64c"
+}

@@ -1,0 +1,33 @@
+{
+  "subjectKey": "card:astralArmorCard",
+  "kind": "card",
+  "id": "astralArmorCard",
+  "name": "Astral Armor",
+  "class": "starseer",
+  "type": "power",
+  "effects": [
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "astralArmor",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "At the end of your turn, gain 4 Block.",
+  "flavor": "Mantle of cold light, after Starwatch Terrace.\n\nThe terrace upon the Drowned Coast was paved in starstone, that the apprentices might measure the new tower's draw. The paving never warmed, and the salt spray never dried upon it.\n\nA Saint was sent to bless the stones. She asked to be posted elsewhere.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Astral Armor (astralArmorCard, Starseer). PRIMARY VISUAL READ: A scholar protected by articulated translucent azure astral armor over dark robes, luminous geometric plates.. Actual ability effects: [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"astralArmor\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: At the end of your turn, gain 4 Block.. Lore for setting/material context only, do not replace the ability with a story vignette: Mantle of cold light, after Starwatch Terrace.\n\nThe terrace upon the Drowned Coast was paved in starstone, that the apprentices might measure the new tower's draw. The paving never warmed, and the salt spray never dried upon it.\n\nA Saint was sent to bless the stones. She asked to be posted elsewhere.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8c2c8013-4140-4fd3-a19f-bb5ff98860f4.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-astralArmorCard.png",
+  "sha256": "d70a17c50fff4751c2afece4c4606a29323230aa7e04c2294c3001a6602c38f2",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:13:35.815Z"
+}

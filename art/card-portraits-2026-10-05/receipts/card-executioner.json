@@ -1,0 +1,45 @@
+{
+  "subjectKey": "card:executioner",
+  "kind": "card",
+  "id": "executioner",
+  "name": "Executioner",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 10,
+      "if": {
+        "p": "not",
+        "pred": {
+          "p": "hasStatus",
+          "of": "target",
+          "status": "staggered"
+        }
+      }
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 25,
+      "if": {
+        "p": "hasStatus",
+        "of": "target",
+        "status": "staggered"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. If the target is Staggered: deal {damage.2} instead.",
+  "flavor": "Finishing blow of the Fell Warden.\n\nTaught before his leg went the way of the weald and his blade was ground into a cane. The field-book holds that he never struck a man already kneeling.\n\nThe last page in his hand, dated the night of the Burning, is a list of kneeling men.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire card illustration \"Executioner\" (executioner, reaver). Safe visual scene specification: A solitary armored headsman holding a huge downward-pointing sword before a deserted fortress gate, ominous anticipation only; no victim, no execution, no wounds or bodies. Symbolically communicate the card ability; do not literalize other combat details. Portrait exactly1024x1536. Premium intricate gritty painted dark fantasy; weathered material, ash-worn gothic world, cinematic composition and atmospheric light. Reference is ONLY brushwork/quality/material/style reference; do not copy the same knight or pose. Color appropriate to ability. Focal action occupies lower2/3. Upper35% is detailed atmospheric background/architecture/sky free of people, faces and focal objects; lots of extra sky/headroom and side breathing room for cropping. No frame, no border, no UI, no text or numbers. Non-graphic fantasy portrayal, no gore or visible wounds.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-99923a0a-81a5-4783-8ab6-b9aa497d2e90.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-executioner.png",
+  "sha256": "3b5eacce0188d8faf7d99d9f799ea68650327a2e5fc5bc201d54ef07fbf794a0",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:47:07.500Z"
+}

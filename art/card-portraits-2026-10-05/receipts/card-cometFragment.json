@@ -1,0 +1,38 @@
+{
+  "subjectKey": "card:cometFragment",
+  "kind": "card",
+  "id": "cometFragment",
+  "name": "Comet Fragment",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 3
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage.",
+  "flavor": "Sorcery of the Starwatch, the first permitted beyond the lens gallery.\n\nFragments came up the Basalt Stair in miners' sacks, sold by weight, and the Astronomer catalogued every one. Chart 41 records a fall. Chart 42 records a hearth.\n\nOf what lay between, the catalogue is silent.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Comet Fragment (cometFragment, Starseer). PRIMARY VISUAL READ: A sharp luminous blue comet fragment with a streaming arcane tail, conjured by a travelling scholar.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":3},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage.. Lore for setting/material context only, do not replace the ability with a story vignette: Sorcery of the Starwatch, the first permitted beyond the lens gallery.\n\nFragments came up the Basalt Stair in miners' sacks, sold by weight, and the Astronomer catalogued every one. Chart 41 records a fall. Chart 42 records a hearth.\n\nOf what lay between, the catalogue is silent.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-0886f17d-b329-4561-8c5d-414fd40940bf.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-cometFragment.png",
+  "sha256": "a5acbee65d73b546bce6bd5f15354bccf79bb40072e73ba35a5d87ed5d448960",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:03:03.572Z"
+}

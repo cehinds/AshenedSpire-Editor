@@ -1,0 +1,13 @@
+{
+  "id": "setupRogue",
+  "kind": "card",
+  "name": "Setup",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Setup (setupRogue), rogue skill. Canonical action: Become Prepared. Gain {gainEnergy} Stamina. Add a Shiv to your hand. Exhaust. [{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"prepared\",\"stacks\":{\"f\":\"add\",\"args\":[1]}},{\"op\":\"gainEnergy\",\"amount\":1},{\"op\":\"addCard\",\"card\":\"rogueShiv\",\"pile\":\"hand\"}]. Lore/mood: Preparation of a dock job.\n\nA window left open on the Lantern Bridge, a lamp turned low, a guard paid to cough. The method is credited to a thief called the Wick, who planned the first robbery of the Regent's hall in the years of the Mark Trade.\n\nIt is said the Court itself paid her to rob it.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-7cb0c5bd-b0ee-466c-8983-ab6df7526480.png",
+  "sourceMaster": "masters/card-setupRogue.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "18c13dad9af3792f6d51f8707aa43595628f1e9f730efa4921630adb06a8541d"
+}

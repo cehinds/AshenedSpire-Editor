@@ -1,0 +1,13 @@
+{
+  "id": "arrowVolley",
+  "kind": "card",
+  "name": "Arrow Volley",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Arrow Volley (arrowVolley), rogue attack. Canonical action: Deal {damage} damage to ALL enemies {hits} times. [{\"op\":\"damage\",\"target\":\"allEnemies\",\"amount\":3,\"hits\":2}]. Lore/mood: Loose, nock, loose again.\n\nThe dock crews kept a barrel of salvaged arrows beneath every stair, few of them straight. A volley did not need them straight, only many and quick, and the crews were both.\n\nThe barrels are empty now. Nobody admits to refilling them.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-c6dbd771-0583-408a-95fc-ef6d190537d5.png",
+  "sourceMaster": "masters/card-arrowVolley.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "c7eb3ff5b1759f9fb7306c4dcac28152d06fea9fd68e85db05f75b821a567295"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "storm-spear",
+  "name": "Storm Spear",
+  "prompt": "Create one standalone premium AshenSpire fantasy card illustration. References are STYLE AND COMPOSITION guidance only, create a distinctly new subject and scene. Subject: A solitary long steel spear with a weathered bronze socket and forked blue-white lightning twists diagonally above a rain-lashed ruined causeway. Clear elegant spear silhouette, electricity tracing toward distant broken towers. Style: same highly detailed dark fantasy painted realism as references, tangible chipped steel, worn bronze, turbulent atmospheric scenery, controlled magical glow, rich deep shadows and sharp focal accents. Portrait 2:3, 1024x1536. Focal subject in lower-middle 45-85 percent vertical region, generous richly painted background above and to either side for user crop adjustments. Complete continuous edge-to-edge artwork. No card frame, text, letters, symbols resembling writing, UI, logos, borders, watermark or collage. No gore. Strong clear silhouette readable at card size.",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-bf76988f-edda-4b99-a11f-c046286caf9a.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/storm-spear.png",
+  "sha256": "2b713d6ae7f276fd466259a35617615a6f54d40ee73737f9831ce79113b625f5",
+  "width": 1024,
+  "height": 1536
+}

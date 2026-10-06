@@ -1,0 +1,42 @@
+{
+  "subjectKey": "card:bloodTithe",
+  "kind": "card",
+  "id": "bloodTithe",
+  "name": "Blood Tithe",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 6
+    },
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": {
+        "f": "mul",
+        "args": [
+          2,
+          {
+            "f": "stacks",
+            "status": "bleed",
+            "of": "target"
+          }
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage, plus double the Bleed on the target.",
+  "flavor": "Harvest tithe of the weald, paid in blood.\n\nGiven at the Bastion's field-shrine in years the grain failed. The Wardens called it voluntary, and kept no names, as a courtesy to the givers.\n\nThe tithe-roll lengthens with each year of the Mark Trade, and the villages it lists grow fewer.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Blood Tithe, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":6},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":{\"f\":\"mul\",\"args\":[2,{\"f\":\"stacks\",\"status\":\"bleed\",\"of\":\"target\"}]}}]. Context: Harvest tithe of the weald, paid in blood.\n\nGiven at the Bastion's field-shrine in years the grain failed. The Wardens called it voluntary, and kept no names, as a courtesy to the givers.\n\nThe tithe-roll lengthens with each year of the Mark Trade, and the villages it lists grow fewer.. Use a symbolic magical preparation: weathered weapon, crimson magical light and a sworn warrior in an atmospheric ruined shrine. No blood, no injuries, no self harm, no cutting of skin, no sacrifice of any person. The cost or pact is represented only by fading crimson light and ash. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-3ecc71fa-f0e5-4d86-8fd4-a5239c2dcdba.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-bloodTithe.png",
+  "sha256": "9fda714bd2412d88f3afedd09ee59d0fe3025da92dbce2543b6eab3082764f0e",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:54:50.050Z"
+}

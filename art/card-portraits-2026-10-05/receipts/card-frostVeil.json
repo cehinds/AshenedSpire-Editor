@@ -1,0 +1,46 @@
+{
+  "subjectKey": "card:frostVeil",
+  "kind": "card",
+  "id": "frostVeil",
+  "name": "Frost Veil",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "block",
+      "target": "self",
+      "amount": 4
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "frost",
+      "stacks": 3
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Gain {block} Block. Apply {frost} Frost.",
+  "flavor": "Rime drawn over the body.\n\nFirst seen upon the Observatory's upper terrace on the night of the eclipse, when the terrace froze in the space of a breath and every instrument stopped. The apprentice Hollis logged the hour, and wrote that he did not trust it.\n\nThe hour has since been corrected, in an unknown hand.",
+  "keywords": [
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Frost Veil (frostVeil, Starseer). PRIMARY VISUAL READ: A robed scholar enveloped in a protective translucent veil of frosty mist, glistening frozen stone nearby.. Actual ability effects: [{\"op\":\"block\",\"target\":\"self\",\"amount\":4},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"frost\",\"stacks\":3},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Gain {block} Block. Apply {frost} Frost.. Lore for setting/material context only, do not replace the ability with a story vignette: Rime drawn over the body.\n\nFirst seen upon the Observatory's upper terrace on the night of the eclipse, when the terrace froze in the space of a breath and every instrument stopped. The apprentice Hollis logged the hour, and wrote that he did not trust it.\n\nThe hour has since been corrected, in an unknown hand.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-1e9528b2-058d-4d5d-87e6-9e17e657568e.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-frostVeil.png",
+  "sha256": "b7d19205030e87e2eb1991b628d8b6719861389dada7ec4d533afe158b7e1bf6",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:05:23.889Z"
+}

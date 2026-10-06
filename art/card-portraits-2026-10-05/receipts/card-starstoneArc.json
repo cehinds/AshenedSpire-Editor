@@ -1,0 +1,49 @@
+{
+  "subjectKey": "card:starstoneArc",
+  "kind": "card",
+  "id": "starstoneArc",
+  "name": "Starstone Arc",
+  "class": "starseer",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 7
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "vulnerable",
+      "stacks": 1,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage. Starstone: apply {vulnerable} Vulnerable.",
+  "flavor": "Arc of force, used to measure the stone's reach.\n\nMeasured three times, the stone was found to have moved between readings. The Starwatch recorded an error of the apparatus, and replaced it.\n\nThe same error is recorded each month, until the eclipse.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Starstone Arc (starstoneArc, Starseer). PRIMARY VISUAL READ: A broad curved arc of blue starstone magic extending sideways from a scholar's hand.. Actual ability effects: [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":7},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"vulnerable\",\"stacks\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Deal {damage} damage. Starstone: apply {vulnerable} Vulnerable.. Lore for setting/material context only, do not replace the ability with a story vignette: Arc of force, used to measure the stone's reach.\n\nMeasured three times, the stone was found to have moved between readings. The Starwatch recorded an error of the apparatus, and replaced it.\n\nThe same error is recorded each month, until the eclipse.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-70564b39-81f0-4d4a-a71a-778772f7b1b5.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-starstoneArc.png",
+  "sha256": "505c421e5915acece520c677a7b1837dbc01d593d85905fd2ef53e090aa118a4",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:10:30.100Z"
+}

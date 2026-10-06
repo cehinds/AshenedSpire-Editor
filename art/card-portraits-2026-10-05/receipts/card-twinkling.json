@@ -1,0 +1,46 @@
+{
+  "subjectKey": "card:twinkling",
+  "kind": "card",
+  "id": "twinkling",
+  "name": "Twinkling",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "draw",
+      "amount": 1
+    },
+    {
+      "op": "gainEnergy",
+      "amount": 1,
+      "if": {
+        "p": "hasStatus",
+        "of": "self",
+        "status": "starstoneCharge"
+      }
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Draw {draw} card. Starstone: gain {gainEnergy} Stamina.",
+  "flavor": "Light drawn from a varying star.\n\nThe Astronomer recorded its variation nightly for many years, and drew no conclusion, as was his rule. In the last spring before the Burning, he spent three nights upon it alone.\n\nThe charts of those nights are not in the series.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Twinkling (twinkling, Starseer). PRIMARY VISUAL READ: A lightly robed scholar stepping through a brief twinkle of blue stars, graceful magical evasion with a subtle fading silhouette.. Actual ability effects: [{\"op\":\"draw\",\"amount\":1},{\"op\":\"gainEnergy\",\"amount\":1,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"starstoneCharge\"}},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Draw {draw} card. Starstone: gain {gainEnergy} Stamina.. Lore for setting/material context only, do not replace the ability with a story vignette: Light drawn from a varying star.\n\nThe Astronomer recorded its variation nightly for many years, and drew no conclusion, as was his rule. In the last spring before the Burning, he spent three nights upon it alone.\n\nThe charts of those nights are not in the series.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-8961aa13-77b9-4287-94df-b1327d356bf2.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-twinkling.png",
+  "sha256": "b78a960e01d5aeffdabc6c260a9ad9c4d7a6e971ea908898808c285d4b315132",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:10:28.623Z"
+}

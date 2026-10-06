@@ -1,0 +1,43 @@
+{
+  "subjectKey": "card:sunderplate",
+  "kind": "card",
+  "id": "sunderplate",
+  "name": "Sunderplate",
+  "class": "reaver",
+  "type": "attack",
+  "effects": [
+    {
+      "op": "damage",
+      "target": "enemy",
+      "amount": 9
+    },
+    {
+      "op": "poiseDamage",
+      "target": "enemy",
+      "amount": 10
+    },
+    {
+      "op": "applyStatus",
+      "target": "enemy",
+      "status": "bleed",
+      "stacks": 3,
+      "if": {
+        "p": "hasStatus",
+        "of": "target",
+        "status": "staggered"
+      }
+    }
+  ],
+  "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage. If the target is Staggered: apply {bleed} Bleed.",
+  "flavor": "Joint-splitting blow of the Wardens.\n\nDevised in the years of the Mark Trade with the Court's knights in mind, lest the Court forget which flame kept it fed. No occasion of its use is recorded.\n\nBeside the drill, a knight's gorget, its crest scratched out.",
+  "keywords": [],
+  "master": null,
+  "prompt": "Create one distinct AshenSpire fantasy game illustration: Sunderplate, reaver. Canonical card effect metadata (meaning only, do not render words): [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":9},{\"op\":\"poiseDamage\",\"target\":\"enemy\",\"amount\":10},{\"op\":\"applyStatus\",\"target\":\"enemy\",\"status\":\"bleed\",\"stacks\":3,\"if\":{\"p\":\"hasStatus\",\"of\":\"target\",\"status\":\"staggered\"}}]. Context: Joint-splitting blow of the Wardens.\n\nDevised in the years of the Mark Trade with the Court's knights in mind, lest the Court forget which flame kept it fed. No occasion of its use is recorded.\n\nBeside the drill, a knight's gorget, its crest scratched out.. Depict this specific named ability through appropriate equipment, posture and magical effect; choose preparation or heroic defense, never a person being hurt. Exact portrait1024x1536, intricate gritty painted dark fantasy with weathered armor/cloth/architecture and cinematic light. Use reference only for visual quality/material detail, not same scene/knight pose. Create distinct camera angle and setting relevant to the lore. Subject/motion/focal object in lower2/3, top35% rich atmospheric environment and sky with no faces, people or focal floatingobjects. Extra upper and side background for crop controls. No frame/border/UI/text/letters/numbers. No wounds, gore, bodily damage, executions or visible suffering.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-eedf4c37-ee0f-4351-8300-5c2ef8115648.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-sunderplate.png",
+  "sha256": "aa3cc37c959911bf711c32e6725c1da63f06088b3e20205fe7e188d3300c5291",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T07:56:28.549Z"
+}

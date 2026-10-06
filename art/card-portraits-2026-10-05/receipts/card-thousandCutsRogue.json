@@ -1,0 +1,13 @@
+{
+  "id": "thousandCutsRogue",
+  "kind": "card",
+  "name": "Thousand Cuts",
+  "class": "rogue",
+  "prompt": "Create one finished AshenSpire card artwork illustration. Style reference ONLY: attached image; do not copy its knight into unrelated cards. Exact card identity: Thousand Cuts (thousandCutsRogue), rogue attack. Canonical action: Deal {damage} damage {hits} times. Prepared: deal {damage.2} damage {hits.2} times. Consume Prepared. [{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":2,\"hits\":6},{\"op\":\"damage\",\"target\":\"enemy\",\"amount\":1,\"hits\":6,\"if\":{\"p\":\"hasStatus\",\"of\":\"self\",\"status\":\"prepared\"}},{\"op\":\"removeStatus\",\"target\":\"self\",\"status\":\"prepared\"}]. Lore/mood: Many small cuts, each undoing a stitch.\n\nThe surgeons called it the procedure run backward, and forbade it, for a courtier sewn to his post had sworn an oath. The winter after the Burning, a surgeon was found unstitching his own wife from the palace stair.\n\nThe surgeons' day-book records only a failed stitching.. Illustrate that specific action or concept clearly in a grounded ruined medieval dark fantasy world. For rogue cards use a weathered hooded agile rogue and correct weapons; equipment technique must depict the named weapon (unarmed means empty hands, bow means bow and arrow, staff means a long magical staff, sceptre a short ritual focus). Single coherent scene, anatomically correct hands and physically plausible weapons. Rich painted material detail, dramatic readable lighting, ash, old stone, worn iron, muted earth with appropriate restrained magical color. Composition portrait 2:3, 1024x1536. Main focal action below the upper third, with ample detailed background/sky/ruins ABOVE and around it for user repositioning and mouse cropping. Avoid subject clipping and excessive closeup. No card frame, text, letters, numbers, icons, UI, parchment, watermarks, or collage. Not graphic gore; show combat through movement, sparks and spell effects. Final production artwork.",
+  "generator": "built-in image_gen",
+  "originalOutputPath": "D:\\repos\\.codex\\generated_images\\01a0f976-c95b-7872-8f4f-46e22590c7da\\exec-30b676e8-2acb-4e1e-a928-bbb6552d05e3.png",
+  "sourceMaster": "masters/card-thousandCutsRogue.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "2531f5f56ff5443b7d0c8e2949d364f7a40eb9cfa50031e0a89d1079b1888d17"
+}

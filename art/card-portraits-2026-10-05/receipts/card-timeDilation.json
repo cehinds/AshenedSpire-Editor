@@ -1,0 +1,44 @@
+{
+  "subjectKey": "card:timeDilation",
+  "kind": "card",
+  "id": "timeDilation",
+  "name": "Time Dilation",
+  "class": "starseer",
+  "type": "skill",
+  "effects": [
+    {
+      "op": "gainEnergy",
+      "amount": 2
+    },
+    {
+      "op": "draw",
+      "amount": 3
+    },
+    {
+      "op": "applyStatus",
+      "target": "self",
+      "status": "starstoneCharge",
+      "stacks": {
+        "f": "add",
+        "args": [
+          1
+        ]
+      }
+    }
+  ],
+  "textTemplate": "Gain {gainEnergy} Stamina. Draw {draw} cards. Exhaust.",
+  "flavor": "Slowing of the moment, after the eclipse.\n\nBy the Starwatch's reckoning the eclipse lasted a single night. By the Observatory clock, it has not ended. Anselm, keeper of the clock, refused to reset it.\n\nHe was found beside it, standing as he stood when the light went.",
+  "keywords": [
+    "exhaust",
+    "retain"
+  ],
+  "master": null,
+  "prompt": "Create ONE AshenSpire card portrait: Time Dilation (timeDilation, Starseer). PRIMARY VISUAL READ: A scholar inside a subtle violet temporal field with suspended raindrops, ash and leaves motionless around them; no clocks with numerals.. Actual ability effects: [{\"op\":\"gainEnergy\",\"amount\":2},{\"op\":\"draw\",\"amount\":3},{\"op\":\"applyStatus\",\"target\":\"self\",\"status\":\"starstoneCharge\",\"stacks\":{\"f\":\"add\",\"args\":[1]}}]. Rules: Gain {gainEnergy} Stamina. Draw {draw} cards. Exhaust.. Lore for setting/material context only, do not replace the ability with a story vignette: Slowing of the moment, after the eclipse.\n\nBy the Starwatch's reckoning the eclipse lasted a single night. By the Observatory clock, it has not ended. Anselm, keeper of the clock, refused to reset it.\n\nHe was found beside it, standing as he stood when the light went.. Exactly1024x1536 portrait. Detailed gritty dark-fantasy painted illustration, sophisticated worn cloth, stone, metal and crystalline magic. Starseer is an arcane scholar in weathered dark robes, not the reference armored swordsman. Cool azure, indigo, silver or violet magic appropriate to this ability; cold celestial atmosphere and subdued ember accents only if relevant. Reference is only art quality/texture/atmosphere, not same armor, pose, sword, or red palette. Focal action and subjects lower2/3, top35% rich but calm atmospheric sky, mist or tall ruined architecture free of characters and focal magic objects; generous extra headroom and side background for cropping. Fully painted edge-to-edge, no frame/border/UI/text/letters/numbers. No injuries, wounds, gore or people being hurt.",
+  "originalPath": "D:\\repos\\.codex\\generated_images\\01a11007-90bf-7ee3-97ee-d1a8bc39a08e\\exec-21c55949-b87a-4a09-91e2-fdf68b0dcbcc.png",
+  "generator": "built-in image_gen",
+  "sourceMaster": "masters/card-timeDilation.png",
+  "sha256": "9a6c5f68dbec5204c40c30eb97f53c3dce3b608e0f564ae827bf7fe96e0db0f4",
+  "width": 1024,
+  "height": 1536,
+  "generatedAt": "2026-10-06T08:16:52.718Z"
+}

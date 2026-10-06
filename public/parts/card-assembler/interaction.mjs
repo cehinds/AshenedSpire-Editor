@@ -173,3 +173,11 @@ export function ungroupSelection(doc, ids) {
   for (const item of members) item.group = '';
   return out;
 }
+
+/** Image edits must obey the same linked/group lock boundary as transforms. */
+export function canEditImageLayer(doc, id, linked = true) {
+  const layer = doc.items.find(item => item.id === id);
+  if (!layer || layer.asset === 'text') return false;
+  const ids = new Set(selectionIds(doc, id, linked));
+  return !doc.items.some(item => ids.has(item.id) && item.locked);
+}

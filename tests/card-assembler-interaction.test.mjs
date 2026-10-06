@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {contentBounds,resizeSelection,snapTranslation,hitHandles,selectionIds,selectionUnits,alignSelection,distributeSelection,groupSelection,ungroupSelection} from '../public/parts/card-assembler/interaction.mjs';
+import {contentBounds,resizeSelection,snapTranslation,hitHandles,selectionIds,selectionUnits,alignSelection,distributeSelection,groupSelection,ungroupSelection,canEditImageLayer} from '../public/parts/card-assembler/interaction.mjs';
 import {bounds,preset,validate} from '../public/parts/card-assembler/model.mjs';
 import {referencePreset} from '../public/parts/card-assembler/reference.mjs';
 
@@ -201,4 +201,16 @@ test('locked group members prevent all alignment, distribution, grouping and ung
   assert.throws(()=>alignSelection(doc,['a'],'left',{target:'unknown'}),/target/);
   assert.throws(()=>distributeSelection(doc,['a'],'diagonal'),/axis/);
   assert.throws(()=>groupSelection(doc,['a'],'unsafe id'),/safe ID/);
+});
+
+test('crop and image replacement respect direct, grouped and linked cost locks',()=>{
+  const doc=document([layer('art',0,0,100,100,{group:'custom'}),layer('frame',0,0,100,100,{group:'custom',locked:true}),layer('mana',0,0,100,100,{role:'mana-icon'}),layer('value',0,0,100,100,{role:'mana-value',asset:'text',locked:true})]);
+  assert.equal(canEditImageLayer(doc,'art'),false);
+  assert.equal(canEditImageLayer(doc,'art',false),false,'explicit groups remain attached when resource linking is off');
+  assert.equal(canEditImageLayer(doc,'frame'),false);
+  assert.equal(canEditImageLayer(doc,'mana'),false);
+  assert.equal(canEditImageLayer(doc,'mana',false),true,'resource linking can be explicitly disabled');
+  doc.items[1].visible=false;assert.equal(canEditImageLayer(doc,'art'),false,'hidden locked members still protect their group');
+  doc.items[1].locked=false;assert.equal(canEditImageLayer(doc,'art'),true,'visibility is not an inactive flag; hidden members stay attached for aligned restoration');
+  assert.equal(canEditImageLayer(doc,'value'),false);assert.equal(canEditImageLayer(doc,'missing'),false);
 });

@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: editor-pages-publication
+  queue: max
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build consolidated HTML
@@ -37,21 +42,12 @@ jobs:
           retention-days: 7
 
   publish:
-    name: Preserve history and deploy
+    name: Preserve history and upload site
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    concurrency:
-      group: editor-pages-publication
-      queue: max
-      cancel-in-progress: false
     permissions:
       contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -65,13 +61,29 @@ jobs:
         env:
           PAGES_BUILD_DIRECTORY: dist/pages
         run: node scripts/publish-pages-history.mjs
-      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
+          name: github-pages
           path: .pages-site/
+
+  deploy:
+    name: Deploy preserved site
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Deploy full site
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+        with:
+          artifact_name: github-pages
       - name: Report exact preview
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}

@@ -147,6 +147,32 @@ test("dev → test pull requests build, verify and upload the test HTML candidat
   assert.match(pages, /run: npm run build:pages\n\s+- run: npm run check:pages-html/);
 });
 
+test('Pages serializes the full run and gives validated history upload and deployment separate bounded jobs', async () => {
+  const pages = (await readFile(new URL('../.github/workflows/pages.yml', import.meta.url), 'utf8')).replace(/\r\n/g, '\n');
+  const [workflow, jobs] = pages.split('\njobs:\n');
+  assert.match(workflow, /\nconcurrency:\n  group: editor-pages-publication\n  queue: max\n  cancel-in-progress: false\n/);
+  assert.doesNotMatch(jobs, /concurrency:/, 'the queue must span the entire upload/deploy sequence');
+  const jobBlocks = [...jobs.matchAll(/^  (\w+):\n([\s\S]*?)(?=^  \w+:\n|$(?![\s\S]))/gm)];
+  assert.deepEqual(jobBlocks.map(match => match[1]), ['build', 'publish', 'deploy']);
+  const { build, publish, deploy } = Object.fromEntries(jobBlocks.map(match => [match[1], match[2]]));
+  for (const job of [build, publish, deploy]) assert.match(job, /^    timeout-minutes: 5$/m);
+  for (const gate of ['npm ci --no-audit --no-fund', 'npm run review:quick', 'npm run build:pages', 'npm run check:pages-html', 'npm test']) {
+    assert.ok(build.includes(`run: ${gate}\n`), `build must retain ${gate}`);
+  }
+  assert.match(publish, /^    needs: build$/m);
+  assert.match(deploy, /^    needs: publish$/m);
+  const artifact = 'name: editor-html-${{ github.run_id }}-${{ github.run_attempt }}';
+  assert.ok(build.includes(artifact) && publish.includes(artifact), 'history consumes this run and attempt’s validated HTML');
+  assert.match(publish, /run: node scripts\/publish-pages-history\.mjs/);
+  assert.match(publish, /actions\/upload-pages-artifact@[a-f0-9]{40}[\s\S]*name: github-pages\n\s+path: \.pages-site\//);
+  assert.match(publish, /permissions:\n      contents: write\n/);
+  assert.doesNotMatch(publish, /deploy-pages|pages: write|id-token: write|environment:/);
+  assert.match(deploy, /permissions:\n      pages: write\n      id-token: write\n/);
+  assert.match(deploy, /environment:\n      name: github-pages\n      url: \$\{\{ steps\.deployment\.outputs\.page_url \}\}/);
+  assert.match(deploy, /id: deployment\n\s+uses: actions\/deploy-pages@[a-f0-9]{40}[\s\S]*artifact_name: github-pages/);
+  assert.doesNotMatch(deploy, /contents: write|actions\/checkout|run: (?:npm|node)|upload-pages-artifact|run_id:/, 'deployment uses the same-run uploaded site without rebuilding or fetching another run');
+});
+
 // Large hosted builds retain the exact source artifact but avoid oversized Git blobs.
 import { randomBytes, createHash, webcrypto } from 'node:crypto';
 import vm from 'node:vm';

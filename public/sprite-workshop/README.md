@@ -22,6 +22,8 @@ Use polygon tools to cut a part from an existing layer, add a foreground mask, o
 
 Select a weapon view to use existing front/back/side/edge-on/three-quarter artwork. This is a 2D view replacement, not true 3D pitch. Hand contacts H1/H2 must be placed on painted palms before Fit axe. Fitting preserves weapon scale and flags impossible grips.
 
+Use **Part → Flip horizontally** to reverse a weapon's facing around its pivot. Place the pivot at the painted grip to keep that contact stationary. The reversible `flipX` boolean travels with project/component saves, copied transforms and frame overrides; positive Scale X/Y keep their existing size meaning. Rendering, hit testing, anchors, fitting and grouped transforms use the same mirrored matrix. Put the character body at the top of Layers when it must overlap every weapon (the last entry in the saved layer array draws in front).
+
 ## Resize, snapping, and controls
 
 Select a part or group and drag its corner squares to resize proportionally. Stretch freely is off by default; enable it for separate width/height resizing using side or corner handles. Shift temporarily preserves proportions when stretching; Ctrl/Cmd resizes from the component pivot. Scale X/Y are also editable in the inspector. Scale snapping defaults to 5% increments relative to the drag start.

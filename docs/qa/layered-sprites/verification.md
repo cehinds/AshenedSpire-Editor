@@ -39,3 +39,11 @@ Only representative loadouts received browser visual review. Schema/contact cove
 ## Rear weapon view followup
 
 Source b3f853d59775964496f2127e1f53651ffd0c2e24 adds 25 rear-view masters covering 28 armaments and updates all 31 layered projects. Passed full pose/contact/bounds checks, 15 focused model/import tests and production build. Chrome opened the new pack and Bastion Harness / Straight Sword + Kite Shield with five layers, including left-fingers over the inner shield grip. Screenshot: rear-weapon-views.png. Browser console returned no warnings/errors. The former source pack and its recovery ID remain separate; no runtime promotion or remote publication.
+
+## Facing and body occlusion correction
+
+The v2 bundle covers 31 appearances, 35 armor mappings and 26,071 loadouts. Full-source validation checks all 50,344 palm contacts, 16,182 mirrored weapon layers, and the complete body as the last-drawn layer in every pose. All 1,736 independent weapon placements remain within the source canvas. The kite shield is unchanged; the source `facing.json` records all 28 orientation decisions. Artwork pixels are unchanged.
+
+All 46 Workshop/import tests passed, including reflection under transformed parents, grip fitting, group/ungroup, pivot edits, frame overrides and layer-preserving portable import. Production build passed. Source review sheets cover 25 weapons on all appearances and all five shields in both hands. Visually inspected the complete sword/tower roster, four class shield sheets and the Reaver weapon sheet; this is representative visual review, not approval of every possible overlap.
+
+Chrome opened the v2 bundle and Bastion Harness / Tower Shield + Round Shield. Its Layers tab lists body above fingers and both weapons. Part showed Flip horizontally checked on the tower shield; a keyboard off/on toggle kept X at 100.07 and restored the intended facing. Screenshots: `corrected-facing-control.png` and `corrected-facing-layers.png`. No browser warnings/errors. Some automation mouse commands timed out; keyboard controls completed the review. Save/import reflection round-trip is model-tested; no new browser download claim. No runtime promotion or remote publication.

@@ -2,6 +2,8 @@
 
 ## Layered sprite packs and art studies
 
+October 6, 2026 facing correction: rear-view equipment follows the kite shield's approved direction. Keep the complete character body as the highest/frontmost layer in every loadout, with both weapons underneath. Use reversible per-layer horizontal flips about the painted grip for directional corrections; preserve source artwork, body hand anchors and rigid weapon proportions. Regenerate all character/armor combinations when changing assembly rules.
+
 October 6, 2026: use Poses & effects → Sprite Workshop for class/armor/weapon combinations with separately editable body, weapon and foreground-hand layers. Import portable packs without flattening layers or replacing another armor's browser recovery. Keep the approved artwork catalog, canonical armor restriction matrix and source provenance reviewable. The previous Combat Studio belongs in Battlefield → Art study as a draft composition tool; native HUD/cards/footer editing stays in Battlefield → Layout. Exported art projects and visual review remain separate from checkout writes and game integration.
 
 ## Book artwork direction

@@ -13,6 +13,16 @@ test('portable pack resolves shared artwork and retains editable pose metadata',
   assert.equal(project.poses.idle.layers[0].role,'body');
   assert.deepEqual(projectPoseRows(project),[{id:'idle',label:'Sword and shield',weaponType:'sword',offhand:'shield',reviewed:false}]);
 });
+test('portable import preserves body-above-weapon order and reversible weapon facing',async()=>{
+  const source=rig(), body=source.poses.idle.layers[0];
+  source.assets.shield={id:'shield',src:'assets/shield.png'};
+  source.poses.idle.layers=[{...body,id:'shield',assetId:'shield',role:'weapon',flipX:true,anchors:[{id:'grip',x:256,y:256}]},body];
+  const bytes=zipSync({'manifest.json':strToU8(JSON.stringify(manifest())),'reaver.rig.json':strToU8(JSON.stringify(source)),'assets/body.png':new Uint8Array([1,2,3]),'assets/shield.png':new Uint8Array([4,5,6])});
+  const pack=unpackSpritePack(bytes), imported=await portablePackProject(pack,pack.manifest.projects[0]);
+  assert.deepEqual(imported.poses.idle.layers,source.poses.idle.layers);
+  assert.equal(imported.poses.idle.layers.at(-1).role,'body');
+  assert.equal(imported.poses.idle.layers[0].flipX,true);
+});
 test('pack paths reject traversal, absolute paths and remote sources',()=>{
   for(const path of ['../outside','/absolute','C:/private','https://example.com/art.png','assets/../secret','assets\\image.png','%2e%2e/file','./image.png'])assert.throws(()=>safePackPath(path));
   assert.equal(safePackPath('assets/reaver.png'),'assets/reaver.png');

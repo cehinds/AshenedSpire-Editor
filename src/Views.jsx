@@ -1,4 +1,5 @@
 import {CardAssembler} from './CardAssembler.jsx';
+import {SpriteWorkshop, ArtStudy, ArtCatalog} from './LazyNative.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {baseline,baselineNodes,assignments,effects,rules,source} from './data.js';
 import {clone,reparent,inspectERD,suppliedRows,mapTagRows,toCSV,deckIssues,undo,redo} from './core.mjs';
@@ -12,7 +13,7 @@ import {CardRatioInspector} from './CardRatioInspector.jsx';
 import {CardWireframeCanvas} from './CardWireframeCanvas.jsx';
 import {sample,validate as validatePose,resolveBindings,CUES} from './native/model/presentationSequence.js';
 const row=(cells,key)=><tr key={key}>{cells.map((v,i)=><td key={i}>{v}</td>)}</tr>;
-export function Views({ctx}){if(ctx.mode==='In game')return <InGamePreview ctx={ctx}/>;const components={cards:Cards,decks:Decks,tags:Tags,scenes:Scenes,battlefield:Battlefield,ui:UI,poses:Poses,combat:Combat,project:Project};const Component=components[ctx.ws];return <Component ctx={ctx}/>;}
+export function Views({ctx}){if(ctx.ws==='poses'&&ctx.mode==='Sprite Workshop')return <SpriteWorkshop/>;if(ctx.ws==='poses'&&ctx.mode==='Art catalog')return <ArtCatalog/>;if(ctx.ws==='battlefield'&&ctx.mode==='Art study')return <ArtStudy ctx={ctx}/>;if(ctx.mode==='In game')return <InGamePreview ctx={ctx}/>;const components={cards:Cards,decks:Decks,tags:Tags,scenes:Scenes,battlefield:Battlefield,ui:UI,poses:Poses,combat:Combat,project:Project};const Component=components[ctx.ws];return <Component ctx={ctx}/>;}
 function Cards({ctx:c}){if(c.mode==='Assemble')return <CardAssembler/>;return <CardDocument key={c.card.id} ctx={c}/>;}
 function CardDocument({ctx:c}){const [proposal,setProposal]=useState('');const {p,card,mode,update,query,choose,tell,setDialog}=c;const patch=(k,v)=>update(n=>n.cards=n.cards.map(q=>q.id===card.id?{...q,[k]:v}:q));
  if(mode==='JSON')return <JsonEditor live={c.inspectorMode==='JSON'} showReset key={card.id} value={card} validate={q=>q.id!==card.id?['Card ID must remain unchanged']:!q.name||!Array.isArray(q.effects)?['Card requires name and effects']:[]} onApply={q=>update(n=>n.cards=n.cards.map(a=>a.id===card.id?q:a))}/>;

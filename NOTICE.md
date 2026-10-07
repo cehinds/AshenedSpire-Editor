@@ -1,5 +1,7 @@
 # Source and asset notices
 
+The Sprite Workshop runtime and existing hammer projects are reused from the user's AshenSpire / AshenedSpire authoring tools. Combat Studio and derived combat-art review previews retain source commits and original PNG hashes in `public/combat-art/catalog.json`; the source packages are documented in `docs/sprite-workshop.md`. These review previews do not replace or relicense the original masters. Portable armor/weapon packs retain their own generation provenance and project metadata.
+
 AshenSpire source records, authored configurations, presentation model, and game art are from the user's AshenSpire project snapshot described in README.md. Original authorship and rights remain with their owners. The workbench does not imply a new license for those materials.
 
 Native preview renderers and compact game art use the separately recorded working-tree snapshot in `src/native/game-preview/provenance.json`. Its source MIT license and credits are retained beside the bundled runtime. This snapshot can differ from the original authoring-record baseline.

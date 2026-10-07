@@ -1,5 +1,9 @@
 # AshenedSpire Editor Instructions
 
+## Layered sprite packs and art studies
+
+October 6, 2026: use Poses & effects → Sprite Workshop for class/armor/weapon combinations with separately editable body, weapon and foreground-hand layers. Import portable packs without flattening layers or replacing another armor's browser recovery. Keep the approved artwork catalog, canonical armor restriction matrix and source provenance reviewable. The previous Combat Studio belongs in Battlefield → Art study as a draft composition tool; native HUD/cards/footer editing stays in Battlefield → Layout. Exported art projects and visual review remain separate from checkout writes and game integration.
+
 ## Book artwork direction
 
 October 3, 2026: Book Atelier belongs in Project tools. Preserve the approved rich painted book bindings and separate relief emblems, including a feat emblem. Tint the entire leather binding (front, spine, back and ribbon) while preserving brass and parchment. The user withdrew the proposed replacement colors: retain the original ten-recipe palette. Book artwork drafts participate in project persistence and undo; local game saves require explicit before/after review and revision checks. Art recipes do not change XP or learning rules.

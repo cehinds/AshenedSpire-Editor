@@ -51,3 +51,6 @@ export const NativeDocumentBridge = deferred(() => import('./NativeDocumentBridg
 export const BookAtelier = deferred(() => import('./BookAtelier.jsx'), 'BookAtelier', 'Book Atelier');
 
 export const FooterAtelier = deferred(() => import('./FooterAtelier.jsx'), 'FooterAtelier', 'Footer Atelier');
+export const SpriteWorkshop = deferred(() => import('./SpriteWorkshop.jsx'), 'SpriteWorkshop', 'Sprite Workshop');
+export const ArtStudy = deferred(() => import('./ArtStudy.jsx'), 'ArtStudy', 'combat art study');
+export const ArtCatalog = deferred(() => import('./ArtStudy.jsx'), 'ArtCatalog', 'combat art catalog');

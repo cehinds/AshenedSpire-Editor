@@ -39,6 +39,8 @@ Local/ordinary hosted builds serve Workshop modules normally. The consolidated s
 
 `public/sprite-packs/current/manifest.json` is the optional bundled armor pack entry point. The import path remains available for portable packs without a rebuild. `scripts/vendor-sprite-pack.mjs` validates an approved local pack and copies only its manifest, rig JSON and referenced artwork into this directory.
 
+The bundled layered armor/weapon pack comes from AshenSpire commit `4115a9c50d183abe64b897052ddd26da21f02a58`, branch `codex/class-armor-weapon-layers`, at `docs/design/class-armor-weapons-2026-10-06`. Its source package includes `SHA256SUMS.txt`, `validation.json` and `image-validation.json`. Final source checks passed 62 painted-palm checks, 28 painted weapon-grip checks and 1,736 weapon placements (31 appearances × 28 armaments × 2 hands), with no clipping failures. These checks establish source coverage and bounds, not visual approval of every overlap.
+
 The imported Workshop source was copied from the existing local Editor authoring tool, including the six hammer projects and their existing review caveats. The combat art review package derives from AshenSpire commits `41ae95ae42cce66e56805cc35ae1903a92a4d5a5` and `f1bad442950d43739a6f1726d63be3555b24838b`. `scripts/vendor-combat-art.py` makes bounded transparent WebP previews from the source PNGs and records source hashes; these review copies are not replacements for the original masters. Matrix restrictions and canonical IDs come from the approved armor package.
 
 ## Validation

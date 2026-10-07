@@ -12,6 +12,8 @@ Verified October 6, 2026 in `codex/editor-layered-weapons`, based on Editor `271
 
 ## Local checks
 
+- Final art source: AshenSpire commit `4115a9c50d183abe64b897052ddd26da21f02a58` on `codex/class-armor-weapon-layers`, package `docs/design/class-armor-weapons-2026-10-06`. The final source commit added its README and checksums; the portable pack, images and rigs are unchanged from the final Editor vendor copy.
+- Read the committed source reports: `validation.json` passes 31 projects, 35 armor records, 28 armaments, 26,071 poses, 50,344 contacts and 117,769 layers. `image-validation.json` passes 62 painted-palm checks and 28 painted weapon-grip checks with zero clipping failures. The clipping sweep covers 1,736 placements (31 appearances × 28 armaments × 2 hands). Source `visualApproval` remains false.
 - `node scripts/vendor-sprite-pack.mjs <approved source package>` validated all projects and referenced images, then copied 31 projects / 91 files.
 - `node --test tests/sprite-pack.test.mjs tests/combat-art.test.mjs public/sprite-workshop/*.test.mjs`: 43 passed.
 - `npm run build`: passed production Vite compilation and Sites preparation.

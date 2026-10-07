@@ -39,10 +39,15 @@ Local/ordinary hosted builds serve Workshop modules normally. The consolidated s
 
 `public/sprite-packs/current/manifest.json` is the optional bundled armor pack entry point. The import path remains available for portable packs without a rebuild. `scripts/vendor-sprite-pack.mjs` validates an approved local pack and copies only its manifest, rig JSON and referenced artwork into this directory.
 
-The bundled layered armor/weapon pack comes from AshenSpire commit `4115a9c50d183abe64b897052ddd26da21f02a58`, branch `codex/class-armor-weapon-layers`, at `docs/design/class-armor-weapons-2026-10-06`. Its source package includes `SHA256SUMS.txt`, `validation.json` and `image-validation.json`. Final source checks passed 62 painted-palm checks, 28 painted weapon-grip checks and 1,736 weapon placements (31 appearances × 28 armaments × 2 hands), with no clipping failures. These checks establish source coverage and bounds, not visual approval of every overlap.
+The original layered armor/weapon pack came from AshenSpire commit `4115a9c50d183abe64b897052ddd26da21f02a58`, branch `codex/class-armor-weapon-layers`, at `docs/design/class-armor-weapons-2026-10-06`. Its source package includes `SHA256SUMS.txt`, `validation.json` and `image-validation.json`. Final source checks passed 62 painted-palm checks, 28 painted weapon-grip checks and 1,736 weapon placements (31 appearances × 28 armaments × 2 hands), with no clipping failures. These checks establish source coverage and bounds, not visual approval of every overlap.
 
 The imported Workshop source was copied from the existing local Editor authoring tool, including the six hammer projects and their existing review caveats. The combat art review package derives from AshenSpire commits `41ae95ae42cce66e56805cc35ae1903a92a4d5a5` and `f1bad442950d43739a6f1726d63be3555b24838b`. `scripts/vendor-combat-art.py` makes bounded transparent WebP previews from the source PNGs and records source hashes; these review copies are not replacements for the original masters. Matrix restrictions and canonical IDs come from the approved armor package.
 
 ## Validation
 
 Run `node --test tests/sprite-pack.test.mjs public/sprite-workshop/*.test.mjs` for pack path boundaries, missing-image handling, layer-preserving imports, isolated recovery keys and the existing Workshop geometry/interaction model tests. Browser acceptance additionally exercises a real layered project, overlapping layers, project reopening, gallery/matrix navigation and desktop/phone Art study edits.
+
+
+### Rear-view weapon edition
+
+The current bundle is sourced from AshenSpire commit b3f853d59775964496f2127e1f53651ffd0c2e24 at docs/design/rear-weapon-views-2026-10-06. It contains 25 newly painted rear three-quarter masters covering 28 canonical armaments, with the same three explicit aliases. All 31 appearances retain 841 loadouts. Shield interiors include separate foreground palm layers. The new pack ID isolates recovery from the previous edition. Source validation passed 50,344 contacts, 28 painted grips and 1,736 hand-placement bounds checks; 15 focused editor tests and the production build passed. Representative visual review remains distinct from approval of every overlap or game integration.

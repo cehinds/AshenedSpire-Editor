@@ -35,3 +35,7 @@ The Codex in-app browser loaded the Editor shell and the actual embedded tools. 
 Save project created a portable document Blob and the Workshop displayed its successful save / Download again UI. The in-app browser's download capture timed out twice, so a downloaded browser file was not independently re-imported. Portable image embedding and JSON round-trip are covered by model tests; actual browser download delivery remains unverified.
 
 Only representative loadouts received browser visual review. Schema/contact coverage does not approve every painted hand overlap. Consolidated single-file builds display an availability explanation for these module-based tools; local and ordinary hosted builds serve them. No game checkout writes, runtime acceptance, CI run, merge or publication is claimed.
+
+## Rear weapon view followup
+
+Source b3f853d59775964496f2127e1f53651ffd0c2e24 adds 25 rear-view masters covering 28 armaments and updates all 31 layered projects. Passed full pose/contact/bounds checks, 15 focused model/import tests and production build. Chrome opened the new pack and Bastion Harness / Straight Sword + Kite Shield with five layers, including left-fingers over the inner shield grip. Screenshot: rear-weapon-views.png. Browser console returned no warnings/errors. The former source pack and its recovery ID remain separate; no runtime promotion or remote publication.

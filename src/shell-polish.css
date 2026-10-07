@@ -143,8 +143,9 @@ details.game-card-preview-note>summary{cursor:pointer;list-style-position:inside
 details.game-card-preview-note>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 details.game-card-preview-note>p{margin:4px 0 0}
 
-/* Cards workspace: view controls float over the canvas instead of taking a row (wide screens; the frame reserves top space). */
-@media(min-width:781px){
+/* Cards workspace: view controls float over the canvas instead of taking a row when the canvas is wide enough
+   (the frame reserves top space); narrower canvases keep them on their own row so they never cover the card. */
+@container (min-width:640px){
 .game-card-preview:has(.card-native-title) .native-preview-frame-wrap{position:relative}
 .game-card-preview:has(.card-native-title) .native-preview-screen-controls{position:absolute;z-index:3;top:8px;left:8px;right:auto;margin:0;min-height:0;padding:4px 6px;gap:6px;background:#161d22e6;border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 14px #0008;backdrop-filter:blur(4px)}
 .game-card-preview:has(.card-native-title) .native-preview-screen-controls>strong{display:none}
@@ -162,3 +163,6 @@ details.game-card-preview-note>p{margin:4px 0 0}
 @media(max-width:900px){.app-shell .editor-header .header-actions button:has(kbd){display:none}}
 .editor-header .project-bar>.brand,.editor-header .header-actions{flex-shrink:0}
 .editor-header .editor-menu{min-width:0;overflow:hidden}
+
+/* Phone status strip: wrap the two status messages onto two lines instead of cutting both off with ellipses. */
+@media(max-width:780px){.app-shell:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) minmax(31px,auto)}.app-shell.scene-studio-active:has(>.editor-header){grid-template-rows:auto minmax(0,1fr) minmax(23px,auto)}.app-shell .state-strip{padding-block:3px}.app-shell .state-strip span{white-space:normal;line-height:1.25;text-overflow:clip}.app-shell .state-strip span:first-child{max-width:45%}.app-shell .state-strip span:last-child{text-align:right}}
